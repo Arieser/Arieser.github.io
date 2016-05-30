@@ -3,7 +3,8 @@ title: Markdown基本语法
 Date: 2016-04-30
 tags:
   - Markdown
-categories: 随笔
+categories: 
+  - 随笔
 ---
 
 一直都在用markdown写一些小东西，但没有系统的学习过，这里记下markdown的几种基本语法：标题，块注释，斜体，粗体，无序列表，有序列表，链接，图片， 代码，脚注，下划线。
@@ -61,21 +62,19 @@ eg.
   ```
 
 ## 脚注
+- `[^Text]`
 eg. 
-```
-Hello, World![^World!]
-*PS: 部分编辑器可能不支持*
-[^World!]: Saluton Mondo!
-```
-
+Hello, World![^1]
 
 ## 分割线
+
 ```
 ---
 ***
 ~~文字删除线~~
 ```
 预览效果：
+
 ---
 ***
 ~~文字删除线~~
@@ -94,6 +93,7 @@ Hello, World![^World!]
 |a|b|c|
 |d|e|f|
 
+
 ## 创建链接
 
 ```
@@ -105,10 +105,12 @@ Hello, World![^World!]
 <test@text.com>
 
 
-参考： [Markdown语法][4]
+参考： [Markdown语法][3]
 [1]: http://google.com/
 [2]: https://www.baidu.com/img/bd_logo1.png
-[4]: http://daringfireball.net/projects/markdown/
+[3]: http://daringfireball.net/projects/markdown/
+
+[^1]: Saluton Mondo!
 
 
 
