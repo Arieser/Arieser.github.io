@@ -11,7 +11,7 @@ Guaua对JDK集合的扩展，应用较广。
 <!-- more -->
 #### 不可变集合
 Example:
-```
+```Java
 public static final ImmutableSet<String> COLOR_NAMES = ImmutableSet.of(
         "red",
         "orange",
