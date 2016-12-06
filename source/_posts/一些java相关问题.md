@@ -29,6 +29,5 @@ categories:
 - `int j=0; for(...){j=j++;} System.out.println(j);`输出结果是？
   - Answer:0
 
--
 
 

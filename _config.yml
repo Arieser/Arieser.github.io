@@ -3,13 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Arieser
+title: 为学
 subtitle: 
 description: 
 author: ShaohuaSu
 email:
 ## language: en/zh-Hans/fr-FR/zh-hk/ru/de
-language: en
+language: zh-Hans
 timezone:
 
 # URL
@@ -101,7 +101,7 @@ marked:
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:Arieser/Arieser.github.io.git
+  repo: git@github.com:Arieser/silloy.github.io.git
   branch: master
 
 # Search
