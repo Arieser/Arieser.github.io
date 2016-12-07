@@ -101,7 +101,7 @@ marked:
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:Arieser/silloy.github.io.git
+  repo: git@github.com:silloy/silloy.github.io.git
   branch: master
 
 # Search
