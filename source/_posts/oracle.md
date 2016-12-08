@@ -88,7 +88,8 @@ categories:
 - TO_DATE：字符串转换为日期类型
   - TO_DATE(char[, fmt[, nlsparams]])
     - fmt: 格式
-    ![date](../../img/date.jpg)
+    <!-- ![date](../../img/date.jpg) -->
+    ![date](/images/date.jpg)
     - nlsparams: 指定日期语言
 - TO_CHAR
   - TO_CHAR(date[, fmt[, nlsparams]])
