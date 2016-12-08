@@ -8,6 +8,8 @@ categories:
 -----
 ### JAVA关键字
 
+<!-- more -->
+
 #### final
 - 被final修饰的变量必须被初始化
 

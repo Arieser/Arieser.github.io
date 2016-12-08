@@ -6,6 +6,8 @@ categories:
     - MySQL
 -----
 
+<!-- more -->
+
 ### 用SET PASSWORD命令 
 
 首先登录MySQL。 

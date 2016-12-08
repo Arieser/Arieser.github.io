@@ -7,6 +7,10 @@ categories:
 	- git 
 --------------
 
+简略记录一下删除git远程分支的过程
+
+<!-- more -->
+
 首先从上游同步
 # 从远程上游同步
 `git fetch upstream`

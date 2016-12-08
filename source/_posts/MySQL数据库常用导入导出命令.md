@@ -8,6 +8,8 @@ categories:
   - MySQL
 -----
 
+<!-- more -->
+
 1. 导出整个数据库
 > mysqldump -u root -p dataname > dataneme.sql
 
