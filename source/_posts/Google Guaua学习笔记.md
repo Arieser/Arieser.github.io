@@ -5,7 +5,6 @@ tags:
 categories:
     - Java 
 -----
-
 ### 集合[Collections]
 Guaua对JDK集合的扩展，应用较广。
 <!-- more -->
@@ -31,6 +30,7 @@ class Foo {
 **所有Guava不可变集合的实现都不接受null值。我们对Google内部的代码库做过详细研究，发现只有5%的情况需要在集合中允许null元素，剩下的95%场景都是遇到null值就快速失败。如果你需要在不可变集合中使用null，请使用JDK中的Collections.unmodifiableXXX方法。更多细节建议请参考“使用和避免null”**
 
 **构造方法**
+
 - copyOf方法，如ImmutableSet.copyOf(set)
 - of方法，如ImmutableSet.of(“a”, “b”, “c”)或 ImmutableMap.of(“a”, 1, “b”, 2);
 - Builder工具，如`ImmutableSet.<Color>builder().addAll(WEBSAFE_COLORS).add(new Color(0, 191, 255)).build()`

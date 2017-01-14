@@ -94,6 +94,11 @@ Hello, World![^1]
 |d|e|f|
 
 
+## 弹出式注释
+
+**HTML**
+
+*[HTML]: Hyper Text Markup Language
 ## 创建链接
 
 ```
@@ -103,6 +108,26 @@ Hello, World![^1]
 预览效果：
 
 <test@text.com>
+
+## 警告 (部分markdown parser不支持)
+
+*可用的样式：hint, attention, caution, danger, question, note*
+
+#### hint类型的警告
+
+!!! hint "subject of hint"
+    Any number of other indented markdown elements.
+
+#### note类型的警告
+
+!!! note "subject of note"
+    Any number of other indented markdown elements.
+
+#### nattention类型的警告
+
+!!! attention "subject of attention"
+    Any number of other indented markdown elements.
+
 
 
 参考： [Markdown语法][3]

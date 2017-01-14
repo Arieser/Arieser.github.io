@@ -27,9 +27,5 @@ categories:
 #### abstract
 > 目的是要让子类继承再定义，让抽象的概念得以设计
 
-### 测试题
-- `int j=0; for(...){j=j++;} System.out.println(j);`输出结果是？
-  - Answer:0
-
 
 

@@ -1,6 +1,6 @@
 -----
 title: Oracle
-Date: 2016-05-09 11:31:38
+date: 2016-05-09 11:31:38
 tags: 
   - oracle
   - SQL
@@ -9,7 +9,7 @@ categories:
 -----
 
 主流关系型数据库: Oracle，DB2，Sybase，SQL server，MySQL
-这里主要记录一下oracle数据库初步学习过程，涉及少量与mysql的不同讨论。基本的SQL知识[SQL](http://www.w3school.com.cn/sql/)
+这里主要记录一下oracle数据库初步学习过程，涉及少量与mysql的不同讨论。[基本的SQL知识](http://www.w3school.com.cn/sql/)
 <!--more-->
 
 ### SQL（Structured Query Language）

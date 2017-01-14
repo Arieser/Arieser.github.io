@@ -40,7 +40,7 @@ categories:
 
 #### 安装VMWARE tools
 
-#### 安装输入法
+#### 安装输入法(不适用于linuxmint18)
 - `sudo add-apt-repository ppa:fcitx-team/nightly`
 - `sudo aptitude update`
 - `sudo aptitude install fcitx fcitx-sogoupinyin fcitx-config-gtk fcitx-frontend-all fcitx-module-cloudpinyin fcitx-ui-classic`
