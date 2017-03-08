@@ -19,6 +19,7 @@ git 操作中，当远程库是通过http更新时，需要每次输入密码，
 
 长期存储密码：
 `git config --global credential.helper store`
+`git config --global credential.helper wincred`
 
 增加远程地址的时候带上密码也是可以的。(推荐)
 `http://yourname:password@git.oschina.net/name/project.git`
