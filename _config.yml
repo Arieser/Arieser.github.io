@@ -4,8 +4,8 @@
 
 # Site
 title: 为学
-subtitle: 
-description: 
+subtitle:
+description:
 author: ShaohuaSu
 email:
 ## language: en/zh-Hans/fr-FR/zh-hk/ru/de
@@ -16,7 +16,7 @@ timezone:
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://yoursite.com
 root: /
-permalink: :year-:month-:day/:title/
+permalink: :year/:month/:day/:title/
 permalink_defaults:
 
 # Directory
@@ -90,7 +90,7 @@ marked:
   smartypants: true
 
 # Mathjax
-## Docs: 
+## Docs:
 #math:
   ##engine: 'mathjax'
   ##mathjax:
