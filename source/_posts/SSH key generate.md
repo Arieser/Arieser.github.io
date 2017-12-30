@@ -1,6 +1,6 @@
 -----
 title: SSH server
-Date: 2016-06-23 09:35:50
+date: 2016-06-23 09:35:50
 tags: 
     - git
     - SSH

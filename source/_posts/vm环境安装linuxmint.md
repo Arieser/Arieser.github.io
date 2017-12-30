@@ -1,6 +1,6 @@
 -----
 title: vm环境安装linuxmint
-Date: 2016-05-14 20:49:30
+date: 2016-05-14 20:49:30
 tags: 
   - vmvare player
   - linux mint

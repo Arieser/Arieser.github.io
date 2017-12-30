@@ -1,6 +1,6 @@
 -----
 title: maven 随记
-Date: 2016-09-08 16:48:02
+date: 2016-09-08 16:48:02
 tags: 
 categories: 
     - Maven

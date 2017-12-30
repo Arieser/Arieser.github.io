@@ -1,6 +1,6 @@
 -----
 title: JAVA代码规范
-Date: 2016-07-21 17:00:08
+date: 2016-07-21 17:00:08
 tags: 
     - 规范
 categories:

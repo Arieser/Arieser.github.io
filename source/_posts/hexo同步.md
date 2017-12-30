@@ -1,12 +1,12 @@
------
+----
 title: hexo同步
-Date: 2016-06-22 22:09:32
+date: 2016-06-22 22:09:32
 tags: 
     - hexo
     - blog迁移
 categories: 
     - hexo
------
+----
 
 伴随我四年的Acer4750终于安享晚年了，有很多数据需要迁移，这里简要介绍一下hexo搭建的github page同步过程。
 我已经在github上建立了hexo的源码分支hexo，以及主页分支master。

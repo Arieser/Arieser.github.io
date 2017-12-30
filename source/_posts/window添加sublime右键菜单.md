@@ -1,6 +1,6 @@
 -----
 title: window添加sublime右键菜单
-Date: 2016-06-28 14:20:02
+date: 2016-06-28 14:20:02
 tags: 
     - sublime
 categories: 

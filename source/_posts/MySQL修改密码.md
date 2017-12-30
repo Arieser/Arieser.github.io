@@ -1,6 +1,6 @@
 -----
 title: MySQL修改密码
-Date: 2016-06-27 23:14:46
+date: 2016-06-27 23:14:46
 tags: 
 categories: 
     - MySQL

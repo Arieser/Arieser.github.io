@@ -1,6 +1,6 @@
 --------------
 title: AWS linux(AMI) 搭建VPN
-Date: 2016-11-02 22:36:15
+date: 2016-11-02 22:36:15
 tags: 
 	- VPN
 categories: 

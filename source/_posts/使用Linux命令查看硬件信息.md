@@ -1,6 +1,6 @@
 -----
 title: 使用Linux命令查看硬件信息
-Date: 2016-07-20 16:54:49
+date: 2016-07-20 16:54:49
 tags: 
     - Linux系统
 categories:

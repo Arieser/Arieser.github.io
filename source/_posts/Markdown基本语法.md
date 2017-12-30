@@ -1,6 +1,6 @@
 ---
 title: Markdown基本语法
-Date: 2016-04-30
+date: 2016-04-30
 tags:
   - Markdown
 categories: 

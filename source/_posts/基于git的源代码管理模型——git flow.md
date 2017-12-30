@@ -1,6 +1,6 @@
 --------------
 title: 基于git的源代码管理模型——git flow
-Date: 2016-09-30 13:56:39
+date: 2016-09-30 13:56:39
 tags: 
     - git
 categories:

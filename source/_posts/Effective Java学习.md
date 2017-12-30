@@ -1,6 +1,6 @@
 -----
 title: Effective Java学习
-Date: 2016-08-25 17:36:30
+date: 2016-08-25 17:36:30
 tags: 
 categories: 
     - Java
