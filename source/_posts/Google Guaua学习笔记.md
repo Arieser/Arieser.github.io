@@ -3,7 +3,7 @@ title: Google Guaua学习笔记(一)
 date: 2016-09-10 11:47:04
 tags: 
 categories:
-    - Java 
+    - JAVA
 -----
 ### 集合[Collections]
 Guaua对JDK集合的扩展，应用较广。
@@ -39,22 +39,22 @@ class Foo {
 
 **细节**：关联可变集合和不可变集合
 
-|可变集合接口 | 属于JDK还是Guava  |  不可变版本|
-|:--------|:---------|:---------|
-|Collection | JDK |ImmutableCollection|
-|List |   JDK |ImmutableList|
-|Set |JDK |ImmutableSet|
-|SortedSet/NavigableSet  |JDK |ImmutableSortedSet|
-|Map| JDK |ImmutableMap|
-|SortedMap|   JDK| ImmutableSortedMap|
-|Multiset|    Guava|   ImmutableMultiset|
-|SortedMultiset|  Guava |  ImmutableSortedMultiset|
-|Multimap |   Guava|   ImmutableMultimap|
-|ListMultimap |   Guava|   ImmutableListMultimap|
-|SetMultimap| Guava|   ImmutableSetMultimap|
-|BiMap|   Guava|   ImmutableBiMap|
-|ClassToInstanceMap|  Guava|   ImmutableClassToInstanceMap|
-|Table|   Guava|   ImmutableTable|
+| 可变集合接口                 | 属于JDK还是Guava | 不可变版本                       |
+| :--------------------- | :----------- | :-------------------------- |
+| Collection             | JDK          | ImmutableCollection         |
+| List                   | JDK          | ImmutableList               |
+| Set                    | JDK          | ImmutableSet                |
+| SortedSet/NavigableSet | JDK          | ImmutableSortedSet          |
+| Map                    | JDK          | ImmutableMap                |
+| SortedMap              | JDK          | ImmutableSortedMap          |
+| Multiset               | Guava        | ImmutableMultiset           |
+| SortedMultiset         | Guava        | ImmutableSortedMultiset     |
+| Multimap               | Guava        | ImmutableMultimap           |
+| ListMultimap           | Guava        | ImmutableListMultimap       |
+| SetMultimap            | Guava        | ImmutableSetMultimap        |
+| BiMap                  | Guava        | ImmutableBiMap              |
+| ClassToInstanceMap     | Guava        | ImmutableClassToInstanceMap |
+| Table                  | Guava        | ImmutableTable              |
 
 
 

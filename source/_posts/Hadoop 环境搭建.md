@@ -2,7 +2,6 @@
 title: Hadoop 环境搭建
 date: 2016-10-08 12:37:10
 tags: 
-	- Hadoop
 categories: 
 --------------
 
