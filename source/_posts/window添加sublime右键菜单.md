@@ -1,11 +1,11 @@
------
+---
 title: window添加sublime右键菜单
 date: 2016-06-28 14:20:02
 tags: 
-    - sublime
-categories: 
-    - editor
------
+  - sublime
+---
+
+
 
 1.打开注册表编辑器，开始->运行->regedit。
 

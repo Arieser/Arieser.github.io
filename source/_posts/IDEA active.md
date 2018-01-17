@@ -1,11 +1,12 @@
------
+---
 title: IDEA active
 date: 2016-05-15 12:03:37
 tags: 
   - IDEA
-categories: 
-  - Java
------
+---
+
+
+
 介绍几种idea激活的方法，前两种测试通过，后一种#4出错，暂时未找到原因
 <!--more-->
 #### Method1
@@ -26,4 +27,4 @@ categories:
 5. Copy D:\idea.jar to C:\Program Files (x86)\JetBrains\IntelliJ IDEA 15.0\lib\idea.jar
 6. Run idea,and choose "Activation code",and input the code
 7. Code_url: http://15.idea.lanyus.com/
-ref:[IntelliJ - idea15.0.2 破解方法](http://www.cnblogs.com/yevpt/p/4959851.html)
+  ref:[IntelliJ - idea15.0.2 破解方法](http://www.cnblogs.com/yevpt/p/4959851.html)

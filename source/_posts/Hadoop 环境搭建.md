@@ -1,9 +1,9 @@
---------------
+---
 title: Hadoop 环境搭建
 date: 2016-10-08 12:37:10
 tags: 
-categories: 
---------------
+  - JAVA
+---
 
 简要记录一下hadoop的环境搭建已经在idea和eclipse中小试牛刀。
 OS：win10, cygwin

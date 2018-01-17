@@ -5,4 +5,12 @@ type: "about"
 ---
 
 
-### Saluton Mondo!
+#### 苏少华
+
+#### blog: https://blog.silloy.me
+
+#### github: https://github.com/silloy
+
+#### Talk is cheap. Show me the code
+
+#### **Enjoying coding ( ͡° ͜ʖ ͡°)**

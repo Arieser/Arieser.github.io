@@ -1,36 +1,35 @@
 ---
-title: 消息中间件预研-kafka, rabbitmq, rocketmq
+title: 消息中间件预研-rabbitmq, rocketmq
 date: 2018-01-04 10:36:15
+tags:
+  - JAVA
 ---
 
 
 
+消息中间件在服务开发中起着重要的作用，应对业务需求，对rabbitmq，rocketmq进行预研，kafka暂时不做深入了解。
+
+<!--more-->
+
 **消息中间件应用场景**
 
 1. 可以做延迟设计
-
    比如我们有一些数据，需要过五分钟后再被使用，这时候就需要使用延迟队列设计，比如在RabbitMQ中利用死信队列实现。
-
    具体实现在这里：<http://www.cnblogs.com/haoxinyue/p/6613706.html>
 
 2. 异步处理
-
    这个场景主要应用在多任务执行的场景。
 
 3. 应用解耦
-
    在大型微服务架构中，有一些无状态的服务经常考虑使用mq做消息通知和转换。
 
 4. 分布式事务最终一致性
-
    可以使用基于消息中间件的队列做分布式事务的消息补偿，实现最终一致性。
 
 5. 流量削峰
-
    一般在秒杀或团抢活动中使用广泛，可以通过队列实现秒杀的人数和商品控制，还可以缓解短时间压垮应用系统。
 
 6. 日志处理
-
    我们在做监控，或者日志采集的时候经常用队列来做消息的传输和暂存。
 
 
@@ -61,7 +60,7 @@ Broker Replication只的就是slave获取或者是复制master的数据.
 
 
 
-![rocketmq](D:\Projects\hexo\source\images\rocketmq.png)
+![rocketmq](/images/rocketmq.png)
 
 
 
@@ -324,7 +323,7 @@ or
 
 rocketmq中一个broker-name其实就相当于kafka-broker中的一个partition，而rocketmq每一个slave就相当于kafka中的一个replication，这种情况，所以rocketmq的特点相当于单个partition支持多队列，大致的原理图如下：
 
-![rocketmq-topic](D:\Projects\hexo\source\images\rocketmq-topic.png)
+![rocketmq-topic](/images/rocketmq-topic.png)
 
 默认: 一个topic的队列数是8
 
@@ -360,7 +359,7 @@ rocketmq中一个broker-name其实就相当于kafka-broker中的一个partition�
 
 #### 安装erlang
 
-- 使用kerl安装和管理erlang，参考 [Erlang版本管理工具: Kerl](https://segmentfault.com/a/1190000004909357)  ,  [安装Erlang/OTP的简单方法](https://www.jianshu.com/p/caddaa8251af), 其他安装方法 [z在CentOS上安装erlang](https://zfanw.com/blog/install-erlang-on-centos-7.html)
+- 使用kerl安装和管理erlang，参考 [Erlang版本管理工具: Kerl](https://segmentfault.com/a/1190000004909357)  ,  [安装Erlang/OTP的简单方法](https://www.jianshu.com/p/caddaa8251af), 其他安装方法 [在CentOS上安装erlang](https://zfanw.com/blog/install-erlang-on-centos-7.html)
 - 设置环境变量
 
 
@@ -434,9 +433,9 @@ rocketmq中一个broker-name其实就相当于kafka-broker中的一个partition�
 
 
 
-#### 重要概念: [RabbitMQ详解](http://www.ityouknow.com/springboot/2016/11/30/springboot(%E5%85%AB)-RabbitMQ%E8%AF%A6%E8%A7%A3.html)
+#### 重要概念: 
 
-![rabbit](D:\Projects\hexo\source\images\rabbit.png)
+![rabbit](/images/rabbit.png)
 
 - 左侧 P 代表 生产者，也就是往 RabbitMQ 发消息的程序。
 - 中间即是 RabbitMQ，*其中包括了 交换机 和 队列。*
@@ -454,12 +453,12 @@ rocketmq中一个broker-name其实就相当于kafka-broker中的一个partition�
 
 - Direct：direct 类型的行为是”先匹配, 再投送”. 即在绑定时设定一个 **routing_key**, 消息的**routing_key** 匹配时, 才会被交换器投送到绑定的队列中去.
 
+  ![rabbitmq-direct](/images/rabbitmq-direct.png)
 
-  ![rabbitmq-direct](D:\Projects\hexo\source\images\rabbitmq-direct.png)
 
 - Topic：按规则转发消息（最灵活）
 
-  ![rabbitmq-topic](D:\Projects\hexo\source\images\rabbitmq-topic.png)
+  ![rabbitmq-topic](/images/rabbitmq-topic.png)
 
 - [Headers](http://codedestine.com/rabbitmq-headers-exchange/)：设置header attribute参数类型的交换机
 
@@ -485,6 +484,11 @@ rocketmq中一个broker-name其实就相当于kafka-broker中的一个partition�
 - [Kafka、RabbitMQ、RocketMQ消息中间件的对比 —— 消息发送性能](http://jm.taobao.org/2016/04/01/kafka-vs-rabbitmq-vs-rocketmq-message-send-performance/)
 - [消息队列设计精要](https://tech.meituan.com/mq-design.html)
 - [分布式开放消息系统(RocketMQ)的原理与实践](https://www.jianshu.com/p/453c6e7ff81c)
+- [RabbitMQ详解](http://www.ityouknow.com/springboot/2016/11/30/springboot(%E5%85%AB)-RabbitMQ%E8%AF%A6%E8%A7%A3.html)
+- [消息队列探秘-RabbitMQ消息队列介绍](https://www.jianshu.com/p/24f464f9161c)
+- [RabbitMq延迟、重试队列及Spring Boot的黑科技](https://www.jianshu.com/p/35fbbdc9ca60)
+- [rabbitmq可靠发送的自动重试机制](https://www.jianshu.com/p/6579e48d18ae)
+- ​
 
 
 

@@ -1,11 +1,11 @@
------
+---
 title: 使用Linux命令查看硬件信息
 date: 2016-07-20 16:54:49
 tags: 
-    - Linux系统
-categories:
-    - Linux 
------
+  - linux
+---
+
+
 
 在linux检查和查看硬件信息有分很多命令，这里列出一些命令快速查看linux的cpu和内存等信息。
 
@@ -14,18 +14,18 @@ categories:
 #### lscpu
 
 > 直接使用即可，没有多余的选项和功能
-  
+
 ![lscpu](http://s3.51cto.com/wyfs02/M01/79/26/wKioL1aKKrSCJby_AAI8_6qrUIM167.jpg-s_4117306760.jpg)
 
 #### lspci
 
 > 可以列出所有连接到PCI总线的详细信息，例如：显卡，网卡，USB接口及SATA控制器等设备。
 
-    
+
 ![lspci](http://s4.51cto.com/wyfs02/M02/79/28/wKiom1aKKpDhH1sxAAStC5wze8s439.jpg-s_281774679.jpg)
-     
+​     
 > 可以使用类似如下命令过滤出特定的设备信息
- 
+
 ```
 lspci -v | grep "VGA" -A 12 
 ```
@@ -54,7 +54,7 @@ lspci -v | grep "VGA" -A 12
 #### df
 
 > 输出当前Linux系统中个各种分区及其挂载点，可以使用-H参数
-`df -H`
+> `df -H`
 
 ![df](http://s3.51cto.com/wyfs02/M01/79/28/wKiom1aKKpTQhNhmAAFTK1FKyU4499.jpg-s_1456998239.jpg)
 

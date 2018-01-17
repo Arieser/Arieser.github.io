@@ -1,10 +1,8 @@
---------------
+---
 title: 网易云音乐API摘记
 date: 2016-12-05 13:28:19
 tags: 
-	- API
-categories: 
---------------
+---
 
 简要记录一下网易云音乐API，因云音乐服务并没有开放接口，部分api可能在一段时间后失效。
 
@@ -22,14 +20,14 @@ categories:
         - filterDj: true|false //可为空
         - callback:  //为空时返回json，反之返回jsonp callback
 
-2. 外链接口 √
+2.  外链接口 √
     - API: `http://music.163.com/api/song/detail/?id=歌曲Id&ids=%5B歌曲Id%5D&csrf_token=`
     - Method: GET
     - 例子：
         - 歌曲：`http://music.163.com/#/song?id=30780524`
         - 用法：`http://music.163.com/api/song/detail/?id=30780524&ids=%5B30780524%5D&csrf_token=`
 
-3. 歌曲信息 √
+3.  歌曲信息 √
     - API: `http://music.163.com/api/song/detail/`
     - Method: GET
     - 参数：
@@ -37,28 +35,28 @@ categories:
         - ids: 用[]括起来的歌曲ID
     - 用法：`http://music.163.com/api/song/detail/?id=28377211&ids=%5B28377211%5D`
 
-4. 歌曲专辑
+4.  歌曲专辑
     - API: `http://music.163.com/api/artist/albums/歌手ID`
     - Method: GET
     - 参数：
         - limit: 获取数量
     - 用法：`http://music.163.com/api/artist/albums/166009?id=166009&offset=0&total=true&limit=5`
 
-5. 专辑信息
+5.  专辑信息
     - API: `http://music.163.com/api/album/专辑ID`
     - Method: GET
     - 参数：
         - limit: 获取数量
     - 用法：`http://music.163.com/api/album/2457012?ext=true&id=2457012&offset=0&total=true&limit=10`
 
-6. 歌单 √
+6.  歌单 √
     - API: `http://music.163.com/api/playlist/detail`
     - Method: GET
     - 参数：
         - id: 歌单id
     - 用法：`http://music.163.com/api/playlist/detail?id=37880978&updateTime=-1`
 
-7. 歌词 √
+7.  歌词 √
     - API: `http://music.163.com/api/song/lyric`
     - Method: GET
     - 参数：
@@ -68,7 +66,7 @@ categories:
         - tv: 值为-1，是否搜索tlyric格式
     - 用法：`http://music.163.com/api/song/lyric?os=pc&id=93920&lv=-1&kv=-1&tv=-1`
 
-8. MV
+8.  MV
     - API: `http://music.163.com/api/mv/detail`
     - Method: GET
     - 参数：

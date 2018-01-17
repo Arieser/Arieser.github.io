@@ -1,12 +1,11 @@
------
+---
 title: Oracle
 date: 2016-05-09 11:31:38
 tags: 
   - oracle
-  - SQL
-categories: 
-  - 数据库
------
+---
+
+
 
 主流关系型数据库: Oracle，DB2，Sybase，SQL server，MySQL
 这里主要记录一下oracle数据库初步学习过程，涉及少量与mysql的不同讨论。[基本的SQL知识](http://www.w3school.com.cn/sql/)
@@ -88,8 +87,8 @@ categories:
 - TO_DATE：字符串转换为日期类型
   - TO_DATE(char[, fmt[, nlsparams]])
     - fmt: 格式
-    <!-- ![date](../../img/date.jpg) -->
-    ![date](/images/date.jpg)
+      <!-- ![date](../../img/date.jpg) -->
+      ![date](/images/date.jpg)
     - nlsparams: 指定日期语言
 - TO_CHAR
   - TO_CHAR(date[, fmt[, nlsparams]])
@@ -130,9 +129,9 @@ categories:
   SELECT DECODE(job, 'ANALYST', 'VIP', 'MANAGER', 'VIP', 'OPERATION')job, COUNT(1)job_count FROM emp 
   GROUP BY DECODE(job, 'ANALYST', 'VIP', 'MANAGER', 'VIP', 'OPERATION');
   ```
-  
+
   - 字段内容排序
-  `ORDER BY DECODE(job, 'ANALYST', '1', 'MANAGER', '2', 'OPERATION', '3')`
+    `ORDER BY DECODE(job, 'ANALYST', '1', 'MANAGER', '2', 'OPERATION', '3')`
 
 ##### ROW_NUMBER函数
 - ROW_NUMBER() OVER(PARTITION BY col1 ORDER BY col2): 根据col1分组，在分组内部根据col2排序

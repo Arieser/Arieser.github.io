@@ -1,11 +1,10 @@
------
+---
 title: SSH server
 date: 2016-06-23 09:35:50
 tags: 
-    - git
-    - SSH
-categories: 
------
+---
+
+
 
 简要记录一下ssh server搭建过程。
 <!-- more -->
@@ -44,4 +43,4 @@ ssh-add ~/.ssh/id_rsa
         - -P表示提供的密语
         - -f指定生成的密钥文件
     2. 注意:~代表当前用户的文件夹，/home/用户名
-4.  使用ssh localhost 登录
+4. 使用ssh localhost 登录

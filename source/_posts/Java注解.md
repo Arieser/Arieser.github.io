@@ -1,12 +1,14 @@
------
+---
 title: Java注解
 date: 2016-09-10 11:16:44
 tags: 
+  - JAVA
 categories: 
-    - Java
------
+---
 
-针对coding中一些不熟悉，使用频率较低的一些注解做一记录
+
+
+记录一下java的原生注解
 <!-- more -->
 
 #### @Retention

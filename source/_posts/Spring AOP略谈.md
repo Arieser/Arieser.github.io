@@ -1,12 +1,11 @@
---------------
+---
 title: Spring AOP略谈
 date: 2016-12-16 22:36:43
 tags: 
-    - Spring
-    - AOP
-categories: 
-    - Spring
---------------
+  - JAVA
+---
+
+
 
 AOP为Aspect Oriented Pragramming 的缩写，合理的使用AOP可以极大地提高程序的可重用性，同时提高开发的效率。
 
@@ -66,7 +65,7 @@ applicationContext.xml配置
 2. 不同通知的注解方式
 
     - 前置通知：`@Before("within(controller...*)")`
-    
+
     - 后置通知：`@AfterReturning("within(controller...*)")`
 
     - 最终通知：`@After("within(controller...*)")`

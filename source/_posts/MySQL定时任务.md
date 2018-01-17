@@ -1,10 +1,9 @@
------
+---
 title: MySQL定时任务
 date: 2016-08-04 10:30:26
 tags: 
-categories: 
-    - MySQL
------
+  - MySQL
+---
 
 ### 简介
 
@@ -124,7 +123,7 @@ DO TRUNCATETABLE test.aaa;
 ```
 
 8. 定时清空，执行一次后终止
-`[ON COMPLETION [NOT] PRESERVE]可以设置这个事件是执行一次还是持久执行，默认为NOT PRESERVE。`
+  `[ON COMPLETION [NOT] PRESERVE]可以设置这个事件是执行一次还是持久执行，默认为NOT PRESERVE。`
 ```
 CREATE EVENT e_test
 ON SCHEDULE EVERY 1 DAY

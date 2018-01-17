@@ -1,12 +1,11 @@
------
+---
 title: MySQL数据库常用导入导出命令
 date: 2016-05-18 17:40:36
 tags: 
-  - 数据库
   - MySQL
-categories:
-  - MySQL
------
+---
+
+记录MySQL导出数据的常见方式
 
 <!-- more -->
 

@@ -1,11 +1,10 @@
------
+---
 title: 一些java相关问题
 date: 2016-05-23 11:25:32
 tags: 
-  - java
-categories: 
-  - Java
------
+  - JAVA
+---
+
 ### JAVA关键字
 
 <!-- more -->

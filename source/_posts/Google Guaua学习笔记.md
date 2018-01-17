@@ -1,11 +1,14 @@
------
+---
 title: Google Guaua学习笔记(一)
 date: 2016-09-10 11:47:04
 tags: 
-categories:
-    - JAVA
------
+   - JAVA
+---
+
+
+
 ### 集合[Collections]
+
 Guaua对JDK集合的扩展，应用较广。
 <!-- more -->
 #### 不可变集合

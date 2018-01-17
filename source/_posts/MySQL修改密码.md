@@ -1,10 +1,11 @@
------
+---
 title: MySQL修改密码
 date: 2016-06-27 23:14:46
 tags: 
-categories: 
-    - MySQL
------
+  - MySQL
+---
+
+记录MySQL修改密码的几种方式
 
 <!-- more -->
 
@@ -35,7 +36,7 @@ mysql> flush privileges;
 4. 再开一个DOS窗口（因为刚才那个DOS窗口已经不能动了），转到mysql\bin目录。 
 5. 输入mysql回车，如果成功，将出现MySQL提示符 >。 
 6. 连接权限数据库： use mysql; 。 
-6. 改密码：update user set password=password("123") where user="root";（别忘了最后加分号） 。 
-7. 刷新权限（必须步骤）：flush privileges;　。 
-8. 退出 quit。 
-9. 注销系统，再进入，使用用户名root和刚才设置的新密码123登录。
+7. 改密码：update user set password=password("123") where user="root";（别忘了最后加分号） 。 
+8. 刷新权限（必须步骤）：flush privileges;　。 
+9. 退出 quit。 
+10. 注销系统，再进入，使用用户名root和刚才设置的新密码123登录。

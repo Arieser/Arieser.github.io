@@ -1,15 +1,14 @@
------
+---
 title: vm环境安装linuxmint
 date: 2016-05-14 20:49:30
 tags: 
-  - vmvare player
-  - linux mint
-categories: 
-  - linux
------
+  - linux-mint
+---
 
-为了加深对于linux系统的了解，虽然有公司的服务器可用，觉得有点束手束脚，所以计划在本地搭建一个linux环境，考虑再三，还是决定使用虚拟机，以免造成系统崩溃。
+选择轻量级Linux系统linuxmint搭建需要，做本地测试
+
 <!--more-->
+
 #### 准备工作
 - linux mint下载：linuxmint-17.3-kde-64bit.iso
 - vmvare workstation 12 player

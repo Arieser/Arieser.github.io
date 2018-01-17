@@ -1,14 +1,13 @@
------
+---
 title: Effective Java学习
 date: 2016-08-25 17:36:30
 tags: 
-categories: 
+  - JAVA
+---
 
-​	- JAVA
 
------
 
-为进一步提高java基础水平，开始研读effective java，简略记录一下阅读过程中的疑问和心得。
+简略记录一下阅读过程中的疑问和心得。
 
 <!-- more -->
 

@@ -1,10 +1,11 @@
---------------
+---
 title: AWS linux(AMI) 搭建VPN
 date: 2016-11-02 22:36:15
 tags: 
-	- VPN
-categories: 
---------------
+  - VPN
+---
+
+
 
 AWS提供一年的免费试用($2.00)，试着在amazon linux(AMI) 上搭建vpn，简要记录一下搭建过程。
 
@@ -25,10 +26,10 @@ AWS提供一年的免费试用($2.00)，试着在amazon linux(AMI) 上搭建vpn�
     `suod paddwd root`
 
 4. 切换root用户，修改文件
-    
+
     `su root`
     `vim /etc/ssh/sshd_config`
-    
+
     ```
     PermitRootLogin yes
     PubkeyAuthentication no
@@ -44,7 +45,7 @@ AWS提供一年的免费试用($2.00)，试着在amazon linux(AMI) 上搭建vpn�
     `yum install ppp`
 
 2. 下载并安装pptpd
-    
+
     `wget http://poptop.sourceforge.net/yum/stable/packages/ppp-2.4.5-33.0.fc21.x86_64.rpm`
     `wget http://poptop.sourceforge.net/yum/stable/packages/pptpd-1.4.0-1.el6.x86_64.rpm`
     `rpm -Uhv pptpd*.rpm`
@@ -78,7 +79,7 @@ AWS提供一年的免费试用($2.00)，试着在amazon linux(AMI) 上搭建vpn�
 9. 重启pptpd服务
     `service pptpd restart`
 
-9. ec2控制台打开TCP的1723端口，这是pptpd的默认连接端口。
+10. ec2控制台打开TCP的1723端口，这是pptpd的默认连接端口。
 
 Reference：[https://leonax.net/p/3274/install-vpn-server-on-amazon-ec2/](https://leonax.net/p/3274/install-vpn-server-on-amazon-ec2/)
 
@@ -94,7 +95,7 @@ Reference：[https://leonax.net/p/3274/install-vpn-server-on-amazon-ec2/](https:
     ```
 
 2. jdk的安装路径加入到JAVA_HOME
-    
+
     `vi /etc/profile`
 
     ```shell
