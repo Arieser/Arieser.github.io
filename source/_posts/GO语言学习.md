@@ -7,6 +7,5 @@ date: 2018-01-22 15:05:00
 
 1. 指针
 2. 包和文件，已经相关的GOPATH问题
-3. text/template
-4. ​
+3. text/template​
 

@@ -2,10 +2,10 @@
 {% import '_macro/post.swig' as post_template %}
 {% import '_macro/sidebar.swig' as sidebar_template %}
 
-{% block title %}  {{ config.title }} {% endblock %}
+{% block title %}{{ config.title }}{% if theme.index_with_subtitle and config.subtitle %} - {{config.subtitle }}{% endif %}{% endblock %}
 
 {% block page_class %}
-  {% if is_home() %} page-home {% endif %}
+  {% if is_home() %}page-home{% endif -%}
 {% endblock %}
 
 {% block content %}
@@ -21,6 +21,3 @@
 {% block sidebar %}
   {{ sidebar_template.render(false) }}
 {% endblock %}
-
-
-
