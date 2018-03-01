@@ -95,6 +95,7 @@ tags:
 
 6. 增加评论系统
 
+   **gitment**
 
    主题配置
 
@@ -117,11 +118,13 @@ tags:
 
      修改 next/layout/_third-party/comments/gitment.swig中`id: window.location.pathname`为`id: '{{ page.date }}'`
 
+   **valine**
+
 7. 文章底部增加版权信息
 
 **参考文章**：
 
-[Hexo-next](http://theme-next.iissnan.com)
+[NexT 使用文档](http://theme-next.iissnan.com/)
 
 [利用Gulp来压缩你的Hexo博客](https://leaferx.online/2017/06/16/use-gulp-to-minimize/)
 
