@@ -1,5 +1,5 @@
 ---
-title: Hadoop 环境搭建
+title: hexo主题升级
 date: 2018-03-01 12:25:10
 tags: 
   - Hexo
@@ -93,10 +93,31 @@ tags:
      enabled: true
    ```
 
-   ​
+6. 增加评论系统
 
-6. 文章底部增加版权信息
 
+   主题配置
+
+   ```yaml
+   gitment:
+     enable: true
+     mint: true # RECOMMEND, A mint on Gitment, to support count, language and proxy_gateway
+     count: true # Show comments count in post meta area
+     lazy: false # Comments lazy loading with a button
+     cleanly: false # Hide 'Powered by ...' on footer, and more
+     github_user: silloy  # MUST HAVE, Your Github Username
+     github_repo: repo  # MUST HAVE, The name of the repo you use to store Gitment comments
+     client_id: xxx # MUST HAVE, Github client id for the Gitment
+     client_secret: xxx 
+   ```
+
+   问题：
+
+   - Error：validation failed
+
+     修改 next/layout/_third-party/comments/gitment.swig中`id: window.location.pathname`为`id: '{{ page.date }}'`
+
+7. 文章底部增加版权信息
 
 
 **参考文章**：
@@ -106,3 +127,7 @@ tags:
 [hexo的next主题个性化教程:打造炫酷网站](http://shenzekun.cn/hexo%E7%9A%84next%E4%B8%BB%E9%A2%98%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html)
 
 [老高博客](https://gaoyuhao.ga)
+
+[gitment](https://github.com/imsun/gitment#methods)
+
+[Gitment评论功能接入踩坑教程](http://ihtc.cc/2018/02/25/2018-02-25%20_Gitment%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD%E6%8E%A5%E5%85%A5%E8%B8%A9%E5%9D%91%E6%95%99%E7%A8%8B/)
