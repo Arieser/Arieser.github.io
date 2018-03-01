@@ -47,7 +47,7 @@ cache:
 favicon:
   small: /images/ele-16x16-next.ico
   medium: /images/ele-32x32-next.ico
-  apple_touch_icon: /images/apple-touch-icon-next.png
+  apple_touch_icon: /images/apple-touch-icon-ele.png
   safari_pinned_tab: /images/logo.svg
   #android_manifest: /images/manifest.json
   #ms_browserconfig: /images/browserconfig.xml
@@ -111,13 +111,13 @@ index_with_subtitle: false
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, question icon will be loaded.
 menu:
   home: / || home
-  about: /about/ || user
   tags: /tags/ || tags
   # categories: /categories/ || th
   archives: /archives/ || archive
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
+  about: /about/ || user
 
 # Enable/Disable menu icons / item badges.
 menu_settings:
