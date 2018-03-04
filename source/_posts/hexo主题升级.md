@@ -123,18 +123,10 @@ tags:
 7. 文章底部增加版权信息
 
 **参考文章**：
-
 [NexT 使用文档](http://theme-next.iissnan.com/)
-
 [利用Gulp来压缩你的Hexo博客](https://leaferx.online/2017/06/16/use-gulp-to-minimize/)
-
 [hexo的next主题个性化教程:打造炫酷网站](http://shenzekun.cn/hexo%E7%9A%84next%E4%B8%BB%E9%A2%98%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html)
-
 [老高博客](https://gaoyuhao.ga)
-
 [gitment](https://github.com/imsun/gitment#methods)
-
 [Gitment评论功能接入踩坑教程](http://ihtc.cc/2018/02/25/2018-02-25%20_Gitment%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD%E6%8E%A5%E5%85%A5%E8%B8%A9%E5%9D%91%E6%95%99%E7%A8%8B/)
-
 [实现 Hexo next 主题博客本地站内搜索](https://zetaoyang.github.io/post/2016/07/08/hexo-localsearch.html)
-
