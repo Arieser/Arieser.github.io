@@ -41,7 +41,7 @@ tags:
    canvas_nest: true
    ```
 
-4. 添加访问人数
+4. 添加访问人数（6.0已原生支持busuanzi，启用即可）
 
    打开`\themes\next\layout\_partials\footer.swig`文件,在copyright前加上画红线这句话
 
@@ -130,3 +130,4 @@ tags:
 [gitment](https://github.com/imsun/gitment#methods)
 [Gitment评论功能接入踩坑教程](http://ihtc.cc/2018/02/25/2018-02-25%20_Gitment%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD%E6%8E%A5%E5%85%A5%E8%B8%A9%E5%9D%91%E6%95%99%E7%A8%8B/)
 [实现 Hexo next 主题博客本地站内搜索](https://zetaoyang.github.io/post/2016/07/08/hexo-localsearch.html)
+[我的个人博客之旅：从jekyll到hexo](http://blog.csdn.net/u011475210/article/details/79023429)
