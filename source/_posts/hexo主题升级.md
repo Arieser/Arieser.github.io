@@ -15,9 +15,15 @@ tags:
 
 2. 备份_config.yml，同时对配置进行修改，相关图片位于next/source/images
 
+   ```
+   git clone https://github.com/theme-next/theme-next-fancybox3 source/lib/fancybox
+   git clone https://github.com/theme-next/theme-next-pace source/lib/pace
+   git clone https://github.com/theme-next/theme-next-algolia-instant-search source/lib/algolia-instant-search
+   ```
+
 3. 页面增加3D渲染，next默认提供两种渲染效果，theme-next-three和canvas_nest
 
-   ```
+   ```shell
    cd themes/next
    git clone https://github.com/theme-next/theme-next-three source/lib/three
    git clone https://github.com/theme-next/theme-next-canvas-nest source/lib/canvas-nest
@@ -76,7 +82,7 @@ tags:
    </div>
    ```
 
-   接着打开`\themes\next\layout\_macro\post.swig`文件，在`post-body` 之后， `post-footer` 之前添加
+   接着打开`\themes\next\layout\_macro\post.swig`文件，在`{### END POST BODY ###}` 之后， `<footer class="post-footer">` 之前添加
 
    ```javascript
    <div>
@@ -86,7 +92,7 @@ tags:
    </div>
    ```
 
-   打开主题配置文件，文章末尾添加标记
+   打开主题配置文件，文章末尾添加标记（不用设置）
 
    ```yaml
    passage_end_tag:
@@ -116,11 +122,19 @@ tags:
 
    - Error：validation failed
 
-     修改 next/layout/_third-party/comments/gitment.swig中`id: window.location.pathname`为`id: '{{ page.date }}'`
+     修改 next/layout/_third-party/comments/gitment.swig中`id: window.location.pathname`为
+
+     ```
+     id: '{{ page.date }}'
+     ```
 
    **valine**
 
 7. 文章底部增加版权信息
+
+8. 修改文章底部的那个带#号的标签
+
+   修改模板`/themes/next/layout/_macro/post.swig`，搜索 `rel="tag">#`，将 # 换成`<i class="fa fa-tag"></i>` 
 
 **参考文章**：
 [NexT 使用文档](http://theme-next.iissnan.com/)

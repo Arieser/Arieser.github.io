@@ -21,7 +21,7 @@
 * :heart_decoration: Muse 主题: [LEAFERx](https://leaferx.online) | [XiaMo](https://notes.wanghao.work) | [OAwan](https://oawan.me)
 * :six_pointed_star: Mist 主题: [Jeff](https://blog.zzbd.org) | [uchuhimo](http://uchuhimo.me) | [xirong](http://www.ixirong.com)
 * :pisces: Pisces 主题: [Vi](http://notes.iissnan.com) | [Acris](https://acris.me) | [Rainy](https://rainylog.com)
-* :gemini: Gemini 主题: [Ivan.Nginx](https://almostover.ru) | [Alynx](http://sh.alynx.xyz) | [Raincal](https://raincal.com)
+* :gemini: Gemini 主题: [Ivan.Nginx](https://almostover.ru) | [Raincal](https://raincal.com) | [Dandy](https://dandyxu.me)
 
 更多 «NexT» 的例子参见[这里](https://github.com/iissnan/hexo-theme-next/issues/119)。
 
@@ -50,6 +50,23 @@ fancybox: false
 
 将 `fancybox` 配置项打开，进入它上面的 «Dependencies» 链接以查看它的安装步骤。
 
+### 例外
+
+如果你使用的插件脚本依赖 CDN，那么需要替换你的 CDN 链接：
+
+例如，假如你使用了 `fancybox` 插件并且配置了 CDN 加载链接，进入 Next 配置文件，你会看到如下内容：
+
+```yml
+vendors:
+  # ...
+  # Some contents...
+  # ...
+  fancybox: # Set or update fancybox cdn url.
+  fancybox_css: # Set or update fancybox cdn url.
+```
+
+通过替换 CDN 链接来替换 [插件列表](https://github.com/theme-next) 项目来升级。
+
 ## 更新
 
 你可以通过如下命令更新到最新的 master 分支：
@@ -62,7 +79,7 @@ $ git pull
 如果你在此过程中收到了任何错误报告 (例如 **«Commit your changes or stash them before you can merge»**)，我们推荐你使用 [Hexo 数据文件][docs-data-files-url]特性。\
 然而你也可以通过提交（`Commit`）、贮藏（`Stash`）或忽视（`Discard`）本地更改以绕过这种更新错误。具体方法请参考[这里](https://stackoverflow.com/a/15745424/5861495)。
 
-如果你想要从 v5.1.x 更新到 v6.0.x，阅读[这篇文档][docs-update-5-1-x-url]。
+**如果你想要从 v5.1.x 更新到 v6.0.x，阅读[这篇文档][docs-update-5-1-x-url]。**
 
 ## 已知问题
 
@@ -100,7 +117,7 @@ $ git pull
 [travis-image]: https://travis-ci.org/theme-next/hexo-theme-next.svg?branch=master
 [travis-url]: https://travis-ci.org/theme-next/hexo-theme-next?branch=master "Travis CI [Linux]"
 
-[hexo-image]: https://img.shields.io/badge/hexo-%3E%3D%203.0-blue.svg
+[hexo-image]: https://img.shields.io/badge/hexo-%3E%3D%203.5.0-blue.svg
 [hexo-url]: http://hexo.io
 
 [lic-image]: https://img.shields.io/badge/license-%20AGPL-blue.svg

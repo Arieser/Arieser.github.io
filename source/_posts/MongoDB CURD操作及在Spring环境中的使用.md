@@ -36,11 +36,14 @@ MongoDB作为高性能，开源，无模式的文档型数据库，简要记录�
 
 地理空间操作符
 
-![1523253863147](D:\Projects\hexo\source\images\1523253863147.png)
+![1523253863147](/images/1523253863147.png)
 
 
 
-数据格式demo: `wget https://raw.githubusercontent.com/mongodb/docs-assets/geospatial/restaurants.json`
+数据格式demo:
+```
+wget https://raw.githubusercontent.com/mongodb/docs-assets/geospatial/restaurants.json
+```
 
 ```json
 {

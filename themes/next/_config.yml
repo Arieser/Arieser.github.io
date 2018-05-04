@@ -52,9 +52,7 @@ favicon:
   #android_manifest: /images/manifest.json
   #ms_browserconfig: /images/browserconfig.xml
 
-# Set default keywords (Use a comma to separate)
 keywords: "Java,MySQL,Hexo,后端,hexo,silloy"
-
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
 # Set rss to specific value if you have burned your feed already.
@@ -66,13 +64,23 @@ footer:
   since: 2016
 
   # Icon between year and copyright info.
-  icon: user
+  icon:
+    # Icon name in fontawesome, see: https://fontawesome.com/v4.7.0/icons
+    # `heart` is recommended with animation in red (#ff0000).
+    name: user
+    # If you want to animate the icon, set it to true.
+    animated: false
+    # Change the color of icon, using Hex Code.
+    color: "#808080"
 
   # If not defined, will be used `author` from Hexo main config.
   copyright:
   # -------------------------------------------------------------
-  # Hexo link (Powered by Hexo).
-  powered: false
+  powered:
+    # Hexo link (Powered by Hexo).
+    enable: false
+    # Version info of Hexo after Hexo link (vX.X.X).
+    version: false
 
   theme:
     # Theme & scheme info link (Theme - NexT.scheme).
@@ -112,7 +120,7 @@ index_with_subtitle: false
 menu:
   home: / || home
   tags: /tags/ || tags
-  # categories: /categories/ || th
+  #categories: /categories/ || th
   archives: /archives/ || archive
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
@@ -131,8 +139,8 @@ menu_settings:
 # Schemes
 # scheme: Muse
 scheme: Mist
-# scheme: Pisces
-# scheme: Gemini
+#scheme: Pisces
+#scheme: Gemini
 
 
 # ---------------------------------------------------------------
@@ -149,10 +157,10 @@ site_state: true
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
 social:
   GitHub: https://github.com/silloy || github
-  FB Page: https://www.facebook.com/shaohua.su.188 || facebook
-  # E-Mail: mailto:yourname@gmail.com || envelope
-  # Google: https://plus.google.com/111079857101747035521 || google
+  #E-Mail: mailto:yourname@gmail.com || envelope
+  #Google: https://plus.google.com/yourname || google
   Twitter: https://twitter.com/Zuowu90 || twitter
+  FB Page: https://www.facebook.com/shaohua.su.188 || facebook
   #VK Group: https://vk.com/yourname || vk
   #StackOverflow: https://stackoverflow.com/yourname || stack-overflow
   #YouTube: https://youtube.com/yourname || youtube
@@ -254,9 +262,12 @@ auto_excerpt:
 post_meta:
   item_text: true
   created_at: true
-  updated_at: false
-  # Only show 'updated' if different from 'created'.
-  updated_diff: false
+  updated_at:
+    enabled: true
+    # If true, show updated date label only if `updated date` different from 'created date' (post edited in another day than was created).
+    # And if post will edited in same day as created, edited time will show in popup title under created time label.
+    # If false show anyway, but if post edited in same day, show only edited time.
+    another_day: true
   categories: true
 
 # Post wordcount display settings
@@ -265,13 +276,20 @@ symbols_count_time:
   separated_meta: true
   item_text_post: true
   item_text_total: false
-  awl: 5
-  wpm: 200
+  awl: 4
+  wpm: 275
+
+codeblock:
+  # Manual define the border radius in codeblock
+  # Leave it empty for the default 1
+  border_radius: 5
+  # Add copy button on codeblock
+  copy_button: true
 
 # Wechat Subscriber
-# wechat_subscriber:
-  # enabled: true
-  # qcode: /path/to/your/wechatqcode ex. /uploads/wechat-qcode.jpg
+#wechat_subscriber:
+  #enabled: true
+  #qcode: /path/to/your/wechatqcode ex. /uploads/wechat-qcode.jpg
   #description: ex. subscribe to my blog by scanning my public wechat account
 
 # Reward
@@ -298,6 +316,13 @@ post_copyright:
   enable: false
   license: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a>
 
+# Post edit
+# Dependencies: https://github.com/hexojs/hexo-deployer-git
+post_edit:
+  enable: false
+  url: https://github.com/theme-next/theme-next.org/_posts/tree/master/ # Link for view source.
+# url: https://github.com/theme-next/theme-next.org/_posts/edit/master/ # Link for fork & edit.
+
 
 # ---------------------------------------------------------------
 # Misc Theme Settings
@@ -321,7 +346,7 @@ custom_logo:
 # Code Highlight theme
 # Available values: normal | night | night eighties | night blue | night bright
 # https://github.com/chriskempson/tomorrow-theme
-highlight_theme: night bright
+highlight_theme: normal
 
 # Enable "cheers" for archive page.
 cheers_enabled: true
@@ -465,9 +490,9 @@ changyan:
 # You can get your appid and appkey from https://leancloud.cn
 # more info please open https://valine.js.org
 valine:
-  enable: true
-  appid: wtMIJpHVqsNnBHPEPXnAYVYU-gzGzoHsz # your leancloud application appid
-  appkey: YVwecaKkjykP6DYqQC5rnjnm # your leancloud application appkey
+  enable: false
+  appid:  wtMIJpHVqsNnBHPEPXnAYVYU-gzGzoHsz # your leancloud application appid
+  appkey:  YVwecaKkjykP6DYqQC5rnjnm # your leancloud application appkey
   notify: false # mail notifier , https://github.com/xCss/Valine/wiki
   verify: false # Verification code
   placeholder: Welcome to silloy's blog! # comment box placeholder
@@ -487,14 +512,14 @@ valine:
 # Gitment
 # Introduction: https://imsun.net/posts/gitment-introduction/
 gitment:
-  enable: false
+  enable: true
   mint: true # RECOMMEND, A mint on Gitment, to support count, language and proxy_gateway
   count: true # Show comments count in post meta area
   lazy: false # Comments lazy loading with a button
   cleanly: false # Hide 'Powered by ...' on footer, and more
-  language: # Force language, or auto switch by theme
-  github_user: silloy  # MUST HAVE, Your Github Username
-  github_repo: gitment  # MUST HAVE, The name of the repo you use to store Gitment comments
+  language:  # Force language, or auto switch by theme
+  github_user: silloy # MUST HAVE, Your Github Username
+  github_repo: gitment # MUST HAVE, The name of the repo you use to store Gitment comments
   client_id: 618e76ca6b91257f36ae # MUST HAVE, Github client id for the Gitment
   client_secret: 1fa90c99ade7b95a46ee8f200d025dd9542bb8b6 # EITHER this or proxy_gateway, Github access secret token for the Gitment
   proxy_gateway: # Address of api proxy, See: https://github.com/aimingoo/intersect
@@ -607,8 +632,13 @@ rating:
 # You can visit https://leancloud.cn get AppID and AppKey.
 leancloud_visitors:
   enable: false
-  app_id: wtMIJpHVqsNnBHPEPXnAYVYU-gzGzoHsz
-  app_key: YVwecaKkjykP6DYqQC5rnjnm
+  app_id: wtMIJpHVqsNnBHPEPXnAYVYU-gzGzoHsz #<app_id>
+  app_key: YVwecaKkjykP6DYqQC5rnjnm #<app_key>
+  # Dependencies: https://github.com/theme-next/hexo-leancloud-counter-security
+  # If you don't care about security in lc counter and just want to use it directly
+  # (without hexo-leancloud-counter-security plugin), set the `security` to `false`.
+  security: true
+  betterPerformance: false
 
 # Another tool to show number of visitors to each article.
 # visit https://console.firebase.google.com/u/0/ to get apiKey and projectId
@@ -731,7 +761,7 @@ tabs:
 # Reading progress bar
 # Dependencies: https://github.com/theme-next/theme-next-reading-progress
 reading_progress:
-  enable: true
+  enable: false
   color: "#37c6c0"
   height: 2px
 
@@ -776,7 +806,7 @@ lazyload: false
 
 # Progress bar in the top during page loading.
 # Dependencies: https://github.com/theme-next/theme-next-pace
-pace: false
+pace: true
 # Themes list:
 #pace-theme-big-counter
 #pace-theme-bounce
@@ -933,7 +963,5 @@ js: js
 images: images
 
 # Theme version
-version: 6.0.4
+version: 6.2.0
 
-passage_end_tag:
-  enabled: true
