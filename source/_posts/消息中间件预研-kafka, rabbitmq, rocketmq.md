@@ -466,9 +466,11 @@ rocketmq中一个broker-name其实就相当于kafka-broker中的一个partition�
 
 性能比较: [RabbitMQ三种Exchange模式(fanout,direct,topic)的性能比较](http://www.gaort.com/index.php/archives/366)
 
+理解rabbitmq的概念 : [http://tryrabbitmq.com/](http://tryrabbitmq.com/)
 
+![52232908396](/images/1522329083963.png)
 
-
+![1523535278161](/images/1523535278161.png)
 
 **示例代码**: [boot-in-action](https://github.com/silloy/boot-in-action)
 

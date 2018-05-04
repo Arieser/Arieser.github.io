@@ -76,9 +76,9 @@ footer:
 
   theme:
     # Theme & scheme info link (Theme - NexT.scheme).
-    enable: true
+    enable: false
     # Version info of NexT after scheme info (vX.X.X).
-    version: true
+    version: false
   # -------------------------------------------------------------
   # Any custom text can be defined here.
   #custom_text: Hosted by <a target="_blank" rel="external nofollow" href="https://pages.coding.me"><b>Coding Pages</b></a>
@@ -466,13 +466,13 @@ changyan:
 # more info please open https://valine.js.org
 valine:
   enable: true
-  appid:  wtMIJpHVqsNnBHPEPXnAYVYU-gzGzoHsz # your leancloud application appid
-  appkey:  YVwecaKkjykP6DYqQC5rnjnm # your leancloud application appkey
+  appid: wtMIJpHVqsNnBHPEPXnAYVYU-gzGzoHsz # your leancloud application appid
+  appkey: YVwecaKkjykP6DYqQC5rnjnm # your leancloud application appkey
   notify: false # mail notifier , https://github.com/xCss/Valine/wiki
   verify: false # Verification code
-  placeholder: Just go go # comment box placeholder
+  placeholder: Welcome to silloy's blog! # comment box placeholder
   avatar: identicon # gravatar style  mm,identicon
-  guest_info: nick,mail,link # custom comment header
+  guest_info: nick,mail  #,link # custom comment header
   pageSize: 10 # pagination size
 
 
@@ -549,7 +549,7 @@ needmoreshare2:
 #google_site_verification:
 
 # Google Analytics
-#google_analytics:
+google_analytics: UA-115111429-1
 
 # Bing Webmaster tools verification setting
 # See: https://www.bing.com/webmaster/
@@ -607,8 +607,8 @@ rating:
 # You can visit https://leancloud.cn get AppID and AppKey.
 leancloud_visitors:
   enable: false
-  app_id: #<app_id>
-  app_key: #<app_key>
+  app_id: wtMIJpHVqsNnBHPEPXnAYVYU-gzGzoHsz
+  app_key: YVwecaKkjykP6DYqQC5rnjnm
 
 # Another tool to show number of visitors to each article.
 # visit https://console.firebase.google.com/u/0/ to get apiKey and projectId
@@ -731,7 +731,7 @@ tabs:
 # Reading progress bar
 # Dependencies: https://github.com/theme-next/theme-next-reading-progress
 reading_progress:
-  enable: false
+  enable: true
   color: "#37c6c0"
   height: 2px
 
