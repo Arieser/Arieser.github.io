@@ -67,9 +67,9 @@ footer:
   icon:
     # Icon name in fontawesome, see: https://fontawesome.com/v4.7.0/icons
     # `heart` is recommended with animation in red (#ff0000).
-    name: user
+    name: globe
     # If you want to animate the icon, set it to true.
-    animated: false
+    animated: true
     # Change the color of icon, using Hex Code.
     color: "#808080"
 
@@ -138,9 +138,9 @@ menu_settings:
 
 # Schemes
 # scheme: Muse
-scheme: Mist
-#scheme: Pisces
-#scheme: Gemini
+# scheme: Mist
+# scheme: Pisces
+scheme: Gemini
 
 
 # ---------------------------------------------------------------
@@ -169,8 +169,8 @@ social:
 
 social_icons:
   enable: true
-  icons_only: false
-  transition: false
+  icons_only: true
+  transition: true
   # Dependencies: exturl: true in Tags Settings section below.
   # To encrypt links above use https://www.base64encode.org
   # Example encoded link: `GitHub: aHR0cHM6Ly9naXRodWIuY29tL3RoZW1lLW5leHQ= || github`
@@ -230,10 +230,10 @@ sidebar:
   offset: 12
 
   # Back to top in sidebar (only for Pisces | Gemini).
-  b2t: false
+  b2t: true
 
   # Scroll percent label in b2t button.
-  scrollpercent: false
+  scrollpercent: true
 
   # Enable sidebar on narrow view (only for Muse | Mist).
   onmobile: false
@@ -247,7 +247,7 @@ sidebar:
 scroll_to_more: true
 
 # Automatically saving scroll position on each post/page in cookies.
-save_scroll: false
+save_scroll: true
 
 # Automatically excerpt description in homepage as preamble text.
 excerpt_description: true
@@ -354,7 +354,7 @@ cheers_enabled: true
 # Manual define the max content width
 # !!Only available for Gemini Scheme currently
 # Leave it empty for the default 75% (suggest not less than 1000px)
-#max_content_width: 1000px
+max_content_width: 1200px
 
 # Manual define the sidebar width
 # !!Only available for Gemini Scheme currently
@@ -490,12 +490,12 @@ changyan:
 # You can get your appid and appkey from https://leancloud.cn
 # more info please open https://valine.js.org
 valine:
-  enable: false
-  appid:  wtMIJpHVqsNnBHPEPXnAYVYU-gzGzoHsz # your leancloud application appid
-  appkey:  YVwecaKkjykP6DYqQC5rnjnm # your leancloud application appkey
+  enable: true
+  appid: wtMIJpHVqsNnBHPEPXnAYVYU-gzGzoHsz # your leancloud application appid
+  appkey: YVwecaKkjykP6DYqQC5rnjnm # your leancloud application appkey
   notify: false # mail notifier , https://github.com/xCss/Valine/wiki
   verify: false # Verification code
-  placeholder: Welcome to silloy's blog! # comment box placeholder
+  placeholder: ヾﾉ≧∀≦)o, Just do it! # comment box placeholder
   avatar: identicon # gravatar style  mm,identicon
   guest_info: nick,mail  #,link # custom comment header
   pageSize: 10 # pagination size
@@ -512,7 +512,7 @@ valine:
 # Gitment
 # Introduction: https://imsun.net/posts/gitment-introduction/
 gitment:
-  enable: true
+  enable: false
   mint: true # RECOMMEND, A mint on Gitment, to support count, language and proxy_gateway
   count: true # Show comments count in post meta area
   lazy: false # Comments lazy loading with a button
@@ -623,8 +623,8 @@ vkontakte_api:
 # Star rating support to each article.
 # To get your ID visit https://widgetpack.com
 rating:
-  enable: false
-  id:     #<app_id>
+  enable: true
+  id:     11278
   color:  fc6423
 # ---------------------------------------------------------------
 
