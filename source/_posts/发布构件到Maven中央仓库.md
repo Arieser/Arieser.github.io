@@ -59,6 +59,8 @@ Step 4: 发布准备
 
    - 依次执行一下命令
 
+     > 版本检查: `gpg --version`, 我用的是2.2.8
+     >
      > 生成key： `gpg --gen-key`
      >
      > 检查本地key： gpg --list-keys
@@ -263,6 +265,10 @@ Step 7: 通知 Sonatype“构件已成功发布”
 
 Step 8: 等待审批，1~2天，审批通过后会收到邮件通知。
 
+![1529637162176](/images/1529637162176.png)
+
+Step 9: 在https://oss.sonatype.org/#stagingRepositories找到自己的构建，点击release
+
 Step 9: 从中央仓库搜索自己发布的构件
 
 > 地址：<http://search.maven.org/> 
@@ -321,5 +327,7 @@ reference：
 [Maven-008-Nexus 私服部署发布报错 Failed to deploy artifacts: Failed to transfer file: ... Return code is: 4XX, ReasonPhrase: ... 解决方案](https://www.cnblogs.com/fengpingfan/p/5197608.html)
 
 [Why am I getting a “401 Unauthorized” error in Maven?](https://stackoverflow.com/questions/24830610/why-am-i-getting-a-401-unauthorized-error-in-maven)
+
+[将项目发布到 Maven 中央仓库踩过的坑](http://brianway.github.io/2017/05/17/release-to-maven-central-repo/)
 
 [problem2]: https://www.oschina.net/question/1444646_2277979
