@@ -315,6 +315,10 @@ Step 10: <http://search.maven.org/> 上搜索自己的构件 ，大功告成�
 
    答案：[引用][problem2]，提交给sonatype就可以，工作人员会开权限
 
+3. 可以在 <http://search.maven.org/>  搜索到，但是不能在 http://mvnrepository.com/ 搜索到，是因为更新频率不一样，等一天左右就好了，参见工作人员回复
+
+   ![1529720659785](/images/1529720659785.png)
+
 
 reference：
 
