@@ -2,7 +2,7 @@
 title: SpringBoot-Mybatis通用mapper使用
 date: 2018-06-15 13:36:43
 tags: 
-  - JAVA
+  - spring boot
 ---
 
 mybatis是一个很好用的工具，但是编写mapper是一件很麻烦的事，自mybatis 3.0开始可以使用注解的方式，极大的简化了xml的编写量，本地想看看mybatis源码，自己扩展写一个工具，在阅读源码过程中发现一个通用mapper的工具包，感觉不用重复造轮子了，简要记录一下spring boot整合通用mapper的使用。
@@ -47,8 +47,6 @@ mybatis是一个很好用的工具，但是编写mapper是一件很麻烦的事�
        }
    }
    ```
-
-   
 
 3. 新建BaseMapper类，该类不能被当做普通Mapper一样被扫描 ，不加@Mapper注解，或者放在不同文件夹
 
@@ -102,8 +100,6 @@ mybatis是一个很好用的工具，但是编写mapper是一件很麻烦的事�
    @KeySql(useGeneratedKeys = true)
    private Long id;
    ```
-
-   
 
 7. 如果实体字段和数据库字段不一致，可以使用`@Column`注解，其他注解 参见[注解][annotation]
 

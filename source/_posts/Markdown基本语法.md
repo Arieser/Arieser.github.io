@@ -2,7 +2,7 @@
 title: Markdown基本语法
 date: 2016-04-30
 tags:
-  - Markdown
+  - markdown
 ---
 
 一直都在用markdown写一些小东西，但没有系统的学习过，这里记下markdown的几种基本语法：标题，块注释，斜体，粗体，无序列表，有序列表，链接，图片， 代码，脚注，下划线。

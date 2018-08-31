@@ -2,7 +2,7 @@
 title: Effective Java学习
 date: 2016-08-25 17:36:30
 tags: 
-  - JAVA
+  - java
 ---
 
 

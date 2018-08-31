@@ -2,7 +2,6 @@
 title: IDEA active
 date: 2016-05-15 12:03:37
 tags: 
-  - IDEA
 ---
 
 

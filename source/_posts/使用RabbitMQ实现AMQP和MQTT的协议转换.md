@@ -2,8 +2,8 @@
 title: 使用RabbitMQ实现AMQP和MQTT的协议转换
 date: 2018-04-13 09:40:00
 tags:
-  - AMQP
-  - MQTT
+  - amqp
+  - mqtt
 ---
 
 

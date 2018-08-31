@@ -37,36 +37,36 @@ tags:
 
 3. ### 使用Spring Boot 自动配置
 
-4. 正确设计代码目录结构
+4. **正确设计代码目录结构**
 
    - 避免使用默认包。确保所有内容（包括你的入口点）都位于一个名称很好的包中，这样就可以避免与装配和组件扫描相关的意外情况；
    - 将Application.java（应用的入口类）保留在顶级源代码目录中；
    - 我建议将控制器和服务放在以功能为导向的模块中，但这是可选的。一些非常好的开发人员建议将所有控制器放在一起。不论怎样，坚持一种风格！
 
-5. 保持`@Controller`的简洁和专注
+5. **保持`@Controller`的简洁和专注**
 
    设计参照 [GRASP](https://en.wikipedia.org/wiki/GRASP_(object-oriented_design)#Controller)
 
-6. 熟悉并发模型
+6. **熟悉并发模型**
 
    在Spring Boot中，Controller和Service是默认是单例。如果你不小心，这会引入可能的并发问题。 你通常也在处理有限的线程池。请熟悉这些概念
 
-7. 加强配置管理
+7. **加强配置管理**
 
    使用spring cloud config，apollo， config server 等管理配置
 
-8. 提供全局异常处理
+8. **提供全局异常处理**
 
    两种方案：
 
    - 使用HandlerExceptionResolver定义全局异常处理策略
    - 添加@ExceptionHandler注解
 
-9. 使用日志框架
+9. **使用日志框架**
 
    配置和slf4j类似，默认使用logback-spring.xml文件，略
 
-10. 测试代码
+10. **测试代码**
 
   主要测试模块：
 
@@ -117,9 +117,17 @@ tags:
   }
   ```
 
-11. 使用测试切片（未使用过）
+11. **使用测试切片**（未使用过）
 
     参考 https://spring.io/blog/2016/08/30/custom-test-slice-with-spring-boot-1-4
+
+12. **Runner 启动器**
+
+    使用`CommandLineRunner`可以在Spring Boot 启动时运行特定代码
+
+13. **资源文件过滤问题**
+
+    使用继承Spring Boot时，如果要使用Maven resource filter过滤资源文件时，资源文件里面的占位符为了使${}和Spring Boot区别开来，此时要用@...@包起来，不然无效。另外，@...@占位符在yaml文件编辑器中编译报错，所以使用继承方式有诸多问题
 
 reference:
 

@@ -2,7 +2,7 @@
 title: 消息中间件预研-rabbitmq, rocketmq
 date: 2018-01-04 10:36:15
 tags:
-  - JAVA
+  - mq
 ---
 
 

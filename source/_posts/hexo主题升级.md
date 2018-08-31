@@ -2,7 +2,7 @@
 title: hexo主题升级
 date: 2018-03-01 12:25:10
 tags: 
-  - Hexo
+  - hexo
 ---
 
 
