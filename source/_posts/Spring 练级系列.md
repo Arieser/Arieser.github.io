@@ -12,6 +12,10 @@ categories:
    - 阶段一：了解其基础组件的作用，并能简单使用
    - 阶段二：熟练使用核心组件
    - 阶段三：了解核心组件源码，熟悉其设计原则
+3. 其他：学习以Spring Framework 5 为基础的 Spring Boot 2.0
+4. 环境：
+   - java_1.8, maven_3.5
+   - servlet 容器： Tomcat 9.0 | Jetty 9.4 | Undertow 2.0
 
 ![1536548520335](/images/1536548520335.png)
 
