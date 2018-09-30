@@ -1,8 +1,8 @@
 ---
-title：Spring 练级系列 - Spring Boot 了解
+title: Spring 练级系列-Spring Boot 了解
 date: 2018-09-10 15:20:12
 categories:
-  -- spring
+  - spring
 ---
 
 搭建Spring Boot Web 应用，简要记录

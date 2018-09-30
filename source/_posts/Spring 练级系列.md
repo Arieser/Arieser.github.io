@@ -2,7 +2,7 @@
 title: Spring 练级系列
 date: 2018-09-10 10:55:32
 categories:
-  -- spring
+  - spring
 ---
 
 为进一步加深对spring的了解，立下FLAG：
