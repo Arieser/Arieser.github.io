@@ -111,5 +111,3 @@ public class Example {
 
 使用相似的模式`spring-boot-starter-*` 来统一application，详见 https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#using-boot-starter
 
-
-
