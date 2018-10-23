@@ -16,5 +16,9 @@ tags:
     3. npm install -g hexo-cli
     4. npm install
     5. npm install hexo-deployer-git
+- 安装其他依赖包
+    - https://github.com/theme-next/theme-next-canvas-nest
+    - https://github.com/theme-next/theme-next-fancybox3
+    - https://github.com/theme-next/theme-next-pace
 
 参考资料： [使用hexo，如果换了电脑怎么更新博客？](https://www.zhihu.com/question/21193762)
