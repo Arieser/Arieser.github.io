@@ -69,6 +69,11 @@ Step 4: 发布准备
      >
      > 校验是否发布成功：gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 732796B4
 
+     ```shell
+     # List all available gpg servers:
+     $ gpg-connect-agent --dirmngr 'keyserver --hosttable'
+     ```
+
 2. 修改maven设置
 
    - 修改maven全局配置文件setting.xml， 增加一下内容
@@ -307,8 +312,6 @@ Step 10: <http://search.maven.org/> 上搜索自己的构件 ，大功告成�
       	program = gpg
       ```
 
-      
-
 2. Failed to execute goal org.apache.maven.plugins:maven-deploy-plugin:2.7:deploy (default-deploy) on project zjtools: Failed to deploy artifacts: Could not transfer artifact me.silloy:zjtools:jar:0.0.1 from/to oss (https://oss.sonatype.org/service/local/staging/deploy/maven2/): Access denied to: https://oss.sonatype.org/service/local/staging/deploy/maven2/me/silloy/zjtools/0.0.1/zjtools-0.0.1.jar, ReasonPhrase: Forbidden. -> [Help 1]
 
    ![1529459800811](/images/1529459800811.png)
@@ -318,6 +321,28 @@ Step 10: <http://search.maven.org/> 上搜索自己的构件 ，大功告成�
 3. 可以在 <http://search.maven.org/>  搜索到，但是不能在 http://mvnrepository.com/ 搜索到，是因为更新频率不一样，等一天左右就好了，参见工作人员回复
 
    ![1529720659785](/images/1529720659785.png)
+
+4. `gpg --list-keys` 出现 unknown 解决
+
+   ```shell
+   gpg --edit-key user@useremail.com
+   
+   gpg> trust
+   
+   Please decide how far you trust this user to correctly verify other users' keys
+   (by looking at passports, checking fingerprints from different sources, etc.)
+   
+     1 = I don't know or won't say
+     2 = I do NOT trust
+     3 = I trust marginally
+     4 = I trust fully
+     5 = I trust ultimately
+     m = back to the main menu
+   
+   Your decision? 5
+   gpg> save
+   ```
+
 
 
 reference：
@@ -333,5 +358,7 @@ reference：
 [Why am I getting a “401 Unauthorized” error in Maven?](https://stackoverflow.com/questions/24830610/why-am-i-getting-a-401-unauthorized-error-in-maven)
 
 [将项目发布到 Maven 中央仓库踩过的坑](http://brianway.github.io/2017/05/17/release-to-maven-central-repo/)
+
+[[gpg —list-keys command outputs uid [ unknown \] after importing private key onto a clean install](https://unix.stackexchange.com/questions/407062/gpg-list-keys-command-outputs-uid-unknown-after-importing-private-key-onto/407070)
 
 [problem2]: https://www.oschina.net/question/1444646_2277979

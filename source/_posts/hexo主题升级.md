@@ -52,7 +52,7 @@ tags:
    打开`\themes\next\layout\_partials\footer.swig`文件,在copyright前加上画红线这句话
 
    ```js
-   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
    ```
 
    然后再合适的位置添加显示统计的代码，如图：
