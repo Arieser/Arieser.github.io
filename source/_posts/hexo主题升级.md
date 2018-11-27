@@ -136,6 +136,26 @@ tags:
 
    修改模板`/themes/next/layout/_macro/post.swig`，搜索 `rel="tag">#`，将 # 换成`<i class="fa fa-tag"></i>` 
 
+9. 修改打赏字体不闪动
+
+   修改文件`next/source/css/_common/components/post/post-reward.styl`， 注释`wechat:hover` 和`alipay:hover`， 如下：
+
+   ```css
+   /* 注释文字闪动函数
+    #wechat:hover p{
+       animation: roll 0.1s infinite linear;
+       -webkit-animation: roll 0.1s infinite linear;
+       -moz-animation: roll 0.1s infinite linear;
+   }
+    #alipay:hover p{
+      animation: roll 0.1s infinite linear;
+       -webkit-animation: roll 0.1s infinite linear;
+       -moz-animation: roll 0.1s infinite linear;
+   }
+   */
+   ```
+
+
 **参考文章**：
 [NexT 使用文档](http://theme-next.iissnan.com/)
 [利用Gulp来压缩你的Hexo博客](https://leaferx.online/2017/06/16/use-gulp-to-minimize/)
