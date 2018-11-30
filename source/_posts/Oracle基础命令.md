@@ -1,5 +1,5 @@
 ---
-title: Oracle
+title: Oracle基础命令
 date: 2016-05-09 11:31:38
 tags: 
   - oracle
