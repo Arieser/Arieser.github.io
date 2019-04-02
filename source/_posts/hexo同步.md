@@ -11,11 +11,13 @@ tags:
 过程：
 - 准备工作 git(Cygwin)，nodejs(win10)安装
 - 依次执行的命令
-    1. git clone -b hexo git@github.com:Arieser/Arieser.github.io.git hexo
+    1. git clone -b hexo git@github.com:silloy/silloy.github.io.git hexo
     2. cd hexo
     3. npm install -g hexo-cli
     4. npm install
     5. npm install hexo-deployer-git
+    6. npm install -g npm-check
+    7. npm-check -u  （npm-check -u -g）
 - 安装其他依赖包
     - https://github.com/theme-next/theme-next-canvas-nest
     - https://github.com/theme-next/theme-next-fancybox3
