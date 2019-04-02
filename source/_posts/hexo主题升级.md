@@ -36,33 +36,33 @@ tags:
       git clone https://github.com/theme-next/theme-next-pangu.git source/lib/pangu
       ```
 
-4. 页面增加3D渲染，next默认提供两种渲染效果，theme-next-three和canvas_nest
+   3. 页面增加3D渲染，next默认提供两种渲染效果，theme-next-three和canvas_nest
 
-   ```shell
-   cd themes/next
-   git clone https://github.com/theme-next/theme-next-three source/lib/three
-   git clone https://github.com/theme-next/theme-next-canvas-nest source/lib/canvas-nest
-   ```
+      ```shell
+      cd themes/next
+      git clone https://github.com/theme-next/theme-next-three source/lib/three
+      git clone https://github.com/theme-next/theme-next-canvas-nest source/lib/canvas-nest
+      ```
 
-   启用以下任意项：
+      启用以下任意项：
 
-   ```
-   three_waves: true
-   ```
+      ```
+      three_waves: true
+      ```
 
-   ```
-   canvas_lines: true
-   ```
+      ```
+      canvas_lines: true
+      ```
 
-   ```
-   canvas_sphere: true
-   ```
+      ```
+      canvas_sphere: true
+      ```
 
-   ```
-   canvas_nest: true
-   ```
+      ```
+      canvas_nest: true
+      ```
 
-5. 添加访问人数（6.0已原生支持busuanzi，启用即可）
+6. 添加访问人数（6.0已原生支持busuanzi，启用即可）
 
    打开`\themes\next\layout\_partials\footer.swig`文件,在copyright前加上画红线这句话
 
@@ -83,7 +83,7 @@ tags:
    - **pv**的方式，单个用户连续点击n篇文章，记录n次访问量
    - **uv**的方式，单个用户连续点击n篇文章，只记录1次访客数
 
-6. 每篇文章末尾统一添加“本文结束”标记
+7. 每篇文章末尾统一添加“本文结束”标记
 
    **实现方法**
 
@@ -114,7 +114,7 @@ tags:
      enabled: true
    ```
 
-7. 增加评论系统
+8. 增加评论系统
 
    **gitment**
 
@@ -145,32 +145,32 @@ tags:
 
    **valine**
 
-8. 文章底部增加版权信息
+9. 文章底部增加版权信息
 
-9. 修改文章底部的那个带#号的标签
+10. 修改文章底部的那个带#号的标签
 
    修改模板`/themes/next/layout/_macro/post.swig`，搜索 `rel="tag">#`，将 # 换成`<i class="fa fa-tag"></i>` 
 
-10. 修改打赏字体不闪动，next 7.0 已支持配置
+11. 修改打赏字体不闪动，next 7.0 已支持配置
 
-  修改文件`next/source/css/_common/components/post/post-reward.styl`， 注释`wechat:hover` 和`alipay:hover`， 如下：
+   修改文件`next/source/css/_common/components/post/post-reward.styl`， 注释`wechat:hover` 和`alipay:hover`， 如下：
 
-  ```css
-  /* 注释文字闪动函数
-   #wechat:hover p{
+   ```css
+   /* 注释文字闪动函数
+    #wechat:hover p{
+       animation: roll 0.1s infinite linear;
+       -webkit-animation: roll 0.1s infinite linear;
+       -moz-animation: roll 0.1s infinite linear;
+   }
+    #alipay:hover p{
       animation: roll 0.1s infinite linear;
-      -webkit-animation: roll 0.1s infinite linear;
-      -moz-animation: roll 0.1s infinite linear;
-  }
-   #alipay:hover p{
-     animation: roll 0.1s infinite linear;
-      -webkit-animation: roll 0.1s infinite linear;
-      -moz-animation: roll 0.1s infinite linear;
-  }
-  */
-  ```
+       -webkit-animation: roll 0.1s infinite linear;
+       -moz-animation: roll 0.1s infinite linear;
+   }
+   */
+   ```
 
-11. 模块化主题管理（以next主题为例）
+12. 模块化主题管理（以next主题为例）
 
    1. 备份next主题 `mv next next-bak`，提交代码
 
