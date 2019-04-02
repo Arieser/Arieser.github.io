@@ -155,6 +155,9 @@ tags:
    */
    ```
 
+10. 模块化主题管理（以next主题为例）
+    1. 备份next主题 `mv next next-bak`，提交代码
+    2. 
 
 **参考文章**：
 [NexT 使用文档](http://theme-next.iissnan.com/)
