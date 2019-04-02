@@ -156,8 +156,22 @@ tags:
    ```
 
 10. 模块化主题管理（以next主题为例）
+
     1. 备份next主题 `mv next next-bak`，提交代码
-    2. 
+
+    2. **增加子模块** `git submodule add git@github.com:silloy/hexo-theme-next.git themes/next`
+
+    3. 查看状态 `git status`
+
+       ```shell
+       Changes to be committed:
+         (use "git reset HEAD <file>..." to unstage)
+       
+       	new file:   .gitmodules
+       	new file:   themes/next
+       ```
+
+    4. 提交
 
 **参考文章**：
 [NexT 使用文档](http://theme-next.iissnan.com/)
