@@ -113,13 +113,13 @@
 <meta name="keywords" content="redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="remission 序列化问题追踪">
-<meta property="og:url" content="http://yoursite.com/2019/05/28/red/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/05/28/remission 序列化问题追踪/index.html">
 <meta property="og:site_name" content="Whirlwinder">
 <meta property="og:description" content="背景项目原本是用jedis连接redis，但考虑到需要用redis锁，因此替换为方便快捷的redisson，但是使用redisson之后会报decode error，具体信息如下： 12345678910112019-05-15 13:39:59.973 [redisson-netty-2-3] ERROR o.r.c.h.CommandDecoder [decodeCommand:203]">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://s2.ax1x.com/2019/05/15/ET2i0x.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/05/15/ET4s1S.png">
-<meta property="og:updated_time" content="2019-05-28T11:45:43.825Z">
+<meta property="og:updated_time" content="2019-05-28T11:48:06.746Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="remission 序列化问题追踪">
 <meta name="twitter:description" content="背景项目原本是用jedis连接redis，但考虑到需要用redis锁，因此替换为方便快捷的redisson，但是使用redisson之后会报decode error，具体信息如下： 12345678910112019-05-15 13:39:59.973 [redisson-netty-2-3] ERROR o.r.c.h.CommandDecoder [decodeCommand:203]">
@@ -131,7 +131,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/05/28/red/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/28/remission 序列化问题追踪/">
 
 
 
@@ -393,7 +393,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/red/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/remission 序列化问题追踪/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Harvey.Su">
@@ -455,8 +455,8 @@
                 </span>
             
                 <span class="post-meta-item-text">Comments: </span>
-                <a href="/2019/05/28/red/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/28/red/" itemprop="commentCount"></span>
+                <a href="/2019/05/28/remission 序列化问题追踪/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/28/remission 序列化问题追踪/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -493,6 +493,7 @@
       
         <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>项目原本是用jedis连接redis，但考虑到需要用redis锁，因此替换为方便快捷的<strong>redisson</strong>，但是使用redisson之后会报decode error，具体信息如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2019</span>-<span class="number">05</span>-<span class="number">15</span> <span class="number">13</span>:<span class="number">39</span>:<span class="number">59.973</span> [redisson-netty-<span class="number">2</span>-<span class="number">3</span>] ERROR o.r.c.h.CommandDecoder [decodeCommand:<span class="number">203</span>]     - Unable to decode data. channel: [id: <span class="number">0x477c5ced</span>, L:/<span class="number">192.168</span>.4.94:<span class="number">57423</span> - R:<span class="number">10.10</span>.10.43/<span class="number">10.10</span>.10.43:<span class="number">6379</span>], reply: ReplayingDecoderByteBuf(ridx=<span class="number">102</span>, widx=<span class="number">102</span>), command: (GET), params: [Geek:xxxxx:xxxx]</span><br><span class="line">java.io.IOException: java.lang.NullPointerException</span><br><span class="line">	at org.nustaq.serialization.FSTObjectInput.readObject(FSTObjectInput.java:<span class="number">247</span>)</span><br><span class="line">	at org.redisson.codec.FstCodec$<span class="number">1</span>.decode(FstCodec.java:<span class="number">228</span>)</span><br><span class="line">	at org.redisson.client.handler.CommandDecoder.decode(CommandDecoder.java:<span class="number">368</span>)</span><br><span class="line">	at org.redisson.client.handler.CommandDecoder.decodeCommand(CommandDecoder.java:<span class="number">200</span>)</span><br><span class="line">	at org.redisson.client.handler.CommandDecoder.decode(CommandDecoder.java:<span class="number">140</span>)</span><br><span class="line">	at org.redisson.client.handler.CommandDecoder.decode(CommandDecoder.java:<span class="number">115</span>)</span><br><span class="line">	at io.netty.handler.codec.ByteToMessageDecoder.decodeRemovalReentryProtection(ByteToMessageDecoder.java:<span class="number">502</span>)</span><br><span class="line">	at io.netty.handler.codec.ReplayingDecoder.callDecode(ReplayingDecoder.java:<span class="number">366</span>)</span><br><span class="line">	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:<span class="number">278</span>)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RBucket ste = redissonClient.getBucket(<span class="string">"Geek:add:ddd"</span>);</span><br><span class="line">Object re = ste.get();</span><br></pre></td></tr></table></figure>
 <p>考虑可能是由于序列化产生的问题，查到<a href="https://github.com/redisson/redisson/issues/2032" title="Issue" target="_blank" rel="noopener">NullPointer 3.10.6</a>，设置codec为<code>StringCodec</code>，即</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redissonClient.getConfig().setCodec(<span class="keyword">new</span> StringCodec());</span><br></pre></td></tr></table></figure>
