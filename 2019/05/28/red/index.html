@@ -109,16 +109,21 @@
 
 
 
-  <meta name="description" content="Manners Maketh Man.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Whirlwinder">
-<meta property="og:url" content="http://yoursite.com/archives/2016/05/index.html">
+  <meta name="description" content="背景项目原本是用jedis连接redis，但考虑到需要用redis锁，因此替换为方便快捷的redisson，但是使用redisson之后会报decode error，具体信息如下： 12345678910112019-05-15 13:39:59.973 [redisson-netty-2-3] ERROR o.r.c.h.CommandDecoder [decodeCommand:203]">
+<meta name="keywords" content="redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="remission 序列化问题追踪">
+<meta property="og:url" content="http://yoursite.com/2019/05/28/red/index.html">
 <meta property="og:site_name" content="Whirlwinder">
-<meta property="og:description" content="Manners Maketh Man.">
+<meta property="og:description" content="背景项目原本是用jedis连接redis，但考虑到需要用redis锁，因此替换为方便快捷的redisson，但是使用redisson之后会报decode error，具体信息如下： 12345678910112019-05-15 13:39:59.973 [redisson-netty-2-3] ERROR o.r.c.h.CommandDecoder [decodeCommand:203]">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://s2.ax1x.com/2019/05/15/ET2i0x.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/05/15/ET4s1S.png">
+<meta property="og:updated_time" content="2019-05-28T11:45:43.825Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Whirlwinder">
-<meta name="twitter:description" content="Manners Maketh Man.">
+<meta name="twitter:title" content="remission 序列化问题追踪">
+<meta name="twitter:description" content="背景项目原本是用jedis连接redis，但考虑到需要用redis锁，因此替换为方便快捷的redisson，但是使用redisson之后会报decode error，具体信息如下： 12345678910112019-05-15 13:39:59.973 [redisson-netty-2-3] ERROR o.r.c.h.CommandDecoder [decodeCommand:203]">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/05/15/ET2i0x.png">
 
 
 
@@ -126,7 +131,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/archives/2016/05/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/28/red/">
 
 
 
@@ -136,7 +141,7 @@
   };
 </script>
 
-  <title>Archive | Whirlwinder</title>
+  <title>remission 序列化问题追踪 | Whirlwinder</title>
   
 
 
@@ -195,7 +200,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -271,7 +276,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -366,136 +371,273 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/red/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Harvey.Su">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">remission 序列化问题追踪
+
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-28 17:26:43" itemprop="dateCreated datePublished" datetime="2019-05-28T17:26:43+08:00">2019-05-28</time>
+            
+
+            
+          </span>
+
           
-        
-        Um..! 18 posts in total. Keep on posting.
-      </span>
-      
 
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2016">2016</h1>
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/05/28/red/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/28/red/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>项目原本是用jedis连接redis，但考虑到需要用redis锁，因此替换为方便快捷的<strong>redisson</strong>，但是使用redisson之后会报decode error，具体信息如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2019</span>-<span class="number">05</span>-<span class="number">15</span> <span class="number">13</span>:<span class="number">39</span>:<span class="number">59.973</span> [redisson-netty-<span class="number">2</span>-<span class="number">3</span>] ERROR o.r.c.h.CommandDecoder [decodeCommand:<span class="number">203</span>]     - Unable to decode data. channel: [id: <span class="number">0x477c5ced</span>, L:/<span class="number">192.168</span>.4.94:<span class="number">57423</span> - R:<span class="number">10.10</span>.10.43/<span class="number">10.10</span>.10.43:<span class="number">6379</span>], reply: ReplayingDecoderByteBuf(ridx=<span class="number">102</span>, widx=<span class="number">102</span>), command: (GET), params: [Geek:xxxxx:xxxx]</span><br><span class="line">java.io.IOException: java.lang.NullPointerException</span><br><span class="line">	at org.nustaq.serialization.FSTObjectInput.readObject(FSTObjectInput.java:<span class="number">247</span>)</span><br><span class="line">	at org.redisson.codec.FstCodec$<span class="number">1</span>.decode(FstCodec.java:<span class="number">228</span>)</span><br><span class="line">	at org.redisson.client.handler.CommandDecoder.decode(CommandDecoder.java:<span class="number">368</span>)</span><br><span class="line">	at org.redisson.client.handler.CommandDecoder.decodeCommand(CommandDecoder.java:<span class="number">200</span>)</span><br><span class="line">	at org.redisson.client.handler.CommandDecoder.decode(CommandDecoder.java:<span class="number">140</span>)</span><br><span class="line">	at org.redisson.client.handler.CommandDecoder.decode(CommandDecoder.java:<span class="number">115</span>)</span><br><span class="line">	at io.netty.handler.codec.ByteToMessageDecoder.decodeRemovalReentryProtection(ByteToMessageDecoder.java:<span class="number">502</span>)</span><br><span class="line">	at io.netty.handler.codec.ReplayingDecoder.callDecode(ReplayingDecoder.java:<span class="number">366</span>)</span><br><span class="line">	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:<span class="number">278</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RBucket ste = redissonClient.getBucket(<span class="string">"Geek:add:ddd"</span>);</span><br><span class="line">Object re = ste.get();</span><br></pre></td></tr></table></figure>
+<p>考虑可能是由于序列化产生的问题，查到<a href="https://github.com/redisson/redisson/issues/2032" title="Issue" target="_blank" rel="noopener">NullPointer 3.10.6</a>，设置codec为<code>StringCodec</code>，即</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redissonClient.getConfig().setCodec(<span class="keyword">new</span> StringCodec());</span><br></pre></td></tr></table></figure>
+<p>但是并未解决问题，redisson仍然使用默认的<code>FstCodec</code>，通过idea强大的提示功能可以看到 getBucket接受一个codec参数</p>
+<p><img src="https://s2.ax1x.com/2019/05/15/ET2i0x.png" alt="idea.png"></p>
+<p>修改代码为</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RBucket ste = redissonClient.getBucket(<span class="string">"Geek:add:ddd"</span>, <span class="keyword">new</span> StringCodec());</span><br><span class="line">String re = ste.get();</span><br></pre></td></tr></table></figure>
+<p>完美解决</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>为什么直接设置redisson config 不生效呢，一步步查源码 <code>RedissonObject#RedissonObject</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public RedissonObject(CommandAsyncExecutor commandExecutor, String name) &#123;</span><br><span class="line">        this(commandExecutor.getConnectionManager().getCodec(), commandExecutor, name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出redisson 默认从<code>ConnectionManager</code>里获取<code>codec</code>方式，继续看，以 <code>SingleConnectionManager</code> 为例，<code>SingleConnectionManager</code>是<code>MasterSlaveConnectionManager</code>的子类，具体的类图关系</p>
+<p><img src="https://s2.ax1x.com/2019/05/15/ET4s1S.png" alt="connectionManage.png"></p>
+<p>config.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Config</span><span class="params">(Config oldConf)</span> </span>&#123;</span><br><span class="line">        setExecutor(oldConf.getExecutor());</span><br><span class="line">        <span class="keyword">if</span> (oldConf.getCodec() == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// use it by default</span></span><br><span class="line">            oldConf.setCodec(<span class="keyword">new</span> FstCodec());</span><br><span class="line">        &#125;</span><br><span class="line">......</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>即检测到原有codec为空时，则设置为<code>FstCodec</code></p>
+<p>看一下 Redisson.java 配置关键部分代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="title">Redisson</span><span class="params">(Config config)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.config = config;</span><br><span class="line">  Config configCopy = <span class="keyword">new</span> Config(config);</span><br><span class="line"></span><br><span class="line">  connectionManager = ConfigSupport.createConnectionManager(configCopy);</span><br><span class="line">  evictionScheduler = <span class="keyword">new</span> EvictionScheduler(connectionManager.getCommandExecutor());</span><br><span class="line">  writeBehindService = <span class="keyword">new</span> WriteBehindService(connectionManager.getCommandExecutor());</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> RedissonClient <span class="title">create</span><span class="params">(Config config)</span> </span>&#123;</span><br><span class="line">  Redisson redisson = <span class="keyword">new</span> Redisson(config);</span><br><span class="line">  <span class="keyword">if</span> (config.isReferenceEnabled()) &#123;</span><br><span class="line">    redisson.enableRedissonReferenceSupport();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> redisson;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出， config是在redisson初始化的时候传入的</p>
+<p>因为我用的是<code>redisson-spring-boot-starter</code>，看一下这个starter里面，是如何初始化的，redisson starter 默认使用 spring-data-redis 配置。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span>(destroyMethod = <span class="string">"shutdown"</span>)</span><br><span class="line">    <span class="meta">@ConditionalOnMissingBean</span>(RedissonClient.class)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedissonClient <span class="title">redisson</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Config config = <span class="keyword">null</span>;</span><br><span class="line">       ....</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (redissonProperties.getConfig() != <span class="keyword">null</span>) &#123;</span><br><span class="line">            ....</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            config = <span class="keyword">new</span> Config();</span><br><span class="line">            String prefix = <span class="string">"redis://"</span>;</span><br><span class="line">            Method method = ReflectionUtils.findMethod(RedisProperties.class, <span class="string">"isSsl"</span>);</span><br><span class="line">            <span class="keyword">if</span> (method != <span class="keyword">null</span> &amp;&amp; (Boolean)ReflectionUtils.invokeMethod(method, redisProperties)) &#123;</span><br><span class="line">                prefix = <span class="string">"rediss://"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            config.useSingleServer()</span><br><span class="line">                .setAddress(prefix + redisProperties.getHost() + <span class="string">":"</span> + redisProperties.getPort())</span><br><span class="line">                .setConnectTimeout(timeout)</span><br><span class="line">                .setDatabase(redisProperties.getDatabase())</span><br><span class="line">                .setPassword(redisProperties.getPassword());</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">   <span class="keyword">return</span> Redisson.create(config);</span><br></pre></td></tr></table></figure>
+<p>回到一开始的问题，直接设置redisson codec为什么不生效？仔细以上分析可以知道，redisson统一设置codec主要是通过初始化的时候传入<strong>ConnectionManager</strong>使 codec生效，而通过 <code>redissonClient.getConfig().setCodec(...)</code>的方式并不能改变<strong>ConnectionManager</strong>中的编码方式。</p>
+<p>结论：</p>
+<ol>
+<li>如果想自定义codec，需要自己初始化redissonClient[调用Redisson.create(config)]， 或者重写redisson-starter</li>
+<li>在定制化程度不高时，可直接使用默认codec，或者把特定的codec传入方法体内</li>
+</ol>
+<p><strong>Reference</strong></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Harvey.Su WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.png" alt="Harvey.Su Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/redis/" rel="tag"># redis</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
           </div>
         
-        
 
         
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
         
-          <a class="post-title-link" href="/2016/05/14/vm环境安装linuxmint/" itemprop="url">
-            
-              <span itemprop="name">vm环境安装linuxmint</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2016-05-14T20:49:30+08:00" content="2016-05-14">
-          05-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+        </div>
+      
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2016/05/09/Oracle基础命令/" itemprop="url">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span itemprop="name">Oracle基础命令</span>
+              <a href="/2018/09/05/微服务架构BFF和网关/" rel="next" title="微服务架构BFF和网关">
+                <i class="fa fa-chevron-left"></i> 微服务架构BFF和网关
+              </a>
             
-          </a>
-        
-      </h2>
+          </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2016-05-09T11:31:38+08:00" content="2016-05-09">
-          05-09
-        </time>
-      </div>
+          <span class="post-nav-divider"></span>
 
-    </header>
-  </article>
-
-
-
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
-    </div>
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
 
         </div>
         
@@ -515,8 +657,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -640,6 +791,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试代码"><span class="nav-number">2.</span> <span class="nav-text">测试代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">3.</span> <span class="nav-text">问题</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -809,6 +977,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
 
   
 
@@ -854,6 +1026,8 @@
 
 
 
+
+  
 
 
   
@@ -1198,6 +1372,25 @@
   
 
   
+  <script>
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id: 11278,
+      el: 'wpac-rating',
+      color: 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  </script>
+
 
   
 
