@@ -109,18 +109,18 @@
 
 
 
-  <meta name="description" content="翻译自 Under the Hood of Redis: Strings 你知道简单string strings 在redis里占用了56 bytes的内存吗？ 我会试图告诉你为什么，了解redis运行原理时非常重要的。当你试图构建一个高负载的应用显的尤为重要，同时，你很快就会理解你的redis实例为什么会消费大量的内存？ 这篇文章主要介绍以下几个主题：  strings 在redis里如何存储">
+  <meta name="description" content="翻译自 Under the Hood of Redis: Strings 你知道简单string strings 在redis里占用了56 bytes的内存吗？ 我会试图告诉你为什么，了解redis运行原理时非常重要的。当你试图构建一个高负载的应用显的尤为重要，同时，你很快就会理解你的redis实例为什么会消费大量的内存？">
 <meta name="keywords" content="redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redis底层原理-Strings">
 <meta property="og:url" content="http://yoursite.com/2019/08/21/redis底层原理-Strings/index.html">
 <meta property="og:site_name" content="Whirlwinder">
-<meta property="og:description" content="翻译自 Under the Hood of Redis: Strings 你知道简单string strings 在redis里占用了56 bytes的内存吗？ 我会试图告诉你为什么，了解redis运行原理时非常重要的。当你试图构建一个高负载的应用显的尤为重要，同时，你很快就会理解你的redis实例为什么会消费大量的内存？ 这篇文章主要介绍以下几个主题：  strings 在redis里如何存储">
+<meta property="og:description" content="翻译自 Under the Hood of Redis: Strings 你知道简单string strings 在redis里占用了56 bytes的内存吗？ 我会试图告诉你为什么，了解redis运行原理时非常重要的。当你试图构建一个高负载的应用显的尤为重要，同时，你很快就会理解你的redis实例为什么会消费大量的内存？">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-21T06:03:13.309Z">
+<meta property="og:updated_time" content="2019-08-21T06:08:10.847Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis底层原理-Strings">
-<meta name="twitter:description" content="翻译自 Under the Hood of Redis: Strings 你知道简单string strings 在redis里占用了56 bytes的内存吗？ 我会试图告诉你为什么，了解redis运行原理时非常重要的。当你试图构建一个高负载的应用显的尤为重要，同时，你很快就会理解你的redis实例为什么会消费大量的内存？ 这篇文章主要介绍以下几个主题：  strings 在redis里如何存储">
+<meta name="twitter:description" content="翻译自 Under the Hood of Redis: Strings 你知道简单string strings 在redis里占用了56 bytes的内存吗？ 我会试图告诉你为什么，了解redis运行原理时非常重要的。当你试图构建一个高负载的应用显的尤为重要，同时，你很快就会理解你的redis实例为什么会消费大量的内存？">
 
 
 
@@ -433,7 +433,7 @@
                 
               
 
-              <time title="Created: 2019-08-21 11:22:35" itemprop="dateCreated datePublished" datetime="2019-08-21T11:22:35+08:00">2019-08-21</time>
+              <time title="Created: 2019-08-21 17:26:43" itemprop="dateCreated datePublished" datetime="2019-08-21T17:26:43+08:00">2019-08-21</time>
             
 
             
@@ -491,6 +491,7 @@
         <p>翻译自 <a href="http://redisplanet.com/redis/under-the-hood-of-redis-strings/" target="_blank" rel="noopener">Under the Hood of Redis: Strings</a></p>
 <p>你知道简单string <code>strings</code> 在redis里占用了56 bytes的内存吗？</p>
 <p>我会试图告诉你为什么，了解redis运行原理时非常重要的。当你试图构建一个高负载的应用显的尤为重要，同时，你很快就会理解你的redis实例为什么会消费大量的内存？</p>
+<a id="more"></a>
 <p>这篇文章主要介绍以下几个主题：</p>
 <ul>
 <li>strings 在redis里如何存储</li>
