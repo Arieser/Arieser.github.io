@@ -109,20 +109,18 @@
 
 
 
-  <meta name="description" content="mybatis是一个很好用的工具，但是编写mapper是一件很麻烦的事，自mybatis 3.0开始可以使用注解的方式，极大的简化了xml的编写量，本地想看看mybatis源码，自己扩展写一个工具，在阅读源码过程中发现一个通用mapper的工具包，感觉不用重复造轮子了，简要记录一下spring boot整合通用mapper的使用。">
-<meta name="keywords" content="spring boot">
+  <meta name="description" content="翻译自 Under the Hood of Redis: Strings 你知道简单string strings 在redis里占用了56 bytes的内存吗？ 我会试图告诉你为什么，了解redis运行原理时非常重要的。当你试图构建一个高负载的应用显的尤为重要，同时，你很快就会理解你的redis实例为什么会消费大量的内存？ 这篇文章主要介绍以下几个主题：  strings 在redis里如何存储">
+<meta name="keywords" content="redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringBoot-Mybatis通用mapper使用">
-<meta property="og:url" content="http://yoursite.com/2018/06/15/SpringBoot-Mybatis通用mapper使用/index.html">
+<meta property="og:title" content="redis底层原理-Strings">
+<meta property="og:url" content="http://yoursite.com/2019/08/21/redis底层原理-Strings/index.html">
 <meta property="og:site_name" content="Whirlwinder">
-<meta property="og:description" content="mybatis是一个很好用的工具，但是编写mapper是一件很麻烦的事，自mybatis 3.0开始可以使用注解的方式，极大的简化了xml的编写量，本地想看看mybatis源码，自己扩展写一个工具，在阅读源码过程中发现一个通用mapper的工具包，感觉不用重复造轮子了，简要记录一下spring boot整合通用mapper的使用。">
+<meta property="og:description" content="翻译自 Under the Hood of Redis: Strings 你知道简单string strings 在redis里占用了56 bytes的内存吗？ 我会试图告诉你为什么，了解redis运行原理时非常重要的。当你试图构建一个高负载的应用显的尤为重要，同时，你很快就会理解你的redis实例为什么会消费大量的内存？ 这篇文章主要介绍以下几个主题：  strings 在redis里如何存储">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://yoursite.com/images/1529042422800.png">
-<meta property="og:updated_time" content="2019-04-02T04:06:03.319Z">
+<meta property="og:updated_time" content="2019-08-21T06:03:13.309Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SpringBoot-Mybatis通用mapper使用">
-<meta name="twitter:description" content="mybatis是一个很好用的工具，但是编写mapper是一件很麻烦的事，自mybatis 3.0开始可以使用注解的方式，极大的简化了xml的编写量，本地想看看mybatis源码，自己扩展写一个工具，在阅读源码过程中发现一个通用mapper的工具包，感觉不用重复造轮子了，简要记录一下spring boot整合通用mapper的使用。">
-<meta name="twitter:image" content="http://yoursite.com/images/1529042422800.png">
+<meta name="twitter:title" content="redis底层原理-Strings">
+<meta name="twitter:description" content="翻译自 Under the Hood of Redis: Strings 你知道简单string strings 在redis里占用了56 bytes的内存吗？ 我会试图告诉你为什么，了解redis运行原理时非常重要的。当你试图构建一个高负载的应用显的尤为重要，同时，你很快就会理解你的redis实例为什么会消费大量的内存？ 这篇文章主要介绍以下几个主题：  strings 在redis里如何存储">
 
 
 
@@ -130,7 +128,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2018/06/15/SpringBoot-Mybatis通用mapper使用/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/21/redis底层原理-Strings/">
 
 
 
@@ -140,7 +138,7 @@
   };
 </script>
 
-  <title>SpringBoot-Mybatis通用mapper使用 | Whirlwinder</title>
+  <title>redis底层原理-Strings | Whirlwinder</title>
   
 
 
@@ -392,7 +390,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/15/SpringBoot-Mybatis通用mapper使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/redis底层原理-Strings/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Harvey.Su">
@@ -409,7 +407,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SpringBoot-Mybatis通用mapper使用
+          <h1 class="post-title" itemprop="name headline">redis底层原理-Strings
 
               
             
@@ -435,7 +433,7 @@
                 
               
 
-              <time title="Created: 2018-06-15 13:36:43" itemprop="dateCreated datePublished" datetime="2018-06-15T13:36:43+08:00">2018-06-15</time>
+              <time title="Created: 2019-08-21 11:22:35" itemprop="dateCreated datePublished" datetime="2019-08-21T11:22:35+08:00">2019-08-21</time>
             
 
             
@@ -454,8 +452,8 @@
                 </span>
             
                 <span class="post-meta-item-text">Comments: </span>
-                <a href="/2018/06/15/SpringBoot-Mybatis通用mapper使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/06/15/SpringBoot-Mybatis通用mapper使用/" itemprop="commentCount"></span>
+                <a href="/2019/08/21/redis底层原理-Strings/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/21/redis底层原理-Strings/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -490,50 +488,65 @@
       
 
       
-        <p>mybatis是一个很好用的工具，但是编写mapper是一件很麻烦的事，自mybatis 3.0开始可以使用注解的方式，极大的简化了xml的编写量，本地想看看mybatis源码，自己扩展写一个工具，在阅读源码过程中发现一个通用mapper的工具包，感觉不用重复造轮子了，简要记录一下spring boot整合通用mapper的使用。</p>
-<p><img src="/images/1529042422800.png" alt="1529042422800"></p>
-<a id="more"></a>
-<ol start="0">
-<li><p>确保可以正常使用mybatis</p>
-</li>
-<li><p>pom引入依赖包，starter需要配合@Mapper注解使用，这里采用这种方式，或者使用<code>@MapperScan</code>注解，<a href="mailto:`@tk.mybatis.spring.annotation.MapperScan" target="_blank" rel="noopener">`@tk.mybatis.spring.annotation.MapperScan</a>(basePackages = “扫描包”)`配合原生mapper使用。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;tk.mybatis&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;mapper-spring-boot-starter&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;&#123;version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<p>我使用的版本是2.0.<a href>2</a></p>
-</li>
-<li><p>Mybatis 扫描配置（Deprecated, spring 自动配置）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">//TODO 注意，由于MapperScannerConfigurer执行的比较早，所以必须有下面的注解</span></span><br><span class="line"><span class="meta">@AutoConfigureAfter</span>(MybatisAutoConfiguration.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBatisMapperScannerConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MapperScannerConfigurer <span class="title">mapperScannerConfigurer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        MapperScannerConfigurer mapperScannerConfigurer = <span class="keyword">new</span> MapperScannerConfigurer();</span><br><span class="line">        mapperScannerConfigurer.setSqlSessionFactoryBeanName(<span class="string">"sqlSessionFactory"</span>);</span><br><span class="line">        mapperScannerConfigurer.setBasePackage(<span class="string">"org.springboot.sample.mapper"</span>);</span><br><span class="line">        Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">        <span class="comment">// 这里要特别注意，不要把MyMapper放到 basePackage 中，也就是不能同其他Mapper一样被扫描到。 </span></span><br><span class="line">        properties.setProperty(<span class="string">"mappers"</span>, MyMapper.class.getName());</span><br><span class="line">        properties.setProperty(<span class="string">"notEmpty"</span>, <span class="string">"false"</span>);</span><br><span class="line">        properties.setProperty(<span class="string">"IDENTITY"</span>, <span class="string">"MYSQL"</span>);</span><br><span class="line">        mapperScannerConfigurer.setProperties(properties);</span><br><span class="line">        <span class="keyword">return</span> mapperScannerConfigurer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>新建BaseMapper类，该类不能被当做普通Mapper一样被扫描 ，不加@Mapper注解，或者放在不同文件夹</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zj.mapper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> tk.mybatis.mapper.common.Mapper;</span><br><span class="line"><span class="keyword">import</span> tk.mybatis.mapper.common.MySqlMapper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BaseMapper</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">T</span>&gt;, <span class="title">MySqlMapper</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>业务处理dao层，扩展BaseMapper</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zj.mapper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.zj.model.OrderInfo;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.Mapper;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OrderInfoMapper</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">OrderInfo</span>&gt; </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>其他和使用普通mybatis一致，service层部分代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">orderInfoMapper.insertSelective(info);</span><br><span class="line">OrderInfo info = orderInfoMapper.selectByPrimaryKey(id);</span><br></pre></td></tr></table></figure>
-<p>通用mapper提供常用的一些操作方法: deleteByPrimaryKey, insert, insertSelective, selectByPrimaryKey, updateByPrimaryKeySelective, updateByPrimaryKey, insertList等很多方法，需要你进一步探索😀😀</p>
-</li>
-<li><p>主键id问题</p>
-<p>当使用insert，insertSelective等方法时，希望返回由数据库产生的逐渐，需要在实体类上增加注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Id</span></span><br><span class="line"><span class="meta">@GeneratedValue</span>(generator = <span class="string">"JDBC"</span>)</span><br><span class="line"><span class="keyword">private</span> Long orderInfoId;</span><br></pre></td></tr></table></figure>
-<p>generator=”JDBC”表示 MyBatis 使用 JDBC 的 getGeneratedKeys 方法来取出由数据库内部生成的主键 ，适用于MySQL，SQL Server等的自增主键。</p>
-<p>或者：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Id</span></span><br><span class="line"><span class="meta">@KeySql</span>(useGeneratedKeys = <span class="keyword">true</span>)</span><br><span class="line"><span class="keyword">private</span> Long id;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果实体字段和数据库字段不一致，可以使用<code>@Column</code>注解，其他注解 参见<a href="https://github.com/abel533/Mapper/wiki/2.2-mapping" target="_blank" rel="noopener">注解</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Column</span>(name=<span class="string">"SCORE_SUM"</span>)</span><br><span class="line"><span class="keyword">private</span> String sumScore;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>MBG生成参见<a href="https://github.com/abel533/Mapper/wiki/4.1.mappergenerator，demo见" target="_blank" rel="noopener">https://github.com/abel533/Mapper/wiki/4.1.mappergenerator，demo见</a> <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:silloy/mybatis-generator.git</p>
-</li>
-<li><p>更多细节参见wiki</p>
-</li>
-</ol>
-<p>   通用Mapper极大的简化了xml文件的编写，但仍需要少许xml文件，有待进一步优化。同时因为这是一个个人项目，使用不太熟悉不建议使用。</p>
-<p>reference:</p>
-<p><a href="http://www.mybatis.tk/" target="_blank" rel="noopener">http://www.mybatis.tk/</a></p>
-<p><a href="https://github.com/abel533/Mapper/wiki" target="_blank" rel="noopener">https://github.com/abel533/Mapper/wiki</a></p>
-<p><a href="https://github.com/abel533/Mapper" target="_blank" rel="noopener">https://github.com/abel533/Mapper</a></p>
-<p><a href="https://blog.csdn.net/qq_19260029/article/details/78010369" target="_blank" rel="noopener">https://blog.csdn.net/qq_19260029/article/details/78010369</a></p>
+        <p>翻译自 <a href="http://redisplanet.com/redis/under-the-hood-of-redis-strings/" target="_blank" rel="noopener">Under the Hood of Redis: Strings</a></p>
+<p>你知道简单string <code>strings</code> 在redis里占用了56 bytes的内存吗？</p>
+<p>我会试图告诉你为什么，了解redis运行原理时非常重要的。当你试图构建一个高负载的应用显的尤为重要，同时，你很快就会理解你的redis实例为什么会消费大量的内存？</p>
+<p>这篇文章主要介绍以下几个主题：</p>
+<ul>
+<li>strings 在redis里如何存储</li>
+<li>strings 的内部结构是什么样的</li>
+<li>redis 使用的优化机制</li>
+<li>依据不同场景，如何有效的使用strings或者以此为基础的结构</li>
+</ul>
+<p>Strings是redis里最常用的数据结构。 HSET/ZSET/LIST 在内部结构上都会增加一定的开销。过去一年，我在  <a href="http://stackoverflow.com/" target="_blank" rel="noopener">stackoverflow</a> 上浏览了大量关于redis的答案， 让我意识到大量的开发者并不理解reids的内存结构以及redis为高速所付出的代价。这是该系列的第一篇文章，讲解redis内部构造。redis数据结构会占用多少内存的问题实际和编译器，CPU以及redis使用的内存分配器相关（redis默认使用jemalloc）。以下的计算依赖64位 centos 上的redis 3.0.5 版本。</p>
+<p>对于不编写或者不熟悉C/C++的开发者而言，理解可能上不太容易。在此我会简化概念以让你能理解计算过程。在C/C++语言里，当你声明unsigned int (4  bytes) 变量，编译器会分配8 bytes内存（64位架构）。jemalloc 内存分配器会优化查找新的内存块的速度，并对齐分配的内存。jemalloc 的内存分配策略运行良好，然而接下来我认为我应该使用简化的概念来描述。你请求24 bytes，分配32。你请求61，分配64。我做了深度的简化，希望你理解的更清楚。</p>
+<p>Salvatore Sanfilippo’s (aka antirez）通过一种SDS的结构来解释strings：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+--------+-------------------------------+-----------+</span><br><span class="line">| Header | Binary safe C alike string... | Null term |</span><br><span class="line">+--------+-------------------------------+-----------+</span><br><span class="line">         |</span><br><span class="line">         `-&gt; Pointer returned to the user.</span><br></pre></td></tr></table></figure>
+<p>这是一种简单的<code>C</code>结构，header 部分包含string数据部分和末尾0的实际大小和内存占用空间的信息。我们感兴趣的事sds strings header结构的成本，resize策略和内存分配的代价。</p>
+<p>2015年7月4号，pull request  <a href="https://github.com/antirez/redis/pull/2509" target="_blank" rel="noopener">a long history with the optimization of sds strings</a>, 被引入Redis 3.2，使sds headers部分内存占用大幅度降低（从16%到200%不等）。移除了redis里关于redis string 最大512MB的限制。所有的这些可能性都归功于string长度变化时，header的动态变更。strings长度在256 bytes以下时，header仅占用3 bytes，65kb以下时占用5 bytes，512MB以下时占用9 bytes，uint64_t(64 bit unsigned integer)以下时占用17 bytes。而这种变化可以减少redis server farm 19.3%的内存（～42 GB）。然而，在Redis 3.0.x 中简化为 8 bytes 加 末端零占用的1 byte。让我们评估一下string <code>strings</code>的内存占用：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">16 (header) + 7 (string length) + 1(trailing zero) = 24  bytes (16  bytes in the header, because the compiler will align 2 unsigned int for you).</span><br></pre></td></tr></table></figure>
+<p>jemalloc 会分配32 bytes。Let’s take as long as it will not be taken into account （我希望你售后能理解为什么）。</p>
+<p>当一个字符串大小变化时会引起什么变化？当你增加字符串长度，同时发现已分配的内存不足，redis 会将新长度和常量<code>SDS_MAX_PREALLOC</code>（sds.h中定义，值为1,048,576 bytes）比较。如果新长度比该值小，则会分配两倍的请求大小。如过请求长度大于 <code>SDS_MAX_PREALLOC</code> ，新增加的长度会增加到这个常量上。</p>
+<p>这个特性对于主题-bitmaps使用中内存减少 这个问题非常重要。分配的内存通常是需要的两倍，是因为setbit实现的需要（参见 setbit 命令，bitops.c）。</p>
+<p>现在你可以说 strings 会占用32 bytes（包括已分配的）。浏览过 hashedin.com (<a href="https://github.com/sripathikrishnan/redis-rdb-tools/wiki/Redis-Memory-Optimization" target="_blank" rel="noopener">redis memory optimization guide</a>) 的读者可能会想起他们被强烈建议不要使用少于100 bytes 的字符串，比如 <code>set foo bar</code> 会占用 ～96 bytes，其中 90 bytes 的开销（64位机器）。讲道理，让我们看一下为什么。</p>
+<p>reids里所有的值都被命名为 <code>redisObject</code>， 内部结构如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">+------+----------+-----+----------+-------------------------+</span><br><span class="line">| Type | Encoding | LRU | RefCount | Pointer to  data (ptr*) |</span><br><span class="line">+------+----------+-----+----------+-------------------------+</span><br></pre></td></tr></table></figure>
+<p>稍后我们会计算字符串的大小，了解账户编译器和jemalloc特性。了解存储字符串的编码是非常重要的，redis会使用三种不同的存储策略：</p>
+<ul>
+<li><strong>REDIS_ENCODING_INT</strong>. Strings can be stored in this form, if the value is cast to long value in the range <strong>LONG_MIN</strong>, <strong>LONG_MAX</strong>. For example, the string «dict» it will be stored in the form of this encoding, and will be the number 1952672100 (0x74636964). This encoding is also used for pre-selected range of special values in the range <strong>REDIS_SHARED_INTEGERS</strong> (defined in redis.h and the default is 10000). The values of this range are allocated immediately at the start of Redis.</li>
+<li><strong>REDIS_ENCODING_EMBSTR</strong> used for strings with a length up to 39 bytes (the value from constant <strong>REDIS_ENCODING_EMBSTR_SIZE_LIMIT</strong> object.c). This means that redisObject structure and sds string structure are placed in a single area of memory allocated by allocator. With this in mind, we will be able to calculate the correct alignment. However, it is equally important to understand the problem of memory fragmentation in the Redis and how to live with it.</li>
+<li><strong>REDIS_ENCODING_RAW</strong> used for all strings whose length exceeds <strong>REDIS_ENCODING_EMBSTR_SIZE_LIMIT</strong>. In this case our ptr * stores a pointer to the memory area with sds string.</li>
+</ul>
+<p>EMBSTR 在2012年出现，在短字符串方面，带来了大约 60%-70%的性能提升，但目前对内存及其碎片化影响的研究还不多。</p>
+<p>7 bytes 的 <code>strings</code> 字符串，使用 EMBSTR 存储结构。构建的存储结构类似这样：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+--------------+--------------+------------+--------+----+</span><br><span class="line">| robj data... | robj-&gt;ptr    | sds header | string | \0 |</span><br><span class="line">+--------------+-----+--------+------------+--------+----+</span><br><span class="line">                     |                       ^</span><br><span class="line">                     +-----------------------+</span><br></pre></td></tr></table></figure>
+<p>现在我们可以再次计算 <code>strings</code> 的内存占用情况</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(4 + 4)* + 8(encoding) + 8 (lru) + 8 (refcount) + 8 (ptr) + 16 (sds header) + 7(strig itself) + 1 (terminating zero) = 56 bytes.</span><br></pre></td></tr></table></figure>
+<p><em>The type and value in redisObject uses only the 4 lower and higher bits in the same number, so these two aligned fields will take 8 bytes.</em></p>
+<p>让我们检查一下，使用 DEBUG SDSLEN 来debug SDS (<a href="http://redis.io/commands/debug-object" target="_blank" rel="noopener">http://redis.io/commands/debug-object</a>) 字符串。这个命令在redis2.6 被加入。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">set key strings</span><br><span class="line">+OK</span><br><span class="line">debug object key</span><br><span class="line">+Value at:0x7fa037c35dc0 refcount:1 encoding:embstr serializedlength:8 lru:3802212 lru_seconds_idle:14</span><br><span class="line">debug sdslen key</span><br><span class="line">+key_sds_len:3, key_sds_avail:0, val_sds_len:7, val_sds_avail:0</span><br></pre></td></tr></table></figure>
+<p>使用EMBSTR编码，字符串长度 7 bytes（有效SDS长度），那么 hashdin.com 的开发者讨论的 96 bytes 又是关于什么呢？在我的理解中，他们犯了一点小错误，<code>set foo bar 需要分配112 bytes内存（value 56 bytes，key 56 bytes）</code>，内存开销 106 bytes。</p>
+<p>我承诺会说明使用BITMAP时，节省内存的情况。Redis 2.2 开始出现的 Bit 和 byte 操作 就想一个实时计数的魔法棒，可以节省内存。官方口号是“上亿用户数据，仅占用12M内存“。</p>
+<p>理解了redis内存字符串原理，也可以了解bitmap。“是否应该被用于少量数据？”。假设你需要记录一千万人的上网数据：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">setbit online 10000000 1</span><br><span class="line">:0</span><br><span class="line">debug sdslen online</span><br><span class="line">+key_sds_len:6, key_sds_avail:0, val_sds_len:1250001, val_sds_avail:1048576</span><br></pre></td></tr></table></figure>
+<p>你会消费 2,288,577 bytes 内存，对你来说“有用”的部分为 1,250,001 bytes。存储你的一个用户花费 ～2.3 MB，使用 SET 你需要 ～64 bytes（pyaload 为 4 bytes）。使用这种数据结构可以有效减少内存使用量。如果你有10,000～100,000用户，bitmap结构就可以复用内存。</p>
+<p>最后，了解一下 字符串 resize，即就是重新分配内存块。内存碎片化是redis的另一个特性，很少有开发者能考虑到这一点：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">info memory</span><br><span class="line"><span class="meta">$</span><span class="bash">222</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Memory</span></span><br><span class="line">used_memory:506920</span><br><span class="line">used_memory_human:495.04K</span><br><span class="line">used_memory_rss:7565312</span><br><span class="line">used_memory_peak:2810024</span><br><span class="line">used_memory_peak_human:2.68M</span><br><span class="line">used_memory_lua:36864</span><br><span class="line">mem_fragmentation_ratio:14.92</span><br><span class="line">mem_allocator:jemalloc-3.6.0</span><br></pre></td></tr></table></figure>
+<p><code>mem_fragmentation_ratio</code> 指标显示了系统分配的内存<code>used_memory_rss</code> 和 redis使用内存<code>used_memory</code>的比率。<code>use_memory</code> 和 <code>use_memory_ree</code>包含了数据和redis存储的内部数据结构所占用内存。 Redis RSS (<code>Resident Set Size</code>) - RAM allocated by the operating system, which in addition to the user data (and the costs of their internal representation) accounted for the cost of fragmentation during the physical allocation of the operating system.</p>
+<p>如何理解 <code>mem_fragmentation_ratio</code> ？2.1 意思是需要210%的更多内存。小于1则意味着内存被终止，操作系统正在交换内存。</p>
+<p>实际中，如果该数字超过 1-1.5边界意味着有地方出错了，尝试以下解决方法：</p>
+<ul>
+<li>重启redis。redis越长时间不重启，这个值就会越大。</li>
+<li>检查一下你计划存储的数据量。比方说，如果你使用32位redis存储多达4GB的数据，那么你应该使用64位redis以扩增rdb。</li>
+<li>如果你了解内存分配器的不同点，可以考虑更换内存分配器。</li>
+</ul>
+<p>其他资料：</p>
+<ul>
+<li><a href="http://redis.io/topics/memory-optimization" target="_blank" rel="noopener">http://redis.io/topics/memory-optimization</a></li>
+<li><a href="http://redis.io/topics/internals-sds" target="_blank" rel="noopener">http://redis.io/topics/internals-sds</a></li>
+<li><a href="http://redislabs.com/blog/redis-ram-ramifications" target="_blank" rel="noopener">http://redislabs.com/blog/redis-ram-ramifications</a></li>
+<li><a href="http://github.com/sripathikrishnan/redis-rdb-tools/wiki/Redis-Memory-Optimization" target="_blank" rel="noopener">http://github.com/sripathikrishnan/redis-rdb-tools/wiki/Redis-Memory-Optimization</a></li>
+</ul>
 
       
     </div>
@@ -590,7 +603,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/spring-boot/" rel="tag"># spring boot</a>
+            <a href="/tags/redis/" rel="tag"># redis</a>
           
         </div>
       
@@ -615,8 +628,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/13/使用RabbitMQ实现AMQP和MQTT的协议转换/" rel="next" title="使用RabbitMQ实现AMQP和MQTT的协议转换">
-                <i class="fa fa-chevron-left"></i> 使用RabbitMQ实现AMQP和MQTT的协议转换
+              <a href="/2019/05/28/redission 序列化问题追踪/" rel="next" title="redission 序列化问题追踪">
+                <i class="fa fa-chevron-left"></i> redission 序列化问题追踪
               </a>
             
           </div>
@@ -624,10 +637,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/06/19/发布构件到Maven中央仓库/" rel="prev" title="发布构件到Maven中央仓库">
-                发布构件到Maven中央仓库 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

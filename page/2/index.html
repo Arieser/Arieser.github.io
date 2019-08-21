@@ -387,6 +387,176 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/02/链路监控浅析---以sleuth-zipkin和skywalking为例/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Harvey.Su">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/01/02/链路监控浅析---以sleuth-zipkin和skywalking为例/" class="post-title-link" itemprop="url">链路监控浅析---以sleuth-zipkin和skywalking为例</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-01-02 13:36:15" itemprop="dateCreated datePublished" datetime="2018-01-02T13:36:15+08:00">2018-01-02</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2018/01/02/链路监控浅析---以sleuth-zipkin和skywalking为例/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/01/02/链路监控浅析---以sleuth-zipkin和skywalking为例/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><strong>APM</strong> (Application Performance Management &amp; Monitoring)四种实现思路</p>
+<ol>
+<li>基于日志系统，探针只负责对日志加上编号，又类似ELK的系统进行收集、处理、展示。这方面没有很成熟的产品，一般都属于公司内部封装的框架。</li>
+<li>自动探针，适用语言：Java、C#、PHP、Node.js等等存在VM的语言。绝对大多数的商业产品和热门的开源产品都属于这个系列。</li>
+<li>全手动探针，优势是适用范围广，最有名的就是Zipkin的整个生态系统，分布式追踪几乎无处不在。也是现在全球运用最广泛的分布式监控系统。</li>
+<li>同时支持自动和手动模式的探针，适用语言同样是Java、C#、PHP、Node.js等等存在VM的语言，由于技术复杂性提高，运用的较少。优点是入门方便，同时使用灵活。商业上主要是Instana，开源主要是sky-walking提供了技术解决方案。</li>
+</ol>
+<p>三大模块:  </p>
+<ol>
+<li><strong>探针或sdk</strong> ：负责数据采集和发送。探针或 SDK 是应用程序的收集端。一般使用插件的模式，自动探针一般是不需要修改程序，而 SDK 则是需要修改部分配置或者代码。skywalking 就是自动探针为主，zipkin-brave 就是 Zipkin 的 Java 手动探针</li>
+<li><strong>collector模块</strong> ：负责数据收集、分析、汇总、告警和存储。Collector 模块，这个根据不同的 APM 实现，可能由一个或者多个子系统构成。Collector 负责对探针和 SDK 提供网络接口（TCP、UDP、HTTP 不同形式接口）</li>
+<li><strong>UI</strong> ，负责高实时性展现。包括但不限于 Trace 的查询，统计数据展现，拓扑图展现，VM 或进程相关信息等，监控关键数据的展现</li>
+</ol>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/01/02/链路监控浅析---以sleuth-zipkin和skywalking为例/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/02/AWS linux(AMI) 搭建VPN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1695,7 +1865,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
