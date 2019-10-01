@@ -12,3 +12,7 @@ public/
 
 .deploy*/
 package-lock.json
+
+.idea
+
+*.iml
