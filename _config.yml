@@ -3,13 +3,14 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
+#title: Whirlwinder
 title: Whirlwinder
 subtitle: Stay hungry, Stay foolish.
 description: Manners Maketh Man.
-author: Harvey.Su
+author: 歧途老马
 email:
 ## language: en/fr-FR/zh-hk/ru/de/zh-CN
-language: en
+language: zh-CN
 timezone:
 
 
