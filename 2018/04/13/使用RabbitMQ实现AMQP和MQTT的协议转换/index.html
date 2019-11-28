@@ -67,7 +67,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/1523585173759.png">
 <meta property="og:image" content="http://yoursite.com/images/1523585612511.png">
-<meta property="og:updated_time" content="2019-10-01T02:34:22.970Z">
+<meta property="og:updated_time" content="2019-11-23T08:04:03.687Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用RabbitMQ实现AMQP和MQTT的协议转换">
 <meta name="twitter:description" content="基于LBS的业务系统，前台使用MQTT协议推送到后台，后台通过RabbitMQ实现协议的转换，以实现负载消费的功能。主要的框架如图">
@@ -341,7 +341,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@RabbitListener</span>(queues = <span class="string">"location.broker"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TopicReciver</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RabbitHandler</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(<span class="keyword">byte</span>[] hello)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="keyword">new</span> String(hello));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>使用java模拟的mqtt client 发送的消息为byte[]， 因此需要使用<code>byte[]</code>接收消息内容。</p>
-<p>reference:</p>
+<p><strong>References</strong></p>
 <ul>
 <li><a href="https://blogs.sap.com/2016/02/21/uniting-amqp-and-mqtt-message-brokering-with-rabbitmq/" target="_blank" rel="noopener">Uniting AMQP and MQTT Message Brokering with RabbitMQ</a></li>
 <li><a href="https://my.oschina.net/u/1047640/blog/819418" target="_blank" rel="noopener">使用rabbitmq做为mqtt服务器，整合spring做推送后台</a></li>
@@ -483,7 +483,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

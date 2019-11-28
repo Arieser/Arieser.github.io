@@ -255,6 +255,457 @@
   
   
   <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/23/java浮点型精度丢失浅析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老马">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/11/23/java浮点型精度丢失浅析/" class="post-title-link" itemprop="url">java浮点型精度丢失浅析</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-23 16:11:23" itemprop="dateCreated datePublished" datetime="2019-11-23T16:11:23+08:00">2019-11-23</time>
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/23/java浮点型精度丢失浅析/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/11/23/java浮点型精度丢失浅析/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>java浮点型数值在运算中会出现精度损失的情况，在业务要求比较高比如交易等场景，一版使用BigDecimal来解决精度丢失的情况。最近一个同事在使用BigDecimal时仍然出现了精度损失，简略记录一下</p>
+<h3 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h3><p>代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> abc = <span class="number">0.56</span>D;</span><br><span class="line">        System.out.println(<span class="string">"abc: "</span> + abc);</span><br><span class="line">        System.out.println(<span class="string">"new BigDecimal(abc): "</span> + <span class="keyword">new</span> BigDecimal(abc));</span><br><span class="line">        System.out.println(<span class="string">"BigDecimal.valueOf(abc): "</span> + BigDecimal.valueOf(abc));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">abc: 0.56</span><br><span class="line">new BigDecimal(abc): 0.560000000000000053290705182007513940334320068359375</span><br><span class="line">BigDecimal.valueOf(abc): 0.56</span><br></pre></td></tr></table></figure>
+
+<p>可以看到在使用BigDecimal构造器转化浮点型仍然会有损失，而使用<code>valueOf</code>方法则不会出现精度损失。</p>
+<h3 id="深入源码"><a href="#深入源码" class="headerlink" title="深入源码"></a>深入源码</h3><p>BigDecimal构造器，核心代码(<code>BigDecimal(double val)</code>)如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">BigDecimal</span><span class="params">(<span class="keyword">double</span> val, MathContext mc)</span> </span>&#123;</span><br><span class="line">  .....</span><br><span class="line">    <span class="keyword">long</span> valBits = Double.doubleToLongBits(val);</span><br><span class="line">    <span class="keyword">int</span> sign = ((valBits &gt;&gt; <span class="number">63</span>) == <span class="number">0</span> ? <span class="number">1</span> : -<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">int</span> exponent = (<span class="keyword">int</span>) ((valBits &gt;&gt; <span class="number">52</span>) &amp; <span class="number">0x7ffL</span>);</span><br><span class="line">    <span class="keyword">long</span> significand = (exponent == <span class="number">0</span></span><br><span class="line">                      ? (valBits &amp; ((<span class="number">1L</span> &lt;&lt; <span class="number">52</span>) - <span class="number">1</span>)) &lt;&lt; <span class="number">1</span></span><br><span class="line">                      : (valBits &amp; ((<span class="number">1L</span> &lt;&lt; <span class="number">52</span>) - <span class="number">1</span>)) | (<span class="number">1L</span> &lt;&lt; <span class="number">52</span>));</span><br><span class="line">  exponent -= <span class="number">1075</span>;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>划重点， <code>Double.doubleToLongBits</code>返回根据IEEE754浮点“双精度格式”位布局，返回指定浮点值的表示</p>
+<p><code>BigDecimal.valueOf</code>核心代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BigDecimal <span class="title">valueOf</span><span class="params">(<span class="keyword">double</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BigDecimal(Double.toString(val));</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">BigDecimal</span><span class="params">(<span class="keyword">char</span>[] in, <span class="keyword">int</span> offset, <span class="keyword">int</span> len, MathContext mc)</span> </span>&#123;</span><br><span class="line">  ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到使用valueOf方法实际上是吧double转为String，再调用string构造器的。</p>
+<p>那么为什么使用<code>Double.doubleToLongBits</code>会出现精度损失，而使用string构造器不会呢。主要原因是BigDecimal使用<strong>十进制(BigInteger)+小数点(scale)位置</strong>来表示小数，而不是直接使用二进制，如<code>101.001 = 101001 * 0.1^3</code>，运算时会分成两部分，BigInteger间的运算以及小数点位置的更新，这里不再展开。</p>
+<h3 id="原理浅析"><a href="#原理浅析" class="headerlink" title="原理浅析"></a>原理浅析</h3><p><code>Double.doubleToLongBits</code>为什么会出现精度损失呢，主要原因是因为浮点型不能用精确的二进制来表述，就如十进制不能准确描述无穷小数一样。</p>
+<p>浮点型转化为二进制的算法是乘以2直到没有了小数为止，举个栗子，0.8表示成二进制</p>
+<blockquote>
+<p> 0.8*2=1.6 取整数部分 1</p>
+<p> 0.6*2=1.2   取整数部分 1</p>
+<p> 0.2*2=0.4   取整数部分 0</p>
+<p> 0.4*2=0.8   取整数部分 0</p>
+</blockquote>
+<p>可以看到上述的计算过程出现循环了，所以说浮点型转化为二进制有时是不可能精确的。</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>如果想要把浮点型转化为BigDecimal，尽量选择使用<code>valueOf</code>方法，而不是使用构造器。</p>
+<p><strong>References</strong></p>
+<p><a href="http://blog.sina.com.cn/s/blog_827d041701017ctm.html" target="_blank" rel="noopener">JAVA程序中Float和Double精度丢失问题</a></p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/23/Logitech Options 在 Mac 下的自定义按键失灵问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老马">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/11/23/Logitech Options 在 Mac 下的自定义按键失灵问题/" class="post-title-link" itemprop="url">Logitech Options 在 Mac 下的自定义按键失灵问题</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-23 16:05:00" itemprop="dateCreated datePublished" datetime="2019-11-23T16:05:00+08:00">2019-11-23</time>
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/23/Logitech Options 在 Mac 下的自定义按键失灵问题/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/11/23/Logitech Options 在 Mac 下的自定义按键失灵问题/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>罗技鼠标的自定义按键很好远，但自从升级系统到10.15 catalina后自定义按键就失灵了，重启，重装Logitech Options，重新授权…一番折腾后终于找到了彻底的解决办法</p>
+<h3 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h3><p>系统：MacOS 10.15 Catalina</p>
+<p>鼠标：MX720</p>
+<p>Logitech Options 版本：8.02.86</p>
+<h3 id="排查步骤"><a href="#排查步骤" class="headerlink" title="排查步骤"></a>排查步骤</h3><ol>
+<li>修改Security &amp; Privacy 里的 Logi Options Daemon 和 Logi Options 权限，发现已经勾选了</li>
+<li>重新安装Logitech Options勾选权限，仍然无法使用</li>
+</ol>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><ol>
+<li>删除Logi Options和Logi Options Daemon后，再次添加这两项</li>
+</ol>
+<p>   <img src="https://raw.githubusercontent.com/silloy/notepic/master/YJvFUL.png" alt="logi.png"></p>
+<ol start="2">
+<li><p>Security &amp; Privacy -&gt; Privacy 中添加<code>Input Monitoring</code>权限</p>
+<p><img src="https://raw.githubusercontent.com/silloy/notepic/master/Dx40J2.png" alt="input.png"></p>
+</li>
+<li><p>如果需要自定义鼠标截图，还需要添加 <code>Screen Recording</code>权限</p>
+</li>
+</ol>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>仔细看了Catalina的新特性，新系统对于安全和权限管理更加严格了，所以需要单独处理，至于Logitech Options需要的权限，可以参考<a href="https://support.logi.com/hc/en-001/articles/360023203954-Logitech-Options-permission-prompts-on-macOS-Mojave" target="_blank" rel="noopener">Logitech Options permission prompts on macOS Catalina and macOS Mojave</a>，新系统中其他软件遇到类似的问题，都可以通过这种方式解决</p>
+<p><strong>References</strong></p>
+<p><a href="https://www.v2ex.com/t/572690" target="_blank" rel="noopener">Logitech Options 在 Mac 下的自定义按键经常会失灵</a></p>
+<p><a href="https://support.logi.com/hc/en-001/articles/360023203954-Logitech-Options-permission-prompts-on-macOS-Mojave" target="_blank" rel="noopener">Logitech Options permission prompts on macOS Catalina and macOS Mojave</a></p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/17/开源贡献协议介绍/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老马">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/11/17/开源贡献协议介绍/" class="post-title-link" itemprop="url">开源贡献协议介绍</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-17 16:01:01" itemprop="dateCreated datePublished" datetime="2019-11-17T16:01:01+08:00">2019-11-17</time>
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/17/开源贡献协议介绍/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/11/17/开源贡献协议介绍/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>众所周知，开源代码都有其开源许可证，详细选择参考<a href="http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html" target="_blank" rel="noopener">如何选择开源许可证？</a>。这里不是要讨论开源许可证的问题，而是开源贡献协议。最近在参加一个开源项目时，提到需要使用DCO贡献协议，所以就去了解当下主流的开源贡献协议。</p>
+<h3 id="CLA（Contributor-License-Agreement）协议"><a href="#CLA（Contributor-License-Agreement）协议" class="headerlink" title="CLA（Contributor License Agreement）协议"></a><a href="https://en.wikipedia.org/wiki/Contributor_License_Agreement" target="_blank" rel="noopener">CLA</a>（Contributor License Agreement）协议</h3><blockquote>
+<p>CLA时对开源License的法律性质补充，多由企业或者组织自行定义，作为开源协议的补充，一次性签署，比如alibaba CLA协议： <a href="https://github.com/aliyun/cla" target="_blank" rel="noopener">Alibaba Open Source Individual CLA</a></p>
+</blockquote>
+<p>使用上来说，CLA只需要签署一次，如<a href="https://cla-assistant.io/alibaba/weex" target="_blank" rel="noopener">阿里巴巴个人CLA</a>， <a href="https://cla.developers.google.com/clas" target="_blank" rel="noopener">Google CLA</a>，<a href="https://cla.pivotal.io/" target="_blank" rel="noopener">Pivotal CLA</a>，<a href="https://github.com/cncf/cla" target="_blank" rel="noopener">CNCF CLA</a></p>
+<p>使用CLA的用户或者组织</p>
+<ul>
+<li>Facebook</li>
+<li>Eclipse</li>
+<li>Go</li>
+<li>Google</li>
+<li>InfluxDB</li>
+<li>Python</li>
+<li>Elastic</li>
+<li>CNCF</li>
+<li>…..</li>
+</ul>
+<h3 id="DCO（Developer-Certificate-of-Origin）协议"><a href="#DCO（Developer-Certificate-of-Origin）协议" class="headerlink" title="DCO（Developer Certificate of Origin）协议"></a><a href="https://en.wikipedia.org/wiki/Developer_Certificate_of_Origin" target="_blank" rel="noopener">DCO</a>（Developer Certificate of Origin）协议</h3><blockquote>
+<p>DCO时Linux Foundation提出的，只有四条简短条文， 具体内容如下: <a href="https://developercertificate.org/" target="_blank" rel="noopener">DCO</a>，使用上只需要开发者提交信息时追加 Signed-off-by 即可。具体内容(version1.1)如下：</p>
+<ol>
+<li>该贡献全部或部分由我创建，我有权根据文件中指明的开源许可提交；要么</li>
+<li>该贡献是基于以前的工作，这些工作属于适当的开源许可，无论这些工作全部还是部分由我完成，我有权根据相同的开源许可证（除非我被允许根据不同的许可证提交）提交修改后的工作；要么</li>
+<li>该贡献由1、2、或 3 证明的其他人直接提供给我，而我没有对其进行修改。</li>
+<li>我理解并同意该项目和贡献是公开的，并且该贡献的记录（包括我随之提交的所有个人信息，包括我的签字）将无限期保留，并且可以与本项目或涉及的开源许可证保持一致或者重新分配。</li>
+</ol>
+</blockquote>
+<p>使用方法详见 <a href="https://github.com/probot/dco#how-it-works" target="_blank" rel="noopener">Probot: DCO</a>， 其实就是提交代码(commit)时增加<code>-s</code>参数，然后你会在提交信息里看到</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">This is my commit message</span><br><span class="line"></span><br><span class="line">Signed-off-by: DEVELOPER &lt;random@developer.example.org&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用DCO的用户或者组织</p>
+<ul>
+<li>Gitlab</li>
+<li>Chef</li>
+<li>TiKv</li>
+<li>Apache SkyWalking</li>
+<li>……</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>如果你只是一个commiter，请遵从开源项目的贡献者协议，或者发起issue请求变更，如果是自己的开源项目，更看重法律风险，建议使用CLA，看重社区合作，可以使用DCO。</p>
+<p><strong>References</strong></p>
+<ol>
+<li><a href="https://opensource.com/article/18/3/cla-vs-dco-whats-difference" target="_blank" rel="noopener">CLA vs. DCO: What’s the difference?</a></li>
+<li><a href="https://linux.cn/article-10836-1.html" target="_blank" rel="noopener">为何《贡献者许可协议》不利于开源社区？</a></li>
+<li><a href="https://github.com/kubernetes/community/issues/2649" target="_blank" rel="noopener">Move from CLA to DCO #2649 - github.com</a></li>
+<li>[probot/dco](</li>
+</ol>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/02/浅析Java8 CompletableFuture和Stream串行使用产生的一个问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老马">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/11/02/浅析Java8 CompletableFuture和Stream串行使用产生的一个问题/" class="post-title-link" itemprop="url">浅析Java8 CompletableFuture和Stream串行使用产生的一个问题</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-02 13:36:15" itemprop="dateCreated datePublished" datetime="2019-11-02T13:36:15+08:00">2019-11-02</time>
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/02/浅析Java8 CompletableFuture和Stream串行使用产生的一个问题/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/11/02/浅析Java8 CompletableFuture和Stream串行使用产生的一个问题/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="问题来源"><a href="#问题来源" class="headerlink" title="问题来源"></a>问题来源</h4><p>问题来源于一次串行使用CompletableFuture和Stream导致CompletableFuture异步失效的问题，问题代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> size = <span class="number">50</span>;</span><br><span class="line">        List&lt;Double&gt; res = Stream.iterate(<span class="number">0</span>, i -&gt; i + <span class="number">1</span>).limit(size).map(i -&gt; CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            Double re = BigDecimal.valueOf(<span class="number">10</span> * (Math.sin(i) + <span class="number">1</span>)).setScale(<span class="number">2</span>, RoundingMode.HALF_UP).stripTrailingZeros().doubleValue();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                TimeUnit.SECONDS.sleep(re.intValue());</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> re;</span><br><span class="line">        &#125;, ThreadUtil.fixed()))</span><br><span class="line">                .map(CompletableFuture::join)</span><br><span class="line">                .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>ThreadUtil.fixed()</code>是自己封装的线程工具方法，也可以使用<code>Executors.newFixedThreadPool</code>代替，原本是想通过CompletableFuture拿到异步执行的结果并进行处理，串联使用stream后反而未起到作用，先说解决方法：</p>
+<ol>
+<li>先收集 future 结果到list，再调用新的流运算，即 <code>.map(CompletableFuture::join)</code>方法</li>
+<li><code>limit(size).map</code> 之间添加 parallel() 方法，形成 <code>parallelStream()</code>d的形式</li>
+</ol>
+<p>原因分析：普通的stram可以理解为单纯的foreach循环，每生成一个future立即join，出现异步变同步的现象。</p>
+<p>再进一步，既然CompletableFuture和parellStream都可以并行执行任务，有必要比较一下。</p>
+<h4 id="parallelStream"><a href="#parallelStream" class="headerlink" title="parallelStream"></a>parallelStream</h4><p>先试用 parallelStream 重写上述方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Double&gt; result = Stream.iterate(<span class="number">0</span>, i -&gt; i + <span class="number">1</span>).limit(<span class="number">50</span>).parallel().map(i -&gt; &#123;</span><br><span class="line">            <span class="comment">///.....</span></span><br><span class="line">        &#125;).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<p>用时：54018ms</p>
+<p>想要深入了解parallelStream，需要先了解ForkJoin框架和ForkJoinPool框架。这里简单介绍一下ForkJoinPool，真正了解 ParallelStream 还是需要先弄懂ForkJoinPool的，在此只是简单比较两者功能，不做深入探讨。</p>
+<p>ForkJoinPool 使用分治法(Divide-and-Conquer Algorithm)来解决问题，实现了ExecutorService接口，线程数量可以通过构造器传入，默认使用机器的CPU数量。和ThreadPoolExecutor有一定区别，ForkJoinPool可以在运行线程中创建新的任务，并挂起当前的任务，此时线程就能够从队列中选择子任务执行，而ThreadPoolExecutor做不到这一点的。ForkJoinPool的核心算法是工作窃取算法，这样就可以在使用少量的线程来完成大量的任务。比如说ForkJoinPool 4个线程可以处理200完个任务，ThreadPoolExecutor显然是不可行的。</p>
+<blockquote>
+<p>工作窃取算法的优点是充分利用线程进行并行计算，并减少了线程间的竞争，其缺点是在某些情况下还是存在竞争，比如双端队列里只有一个任务时。并且消耗了更多的系统资源，比如创建多个线程和多个双端队列。</p>
+</blockquote>
+<p>ParallelStreams中java8为ForkJoinPool添加了通用线程池，默认线程数量为机器的处理器数量。可以通过 <code>-Djava.util.concurrent.ForkJoinPool.common.parallelism=N</code>来设置ForkJoinPool的线程数量。</p>
+<h4 id="拆分成两步重写上述方法"><a href="#拆分成两步重写上述方法" class="headerlink" title="拆分成两步重写上述方法"></a>拆分成两步重写上述方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;CompletableFuture&lt;Double&gt;&gt; futures = Stream.iterate(<span class="number">0</span>, i -&gt; i + <span class="number">1</span>).limit(<span class="number">50</span>).map(i -&gt; CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            <span class="comment">///.....</span></span><br><span class="line">        &#125;, ThreadUtil.fixed())).collect(Collectors.toList());</span><br><span class="line">        List&lt;Double&gt; ids = futures.stream().map(CompletableFuture::join)</span><br><span class="line">                .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<p>用时：57111ms， 通过增加线程数量可以减少执行时间。</p>
+<p>References</p>
+<p><a href="https://www.cnblogs.com/hongdada/p/8876028.html" target="_blank" rel="noopener">Java 多线程中的任务分解机制-ForkJoinPool，以及CompletableFuture</a></p>
+<p><a href="https://blog.csdn.net/itguangit/article/details/78624404" target="_blank" rel="noopener">CompletableFuture 组合式异步编程</a></p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/01/Java8之扩展函数式接口/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -838,375 +1289,6 @@
   </article>
 
     
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/31/Spring Boot @PropertySource 读取 YAML 文件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老马">
-      <meta itemprop="description" content="Manners Maketh Man.">
-      <meta itemprop="image" content="/images/ele.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whirlwinder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2018/08/31/Spring Boot @PropertySource 读取 YAML 文件/" class="post-title-link" itemprop="url">【译】Spring Boot @PropertySource 读取 YAML 文件</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2018-08-31 17:26:43" itemprop="dateCreated datePublished" datetime="2018-08-31T17:26:43+08:00">2018-08-31</time>
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2018/08/31/Spring Boot @PropertySource 读取 YAML 文件/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2018/08/31/Spring Boot @PropertySource 读取 YAML 文件/" itemprop="commentCount"></span></a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Spring Boot 默认不支持<code>@PropertySource</code>读取yaml 文件，这也是Stackoverflow 上经常给予的标准答案。</p>
-<p><img src="/images/1535708009719.png" alt="1535708009719"></p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2018/08/31/Spring Boot @PropertySource 读取 YAML 文件/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/08/MySQL Explain详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老马">
-      <meta itemprop="description" content="Manners Maketh Man.">
-      <meta itemprop="image" content="/images/ele.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whirlwinder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2018/08/08/MySQL Explain详解/" class="post-title-link" itemprop="url">MySQL Explain详解</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2018-08-08 17:13:43" itemprop="dateCreated datePublished" datetime="2018-08-08T17:13:43+08:00">2018-08-08</time>
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2018/08/08/MySQL Explain详解/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2018/08/08/MySQL Explain详解/" itemprop="commentCount"></span></a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>日常工作中主要用explain来查看sql语句的执行计划，深入了解是否需要优化，已经索引等信息。</p>
-<p><img src="/images/1533719799975.png" alt="1533719799975"></p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2018/08/08/MySQL Explain详解/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/19/发布构件到Maven中央仓库/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老马">
-      <meta itemprop="description" content="Manners Maketh Man.">
-      <meta itemprop="image" content="/images/ele.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whirlwinder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2018/06/19/发布构件到Maven中央仓库/" class="post-title-link" itemprop="url">发布构件到Maven中央仓库</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2018-06-19 11:40:00" itemprop="dateCreated datePublished" datetime="2018-06-19T11:40:00+08:00">2018-06-19</time>
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2018/06/19/发布构件到Maven中央仓库/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2018/06/19/发布构件到Maven中央仓库/" itemprop="commentCount"></span></a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>总结的工具包为使用方便决定发布到maven中央仓库，因为第一次发布，遇到很多问题，简要记录一下。</p>
-<p><img src="/images/1529380073135.png" alt="1529380073135"></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Sonatype官网：http://www.sonatype.org/</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2018/06/19/发布构件到Maven中央仓库/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/15/SpringBoot-Mybatis通用mapper使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老马">
-      <meta itemprop="description" content="Manners Maketh Man.">
-      <meta itemprop="image" content="/images/ele.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whirlwinder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2018/06/15/SpringBoot-Mybatis通用mapper使用/" class="post-title-link" itemprop="url">SpringBoot-Mybatis通用mapper使用</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2018-06-15 13:36:43" itemprop="dateCreated datePublished" datetime="2018-06-15T13:36:43+08:00">2018-06-15</time>
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2018/06/15/SpringBoot-Mybatis通用mapper使用/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2018/06/15/SpringBoot-Mybatis通用mapper使用/" itemprop="commentCount"></span></a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>mybatis是一个很好用的工具，但是编写mapper是一件很麻烦的事，自mybatis 3.0开始可以使用注解的方式，极大的简化了xml的编写量，本地想看看mybatis源码，自己扩展写一个工具，在阅读源码过程中发现一个通用mapper的工具包，感觉不用重复造轮子了，简要记录一下spring boot整合通用mapper的使用。</p>
-<p><img src="/images/1529042422800.png" alt="1529042422800"></p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2018/06/15/SpringBoot-Mybatis通用mapper使用/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </div>
 
   
@@ -1260,7 +1342,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

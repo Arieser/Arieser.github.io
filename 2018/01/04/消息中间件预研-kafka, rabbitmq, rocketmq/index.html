@@ -72,7 +72,7 @@
 <meta property="og:image" content="http://yoursite.com/images/rabbitmq-topic.png">
 <meta property="og:image" content="http://yoursite.com/images/1522329083963.png">
 <meta property="og:image" content="http://yoursite.com/images/1523535278161.png">
-<meta property="og:updated_time" content="2019-10-01T02:34:22.971Z">
+<meta property="og:updated_time" content="2019-11-23T08:05:02.883Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="消息中间件预研-rabbitmq, rocketmq">
 <meta name="twitter:description" content="消息中间件在服务开发中起着重要的作用，应对业务需求，对rabbitmq，rocketmq进行预研，kafka暂时不做深入了解。">
@@ -392,8 +392,11 @@
 <p>输出信息</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">Cluster Name     <span class="comment">#Broker Name            #BID  #Addr                  #Version                #InTPS(LOAD)       #OutTPS(LOAD) #PCWait(ms) #Hour #SPACE</span></span></span><br><span class="line">DefaultCluster    broker-a                0     172.18.48.79:10911     V3_5_8                   0.00(0,0ms)         0.00(0,0ms)          0 412299.47 0.5476</span><br><span class="line">DefaultCluster    broker-b                0     172.18.48.79:12911     V3_5_8                   0.00(0,0ms)         0.00(0,0ms)          0 412299.47 0.5476</span><br></pre></td></tr></table></figure>
 
-<p>​</p>
+
+
 </li>
+</ul>
+<ul>
 <li><p>默认的集群配置conf子目录下</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2m-2s-async     // 两个master 两个slave异步</span><br><span class="line">2m-2s-sync		// 两个master 两个slave同步</span><br><span class="line">2m-noslave		// 两个master 没有slave</span><br></pre></td></tr></table></figure>
 </li>
@@ -427,7 +430,6 @@
 <li><p>启动 mqnamesrv / mqbroker服务报错，显示内存不够，需大于2G？具体表现: “<em>VM warning: INFO: OS::commit_memory(0x00000006c0000000, 2147483648, 0) faild; error=’Cannot allocate memory’ (errno=12)</em>”</p>
 <p><strong>解决方案</strong>：修改<code>/RocketMQ/devnev/bin/</code> 下的服务启动脚本 <code>runserver.sh</code> 、<code>runbroker.sh</code> 中对于内存的限制，改成如下示例：</p>
 <p><code>JAVA_OPT=&quot;${JAVA_OPT} -server -Xms128m -Xmx128m -Xmn128m -XX:PermSize=128m -XX:MaxPermSize=128m&quot;</code></p>
-<p>​</p>
 </li>
 </ol>
 </li>
@@ -493,7 +495,6 @@
 </li>
 <li><p>reference</p>
 <p><a href="https://www.vultr.com/docs/how-to-install-rabbitmq-on-centos-7" target="_blank" rel="noopener">How-to-install-rabbitmq-on-centos-7</a></p>
-<p>​</p>
 </li>
 </ul>
 <h4 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念:"></a>重要概念:</h4><p><img src="/images/rabbit.png" alt="rabbit"></p>
@@ -527,7 +528,7 @@
 <p><img src="/images/1522329083963.png" alt="52232908396"></p>
 <p><img src="/images/1523535278161.png" alt="1523535278161"></p>
 <p><strong>示例代码</strong>: <a href="https://github.com/silloy/boot-in-action" target="_blank" rel="noopener">boot-in-action</a></p>
-<p><strong>reference</strong>: </p>
+<p><strong>References</strong>: </p>
 <ul>
 <li><a href="http://alibaba.github.io/RocketMQ-docs/document/openuser/mqvsmq.pdf" target="_blank" rel="noopener">消息队列中间件调研文档</a></li>
 <li><a href="http://blog.wentong.me/2016/01/message-queue-research/" target="_blank" rel="noopener">几款消息中间的调研</a></li>
@@ -541,7 +542,7 @@
 <li><a href="https://www.jianshu.com/p/24f464f9161c" target="_blank" rel="noopener">消息队列探秘-RabbitMQ消息队列介绍</a></li>
 <li><a href="https://www.jianshu.com/p/35fbbdc9ca60" target="_blank" rel="noopener">RabbitMq延迟、重试队列及Spring Boot的黑科技</a></li>
 <li><a href="https://www.jianshu.com/p/6579e48d18ae" target="_blank" rel="noopener">rabbitmq可靠发送的自动重试机制</a></li>
-<li>​</li>
+<li></li>
 </ul>
 
     </div>
@@ -680,7 +681,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

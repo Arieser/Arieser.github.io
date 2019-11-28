@@ -57,21 +57,19 @@
   };
 </script>
 
-  <meta name="description" content="BFF 架构图">
+  <meta name="description" content="问题来源问题来源于一次串行使用CompletableFuture和Stream导致CompletableFuture异步失效的问题，问题代码： 123456789101112int size = 50;        List&amp;lt;Double&amp;gt; res = Stream.iterate(0, i -&amp;gt; i + 1).limit(size).map(i -&amp;gt; Completab">
+<meta name="keywords" content="java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="微服务架构BFF和网关">
-<meta property="og:url" content="http://yoursite.com/2018/09/05/微服务架构BFF和网关/index.html">
+<meta property="og:title" content="浅析Java8 CompletableFuture和Stream串行使用产生的一个问题">
+<meta property="og:url" content="http://yoursite.com/2019/11/02/浅析Java8 CompletableFuture和Stream串行使用产生的一个问题/index.html">
 <meta property="og:site_name" content="Whirlwinder">
-<meta property="og:description" content="BFF 架构图">
+<meta property="og:description" content="问题来源问题来源于一次串行使用CompletableFuture和Stream导致CompletableFuture异步失效的问题，问题代码： 123456789101112int size = 50;        List&amp;lt;Double&amp;gt; res = Stream.iterate(0, i -&amp;gt; i + 1).limit(size).map(i -&amp;gt; Completab">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/1536134559339.png">
-<meta property="og:image" content="http://yoursite.com/images/1536247819506.png">
-<meta property="og:updated_time" content="2019-10-01T02:34:22.971Z">
+<meta property="og:updated_time" content="2019-11-28T03:21:52.411Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="微服务架构BFF和网关">
-<meta name="twitter:description" content="BFF 架构图">
-<meta name="twitter:image" content="http://yoursite.com/images/1536134559339.png">
-  <link rel="canonical" href="http://yoursite.com/2018/09/05/微服务架构BFF和网关/">
+<meta name="twitter:title" content="浅析Java8 CompletableFuture和Stream串行使用产生的一个问题">
+<meta name="twitter:description" content="问题来源问题来源于一次串行使用CompletableFuture和Stream导致CompletableFuture异步失效的问题，问题代码： 123456789101112int size = 50;        List&amp;lt;Double&amp;gt; res = Stream.iterate(0, i -&amp;gt; i + 1).limit(size).map(i -&amp;gt; Completab">
+  <link rel="canonical" href="http://yoursite.com/2019/11/02/浅析Java8 CompletableFuture和Stream串行使用产生的一个问题/">
 
 
 <script id="page-configurations">
@@ -85,7 +83,7 @@
   };
 </script>
 
-  <title>微服务架构BFF和网关 | Whirlwinder</title>
+  <title>浅析Java8 CompletableFuture和Stream串行使用产生的一个问题 | Whirlwinder</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115111429-1"></script>
   <script>
@@ -260,7 +258,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/微服务架构BFF和网关/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/02/浅析Java8 CompletableFuture和Stream串行使用产生的一个问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="歧途老马">
@@ -272,7 +270,7 @@
       <meta itemprop="name" content="Whirlwinder">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">微服务架构BFF和网关
+        <h1 class="post-title" itemprop="name headline">浅析Java8 CompletableFuture和Stream串行使用产生的一个问题
 
           
         </h1>
@@ -288,7 +286,7 @@
                 
               
 
-              <time title="创建时间：2018-09-05 16:01:01" itemprop="dateCreated datePublished" datetime="2018-09-05T16:01:01+08:00">2018-09-05</time>
+              <time title="创建时间：2019-11-02 13:36:15" itemprop="dateCreated datePublished" datetime="2019-11-02T13:36:15+08:00">2019-11-02</time>
             </span>
           
 
@@ -311,7 +309,7 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2018/09/05/微服务架构BFF和网关/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2018/09/05/微服务架构BFF和网关/" itemprop="commentCount"></span></a>
+    <a title="valine" href="/2019/11/02/浅析Java8 CompletableFuture和Stream串行使用产生的一个问题/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/11/02/浅析Java8 CompletableFuture和Stream串行使用产生的一个问题/" itemprop="commentCount"></span></a>
   </span>
   
   
@@ -325,43 +323,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>BFF 架构图</p>
-<p><img src="/images/1536134559339.png" alt="1536134559339"></p>
-<a id="more"></a>
+        <h4 id="问题来源"><a href="#问题来源" class="headerlink" title="问题来源"></a>问题来源</h4><p>问题来源于一次串行使用CompletableFuture和Stream导致CompletableFuture异步失效的问题，问题代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> size = <span class="number">50</span>;</span><br><span class="line">        List&lt;Double&gt; res = Stream.iterate(<span class="number">0</span>, i -&gt; i + <span class="number">1</span>).limit(size).map(i -&gt; CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            Double re = BigDecimal.valueOf(<span class="number">10</span> * (Math.sin(i) + <span class="number">1</span>)).setScale(<span class="number">2</span>, RoundingMode.HALF_UP).stripTrailingZeros().doubleValue();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                TimeUnit.SECONDS.sleep(re.intValue());</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> re;</span><br><span class="line">        &#125;, ThreadUtil.fixed()))</span><br><span class="line">                .map(CompletableFuture::join)</span><br><span class="line">                .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
 
-<p>BFF(Backend for Frontend)也称聚合层或者适配层，上述架构从外到内依次为 端用户体验层-&gt;网关层-&gt;BFF层-&gt;微服务层，主要是讲内部复杂的微服务，适配成对各种不同的用户体验。网关专注解决跨横切面逻辑，包括路由、安全、监控和限流熔断等。</p>
-<p>为提高系统的灵活性，在网关层和微服务层之间构建BFF层，这里主要使用GraphQL 构建BFF层。</p>
-<p>GraphQL 特点：</p>
+<p>其中<code>ThreadUtil.fixed()</code>是自己封装的线程工具方法，也可以使用<code>Executors.newFixedThreadPool</code>代替，原本是想通过CompletableFuture拿到异步执行的结果并进行处理，串联使用stream后反而未起到作用，先说解决方法：</p>
 <ol>
-<li><p>定义数据模型：按需获取</p>
-</li>
-<li><p>数据分层：通过数据分层可以减少客户端请求次数</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  user(id:1001) &#123; // 第一层</span><br><span class="line">    name,</span><br><span class="line">    friends &#123; // 第二层</span><br><span class="line">      name,</span><br><span class="line">      addr &#123; // 第三层</span><br><span class="line">        country,</span><br><span class="line">        city</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>强类型</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const Meeting = new GraphQLObjectType(&#123;</span><br><span class="line">  name: 'Meeting',</span><br><span class="line">  fields: () =&gt; (&#123;</span><br><span class="line">    meetingId: &#123;type: new GraphQLNonNull(GraphQLString)&#125;,</span><br><span class="line">    meetingStatus: &#123;type: new GraphQLNonNull(GraphQLString), defaultValue: ''&#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>GraphQL 的类型系统定义了包括 Int, Float, String, Boolean, ID, Object, List, Non-Null 等数据类型。所以在开发过程中，利用强大的强类型检查，能够大大节省开发的时间，同时也很方便前后端进行调试。</p>
-</li>
-<li><p>协议而非存储：GraphQL 本身并不直接提供后端存储的能力，不绑定任何的数据库或者存储引擎。</p>
-</li>
-<li><p>无需版本化</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const PhotoType = new GraphQLObjectType(&#123;</span><br><span class="line">  name: 'Photo',</span><br><span class="line">  fields: () =&gt; (&#123;</span><br><span class="line">    photoId: &#123;type: new GraphQLNonNull(GraphQLID)&#125;,</span><br><span class="line">    file: &#123;</span><br><span class="line">      type: new GraphQLNonNull(FileType),</span><br><span class="line">      deprecationReason: 'FileModel should be removed after offline app code merged.',</span><br><span class="line">      resolve: (parent) =&gt; &#123;</span><br><span class="line">        return parent.file</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    fileId: &#123;type: new GraphQLNonNull(GraphQLID)&#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>GraphQL 服务端能够通过添加 deprecationReason，自动将某个字段标注为弃用状态。并且基于 GraphQL 高度的可扩展性，如果不需要某个数据，那么只需要使用新的字段或者结构即可，老的弃用字段给老的客户端提供服务，所有新的客户端使用新的字段获取相关信息。并且考虑到所有的 graphql 请求，都是按照 POST  <code>/graphql</code> 发送请求，所以在 GraphQL 中是无须进行版本化的。</p>
-</li>
+<li>先收集 future 结果到list，再调用新的流运算，即 <code>.map(CompletableFuture::join)</code>方法</li>
+<li><code>limit(size).map</code> 之间添加 parallel() 方法，形成 <code>parallelStream()</code>d的形式</li>
 </ol>
-<p>GraphQL 与 Rest</p>
-<ol>
-<li><strong>数据获取</strong>：Rest 缺乏可扩展性，GraphQL能够按需获取；</li>
-<li><strong>API调用</strong>：REST针对每种资源的操作都是一个endpoint，GraphQL只需要一个endpoint；</li>
-<li><strong>复杂数据请求</strong>：REST对于嵌套的复杂数据需要多次调用，GraphQL 一次调用，减少网络开销；</li>
-<li><strong>错误码处理</strong>：REST能够精确返回HTTP错误码，GraphQL统一返回200，对错误信息进行包装；</li>
-<li><strong>版本号</strong>：REST通过v1/v2实现，Graph通过Schema扩展实现。</li>
-</ol>
-<p>BFF 端技术栈</p>
-<p><img src="/images/1536247819506.png" alt="1536247819506"></p>
-<p><a href="https://juejin.im/entry/5abca4416fb9a028b92d38dd" target="_blank" rel="noopener">微服务下使用GraphQL构建BFF</a>中使用node作为BFF主要框架，因自己对node不太熟悉，会尽量采用java来实现相应的功能。GraphQL 使用 query 和 mutation 实现CQRS。</p>
+<p>原因分析：普通的stram可以理解为单纯的foreach循环，每生成一个future立即join，出现异步变同步的现象。</p>
+<p>再进一步，既然CompletableFuture和parellStream都可以并行执行任务，有必要比较一下。</p>
+<h4 id="parallelStream"><a href="#parallelStream" class="headerlink" title="parallelStream"></a>parallelStream</h4><p>先试用 parallelStream 重写上述方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Double&gt; result = Stream.iterate(<span class="number">0</span>, i -&gt; i + <span class="number">1</span>).limit(<span class="number">50</span>).parallel().map(i -&gt; &#123;</span><br><span class="line">            <span class="comment">///.....</span></span><br><span class="line">        &#125;).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<p>用时：54018ms</p>
+<p>想要深入了解parallelStream，需要先了解ForkJoin框架和ForkJoinPool框架。这里简单介绍一下ForkJoinPool，真正了解 ParallelStream 还是需要先弄懂ForkJoinPool的，在此只是简单比较两者功能，不做深入探讨。</p>
+<p>ForkJoinPool 使用分治法(Divide-and-Conquer Algorithm)来解决问题，实现了ExecutorService接口，线程数量可以通过构造器传入，默认使用机器的CPU数量。和ThreadPoolExecutor有一定区别，ForkJoinPool可以在运行线程中创建新的任务，并挂起当前的任务，此时线程就能够从队列中选择子任务执行，而ThreadPoolExecutor做不到这一点的。ForkJoinPool的核心算法是工作窃取算法，这样就可以在使用少量的线程来完成大量的任务。比如说ForkJoinPool 4个线程可以处理200完个任务，ThreadPoolExecutor显然是不可行的。</p>
+<blockquote>
+<p>工作窃取算法的优点是充分利用线程进行并行计算，并减少了线程间的竞争，其缺点是在某些情况下还是存在竞争，比如双端队列里只有一个任务时。并且消耗了更多的系统资源，比如创建多个线程和多个双端队列。</p>
+</blockquote>
+<p>ParallelStreams中java8为ForkJoinPool添加了通用线程池，默认线程数量为机器的处理器数量。可以通过 <code>-Djava.util.concurrent.ForkJoinPool.common.parallelism=N</code>来设置ForkJoinPool的线程数量。</p>
+<h4 id="拆分成两步重写上述方法"><a href="#拆分成两步重写上述方法" class="headerlink" title="拆分成两步重写上述方法"></a>拆分成两步重写上述方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;CompletableFuture&lt;Double&gt;&gt; futures = Stream.iterate(<span class="number">0</span>, i -&gt; i + <span class="number">1</span>).limit(<span class="number">50</span>).map(i -&gt; CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            <span class="comment">///.....</span></span><br><span class="line">        &#125;, ThreadUtil.fixed())).collect(Collectors.toList());</span><br><span class="line">        List&lt;Double&gt; ids = futures.stream().map(CompletableFuture::join)</span><br><span class="line">                .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<p>用时：57111ms， 通过增加线程数量可以减少执行时间。</p>
+<p>References</p>
+<p><a href="https://www.cnblogs.com/hongdada/p/8876028.html" target="_blank" rel="noopener">Java 多线程中的任务分解机制-ForkJoinPool，以及CompletableFuture</a></p>
+<p><a href="https://blog.csdn.net/itguangit/article/details/78624404" target="_blank" rel="noopener">CompletableFuture 组合式异步编程</a></p>
 
     </div>
 
@@ -395,6 +382,15 @@
       
 
       <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/java/" rel="tag"># java</a>
+            
+          </div>
+        
 
         
   <div class="post-widgets">
@@ -407,8 +403,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2018/08/31/Spring Boot @PropertySource 读取 YAML 文件/" rel="next" title="【译】Spring Boot @PropertySource 读取 YAML 文件">
-                  <i class="fa fa-chevron-left"></i> 【译】Spring Boot @PropertySource 读取 YAML 文件
+                <a href="/2019/10/01/Java8之扩展函数式接口/" rel="next" title="Java8之扩展函数式接口">
+                  <i class="fa fa-chevron-left"></i> Java8之扩展函数式接口
                 </a>
               
             </div>
@@ -417,8 +413,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2019/05/28/redission 序列化问题追踪/" rel="prev" title="redission 序列化问题追踪">
-                  redission 序列化问题追踪 <i class="fa fa-chevron-right"></i>
+                <a href="/2019/11/17/开源贡献协议介绍/" rel="prev" title="开源贡献协议介绍">
+                  开源贡献协议介绍 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -471,6 +467,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题来源"><span class="nav-number">1.</span> <span class="nav-text">问题来源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#parallelStream"><span class="nav-number">2.</span> <span class="nav-text">parallelStream</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拆分成两步重写上述方法"><span class="nav-number">3.</span> <span class="nav-text">拆分成两步重写上述方法</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 

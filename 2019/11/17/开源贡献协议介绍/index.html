@@ -57,21 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="BFF 架构图">
+  <meta name="description" content="众所周知，开源代码都有其开源许可证，详细选择参考如何选择开源许可证？。这里不是要讨论开源许可证的问题，而是开源贡献协议。最近在参加一个开源项目时，提到需要使用DCO贡献协议，所以就去了解当下主流的开源贡献协议。 CLA（Contributor License Agreement）协议 CLA时对开源License的法律性质补充，多由企业或者组织自行定义，作为开源协议的补充，一次性签署，比如alib">
 <meta property="og:type" content="article">
-<meta property="og:title" content="微服务架构BFF和网关">
-<meta property="og:url" content="http://yoursite.com/2018/09/05/微服务架构BFF和网关/index.html">
+<meta property="og:title" content="开源贡献协议介绍">
+<meta property="og:url" content="http://yoursite.com/2019/11/17/开源贡献协议介绍/index.html">
 <meta property="og:site_name" content="Whirlwinder">
-<meta property="og:description" content="BFF 架构图">
+<meta property="og:description" content="众所周知，开源代码都有其开源许可证，详细选择参考如何选择开源许可证？。这里不是要讨论开源许可证的问题，而是开源贡献协议。最近在参加一个开源项目时，提到需要使用DCO贡献协议，所以就去了解当下主流的开源贡献协议。 CLA（Contributor License Agreement）协议 CLA时对开源License的法律性质补充，多由企业或者组织自行定义，作为开源协议的补充，一次性签署，比如alib">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/1536134559339.png">
-<meta property="og:image" content="http://yoursite.com/images/1536247819506.png">
-<meta property="og:updated_time" content="2019-10-01T02:34:22.971Z">
+<meta property="og:updated_time" content="2019-11-23T08:00:00.970Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="微服务架构BFF和网关">
-<meta name="twitter:description" content="BFF 架构图">
-<meta name="twitter:image" content="http://yoursite.com/images/1536134559339.png">
-  <link rel="canonical" href="http://yoursite.com/2018/09/05/微服务架构BFF和网关/">
+<meta name="twitter:title" content="开源贡献协议介绍">
+<meta name="twitter:description" content="众所周知，开源代码都有其开源许可证，详细选择参考如何选择开源许可证？。这里不是要讨论开源许可证的问题，而是开源贡献协议。最近在参加一个开源项目时，提到需要使用DCO贡献协议，所以就去了解当下主流的开源贡献协议。 CLA（Contributor License Agreement）协议 CLA时对开源License的法律性质补充，多由企业或者组织自行定义，作为开源协议的补充，一次性签署，比如alib">
+  <link rel="canonical" href="http://yoursite.com/2019/11/17/开源贡献协议介绍/">
 
 
 <script id="page-configurations">
@@ -85,7 +82,7 @@
   };
 </script>
 
-  <title>微服务架构BFF和网关 | Whirlwinder</title>
+  <title>开源贡献协议介绍 | Whirlwinder</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115111429-1"></script>
   <script>
@@ -260,7 +257,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/微服务架构BFF和网关/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/17/开源贡献协议介绍/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="歧途老马">
@@ -272,7 +269,7 @@
       <meta itemprop="name" content="Whirlwinder">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">微服务架构BFF和网关
+        <h1 class="post-title" itemprop="name headline">开源贡献协议介绍
 
           
         </h1>
@@ -288,7 +285,7 @@
                 
               
 
-              <time title="创建时间：2018-09-05 16:01:01" itemprop="dateCreated datePublished" datetime="2018-09-05T16:01:01+08:00">2018-09-05</time>
+              <time title="创建时间：2019-11-17 16:01:01" itemprop="dateCreated datePublished" datetime="2019-11-17T16:01:01+08:00">2019-11-17</time>
             </span>
           
 
@@ -311,7 +308,7 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2018/09/05/微服务架构BFF和网关/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2018/09/05/微服务架构BFF和网关/" itemprop="commentCount"></span></a>
+    <a title="valine" href="/2019/11/17/开源贡献协议介绍/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/11/17/开源贡献协议介绍/" itemprop="commentCount"></span></a>
   </span>
   
   
@@ -325,43 +322,51 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>BFF 架构图</p>
-<p><img src="/images/1536134559339.png" alt="1536134559339"></p>
-<a id="more"></a>
-
-<p>BFF(Backend for Frontend)也称聚合层或者适配层，上述架构从外到内依次为 端用户体验层-&gt;网关层-&gt;BFF层-&gt;微服务层，主要是讲内部复杂的微服务，适配成对各种不同的用户体验。网关专注解决跨横切面逻辑，包括路由、安全、监控和限流熔断等。</p>
-<p>为提高系统的灵活性，在网关层和微服务层之间构建BFF层，这里主要使用GraphQL 构建BFF层。</p>
-<p>GraphQL 特点：</p>
+        <p>众所周知，开源代码都有其开源许可证，详细选择参考<a href="http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html" target="_blank" rel="noopener">如何选择开源许可证？</a>。这里不是要讨论开源许可证的问题，而是开源贡献协议。最近在参加一个开源项目时，提到需要使用DCO贡献协议，所以就去了解当下主流的开源贡献协议。</p>
+<h3 id="CLA（Contributor-License-Agreement）协议"><a href="#CLA（Contributor-License-Agreement）协议" class="headerlink" title="CLA（Contributor License Agreement）协议"></a><a href="https://en.wikipedia.org/wiki/Contributor_License_Agreement" target="_blank" rel="noopener">CLA</a>（Contributor License Agreement）协议</h3><blockquote>
+<p>CLA时对开源License的法律性质补充，多由企业或者组织自行定义，作为开源协议的补充，一次性签署，比如alibaba CLA协议： <a href="https://github.com/aliyun/cla" target="_blank" rel="noopener">Alibaba Open Source Individual CLA</a></p>
+</blockquote>
+<p>使用上来说，CLA只需要签署一次，如<a href="https://cla-assistant.io/alibaba/weex" target="_blank" rel="noopener">阿里巴巴个人CLA</a>， <a href="https://cla.developers.google.com/clas" target="_blank" rel="noopener">Google CLA</a>，<a href="https://cla.pivotal.io/" target="_blank" rel="noopener">Pivotal CLA</a>，<a href="https://github.com/cncf/cla" target="_blank" rel="noopener">CNCF CLA</a></p>
+<p>使用CLA的用户或者组织</p>
+<ul>
+<li>Facebook</li>
+<li>Eclipse</li>
+<li>Go</li>
+<li>Google</li>
+<li>InfluxDB</li>
+<li>Python</li>
+<li>Elastic</li>
+<li>CNCF</li>
+<li>…..</li>
+</ul>
+<h3 id="DCO（Developer-Certificate-of-Origin）协议"><a href="#DCO（Developer-Certificate-of-Origin）协议" class="headerlink" title="DCO（Developer Certificate of Origin）协议"></a><a href="https://en.wikipedia.org/wiki/Developer_Certificate_of_Origin" target="_blank" rel="noopener">DCO</a>（Developer Certificate of Origin）协议</h3><blockquote>
+<p>DCO时Linux Foundation提出的，只有四条简短条文， 具体内容如下: <a href="https://developercertificate.org/" target="_blank" rel="noopener">DCO</a>，使用上只需要开发者提交信息时追加 Signed-off-by 即可。具体内容(version1.1)如下：</p>
 <ol>
-<li><p>定义数据模型：按需获取</p>
-</li>
-<li><p>数据分层：通过数据分层可以减少客户端请求次数</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  user(id:1001) &#123; // 第一层</span><br><span class="line">    name,</span><br><span class="line">    friends &#123; // 第二层</span><br><span class="line">      name,</span><br><span class="line">      addr &#123; // 第三层</span><br><span class="line">        country,</span><br><span class="line">        city</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>强类型</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const Meeting = new GraphQLObjectType(&#123;</span><br><span class="line">  name: 'Meeting',</span><br><span class="line">  fields: () =&gt; (&#123;</span><br><span class="line">    meetingId: &#123;type: new GraphQLNonNull(GraphQLString)&#125;,</span><br><span class="line">    meetingStatus: &#123;type: new GraphQLNonNull(GraphQLString), defaultValue: ''&#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>GraphQL 的类型系统定义了包括 Int, Float, String, Boolean, ID, Object, List, Non-Null 等数据类型。所以在开发过程中，利用强大的强类型检查，能够大大节省开发的时间，同时也很方便前后端进行调试。</p>
-</li>
-<li><p>协议而非存储：GraphQL 本身并不直接提供后端存储的能力，不绑定任何的数据库或者存储引擎。</p>
-</li>
-<li><p>无需版本化</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const PhotoType = new GraphQLObjectType(&#123;</span><br><span class="line">  name: 'Photo',</span><br><span class="line">  fields: () =&gt; (&#123;</span><br><span class="line">    photoId: &#123;type: new GraphQLNonNull(GraphQLID)&#125;,</span><br><span class="line">    file: &#123;</span><br><span class="line">      type: new GraphQLNonNull(FileType),</span><br><span class="line">      deprecationReason: 'FileModel should be removed after offline app code merged.',</span><br><span class="line">      resolve: (parent) =&gt; &#123;</span><br><span class="line">        return parent.file</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    fileId: &#123;type: new GraphQLNonNull(GraphQLID)&#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>GraphQL 服务端能够通过添加 deprecationReason，自动将某个字段标注为弃用状态。并且基于 GraphQL 高度的可扩展性，如果不需要某个数据，那么只需要使用新的字段或者结构即可，老的弃用字段给老的客户端提供服务，所有新的客户端使用新的字段获取相关信息。并且考虑到所有的 graphql 请求，都是按照 POST  <code>/graphql</code> 发送请求，所以在 GraphQL 中是无须进行版本化的。</p>
-</li>
+<li>该贡献全部或部分由我创建，我有权根据文件中指明的开源许可提交；要么</li>
+<li>该贡献是基于以前的工作，这些工作属于适当的开源许可，无论这些工作全部还是部分由我完成，我有权根据相同的开源许可证（除非我被允许根据不同的许可证提交）提交修改后的工作；要么</li>
+<li>该贡献由1、2、或 3 证明的其他人直接提供给我，而我没有对其进行修改。</li>
+<li>我理解并同意该项目和贡献是公开的，并且该贡献的记录（包括我随之提交的所有个人信息，包括我的签字）将无限期保留，并且可以与本项目或涉及的开源许可证保持一致或者重新分配。</li>
 </ol>
-<p>GraphQL 与 Rest</p>
+</blockquote>
+<p>使用方法详见 <a href="https://github.com/probot/dco#how-it-works" target="_blank" rel="noopener">Probot: DCO</a>， 其实就是提交代码(commit)时增加<code>-s</code>参数，然后你会在提交信息里看到</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">This is my commit message</span><br><span class="line"></span><br><span class="line">Signed-off-by: DEVELOPER &lt;random@developer.example.org&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用DCO的用户或者组织</p>
+<ul>
+<li>Gitlab</li>
+<li>Chef</li>
+<li>TiKv</li>
+<li>Apache SkyWalking</li>
+<li>……</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>如果你只是一个commiter，请遵从开源项目的贡献者协议，或者发起issue请求变更，如果是自己的开源项目，更看重法律风险，建议使用CLA，看重社区合作，可以使用DCO。</p>
+<p><strong>References</strong></p>
 <ol>
-<li><strong>数据获取</strong>：Rest 缺乏可扩展性，GraphQL能够按需获取；</li>
-<li><strong>API调用</strong>：REST针对每种资源的操作都是一个endpoint，GraphQL只需要一个endpoint；</li>
-<li><strong>复杂数据请求</strong>：REST对于嵌套的复杂数据需要多次调用，GraphQL 一次调用，减少网络开销；</li>
-<li><strong>错误码处理</strong>：REST能够精确返回HTTP错误码，GraphQL统一返回200，对错误信息进行包装；</li>
-<li><strong>版本号</strong>：REST通过v1/v2实现，Graph通过Schema扩展实现。</li>
+<li><a href="https://opensource.com/article/18/3/cla-vs-dco-whats-difference" target="_blank" rel="noopener">CLA vs. DCO: What’s the difference?</a></li>
+<li><a href="https://linux.cn/article-10836-1.html" target="_blank" rel="noopener">为何《贡献者许可协议》不利于开源社区？</a></li>
+<li><a href="https://github.com/kubernetes/community/issues/2649" target="_blank" rel="noopener">Move from CLA to DCO #2649 - github.com</a></li>
+<li>[probot/dco](</li>
 </ol>
-<p>BFF 端技术栈</p>
-<p><img src="/images/1536247819506.png" alt="1536247819506"></p>
-<p><a href="https://juejin.im/entry/5abca4416fb9a028b92d38dd" target="_blank" rel="noopener">微服务下使用GraphQL构建BFF</a>中使用node作为BFF主要框架，因自己对node不太熟悉，会尽量采用java来实现相应的功能。GraphQL 使用 query 和 mutation 实现CQRS。</p>
 
     </div>
 
@@ -407,8 +412,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2018/08/31/Spring Boot @PropertySource 读取 YAML 文件/" rel="next" title="【译】Spring Boot @PropertySource 读取 YAML 文件">
-                  <i class="fa fa-chevron-left"></i> 【译】Spring Boot @PropertySource 读取 YAML 文件
+                <a href="/2019/11/02/浅析Java8 CompletableFuture和Stream串行使用产生的一个问题/" rel="next" title="浅析Java8 CompletableFuture和Stream串行使用产生的一个问题">
+                  <i class="fa fa-chevron-left"></i> 浅析Java8 CompletableFuture和Stream串行使用产生的一个问题
                 </a>
               
             </div>
@@ -417,8 +422,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2019/05/28/redission 序列化问题追踪/" rel="prev" title="redission 序列化问题追踪">
-                  redission 序列化问题追踪 <i class="fa fa-chevron-right"></i>
+                <a href="/2019/11/23/Logitech Options 在 Mac 下的自定义按键失灵问题/" rel="prev" title="Logitech Options 在 Mac 下的自定义按键失灵问题">
+                  Logitech Options 在 Mac 下的自定义按键失灵问题 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -471,6 +476,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CLA（Contributor-License-Agreement）协议"><span class="nav-number">1.</span> <span class="nav-text">CLA（Contributor License Agreement）协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DCO（Developer-Certificate-of-Origin）协议"><span class="nav-number">2.</span> <span class="nav-text">DCO（Developer Certificate of Origin）协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 

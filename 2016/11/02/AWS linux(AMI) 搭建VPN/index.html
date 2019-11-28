@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="Whirlwinder">
 <meta property="og:description" content="AWS提供一年的免费试用($2.00)，试着在amazon linux(AMI) 上搭建vpn，简要记录一下搭建过程。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-01T02:34:22.967Z">
+<meta property="og:updated_time" content="2019-11-23T08:04:28.772Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AWS linux(AMI) 搭建VPN">
 <meta name="twitter:description" content="AWS提供一年的免费试用($2.00)，试着在amazon linux(AMI) 上搭建vpn，简要记录一下搭建过程。">
@@ -365,7 +365,7 @@
 <li><p>ec2控制台打开TCP的1723端口，这是pptpd的默认连接端口。</p>
 </li>
 </ol>
-<p>Reference：<a href="https://leonax.net/p/3274/install-vpn-server-on-amazon-ec2/" target="_blank" rel="noopener">https://leonax.net/p/3274/install-vpn-server-on-amazon-ec2/</a></p>
+<p>References：<a href="https://leonax.net/p/3274/install-vpn-server-on-amazon-ec2/" target="_blank" rel="noopener">https://leonax.net/p/3274/install-vpn-server-on-amazon-ec2/</a></p>
 <h4 id="AMI-软件更新"><a href="#AMI-软件更新" class="headerlink" title="AMI 软件更新"></a>AMI 软件更新</h4><ol>
 <li><p>jdk 更新</p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa|grep java   //查询系统jdk</span><br><span class="line">rpm -e --allmatches --nodeps java-1.6.0-openjdk-1.6.0.37-1.13.9.4.el5_11    //删除老版本</span><br><span class="line">yum -y list java*   (yum search jdk)                    //查询软件包内的jdk</span><br><span class="line">yum install java-1.8.0-openjdk.x86_64                   //安装新版本</span><br><span class="line">java -version                                           //验证</span><br></pre></td></tr></table></figure>
@@ -514,7 +514,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

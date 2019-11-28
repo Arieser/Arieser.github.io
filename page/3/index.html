@@ -255,6 +255,377 @@
   
   
   <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/07/20/使用Linux命令查看硬件信息/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老马">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/07/20/使用Linux命令查看硬件信息/" class="post-title-link" itemprop="url">使用Linux命令查看硬件信息</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-07-20 16:54:49" itemprop="dateCreated datePublished" datetime="2016-07-20T16:54:49+08:00">2016-07-20</time>
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2016/07/20/使用Linux命令查看硬件信息/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2016/07/20/使用Linux命令查看硬件信息/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在linux检查和查看硬件信息有分很多命令，这里列出一些命令快速查看linux的cpu和内存等信息。</p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2016/07/20/使用Linux命令查看硬件信息/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/28/window添加sublime右键菜单/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老马">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/06/28/window添加sublime右键菜单/" class="post-title-link" itemprop="url">window添加sublime右键菜单</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-06-28 14:20:02" itemprop="dateCreated datePublished" datetime="2016-06-28T14:20:02+08:00">2016-06-28</time>
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2016/06/28/window添加sublime右键菜单/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2016/06/28/window添加sublime右键菜单/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1.打开注册表编辑器，开始-&gt;运行-&gt;regedit。</p>
+<p>2.在HKEY_CLASSSES_ROOT→ * → Shell 下，在Shell下，新建项命名为Open With Sublime Text，在该新建项的右边窗口新建字符串值（右键–新建–字符串值）。名称：Icon；值：D:\Program Files\Sublime Text 3\sublime_text.exe,0 【注：使用您自己的安装文件目录】。</p>
+<p>3.在新建的项Open With Sublime Text下面新建项Command（必须这个名称）.修改Command项右侧窗口的默认值，修改为：”D:\Program Files\Sublime Text 3\sublime_text.exe” “%1”【注：使用您自己的安装文件目录】，双引号一定要加，否则无法打开路径带空格的文件，这样就大功告成了。</p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/27/MySQL修改密码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老马">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/06/27/MySQL修改密码/" class="post-title-link" itemprop="url">MySQL修改密码</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-06-27 23:14:46" itemprop="dateCreated datePublished" datetime="2016-06-27T23:14:46+08:00">2016-06-27</time>
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2016/06/27/MySQL修改密码/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2016/06/27/MySQL修改密码/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>记录MySQL修改密码的几种方式</p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2016/06/27/MySQL修改密码/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/22/hexo同步/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老马">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/06/22/hexo同步/" class="post-title-link" itemprop="url">hexo同步</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-06-22 22:09:32" itemprop="dateCreated datePublished" datetime="2016-06-22T22:09:32+08:00">2016-06-22</time>
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2016/06/22/hexo同步/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2016/06/22/hexo同步/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>简要介绍一下hexo搭建的github page同步过程。</p>
+<p>我已经在github上建立了hexo的源码分支hexo，以及主页分支master。<br>过程：</p>
+<ul>
+<li>准备工作 git(Cygwin)，nodejs(win10)安装</li>
+<li>依次执行的命令<ol>
+<li>git clone -b hexo <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:silloy/silloy.github.io.git hexo</li>
+<li>cd hexo</li>
+<li>npm install -g hexo-cli</li>
+<li>npm install</li>
+<li>npm install hexo-deployer-git</li>
+<li>npm install -g npm-check</li>
+<li>npm-check -u  （npm-check -u -g）</li>
+</ol>
+</li>
+<li>安装其他依赖包<ul>
+<li><a href="https://github.com/theme-next/theme-next-canvas-nest" target="_blank" rel="noopener">https://github.com/theme-next/theme-next-canvas-nest</a></li>
+<li><a href="https://github.com/theme-next/theme-next-fancybox3" target="_blank" rel="noopener">https://github.com/theme-next/theme-next-fancybox3</a></li>
+<li><a href="https://github.com/theme-next/theme-next-pace" target="_blank" rel="noopener">https://github.com/theme-next/theme-next-pace</a></li>
+</ul>
+</li>
+</ul>
+<p>参考资料： <a href="https://www.zhihu.com/question/21193762" target="_blank" rel="noopener">使用hexo，如果换了电脑怎么更新博客？</a></p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/14/vm环境安装linuxmint/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -485,7 +856,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
