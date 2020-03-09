@@ -176,7 +176,7 @@ MySql的随机读缓冲区大小。当按任意顺序读取行时(例如，按�
 
 类似于threadcachesize，但用来缓存表文件，对InnoDB效果不大，主要用于MyISAM
 
-reference:
+**References**
 
 [阿里云慢SQL优化挑战大赛分析](https://yq.aliyun.com/articles/183749)
 

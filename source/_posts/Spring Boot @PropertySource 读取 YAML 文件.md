@@ -72,6 +72,6 @@ public class YamlPropertysourceApplication {
 
 翻译拙劣，欢迎指正。
 
-reference:
+References
 
 [Use @PropertySource with YAML files](https://mdeinum.github.io/2018-07-04-PropertySource-with-yaml-files/)

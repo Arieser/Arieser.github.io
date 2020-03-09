@@ -345,7 +345,7 @@ Step 10: <http://search.maven.org/> 上搜索自己的构件 ，大功告成�
 
 
 
-reference：
+References
 
 [发布到中央仓库](https://skyao.gitbooks.io/learning-maven/content/publish/central/)
 

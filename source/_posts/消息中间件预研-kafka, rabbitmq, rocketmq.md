@@ -270,7 +270,7 @@ Broker Replication只的就是slave获取或者是复制master的数据.
   DefaultCluster    broker-b                0     172.18.48.79:12911     V3_5_8                   0.00(0,0ms)         0.00(0,0ms)          0 412299.47 0.5476
   ```
 
-  ​
+  
 
 - 默认的集群配置conf子目录下
 
@@ -307,7 +307,7 @@ Broker Replication只的就是slave获取或者是复制master的数据.
 
      `JAVA_OPT="${JAVA_OPT} -server -Xms128m -Xmx128m -Xmn128m -XX:PermSize=128m -XX:MaxPermSize=128m"`
 
-     ​
+     
 
 #### 启动rocketmq-console
 
@@ -429,7 +429,7 @@ rocketmq中一个broker-name其实就相当于kafka-broker中的一个partition�
 
   [How-to-install-rabbitmq-on-centos-7](https://www.vultr.com/docs/how-to-install-rabbitmq-on-centos-7)
 
-  ​
+  
 
 
 
@@ -476,7 +476,7 @@ rocketmq中一个broker-name其实就相当于kafka-broker中的一个partition�
 
 
 
-**reference**: 
+**References**: 
 
 - [消息队列中间件调研文档](http://alibaba.github.io/RocketMQ-docs/document/openuser/mqvsmq.pdf)
 - [几款消息中间的调研](http://blog.wentong.me/2016/01/message-queue-research/)
@@ -490,7 +490,7 @@ rocketmq中一个broker-name其实就相当于kafka-broker中的一个partition�
 - [消息队列探秘-RabbitMQ消息队列介绍](https://www.jianshu.com/p/24f464f9161c)
 - [RabbitMq延迟、重试队列及Spring Boot的黑科技](https://www.jianshu.com/p/35fbbdc9ca60)
 - [rabbitmq可靠发送的自动重试机制](https://www.jianshu.com/p/6579e48d18ae)
-- ​
+- 
 
 
 

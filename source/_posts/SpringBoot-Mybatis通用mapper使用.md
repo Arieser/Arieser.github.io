@@ -121,7 +121,7 @@ mybatis是一个很好用的工具，但是编写mapper是一件很麻烦的事�
      
 [annotation]: https://github.com/abel533/Mapper/wiki/2.2-mapping
 
-reference:
+**References**
 
 http://www.mybatis.tk/
 

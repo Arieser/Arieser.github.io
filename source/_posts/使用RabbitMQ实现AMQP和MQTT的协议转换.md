@@ -67,7 +67,7 @@ public class TopicReciver {
 
 使用java模拟的mqtt client 发送的消息为byte[]， 因此需要使用`byte[]`接收消息内容。
 
-reference:
+**References**
 
 - [Uniting AMQP and MQTT Message Brokering with RabbitMQ](https://blogs.sap.com/2016/02/21/uniting-amqp-and-mqtt-message-brokering-with-rabbitmq/)
 - [使用rabbitmq做为mqtt服务器，整合spring做推送后台](https://my.oschina.net/u/1047640/blog/819418)

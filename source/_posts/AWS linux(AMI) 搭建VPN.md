@@ -81,7 +81,7 @@ AWS提供一年的免费试用($2.00)，试着在amazon linux(AMI) 上搭建vpn�
 
 10. ec2控制台打开TCP的1723端口，这是pptpd的默认连接端口。
 
-Reference：[https://leonax.net/p/3274/install-vpn-server-on-amazon-ec2/](https://leonax.net/p/3274/install-vpn-server-on-amazon-ec2/)
+References：[https://leonax.net/p/3274/install-vpn-server-on-amazon-ec2/](https://leonax.net/p/3274/install-vpn-server-on-amazon-ec2/)
 
 #### AMI 软件更新
 
