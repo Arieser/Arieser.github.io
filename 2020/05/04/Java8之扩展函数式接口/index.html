@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="众所周知，开源代码都有其开源许可证，详细选择参考如何选择开源许可证？。这里不是要讨论开源许可证的问题，而是开源贡献协议。最近在参加一个开源项目时，提到需要使用DCO贡献协议，所以就去了解当下主流的开源贡献协议。 CLA（Contributor License Agreement）协议 CLA时对开源License的法律性质补充，多由企业或者组织自行定义，作为开源协议的补充，一次性签署，比如alib">
+  <meta name="description" content="函数式接口先看一下官方定义  Functional interfaces provide target types for lambda expressions and method references.  可以看出函数式接口主要用于lambda表达式，这类接口只定义了唯一的抽象方法的接口（除了隐含的Object对象的公共方法），一开始也称SAM类型接口(Single Abstract Meth">
 <meta property="og:type" content="article">
-<meta property="og:title" content="开源贡献协议介绍">
-<meta property="og:url" content="http://yoursite.com/2019/11/17/开源贡献协议介绍/index.html">
+<meta property="og:title" content="Java8之扩展函数式接口">
+<meta property="og:url" content="http://yoursite.com/2020/05/04/Java8之扩展函数式接口/index.html">
 <meta property="og:site_name" content="Whirlwinder">
-<meta property="og:description" content="众所周知，开源代码都有其开源许可证，详细选择参考如何选择开源许可证？。这里不是要讨论开源许可证的问题，而是开源贡献协议。最近在参加一个开源项目时，提到需要使用DCO贡献协议，所以就去了解当下主流的开源贡献协议。 CLA（Contributor License Agreement）协议 CLA时对开源License的法律性质补充，多由企业或者组织自行定义，作为开源协议的补充，一次性签署，比如alib">
+<meta property="og:description" content="函数式接口先看一下官方定义  Functional interfaces provide target types for lambda expressions and method references.  可以看出函数式接口主要用于lambda表达式，这类接口只定义了唯一的抽象方法的接口（除了隐含的Object对象的公共方法），一开始也称SAM类型接口(Single Abstract Meth">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-23T08:00:00.970Z">
+<meta property="og:updated_time" content="2020-05-05T09:37:49.903Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="开源贡献协议介绍">
-<meta name="twitter:description" content="众所周知，开源代码都有其开源许可证，详细选择参考如何选择开源许可证？。这里不是要讨论开源许可证的问题，而是开源贡献协议。最近在参加一个开源项目时，提到需要使用DCO贡献协议，所以就去了解当下主流的开源贡献协议。 CLA（Contributor License Agreement）协议 CLA时对开源License的法律性质补充，多由企业或者组织自行定义，作为开源协议的补充，一次性签署，比如alib">
-  <link rel="canonical" href="http://yoursite.com/2019/11/17/开源贡献协议介绍/">
+<meta name="twitter:title" content="Java8之扩展函数式接口">
+<meta name="twitter:description" content="函数式接口先看一下官方定义  Functional interfaces provide target types for lambda expressions and method references.  可以看出函数式接口主要用于lambda表达式，这类接口只定义了唯一的抽象方法的接口（除了隐含的Object对象的公共方法），一开始也称SAM类型接口(Single Abstract Meth">
+  <link rel="canonical" href="http://yoursite.com/2020/05/04/Java8之扩展函数式接口/">
 
 
 <script id="page-configurations">
@@ -82,7 +82,7 @@
   };
 </script>
 
-  <title>开源贡献协议介绍 | Whirlwinder</title>
+  <title>Java8之扩展函数式接口 | Whirlwinder</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115111429-1"></script>
   <script>
@@ -257,10 +257,10 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/17/开源贡献协议介绍/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/04/Java8之扩展函数式接口/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老马">
+      <meta itemprop="name" content="歧途老农">
       <meta itemprop="description" content="Manners Maketh Man.">
       <meta itemprop="image" content="/images/ele.jpg">
     </span>
@@ -269,7 +269,7 @@
       <meta itemprop="name" content="Whirlwinder">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">开源贡献协议介绍
+        <h1 class="post-title" itemprop="name headline">Java8之扩展函数式接口
 
           
         </h1>
@@ -285,7 +285,7 @@
                 
               
 
-              <time title="创建时间：2019-11-17 16:01:01" itemprop="dateCreated datePublished" datetime="2019-11-17T16:01:01+08:00">2019-11-17</time>
+              <time title="创建时间：2020-05-04 15:00:00" itemprop="dateCreated datePublished" datetime="2020-05-04T15:00:00+08:00">2020-05-04</time>
             </span>
           
 
@@ -308,7 +308,7 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/11/17/开源贡献协议介绍/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/11/17/开源贡献协议介绍/" itemprop="commentCount"></span></a>
+    <a title="valine" href="/2020/05/04/Java8之扩展函数式接口/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2020/05/04/Java8之扩展函数式接口/" itemprop="commentCount"></span></a>
   </span>
   
   
@@ -322,51 +322,48 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>众所周知，开源代码都有其开源许可证，详细选择参考<a href="http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html" target="_blank" rel="noopener">如何选择开源许可证？</a>。这里不是要讨论开源许可证的问题，而是开源贡献协议。最近在参加一个开源项目时，提到需要使用DCO贡献协议，所以就去了解当下主流的开源贡献协议。</p>
-<h3 id="CLA（Contributor-License-Agreement）协议"><a href="#CLA（Contributor-License-Agreement）协议" class="headerlink" title="CLA（Contributor License Agreement）协议"></a><a href="https://en.wikipedia.org/wiki/Contributor_License_Agreement" target="_blank" rel="noopener">CLA</a>（Contributor License Agreement）协议</h3><blockquote>
-<p>CLA时对开源License的法律性质补充，多由企业或者组织自行定义，作为开源协议的补充，一次性签署，比如alibaba CLA协议： <a href="https://github.com/aliyun/cla" target="_blank" rel="noopener">Alibaba Open Source Individual CLA</a></p>
+        <h2 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h2><p>先看一下官方定义</p>
+<blockquote>
+<p><em>Functional interfaces</em> provide target types for lambda expressions and method references.</p>
 </blockquote>
-<p>使用上来说，CLA只需要签署一次，如<a href="https://cla-assistant.io/alibaba/weex" target="_blank" rel="noopener">阿里巴巴个人CLA</a>， <a href="https://cla.developers.google.com/clas" target="_blank" rel="noopener">Google CLA</a>，<a href="https://cla.pivotal.io/" target="_blank" rel="noopener">Pivotal CLA</a>，<a href="https://github.com/cncf/cla" target="_blank" rel="noopener">CNCF CLA</a></p>
-<p>使用CLA的用户或者组织</p>
-<ul>
-<li>Facebook</li>
-<li>Eclipse</li>
-<li>Go</li>
-<li>Google</li>
-<li>InfluxDB</li>
-<li>Python</li>
-<li>Elastic</li>
-<li>CNCF</li>
-<li>…..</li>
-</ul>
-<h3 id="DCO（Developer-Certificate-of-Origin）协议"><a href="#DCO（Developer-Certificate-of-Origin）协议" class="headerlink" title="DCO（Developer Certificate of Origin）协议"></a><a href="https://en.wikipedia.org/wiki/Developer_Certificate_of_Origin" target="_blank" rel="noopener">DCO</a>（Developer Certificate of Origin）协议</h3><blockquote>
-<p>DCO时Linux Foundation提出的，只有四条简短条文， 具体内容如下: <a href="https://developercertificate.org/" target="_blank" rel="noopener">DCO</a>，使用上只需要开发者提交信息时追加 Signed-off-by 即可。具体内容(version1.1)如下：</p>
-<ol>
-<li>该贡献全部或部分由我创建，我有权根据文件中指明的开源许可提交；要么</li>
-<li>该贡献是基于以前的工作，这些工作属于适当的开源许可，无论这些工作全部还是部分由我完成，我有权根据相同的开源许可证（除非我被允许根据不同的许可证提交）提交修改后的工作；要么</li>
-<li>该贡献由1、2、或 3 证明的其他人直接提供给我，而我没有对其进行修改。</li>
-<li>我理解并同意该项目和贡献是公开的，并且该贡献的记录（包括我随之提交的所有个人信息，包括我的签字）将无限期保留，并且可以与本项目或涉及的开源许可证保持一致或者重新分配。</li>
-</ol>
-</blockquote>
-<p>使用方法详见 <a href="https://github.com/probot/dco#how-it-works" target="_blank" rel="noopener">Probot: DCO</a>， 其实就是提交代码(commit)时增加<code>-s</code>参数，然后你会在提交信息里看到</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">This is my commit message</span><br><span class="line"></span><br><span class="line">Signed-off-by: DEVELOPER &lt;random@developer.example.org&gt;</span><br></pre></td></tr></table></figure>
+<p>可以看出函数式接口主要用于lambda表达式，这类接口只定义了唯一的抽象方法的接口（除了隐含的Object对象的公共方法），一开始也称<em>SAM</em>类型接口(Single Abstract Method)。</p>
+<a id="more"></a>
 
-<p>使用DCO的用户或者组织</p>
+<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Lists.newArrayList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line">        list.forEach(r -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"re = "</span> + Math.sqrt(r));</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>看一下  <code>foreach</code> 实现，在<code>Iterable.java</code>中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">forEach</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; action)</span> </span>&#123;</span><br><span class="line">        Objects.requireNonNull(action);</span><br><span class="line">        <span class="keyword">for</span> (T t : <span class="keyword">this</span>) &#123;</span><br><span class="line">            action.accept(t);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里出现的<code>Consumer</code>就是一个函数式接口， java8 提供了一些常用的函数式接口</p>
 <ul>
-<li>Gitlab</li>
-<li>Chef</li>
-<li>TiKv</li>
-<li>Apache SkyWalking</li>
-<li>……</li>
+<li>Predicate – 传入一个参数，返回一个bool结果， 方法为<code>boolean test(T t)</code></li>
+<li>Consumer – 传入一个参数，无返回值，纯消费。 方法为<code>void accept(T t)</code></li>
+<li>Function – 传入一个参数，返回一个结果，方法为<code>R apply(T t)</code></li>
+<li>Supplier – 无参数传入，返回一个结果，方法为<code>T get()</code></li>
+<li>UnaryOperator – 一元操作符， 继承Function,传入参数的类型和返回类型相同。</li>
+<li>BinaryOperator – 二元操作符， 传入的两个参数的类型和返回类型相同， 继承BiFunction</li>
 </ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>如果你只是一个commiter，请遵从开源项目的贡献者协议，或者发起issue请求变更，如果是自己的开源项目，更看重法律风险，建议使用CLA，看重社区合作，可以使用DCO。</p>
-<p><strong>References</strong></p>
+<p>这里就不一一列举了，具体请见 java.util.function 包 都很简单，不太清楚的自行google</p>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p>但是jdk提供的有时候不一定能满足需求，这个时候就需要我们自定义函数式接口</p>
 <ol>
-<li><a href="https://opensource.com/article/18/3/cla-vs-dco-whats-difference" target="_blank" rel="noopener">CLA vs. DCO: What’s the difference?</a></li>
-<li><a href="https://linux.cn/article-10836-1.html" target="_blank" rel="noopener">为何《贡献者许可协议》不利于开源社区？</a></li>
-<li><a href="https://github.com/kubernetes/community/issues/2649" target="_blank" rel="noopener">Move from CLA to DCO #2649 - github.com</a></li>
-<li>[probot/dco](</li>
+<li><p>普通的 Function 或者 Consumer 只能就收一个参数，BiFuntion 和 BiConsumer 也只能接受连个参数，参数更多的情况就无法满足了</p>
+<p>以 consumer 为例，先自定义一个接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TriConsumer</span>&lt;<span class="title">T</span>, <span class="title">U</span>, <span class="title">W</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">accept</span><span class="params">(T t, U u, W w)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">default</span> TriConsumer&lt;T, U, W&gt; <span class="title">andThen</span><span class="params">(TriConsumer&lt;? <span class="keyword">super</span> T, ? <span class="keyword">super</span> U, ? <span class="keyword">super</span> W&gt; after)</span> </span>&#123;</span><br><span class="line">            Objects.requireNonNull(after);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> (l, r, w) -&gt; &#123;</span><br><span class="line">                accept(l, r, w);</span><br><span class="line">                after.accept(l, r, w);</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数式接口一般使用 @FunctionalInterface 注解注释，以申明该接口是一个函数式接口， 这里提供一个 andThen 方法以支持连续调用</p>
+<p>使用方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">TriConsumer&lt;Integer, Integer, Integer&gt; consumer = (a, b, c) -&gt; &#123;</span><br><span class="line">            System.out.println(a + b + c);</span><br><span class="line">        &#125;;</span><br><span class="line">        consumer.accept(<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>);</span><br></pre></td></tr></table></figure>
+
+<p>funtion类似，这里就不举例了</p>
+</li>
+<li><p>异常捕获</p>
+<p>FunctionalInterface 提供的接口一般是不抛出异常的，意味着我们在使用的时候需要在方法体内部捕获异常，这里定义一种可以抛出异常的接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">InterfaceException</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">apply</span><span class="params">(T t)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
 </ol>
+<p><strong>References</strong></p>
+<p><a href="https://colobu.com/2014/10/28/secrets-of-java-8-functional-interface/" target="_blank" rel="noopener">Java 8函数式接口functional interface的秘密</a></p>
 
     </div>
 
@@ -374,7 +371,7 @@
     
     
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
-  <img id="wechat_subscriber_qcode" src="/images/wechatmp.jpg" alt="歧途老马 wechat" style="width: 200px; max-width: 100%;">
+  <img id="wechat_subscriber_qcode" src="/images/wechatmp.jpg" alt="歧途老农 wechat" style="width: 200px; max-width: 100%;">
   <div></div>
 </div>
 
@@ -390,13 +387,13 @@
         
       
       <div style="display: inline-block">
-        <img src="/images/wechatpay.png" alt="歧途老马 微信支付">
+        <img src="/images/wechatpay.png" alt="歧途老农 微信支付">
         <p>微信支付</p>
       </div>
         
       
       <div style="display: inline-block">
-        <img src="/images/alipay.png" alt="歧途老马 支付宝">
+        <img src="/images/alipay.png" alt="歧途老农 支付宝">
         <p>支付宝</p>
       </div>
 
@@ -418,8 +415,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/11/02/浅析Java8 CompletableFuture和Stream串行使用产生的一个问题/" rel="next" title="浅析Java8 CompletableFuture和Stream串行使用产生的一个问题">
-                  <i class="fa fa-chevron-left"></i> 浅析Java8 CompletableFuture和Stream串行使用产生的一个问题
+                <a href="/2020/05/02/补码之求相反数/" rel="next" title="补码之求相反数">
+                  <i class="fa fa-chevron-left"></i> 补码之求相反数
                 </a>
               
             </div>
@@ -428,8 +425,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2019/11/23/Logitech Options 在 Mac 下的自定义按键失灵问题/" rel="prev" title="Logitech Options 在 Mac 下的自定义按键失灵问题">
-                  Logitech Options 在 Mac 下的自定义按键失灵问题 <i class="fa fa-chevron-right"></i>
+                <a href="/2020/05/04/由一次Base64编码异常引起的小bug/" rel="prev" title="由一次Base64编码异常引起的小bug">
+                  由一次Base64编码异常引起的小bug <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -482,7 +479,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CLA（Contributor-License-Agreement）协议"><span class="nav-number">1.</span> <span class="nav-text">CLA（Contributor License Agreement）协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DCO（Developer-Certificate-of-Origin）协议"><span class="nav-number">2.</span> <span class="nav-text">DCO（Developer Certificate of Origin）协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数式接口"><span class="nav-number">1.</span> <span class="nav-text">函数式接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单使用"><span class="nav-number">1.1.</span> <span class="nav-text">简单使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展"><span class="nav-number">1.2.</span> <span class="nav-text">扩展</span></a></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -491,8 +488,8 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image"
       src="/images/ele.jpg"
-      alt="歧途老马">
-  <p class="site-author-name" itemprop="name">歧途老马</p>
+      alt="歧途老农">
+  <p class="site-author-name" itemprop="name">歧途老农</p>
   <div class="site-description" itemprop="description">Manners Maketh Man.</div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -501,7 +498,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">35</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -574,7 +571,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-globe"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">歧途老马</span>
+  <span class="author" itemprop="copyrightHolder">歧途老农</span>
 </div>
 
         

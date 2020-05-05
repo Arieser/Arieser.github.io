@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="函数式接口先看一下官方定义  Functional interfaces provide target types for lambda expressions and method references.  可以看出函数式接口主要用于lambda表达式，这类接口只定义了唯一的抽象方法的接口（除了隐含的Object对象的公共方法），一开始也称SAM类型接口(Single Abstract Meth">
+  <meta name="description" content="我与虚拟机小红小蓝的故事">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java8之扩展函数式接口">
-<meta property="og:url" content="http://yoursite.com/2019/10/01/Java8之扩展函数式接口/index.html">
+<meta property="og:title" content="《深入理解Java虚拟机》读书笔记">
+<meta property="og:url" content="http://yoursite.com/2019/09/12/《深入理解Java虚拟机》读书笔记/index.html">
 <meta property="og:site_name" content="Whirlwinder">
-<meta property="og:description" content="函数式接口先看一下官方定义  Functional interfaces provide target types for lambda expressions and method references.  可以看出函数式接口主要用于lambda表达式，这类接口只定义了唯一的抽象方法的接口（除了隐含的Object对象的公共方法），一开始也称SAM类型接口(Single Abstract Meth">
+<meta property="og:description" content="我与虚拟机小红小蓝的故事">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-01T02:34:22.968Z">
+<meta property="og:updated_time" content="2020-05-05T09:36:10.866Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java8之扩展函数式接口">
-<meta name="twitter:description" content="函数式接口先看一下官方定义  Functional interfaces provide target types for lambda expressions and method references.  可以看出函数式接口主要用于lambda表达式，这类接口只定义了唯一的抽象方法的接口（除了隐含的Object对象的公共方法），一开始也称SAM类型接口(Single Abstract Meth">
-  <link rel="canonical" href="http://yoursite.com/2019/10/01/Java8之扩展函数式接口/">
+<meta name="twitter:title" content="《深入理解Java虚拟机》读书笔记">
+<meta name="twitter:description" content="我与虚拟机小红小蓝的故事">
+  <link rel="canonical" href="http://yoursite.com/2019/09/12/《深入理解Java虚拟机》读书笔记/">
 
 
 <script id="page-configurations">
@@ -82,7 +82,7 @@
   };
 </script>
 
-  <title>Java8之扩展函数式接口 | Whirlwinder</title>
+  <title>《深入理解Java虚拟机》读书笔记 | Whirlwinder</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115111429-1"></script>
   <script>
@@ -257,10 +257,10 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/01/Java8之扩展函数式接口/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/12/《深入理解Java虚拟机》读书笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老马">
+      <meta itemprop="name" content="歧途老农">
       <meta itemprop="description" content="Manners Maketh Man.">
       <meta itemprop="image" content="/images/ele.jpg">
     </span>
@@ -269,7 +269,7 @@
       <meta itemprop="name" content="Whirlwinder">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">Java8之扩展函数式接口
+        <h1 class="post-title" itemprop="name headline">《深入理解Java虚拟机》读书笔记
 
           
         </h1>
@@ -285,7 +285,7 @@
                 
               
 
-              <time title="创建时间：2019-10-01 10:34:22" itemprop="dateCreated datePublished" datetime="2019-10-01T10:34:22+08:00">2019-10-01</time>
+              <time title="创建时间：2019-09-12 15:00:00" itemprop="dateCreated datePublished" datetime="2019-09-12T15:00:00+08:00">2019-09-12</time>
             </span>
           
 
@@ -308,7 +308,7 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/10/01/Java8之扩展函数式接口/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/10/01/Java8之扩展函数式接口/" itemprop="commentCount"></span></a>
+    <a title="valine" href="/2019/09/12/《深入理解Java虚拟机》读书笔记/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/09/12/《深入理解Java虚拟机》读书笔记/" itemprop="commentCount"></span></a>
   </span>
   
   
@@ -322,48 +322,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h2><p>先看一下官方定义</p>
-<blockquote>
-<p><em>Functional interfaces</em> provide target types for lambda expressions and method references.</p>
-</blockquote>
-<p>可以看出函数式接口主要用于lambda表达式，这类接口只定义了唯一的抽象方法的接口（除了隐含的Object对象的公共方法），一开始也称<em>SAM</em>类型接口(Single Abstract Method)。</p>
+        <p>我与虚拟机小红小蓝的故事</p>
 <a id="more"></a>
 
-<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Lists.newArrayList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line">        list.forEach(r -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"re = "</span> + Math.sqrt(r));</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
-
-<p>看一下  <code>foreach</code> 实现，在<code>Iterable.java</code>中</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">forEach</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; action)</span> </span>&#123;</span><br><span class="line">        Objects.requireNonNull(action);</span><br><span class="line">        <span class="keyword">for</span> (T t : <span class="keyword">this</span>) &#123;</span><br><span class="line">            action.accept(t);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里出现的<code>Consumer</code>就是一个函数式接口， java8 提供了一些常用的函数式接口</p>
+<p>《深入理解Java虚拟机》是JVM领域的经典之作，刚工作不久就有大佬强烈推荐，无奈基础较差，读的比较慢，之后短短续续读完了。在之后的工作中，偶尔也会拿出来翻一下，对于学习和工作帮助很大。</p>
+<p>JVM是整个虚拟机提醒的底座，是Java的“平台无关性”的基础，了解了JVM才能深入理解到java程序“一次编写，到处运行”的真正原因。同时对于工作中程序性能调优，异常排查有很大的指导意义。</p>
+<p>主要的内容包含以下几个方面：</p>
 <ul>
-<li>Predicate – 传入一个参数，返回一个bool结果， 方法为<code>boolean test(T t)</code></li>
-<li>Consumer – 传入一个参数，无返回值，纯消费。 方法为<code>void accept(T t)</code></li>
-<li>Function – 传入一个参数，返回一个结果，方法为<code>R apply(T t)</code></li>
-<li>Supplier – 无参数传入，返回一个结果，方法为<code>T get()</code></li>
-<li>UnaryOperator – 一元操作符， 继承Function,传入参数的类型和返回类型相同。</li>
-<li>BinaryOperator – 二元操作符， 传入的两个参数的类型和返回类型相同， 继承BiFunction</li>
+<li>走进Java</li>
+<li>自动内存管理机制</li>
+<li>虚拟机执行子系统</li>
+<li>程序编译与代码优化</li>
+<li>高效并发</li>
 </ul>
-<p>这里就不一一列举了，具体请见 java.util.function 包 都很简单，不太清楚的自行google</p>
-<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p>但是jdk提供的有时候不一定能满足需求，这个时候就需要我们自定义函数式接口</p>
-<ol>
-<li><p>普通的 Function 或者 Consumer 只能就收一个参数，BiFuntion 和 BiConsumer 也只能接受连个参数，参数更多的情况就无法满足了</p>
-<p>以 consumer 为例，先自定义一个接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TriConsumer</span>&lt;<span class="title">T</span>, <span class="title">U</span>, <span class="title">W</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">accept</span><span class="params">(T t, U u, W w)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">default</span> TriConsumer&lt;T, U, W&gt; <span class="title">andThen</span><span class="params">(TriConsumer&lt;? <span class="keyword">super</span> T, ? <span class="keyword">super</span> U, ? <span class="keyword">super</span> W&gt; after)</span> </span>&#123;</span><br><span class="line">            Objects.requireNonNull(after);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> (l, r, w) -&gt; &#123;</span><br><span class="line">                accept(l, r, w);</span><br><span class="line">                after.accept(l, r, w);</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>函数式接口一般使用 @FunctionalInterface 注解注释，以申明该接口是一个函数式接口， 这里提供一个 andThen 方法以支持连续调用</p>
-<p>使用方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">TriConsumer&lt;Integer, Integer, Integer&gt; consumer = (a, b, c) -&gt; &#123;</span><br><span class="line">            System.out.println(a + b + c);</span><br><span class="line">        &#125;;</span><br><span class="line">        consumer.accept(<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>);</span><br></pre></td></tr></table></figure>
-
-<p>funtion类似，这里就不举例了</p>
-</li>
-<li><p>异常捕获</p>
-<p>FunctionalInterface 提供的接口一般是不抛出异常的，意味着我们在使用的时候需要在方法体内部捕获异常，这里定义一种可以抛出异常的接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">InterfaceException</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">apply</span><span class="params">(T t)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<p><strong>References</strong></p>
-<p><a href="https://colobu.com/2014/10/28/secrets-of-java-8-functional-interface/" target="_blank" rel="noopener">Java 8函数式接口functional interface的秘密</a></p>
+<p>作者层层递进，从了解java一致到指导编写高效简洁的程序给了我很多帮助。</p>
+<p>走近JAVA</p>
+<p>这一部分就不用说了吧，对java技术体系的一个大概介绍。说实话，这是我刚开始读这本书了解最深也是最有印象的一部分，因为其他篇章还读不太懂（逃）。</p>
+<p>自动内存管理机制</p>
+<p>说实话，很多人喜欢java可能就是因为JVM的自动内存回收机制，因为这一个机制，让我们不用考虑垃圾回收问题，专注于业务代码的编写，但是并不意味着不需要了解JVM的GC机制。程序计数器，堆栈，内存布局……等等对于工作的指导意义很大。刚开始工作的时候写代码比较随意，stackoverflow常有发生，这个时候就需要优化代码，同时调整jvm参数就可以理解。同时像数据库连接池，线程池，等等的配置也和JVM内存有很大的关系。同时这一部分也讲了很多案例，程序的部署策略，集群间的内存异常，堆外内存的溢出错误，JVM进程奔溃，外部命令导致系统缓慢，都有很大的实践意义。刚开始学习netty的时候，遇到了很多堆外内存的溢出错误，也是在实践案例里找到参考，让我顺利的解决了异常。同时这一部分也了解了JConsole的和VisualVM的使用，现在启动新的项目时，一般也会通过VisualVM观察本地的内存占用情况，同时，如有可能也可以通过连接远程来观察服务器上的内存占用情况，优化程序。</p>
+<p>虚拟机执行子系统</p>
+<p>了解class文件结构，字节码指令，类加载机制等等，实际业务中虽然用的不多，排查问题的时候用过。同时通过了解字节码指令结合javaagent编写一些小的工具，如监控系统等等，对于程序的良好运行都有很大意义。</p>
+<p>程序编译与代码优化</p>
+<p>了解了Java编译器，可以通过反编译了解代码的执行机制。像泛型，类型擦除，自动装箱、拆箱、与遍历循环，java8的lambda表达式，条件编译等等都可以其实现机制，让我可以编写更好的程序。</p>
+<p>高效并发</p>
+<p>并发程序的重要性不言而喻，但是如何编写高效的，线程安全的并发程序是一个长久的话题，这一部分从内存模型出发，深入解释了主内存与工作内存，内存交互，特别是线程优化与锁优化讲的很是深入。</p>
+<p>总的来水，深入理解Java虚拟机 从底层开始讲起，让我了解了JVM的方方面面，之后的工作学习中也了解了其他的jvm技术，但基本都能在这本书中找到出处，让我受益良多。同时也期待第三版出版，让我有更大的收获。</p>
+<p>​         <a href="https://item.jd.com/12607299.html?dist=jd" target="_blank" rel="noopener">https://item.jd.com/12607299.html?dist=jd</a>  </p>
 
     </div>
 
@@ -371,7 +355,7 @@
     
     
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
-  <img id="wechat_subscriber_qcode" src="/images/wechatmp.jpg" alt="歧途老马 wechat" style="width: 200px; max-width: 100%;">
+  <img id="wechat_subscriber_qcode" src="/images/wechatmp.jpg" alt="歧途老农 wechat" style="width: 200px; max-width: 100%;">
   <div></div>
 </div>
 
@@ -387,13 +371,13 @@
         
       
       <div style="display: inline-block">
-        <img src="/images/wechatpay.png" alt="歧途老马 微信支付">
+        <img src="/images/wechatpay.png" alt="歧途老农 微信支付">
         <p>微信支付</p>
       </div>
         
       
       <div style="display: inline-block">
-        <img src="/images/alipay.png" alt="歧途老马 支付宝">
+        <img src="/images/alipay.png" alt="歧途老农 支付宝">
         <p>支付宝</p>
       </div>
 
@@ -479,8 +463,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数式接口"><span class="nav-number">1.</span> <span class="nav-text">函数式接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单使用"><span class="nav-number">1.1.</span> <span class="nav-text">简单使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展"><span class="nav-number">1.2.</span> <span class="nav-text">扩展</span></a></li></ol></li></ol></div>
-        
       </div>
       <!--/noindex-->
 
@@ -488,8 +470,8 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image"
       src="/images/ele.jpg"
-      alt="歧途老马">
-  <p class="site-author-name" itemprop="name">歧途老马</p>
+      alt="歧途老农">
+  <p class="site-author-name" itemprop="name">歧途老农</p>
   <div class="site-description" itemprop="description">Manners Maketh Man.</div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -498,7 +480,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">35</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -571,7 +553,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-globe"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">歧途老马</span>
+  <span class="author" itemprop="copyrightHolder">歧途老农</span>
 </div>
 
         

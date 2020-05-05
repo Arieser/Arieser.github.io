@@ -255,10 +255,666 @@
   
   
   <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/04/由一次Base64编码异常引起的小bug/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老农">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2020/05/04/由一次Base64编码异常引起的小bug/" class="post-title-link" itemprop="url">由一次Base64编码异常引起的小bug</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-04 15:32:45" itemprop="dateCreated datePublished" datetime="2020-05-04T15:32:45+08:00">2020-05-04</time>
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/05/04/由一次Base64编码异常引起的小bug/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2020/05/04/由一次Base64编码异常引起的小bug/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>base64是一种基本的加密算法，在Java中可以使用java自带的base64编码，也可以用apache 的commons-codec包。最近在使用commons-codec 1.10 版本能正常解密微信的消息，升级为1.13后出现了不能正常decode，出现异常</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">java.lang.IllegalArgumentException: Last encoded character (before the paddings if any) is a valid base 64 alphabet but not a possible value</span><br><span class="line"></span><br><span class="line">	at org.apache.commons.codec.binary.Base64.validateCharacter(Base64.java:798)</span><br><span class="line">	at org.apache.commons.codec.binary.Base64.decode(Base64.java:477)</span><br><span class="line">	at org.apache.commons.codec.binary.BaseNCodec.decode(BaseNCodec.java:411)</span><br><span class="line">	at org.apache.commons.codec.binary.BaseNCodec.decode(BaseNCodec.java:395)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>具体场景</p>
+<p>处理微信公众号消息时，对消息内容进行必须的加解密，出现的问题是处理aesKey时出现的，具体demo如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">WxOpenCryptUtil</span><span class="params">(WxOpenConfigStorage wxOpenConfigStorage)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * @param token          公众平台上，开发者设置的token</span></span><br><span class="line"><span class="comment">     * @param encodingAesKey 公众平台上，开发者设置的EncodingAESKey</span></span><br><span class="line"><span class="comment">     * @param appId          公众平台appid</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String encodingAesKey = wxOpenConfigStorage.getComponentAesKey();</span><br><span class="line">    String token = wxOpenConfigStorage.getComponentToken();</span><br><span class="line">    String appId = wxOpenConfigStorage.getComponentAppId();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.token = token;</span><br><span class="line">    <span class="keyword">this</span>.appidOrCorpid = appId;</span><br><span class="line">    <span class="keyword">this</span>.aesKey = Base64.decodeBase64(encodingAesKey + <span class="string">"="</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>当升级commons-codec版本为1.13及以上时，会出现上述异常</p>
+</li>
+<li><p>出现的原因</p>
+<p>1.13出现异常的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">long</span> <span class="title">validateCharacter</span><span class="params">(<span class="keyword">final</span> <span class="keyword">int</span> numBitsToDrop, <span class="keyword">final</span> Context context)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((context.ibitWorkArea &amp; numBitsToDrop) != <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(</span><br><span class="line">        <span class="string">"Last encoded character (before the paddings if any) is a valid base 64 alphabet but not a possible value"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> context.ibitWorkArea &gt;&gt; numBitsToDrop;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>仔细分析可以看出编解码是在<code>BaseNCodec.java</code>是Base64和Base32的基类</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202003301159b2eA8l45.png" alt="image-20200330115937553"></p>
+<p>可以看出唯一的差别就是在解码时对参数做了校验。有必要了解下这个参数校验做了些什么？</p>
+<blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; context.ibitWorkArea &amp; numBitsToDrop</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>ibitWorkArea</strong>: 位处理的基本位数</p>
+<p><strong>numBitsToDrop</strong>:  应该为空的低位数目</p>
+<p>可以看出当 <code>context.ibitWorkArea &amp; numBitsToDrop</code>不为0时就会抛出异常，实际上只有base64严格模式编码下，才可能会为0，松散模式不会为0</p>
+</li>
+<li><p>解决办法</p>
+<p>降低版本到1.12以下可以解决该问题，或者等commons-codec版本更新到1.15，最新的源码已经处理了该问题</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">validateCharacter</span><span class="params">(<span class="keyword">final</span> <span class="keyword">int</span> emptyBitsMask, <span class="keyword">final</span> Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isStrictDecoding() &amp;&amp; (context.ibitWorkArea &amp; emptyBitsMask) != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(</span><br><span class="line">                <span class="string">"Strict decoding: Last encoded character (before the paddings if any) is a valid base 64 alphabet but not a possible encoding. "</span> +</span><br><span class="line">                <span class="string">"Expected the discarded bits from the character to be zero."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>扩展</p>
+<p>base64的严格模式和松散模式定义，直接引用源码了</p>
+<blockquote>
+<p><strong>Lenient</strong>: Any trailing bits are composed into 8-bit bytes where possible.<br>The remainder are discarded.<br><strong>Strict</strong>: The decoding will raise an {@link IllegalArgumentException} if trailing bits<br>are not part of a valid encoding. Any unused bits from the final character must<br>be zero. Impossible counts of entire final characters are not allowed.</p>
+</blockquote>
+</li>
+</ol>
+<p><strong>References</strong></p>
+<p><a href="https://blog.csdn.net/kevin_mails/article/details/87878601" target="_blank" rel="noopener">使用java8的java.util.Base64报“java.lang.IllegalArgumentException: Illegal base64 character d”的问题</a></p>
+<p><a href="http://www.ruanyifeng.com/blog/2008/06/base64.html" target="_blank" rel="noopener">Base64笔记</a></p>
+<p><a href="https://issues.apache.org/jira/browse/CODEC-279" target="_blank" rel="noopener">Base64.decode fails on Java11 for certain valid base 64 encoded String</a></p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/04/Java8之扩展函数式接口/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老农">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2020/05/04/Java8之扩展函数式接口/" class="post-title-link" itemprop="url">Java8之扩展函数式接口</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-04 15:00:00" itemprop="dateCreated datePublished" datetime="2020-05-04T15:00:00+08:00">2020-05-04</time>
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/05/04/Java8之扩展函数式接口/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2020/05/04/Java8之扩展函数式接口/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h2><p>先看一下官方定义</p>
+<blockquote>
+<p><em>Functional interfaces</em> provide target types for lambda expressions and method references.</p>
+</blockquote>
+<p>可以看出函数式接口主要用于lambda表达式，这类接口只定义了唯一的抽象方法的接口（除了隐含的Object对象的公共方法），一开始也称<em>SAM</em>类型接口(Single Abstract Method)。</p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2020/05/04/Java8之扩展函数式接口/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/02/补码之求相反数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老农">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2020/05/02/补码之求相反数/" class="post-title-link" itemprop="url">补码之求相反数</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-02 13:36:15" itemprop="dateCreated datePublished" datetime="2020-05-02T13:36:15+08:00">2020-05-02</time>
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/05/02/补码之求相反数/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2020/05/02/补码之求相反数/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="概念-来自wikipedia"><a href="#概念-来自wikipedia" class="headerlink" title="概念[来自wikipedia]"></a><strong>概念</strong>[来自wikipedia]</h3><p><strong>原码(True form)</strong>：一个<a href="https://zh.wikipedia.org/wiki/%E4%BA%8C%E8%BF%9B%E5%88%B6" target="_blank" rel="noopener">二进制</a>数左边加上符号位后所得到的码，且当二进制数大于0时，符号位为0；二进制数小于0时，符号位为1；二进制数等于0时，符号位可以为0或1(+0/-0)</p>
+<p><strong>反码(One’s complement)</strong>：一种在<a href="https://zh.wikipedia.org/wiki/%E8%AE%A1%E7%AE%97%E6%9C%BA" target="_blank" rel="noopener">计算机</a>中数的<a href="https://zh.wikipedia.org/wiki/%E6%A9%9F%E5%99%A8%E7%A2%BC" target="_blank" rel="noopener">机器码</a>表示。对于单个数值（二进制的0和1）而言，对其进行<strong>取反</strong>操作就是将0变为1，1变为0</p>
+<p><strong>补码(2’s complement)</strong>：一种用<a href="https://zh.wikipedia.org/wiki/%E4%BA%8C%E9%80%B2%E4%BD%8D" target="_blank" rel="noopener">二进制</a>表示有号数的方法，也是一种将数字的正负号变号的方式，主要优点是 <strong>不需因为数字的正负而使用不同的计算方式</strong></p>
+<h3 id="计算"><a href="#计算" class="headerlink" title="计算"></a><strong>计算</strong></h3><p><strong>正数</strong>：原码、反码、补码相同</p>
+<p><strong>负数</strong>：反码 — <em>符号位不变化，其余位数取反*，补码 — *符号位不变化，其余各位原码取反+1， 即 反码+1</em></p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">byteTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        reverse(<span class="number">0</span>);</span><br><span class="line">        reverse(<span class="number">6</span>);</span><br><span class="line">        reverse(-<span class="number">6</span>);</span><br><span class="line">        reverse(<span class="number">128</span>);</span><br><span class="line">        reverse(-<span class="number">128</span>);</span><br><span class="line">        reverse(<span class="number">1280</span>);</span><br><span class="line">        reverse(-<span class="number">1280</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Integer <span class="title">reverse</span><span class="params">(Integer a)</span> </span>&#123;</span><br><span class="line">        System.out.printf(<span class="string">"%5d\t%32s\t%5d\t%32s\t%5d\t%32s%n"</span>, a, Integer.toBinaryString(a), ~a, Integer.toBinaryString((~a)), ~a + <span class="number">1</span>, Integer.toBinaryString((~a + <span class="number">1</span>)));</span><br><span class="line">        <span class="keyword">return</span> ~a + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">0	                               0	   -1	11111111111111111111111111111111	    0	                               0</span><br><span class="line">    6	                             110	   -7	11111111111111111111111111111001	   -6	11111111111111111111111111111010</span><br><span class="line">   -6	11111111111111111111111111111010	    5	                             101	    6	                             110</span><br><span class="line">  128	                        10000000	 -129	11111111111111111111111101111111	 -128	11111111111111111111111110000000</span><br><span class="line"> -128	11111111111111111111111110000000	  127	                         1111111	  128	                        10000000</span><br><span class="line"> 1280	                     10100000000	-1281	11111111111111111111101011111111	-1280	11111111111111111111101100000000</span><br><span class="line">-1280	11111111111111111111101100000000	 1279	                     10011111111	 1280	                     10100000000</span><br></pre></td></tr></table></figure>
+
+<p>可以看出：</p>
+<ul>
+<li><p>对一个数字直接取反，并不是其相反数，需要+1</p>
+</li>
+<li><p>[+0]原码=0000 0000，   [-0]原码=1000 0000</p>
+<p>[+0]反码=0000 0000，   [-0]反码=1111 1111</p>
+<p>[+0]补码=0000 0000，   [-0]补码=0000 0000  </p>
+</li>
+</ul>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/05/开源贡献协议介绍/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老农">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2020/04/05/开源贡献协议介绍/" class="post-title-link" itemprop="url">开源贡献协议介绍</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-05 15:00:00" itemprop="dateCreated datePublished" datetime="2020-04-05T15:00:00+08:00">2020-04-05</time>
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/04/05/开源贡献协议介绍/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2020/04/05/开源贡献协议介绍/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>众所周知，开源代码都有其开源许可证，详细选择参考<a href="http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html" target="_blank" rel="noopener">如何选择开源许可证？</a>。这里不是要讨论开源许可证的问题，而是开源贡献协议。最近在参加一个开源项目时，提到需要使用DCO贡献协议，所以就去了解当下主流的开源贡献协议。</p>
+<h3 id="CLA（Contributor-License-Agreement）协议"><a href="#CLA（Contributor-License-Agreement）协议" class="headerlink" title="CLA（Contributor License Agreement）协议"></a><a href="https://en.wikipedia.org/wiki/Contributor_License_Agreement" target="_blank" rel="noopener">CLA</a>（Contributor License Agreement）协议</h3><blockquote>
+<p>CLA时对开源License的法律性质补充，多由企业或者组织自行定义，作为开源协议的补充，一次性签署，比如alibaba CLA协议： <a href="https://github.com/aliyun/cla" target="_blank" rel="noopener">Alibaba Open Source Individual CLA</a></p>
+</blockquote>
+<p>使用上来说，CLA只需要签署一次，如<a href="https://cla-assistant.io/alibaba/weex" target="_blank" rel="noopener">阿里巴巴个人CLA</a>， <a href="https://cla.developers.google.com/clas" target="_blank" rel="noopener">Google CLA</a>，<a href="https://cla.pivotal.io/" target="_blank" rel="noopener">Pivotal CLA</a>，<a href="https://github.com/cncf/cla" target="_blank" rel="noopener">CNCF CLA</a></p>
+<p>使用CLA的用户或者组织</p>
+<ul>
+<li>Facebook</li>
+<li>Eclipse</li>
+<li>Go</li>
+<li>Google</li>
+<li>InfluxDB</li>
+<li>Python</li>
+<li>Elastic</li>
+<li>CNCF</li>
+<li>…..</li>
+</ul>
+<h3 id="DCO（Developer-Certificate-of-Origin）协议"><a href="#DCO（Developer-Certificate-of-Origin）协议" class="headerlink" title="DCO（Developer Certificate of Origin）协议"></a><a href="https://en.wikipedia.org/wiki/Developer_Certificate_of_Origin" target="_blank" rel="noopener">DCO</a>（Developer Certificate of Origin）协议</h3><blockquote>
+<p>DCO时Linux Foundation提出的，只有四条简短条文， 具体内容如下: <a href="https://developercertificate.org/" target="_blank" rel="noopener">DCO</a>，使用上只需要开发者提交信息时追加 Signed-off-by 即可。具体内容(version1.1)如下：</p>
+<ol>
+<li>该贡献全部或部分由我创建，我有权根据文件中指明的开源许可提交；要么</li>
+<li>该贡献是基于以前的工作，这些工作属于适当的开源许可，无论这些工作全部还是部分由我完成，我有权根据相同的开源许可证（除非我被允许根据不同的许可证提交）提交修改后的工作；要么</li>
+<li>该贡献由1、2、或 3 证明的其他人直接提供给我，而我没有对其进行修改。</li>
+<li>我理解并同意该项目和贡献是公开的，并且该贡献的记录（包括我随之提交的所有个人信息，包括我的签字）将无限期保留，并且可以与本项目或涉及的开源许可证保持一致或者重新分配。</li>
+</ol>
+</blockquote>
+<p>使用方法详见 <a href="https://github.com/probot/dco#how-it-works" target="_blank" rel="noopener">Probot: DCO</a>， 其实就是提交代码(commit)时增加<code>-s</code>参数，然后你会在提交信息里看到</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">This is my commit message</span><br><span class="line"></span><br><span class="line">Signed-off-by: DEVELOPER &lt;random@developer.example.org&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用DCO的用户或者组织</p>
+<ul>
+<li>Gitlab</li>
+<li>Chef</li>
+<li>TiKv</li>
+<li>Apache SkyWalking</li>
+<li>……</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>如果你只是一个commiter，请遵从开源项目的贡献者协议，或者发起issue请求变更，如果是自己的开源项目，更看重法律风险，建议使用CLA，看重社区合作，可以使用DCO。</p>
+<p><strong>References</strong></p>
+<ol>
+<li><a href="https://opensource.com/article/18/3/cla-vs-dco-whats-difference" target="_blank" rel="noopener">CLA vs. DCO: What’s the difference?</a></li>
+<li><a href="https://linux.cn/article-10836-1.html" target="_blank" rel="noopener">为何《贡献者许可协议》不利于开源社区？</a></li>
+<li><a href="https://github.com/kubernetes/community/issues/2649" target="_blank" rel="noopener">Move from CLA to DCO #2649 - github.com</a></li>
+<li><a href="https://github.com/cncf/cla" target="_blank" rel="noopener">probot/dco</a></li>
+</ol>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/05/支付宝和微信接口加密规范调研/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老农">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2020/04/05/支付宝和微信接口加密规范调研/" class="post-title-link" itemprop="url">支付宝和微信接口加密规范调研</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-05 15:00:00" itemprop="dateCreated datePublished" datetime="2020-04-05T15:00:00+08:00">2020-04-05</time>
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/04/05/支付宝和微信接口加密规范调研/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2020/04/05/支付宝和微信接口加密规范调研/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="支付宝-ISV"><a href="#支付宝-ISV" class="headerlink" title="支付宝(ISV)"></a>支付宝(ISV)</h2><p>参考文档：<a href="https://docs.open.alipay.com/291/106115" target="_blank" rel="noopener">https://docs.open.alipay.com/291/106115</a></p>
+<p>签名方式：RSA2</p>
+<p>具体实现</p>
+<p>初始化 AlipayClient</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AlipayClient alipayClient = <span class="keyword">new</span> DefaultAlipayClient(gateway,app_id,private_key,<span class="string">"json"</span>,charset,alipay_public_key,sign_type);</span><br></pre></td></tr></table></figure>
+
+<p>具体签名过程</p>
+<ol>
+<li><p>获取encryptor，加密关键参数部分</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String encryptContent = getEncryptor().encrypt(</span><br><span class="line">                    appParams.get(AlipayConstants.BIZ_CONTENT_KEY), <span class="keyword">this</span>.encryptType, <span class="keyword">this</span>.charset)</span><br></pre></td></tr></table></figure>
+
+<p>加密算法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Cipher cipher = Cipher.getInstance(AES_CBC_PCK_ALG);</span><br><span class="line"></span><br><span class="line">            IvParameterSpec iv = <span class="keyword">new</span> IvParameterSpec(AES_IV);</span><br><span class="line">            cipher.init(Cipher.ENCRYPT_MODE,</span><br><span class="line">                <span class="keyword">new</span> SecretKeySpec(Base64.decodeBase64(aesKey.getBytes()), AES_ALG), iv);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">byte</span>[] encryptBytes = cipher.doFinal(content.getBytes(charset));</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> String(Base64.encodeBase64(encryptBytes));</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>签名</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String signContent = AlipaySignature.getSignatureContent(requestHolder);</span><br><span class="line">            protocalMustParams.put(AlipayConstants.SIGN,</span><br><span class="line">                getSigner().sign(signContent, <span class="keyword">this</span>.signType, charset));</span><br></pre></td></tr></table></figure>
+
+<p>签名算法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">PrivateKey priKey = getPrivateKeyFromPKCS8(AlipayConstants.SIGN_TYPE_RSA,</span><br><span class="line">                <span class="keyword">new</span> ByteArrayInputStream(privateKey.getBytes()));</span><br><span class="line">                </span><br><span class="line">            java.security.Signature signature = java.security.Signature</span><br><span class="line">                .getInstance(AlipayConstants.SIGN_SHA256RSA_ALGORITHMS);</span><br><span class="line"></span><br><span class="line">            signature.initSign(priKey);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isEmpty(charset)) &#123;</span><br><span class="line">                signature.update(content.getBytes());</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                signature.update(content.getBytes(charset));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">byte</span>[] signed = signature.sign();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> String(Base64.encodeBase64(signed));</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li>增加accessToken等参数发起访问</li>
+</ol>
+<h2 id="微信-ISV"><a href="#微信-ISV" class="headerlink" title="微信(ISV)"></a>微信(ISV)</h2><p>主要依靠token机制，支持post，get，消息体明文传输</p>
+<p>消息内返回需要加密：</p>
+<p>加密机制：aes</p>
+<p>主要加密逻辑</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">encrypt</span><span class="params">(String plainText)</span> </span>&#123;</span><br><span class="line">        String encryptedXml = <span class="keyword">this</span>.encrypt(genRandomStr(), plainText);</span><br><span class="line">        String timeStamp = Long.toString(System.currentTimeMillis() / <span class="number">1000L</span>);</span><br><span class="line">        String nonce = genRandomStr();</span><br><span class="line">        String signature = SHA1.gen(<span class="keyword">new</span> String[]&#123;<span class="keyword">this</span>.token, timeStamp, nonce, encryptedXml&#125;);</span><br><span class="line">        <span class="keyword">return</span> generateXml(encryptedXml, signature, timeStamp, nonce);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">protected</span> String <span class="title">encrypt</span><span class="params">(String randomStr, String plainText)</span> </span>&#123;</span><br><span class="line">        ByteGroup byteCollector = <span class="keyword">new</span> ByteGroup();</span><br><span class="line">        <span class="keyword">byte</span>[]a randomStringBytes = randomStr.getBytes(CHARSET);</span><br><span class="line">        <span class="keyword">byte</span>[] plainTextBytes = plainText.getBytes(CHARSET);</span><br><span class="line">        <span class="keyword">byte</span>[] bytesOfSizeInNetworkOrder = number2BytesInNetworkOrder(plainTextBytes.length);</span><br><span class="line">        <span class="keyword">byte</span>[] appIdBytes = <span class="keyword">this</span>.appidOrCorpid.getBytes(CHARSET);</span><br><span class="line">        byteCollector.addBytes(randomStringBytes);</span><br><span class="line">        byteCollector.addBytes(bytesOfSizeInNetworkOrder);</span><br><span class="line">        byteCollector.addBytes(plainTextBytes);</span><br><span class="line">        byteCollector.addBytes(appIdBytes);</span><br><span class="line">        <span class="keyword">byte</span>[] padBytes = PKCS7Encoder.encode(byteCollector.size());</span><br><span class="line">        byteCollector.addBytes(padBytes);</span><br><span class="line">        <span class="keyword">byte</span>[] unencrypted = byteCollector.toBytes();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Cipher cipher = Cipher.getInstance(<span class="string">"AES/CBC/NoPadding"</span>);</span><br><span class="line">            SecretKeySpec keySpec = <span class="keyword">new</span> SecretKeySpec(<span class="keyword">this</span>.aesKey, <span class="string">"AES"</span>);</span><br><span class="line">            IvParameterSpec iv = <span class="keyword">new</span> IvParameterSpec(<span class="keyword">this</span>.aesKey, <span class="number">0</span>, <span class="number">16</span>);</span><br><span class="line">            cipher.init(<span class="number">1</span>, keySpec, iv);</span><br><span class="line">            <span class="keyword">byte</span>[] encrypted = cipher.doFinal(unencrypted);</span><br><span class="line">            <span class="keyword">return</span> BASE64.encodeToString(encrypted);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception var14) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(var14);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/25/HashMap，ConcurrentHashMap 全解析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老农">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/12/25/HashMap，ConcurrentHashMap 全解析/" class="post-title-link" itemprop="url">HashMap，ConcurrentHashMap 全解析</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-25 15:00:00" itemprop="dateCreated datePublished" datetime="2019-12-25T15:00:00+08:00">2019-12-25</time>
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/12/25/HashMap，ConcurrentHashMap 全解析/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/12/25/HashMap，ConcurrentHashMap 全解析/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>[TOC]</p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2019/12/25/HashMap，ConcurrentHashMap 全解析/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/23/java浮点型精度丢失浅析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老马">
+      <meta itemprop="name" content="歧途老农">
       <meta itemprop="description" content="Manners Maketh Man.">
       <meta itemprop="image" content="/images/ele.jpg">
     </span>
@@ -369,7 +1025,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/23/Logitech Options 在 Mac 下的自定义按键失灵问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老马">
+      <meta itemprop="name" content="歧途老农">
       <meta itemprop="description" content="Manners Maketh Man.">
       <meta itemprop="image" content="/images/ele.jpg">
     </span>
@@ -471,10 +1127,10 @@
   
   
   <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/17/开源贡献协议介绍/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/15/Nacos 配置 MySQL 8.0 数据库/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老马">
+      <meta itemprop="name" content="歧途老农">
       <meta itemprop="description" content="Manners Maketh Man.">
       <meta itemprop="image" content="/images/ele.jpg">
     </span>
@@ -485,7 +1141,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2019/11/17/开源贡献协议介绍/" class="post-title-link" itemprop="url">开源贡献协议介绍</a>
+            <a href="/2019/11/15/Nacos 配置 MySQL 8.0 数据库/" class="post-title-link" itemprop="url">Nacos 配置 MySQL 8.0 数据库</a>
           
         </h1>
 
@@ -500,7 +1156,7 @@
                 
               
 
-              <time title="创建时间：2019-11-17 16:01:01" itemprop="dateCreated datePublished" datetime="2019-11-17T16:01:01+08:00">2019-11-17</time>
+              <time title="创建时间：2019-11-15 15:00:00" itemprop="dateCreated datePublished" datetime="2019-11-15T15:00:00+08:00">2019-11-15</time>
             </span>
           
 
@@ -515,7 +1171,7 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/11/17/开源贡献协议介绍/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/11/17/开源贡献协议介绍/" itemprop="commentCount"></span></a>
+    <a title="valine" href="/2019/11/15/Nacos 配置 MySQL 8.0 数据库/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/11/15/Nacos 配置 MySQL 8.0 数据库/" itemprop="commentCount"></span></a>
   </span>
   
   
@@ -529,51 +1185,31 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>众所周知，开源代码都有其开源许可证，详细选择参考<a href="http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html" target="_blank" rel="noopener">如何选择开源许可证？</a>。这里不是要讨论开源许可证的问题，而是开源贡献协议。最近在参加一个开源项目时，提到需要使用DCO贡献协议，所以就去了解当下主流的开源贡献协议。</p>
-<h3 id="CLA（Contributor-License-Agreement）协议"><a href="#CLA（Contributor-License-Agreement）协议" class="headerlink" title="CLA（Contributor License Agreement）协议"></a><a href="https://en.wikipedia.org/wiki/Contributor_License_Agreement" target="_blank" rel="noopener">CLA</a>（Contributor License Agreement）协议</h3><blockquote>
-<p>CLA时对开源License的法律性质补充，多由企业或者组织自行定义，作为开源协议的补充，一次性签署，比如alibaba CLA协议： <a href="https://github.com/aliyun/cla" target="_blank" rel="noopener">Alibaba Open Source Individual CLA</a></p>
+          <p>Nacos 1.2.0版本以前是不支持MySQL8.0，如果出现配置保存不了，500的错误，多是由于数据源的问题，需要修改源码以支持MySQL8.0。</p>
+<h3 id="从github克隆源码"><a href="#从github克隆源码" class="headerlink" title="从github克隆源码"></a>从github克隆源码</h3><blockquote>
+<p>git clone <a href="https://github.com/alibaba/nacos.git" target="_blank" rel="noopener">https://github.com/alibaba/nacos.git</a></p>
 </blockquote>
-<p>使用上来说，CLA只需要签署一次，如<a href="https://cla-assistant.io/alibaba/weex" target="_blank" rel="noopener">阿里巴巴个人CLA</a>， <a href="https://cla.developers.google.com/clas" target="_blank" rel="noopener">Google CLA</a>，<a href="https://cla.pivotal.io/" target="_blank" rel="noopener">Pivotal CLA</a>，<a href="https://github.com/cncf/cla" target="_blank" rel="noopener">CNCF CLA</a></p>
-<p>使用CLA的用户或者组织</p>
-<ul>
-<li>Facebook</li>
-<li>Eclipse</li>
-<li>Go</li>
-<li>Google</li>
-<li>InfluxDB</li>
-<li>Python</li>
-<li>Elastic</li>
-<li>CNCF</li>
-<li>…..</li>
-</ul>
-<h3 id="DCO（Developer-Certificate-of-Origin）协议"><a href="#DCO（Developer-Certificate-of-Origin）协议" class="headerlink" title="DCO（Developer Certificate of Origin）协议"></a><a href="https://en.wikipedia.org/wiki/Developer_Certificate_of_Origin" target="_blank" rel="noopener">DCO</a>（Developer Certificate of Origin）协议</h3><blockquote>
-<p>DCO时Linux Foundation提出的，只有四条简短条文， 具体内容如下: <a href="https://developercertificate.org/" target="_blank" rel="noopener">DCO</a>，使用上只需要开发者提交信息时追加 Signed-off-by 即可。具体内容(version1.1)如下：</p>
-<ol>
-<li>该贡献全部或部分由我创建，我有权根据文件中指明的开源许可提交；要么</li>
-<li>该贡献是基于以前的工作，这些工作属于适当的开源许可，无论这些工作全部还是部分由我完成，我有权根据相同的开源许可证（除非我被允许根据不同的许可证提交）提交修改后的工作；要么</li>
-<li>该贡献由1、2、或 3 证明的其他人直接提供给我，而我没有对其进行修改。</li>
-<li>我理解并同意该项目和贡献是公开的，并且该贡献的记录（包括我随之提交的所有个人信息，包括我的签字）将无限期保留，并且可以与本项目或涉及的开源许可证保持一致或者重新分配。</li>
-</ol>
+<h3 id="修改pom驱动版本（最外层pom）"><a href="#修改pom驱动版本（最外层pom）" class="headerlink" title="修改pom驱动版本（最外层pom）"></a>修改pom驱动版本（最外层pom）</h3><blockquote>
+<dependency>
+    <groupid>mysql</groupid>
+    <artifactid>mysql-connector-java</artifactid>
+    <!-- <version>5.1.34</version> -->
+    <version>8.0.19</version>
+</dependency>
 </blockquote>
-<p>使用方法详见 <a href="https://github.com/probot/dco#how-it-works" target="_blank" rel="noopener">Probot: DCO</a>， 其实就是提交代码(commit)时增加<code>-s</code>参数，然后你会在提交信息里看到</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">This is my commit message</span><br><span class="line"></span><br><span class="line">Signed-off-by: DEVELOPER &lt;random@developer.example.org&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="修改源码引用"><a href="#修改源码引用" class="headerlink" title="修改源码引用"></a>修改源码引用</h4><p><strong>位置</strong> <code>nacos/naming/src/main/java/com/alibaba/nacos/naming/healthcheck/MysqlHealthCheckProcessor.java</code></p>
+<blockquote>
+<p>// import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;原本引用的类<br>import com.mysql.cj.jdbc.MysqlDataSource;</p>
+</blockquote>
+<h3 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd nacos/</span><br><span class="line">mvn -Prelease-nacos -Dmaven.test.skip=true clean install -U  </span><br><span class="line">ls -al distribution/target/nacos-server-1.2.0-SNAPSHOT/nacos</span><br></pre></td></tr></table></figure>
 
-<p>使用DCO的用户或者组织</p>
-<ul>
-<li>Gitlab</li>
-<li>Chef</li>
-<li>TiKv</li>
-<li>Apache SkyWalking</li>
-<li>……</li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>如果你只是一个commiter，请遵从开源项目的贡献者协议，或者发起issue请求变更，如果是自己的开源项目，更看重法律风险，建议使用CLA，看重社区合作，可以使用DCO。</p>
+<p>注意修改targeta下的jar包名为 <code>nacos-server.jar</code></p>
+<p>修改conf里的配置文件</p>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>进入bin目录，以官方提供的方式启动 <code>sh startup.sh -m standalone</code></p>
+<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p>如果出现异常，可以通过<code>logs/nacos.log</code>查看具体的启动异常</p>
 <p><strong>References</strong></p>
-<ol>
-<li><a href="https://opensource.com/article/18/3/cla-vs-dco-whats-difference" target="_blank" rel="noopener">CLA vs. DCO: What’s the difference?</a></li>
-<li><a href="https://linux.cn/article-10836-1.html" target="_blank" rel="noopener">为何《贡献者许可协议》不利于开源社区？</a></li>
-<li><a href="https://github.com/kubernetes/community/issues/2649" target="_blank" rel="noopener">Move from CLA to DCO #2649 - github.com</a></li>
-<li>[probot/dco](</li>
-</ol>
+<p><a href="https://blog.csdn.net/Mr_Mocha/article/details/102868380" target="_blank" rel="noopener">Nacos 配置 MySQL8数据库</a></p>
+<p><a href="https://nacos.io/zh-cn/docs/quick-start.html" target="_blank" rel="noopener">Nacos 快速开始</a></p>
 
         
       
@@ -601,7 +1237,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/02/浅析Java8 CompletableFuture和Stream串行使用产生的一个问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老马">
+      <meta itemprop="name" content="歧途老农">
       <meta itemprop="description" content="Manners Maketh Man.">
       <meta itemprop="image" content="/images/ele.jpg">
     </span>
@@ -701,599 +1337,11 @@
   </article>
 
     
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/01/Java8之扩展函数式接口/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老马">
-      <meta itemprop="description" content="Manners Maketh Man.">
-      <meta itemprop="image" content="/images/ele.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whirlwinder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/10/01/Java8之扩展函数式接口/" class="post-title-link" itemprop="url">Java8之扩展函数式接口</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-10-01 10:34:22" itemprop="dateCreated datePublished" datetime="2019-10-01T10:34:22+08:00">2019-10-01</time>
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/10/01/Java8之扩展函数式接口/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/10/01/Java8之扩展函数式接口/" itemprop="commentCount"></span></a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h2><p>先看一下官方定义</p>
-<blockquote>
-<p><em>Functional interfaces</em> provide target types for lambda expressions and method references.</p>
-</blockquote>
-<p>可以看出函数式接口主要用于lambda表达式，这类接口只定义了唯一的抽象方法的接口（除了隐含的Object对象的公共方法），一开始也称<em>SAM</em>类型接口(Single Abstract Method)。</p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2019/10/01/Java8之扩展函数式接口/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/redis底层原理-Strings/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老马">
-      <meta itemprop="description" content="Manners Maketh Man.">
-      <meta itemprop="image" content="/images/ele.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whirlwinder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/08/21/redis底层原理-Strings/" class="post-title-link" itemprop="url">redis底层原理-Strings</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-21 17:26:43" itemprop="dateCreated datePublished" datetime="2019-08-21T17:26:43+08:00">2019-08-21</time>
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/08/21/redis底层原理-Strings/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/08/21/redis底层原理-Strings/" itemprop="commentCount"></span></a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>翻译自 <a href="http://redisplanet.com/redis/under-the-hood-of-redis-strings/" target="_blank" rel="noopener">Under the Hood of Redis: Strings</a></p>
-<p>你知道简单string <code>strings</code> 在redis里占用了56 bytes的内存吗？</p>
-<p>我会试图告诉你为什么，了解redis运行原理时非常重要的。当你试图构建一个高负载的应用显的尤为重要，同时，你很快就会理解你的redis实例为什么会消费大量的内存？</p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2019/08/21/redis底层原理-Strings/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/sql优化的一般策略/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老马">
-      <meta itemprop="description" content="Manners Maketh Man.">
-      <meta itemprop="image" content="/images/ele.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whirlwinder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/08/21/sql优化的一般策略/" class="post-title-link" itemprop="url">sql优化的一般策略</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-21 14:36:43" itemprop="dateCreated datePublished" datetime="2019-08-21T14:36:43+08:00">2019-08-21</time>
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/08/21/sql优化的一般策略/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/08/21/sql优化的一般策略/" itemprop="commentCount"></span></a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>sql 优化的一般策略：索引优化，sql改写，参数优化，优化器</p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2019/08/21/sql优化的一般策略/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/Spring Data MongoDB 查询语法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老马">
-      <meta itemprop="description" content="Manners Maketh Man.">
-      <meta itemprop="image" content="/images/ele.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whirlwinder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/08/21/Spring Data MongoDB 查询语法/" class="post-title-link" itemprop="url">Spring Data MongoDB 查询语法</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-21 13:26:43" itemprop="dateCreated datePublished" datetime="2019-08-21T13:26:43+08:00">2019-08-21</time>
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/08/21/Spring Data MongoDB 查询语法/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/08/21/Spring Data MongoDB 查询语法/" itemprop="commentCount"></span></a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <a id="more"></a>
-
-<ol>
-<li><p>Query 和 Criteria 查询</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Query query = <span class="keyword">new</span> Query();</span><br><span class="line">query.addCriteria(Criteria.where(<span class="string">"name"</span>).is(<span class="string">"Eric"</span>));</span><br><span class="line">List&lt;User&gt; users = mongoTemplate.find(query, User.class);</span><br></pre></td></tr></table></figure>
-
-<p>支持的查询方法：is, regex, lt, gt, pageable, sort</p>
-</li>
-<li><p>生成query方法</p>
-<ul>
-<li><p>findByX</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List&lt;User&gt; <span class="title">findByName</span><span class="params">(String name)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>startinggWith and endingWith</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List&lt;User&gt; <span class="title">findByNameStartingWith</span><span class="params">(String regexp)</span></span>;</span><br><span class="line"><span class="function">List&lt;User&gt; <span class="title">findByNameEndingWith</span><span class="params">(String regexp)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>between</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List&lt;User&gt; <span class="title">findByAgeBetween</span><span class="params">(<span class="keyword">int</span> ageGT, <span class="keyword">int</span> ageLT)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>like and orderBy</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; users = userRepository.findByNameLikeOrderByAgeAsc(<span class="string">"A"</span>);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>JSON Query methods : @Query</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query</span>(<span class="string">"&#123; 'name' : ?0 &#125;"</span>)</span><br><span class="line"><span class="function">List&lt;User&gt; <span class="title">findUsersByName</span><span class="params">(String name)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p>支持的查询方法： $regex,  $gt,  $lt</p>
-</li>
-<li><p>QueryDSL Queries</p>
-<p>4.1 maven</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.mysema.querydsl<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>querydsl-mongodb<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.6.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.mysema.querydsl<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>querydsl-apt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.6.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.mysema.maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>apt-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>process<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">outputDirectory</span>&gt;</span>target/generated-sources/java<span class="tag">&lt;/<span class="name">outputDirectory</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">processor</span>&gt;</span></span><br><span class="line">              org.springframework.data.mongodb.repository.support.MongoAnnotationProcessor</span><br><span class="line">                <span class="tag">&lt;/<span class="name">processor</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>4.2 class</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@QueryEntity</span></span><br><span class="line"><span class="meta">@Document</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="keyword">private</span> String id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">// standard getters and setters</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Implement <strong>QueryDslPredicateExecutor</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">QUser qUser = <span class="keyword">new</span> QUser(<span class="string">"user"</span>);</span><br><span class="line">Predicate predicate = qUser.name.eq(<span class="string">"Eric"</span>);</span><br><span class="line">List&lt;User&gt; users = (List&lt;User&gt;) userRepository.findAll(predicate);</span><br></pre></td></tr></table></figure>
-
-<p>支持的查询方法：is,startinggWith and endingWith, between</p>
-</li>
-</ol>
-<p>​    </p>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/redission 序列化问题追踪/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老马">
-      <meta itemprop="description" content="Manners Maketh Man.">
-      <meta itemprop="image" content="/images/ele.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whirlwinder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/05/28/redission 序列化问题追踪/" class="post-title-link" itemprop="url">redission 序列化问题追踪</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-28 17:26:43" itemprop="dateCreated datePublished" datetime="2019-05-28T17:26:43+08:00">2019-05-28</time>
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/05/28/redission 序列化问题追踪/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/05/28/redission 序列化问题追踪/" itemprop="commentCount"></span></a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>项目原本是用jedis连接redis，但考虑到需要用redis锁，因此替换为方便快捷的<strong>redisson</strong>，但是使用redisson之后会报decode error，具体信息如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2019</span>-<span class="number">05</span>-<span class="number">15</span> <span class="number">13</span>:<span class="number">39</span>:<span class="number">59.973</span> [redisson-netty-<span class="number">2</span>-<span class="number">3</span>] ERROR o.r.c.h.CommandDecoder [decodeCommand:<span class="number">203</span>]     - Unable to decode data. channel: [id: <span class="number">0x477c5ced</span>, L:/<span class="number">192.168</span>.4.94:<span class="number">57423</span> - R:<span class="number">10.10</span>.10.43/<span class="number">10.10</span>.10.43:<span class="number">6379</span>], reply: ReplayingDecoderByteBuf(ridx=<span class="number">102</span>, widx=<span class="number">102</span>), command: (GET), params: [Geek:xxxxx:xxxx]</span><br><span class="line">java.io.IOException: java.lang.NullPointerException</span><br><span class="line">	at org.nustaq.serialization.FSTObjectInput.readObject(FSTObjectInput.java:<span class="number">247</span>)</span><br><span class="line">	at org.redisson.codec.FstCodec$<span class="number">1</span>.decode(FstCodec.java:<span class="number">228</span>)</span><br><span class="line">	at org.redisson.client.handler.CommandDecoder.decode(CommandDecoder.java:<span class="number">368</span>)</span><br><span class="line">	at org.redisson.client.handler.CommandDecoder.decodeCommand(CommandDecoder.java:<span class="number">200</span>)</span><br><span class="line">	at org.redisson.client.handler.CommandDecoder.decode(CommandDecoder.java:<span class="number">140</span>)</span><br><span class="line">	at org.redisson.client.handler.CommandDecoder.decode(CommandDecoder.java:<span class="number">115</span>)</span><br><span class="line">	at io.netty.handler.codec.ByteToMessageDecoder.decodeRemovalReentryProtection(ByteToMessageDecoder.java:<span class="number">502</span>)</span><br><span class="line">	at io.netty.handler.codec.ReplayingDecoder.callDecode(ReplayingDecoder.java:<span class="number">366</span>)</span><br><span class="line">	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:<span class="number">278</span>)</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2019/05/28/redission 序列化问题追踪/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/微服务架构BFF和网关/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老马">
-      <meta itemprop="description" content="Manners Maketh Man.">
-      <meta itemprop="image" content="/images/ele.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whirlwinder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2018/09/05/微服务架构BFF和网关/" class="post-title-link" itemprop="url">微服务架构BFF和网关</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2018-09-05 16:01:01" itemprop="dateCreated datePublished" datetime="2018-09-05T16:01:01+08:00">2018-09-05</time>
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2018/09/05/微服务架构BFF和网关/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2018/09/05/微服务架构BFF和网关/" itemprop="commentCount"></span></a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>BFF 架构图</p>
-<p><img src="/images/1536134559339.png" alt="1536134559339"></p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2018/09/05/微服务架构BFF和网关/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </div>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1332,8 +1380,8 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image"
       src="/images/ele.jpg"
-      alt="歧途老马">
-  <p class="site-author-name" itemprop="name">歧途老马</p>
+      alt="歧途老农">
+  <p class="site-author-name" itemprop="name">歧途老农</p>
   <div class="site-description" itemprop="description">Manners Maketh Man.</div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -1342,7 +1390,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">35</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1415,7 +1463,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-globe"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">歧途老马</span>
+  <span class="author" itemprop="copyrightHolder">歧途老农</span>
 </div>
 
         
