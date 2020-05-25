@@ -65,16 +65,16 @@
 <meta property="og:site_name" content="Whirlwinder">
 <meta property="og:description" content="APM (Application Performance Management &amp;amp; Monitoring)四种实现思路  基于日志系统，探针只负责对日志加上编号，又类似ELK的系统进行收集、处理、展示。这方面没有很成熟的产品，一般都属于公司内部封装的框架。 自动探针，适用语言：Java、C#、PHP、Node.js等等存在VM的语言。绝对大多数的商业产品和热门的开源产品都属于这个系列。 全">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/st1.png">
-<meta property="og:image" content="http://yoursite.com/images/st2.png">
-<meta property="og:image" content="http://yoursite.com/images/st3.png">
-<meta property="og:image" content="http://yoursite.com/images/st4.png">
-<meta property="og:image" content="http://yoursite.com/images/sw1.png">
-<meta property="og:updated_time" content="2019-10-01T02:34:22.971Z">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/2020052517428eW4OC17.png">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251742fpsvkC27.png">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251742zpz5ln39.png">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251743Ho6L3S06.png">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251743bkmafd38.png">
+<meta property="og:updated_time" content="2020-05-25T09:43:45.499Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="链路监控浅析---以sleuth-zipkin和skywalking为例">
 <meta name="twitter:description" content="APM (Application Performance Management &amp;amp; Monitoring)四种实现思路  基于日志系统，探针只负责对日志加上编号，又类似ELK的系统进行收集、处理、展示。这方面没有很成熟的产品，一般都属于公司内部封装的框架。 自动探针，适用语言：Java、C#、PHP、Node.js等等存在VM的语言。绝对大多数的商业产品和热门的开源产品都属于这个系列。 全">
-<meta name="twitter:image" content="http://yoursite.com/images/st1.png">
+<meta name="twitter:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/2020052517428eW4OC17.png">
   <link rel="canonical" href="http://yoursite.com/2018/01/02/链路监控浅析---以sleuth-zipkin和skywalking为例/">
 
 
@@ -346,9 +346,9 @@
 
 <p><a href="http://www.cnblogs.com/softidea/p/7612570.html" target="_blank" rel="noopener">监控概述-sleuth实现</a></p>
 <h3 id="Sleuth-Zipkin"><a href="#Sleuth-Zipkin" class="headerlink" title="Sleuth-Zipkin"></a>Sleuth-Zipkin</h3><p>sleuth用来和zipkin(twitter)集成，自动完成span, trace等信息的生成，接入http request, 以及向zipkin server 发送采集信息，实现分布式服务跟踪能力。<a href="http://blog.csdn.net/qq_15138455/article/details/72956232" target="_blank" rel="noopener">全链路spring cloud sleuth+zipkin</a></p>
-<h4 id="结构图"><a href="#结构图" class="headerlink" title="结构图"></a>结构图</h4><p><img src="/images/st1.png" alt="st1"></p>
-<p><img src="/images/st2.png" alt="st2"></p>
-<p><img src="/images/st3.png" alt="st3"></p>
+<h4 id="结构图"><a href="#结构图" class="headerlink" title="结构图"></a>结构图</h4><p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/2020052517428eW4OC17.png" alt="2020052517428eW4OC17"></p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251742fpsvkC27.png" alt="202005251742fpsvkC27"></p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251742zpz5ln39.png" alt="202005251742zpz5ln39"></p>
 <h4 id="搭建zipkin-server"><a href="#搭建zipkin-server" class="headerlink" title="搭建zipkin-server"></a>搭建zipkin-server</h4><ol>
 <li><p>引入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;io.zipkin.java&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;zipkin-server&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;io.zipkin.java&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;zipkin-autoconfigure-ui&lt;/artifactId&gt;</span><br><span class="line">  &lt;scope&gt;runtime&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
@@ -369,7 +369,7 @@
 <p>LOG: aplication-name.TraceId.SpanId.BOOL</p>
 <h4 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring.sleuth.sampler.percentage=1</span><br></pre></td></tr></table></figure>
 
-<h4 id="数据持久化"><a href="#数据持久化" class="headerlink" title="数据持久化"></a>数据持久化</h4><p><img src="/images/st4.png" alt="st4"></p>
+<h4 id="数据持久化"><a href="#数据持久化" class="headerlink" title="数据持久化"></a>数据持久化</h4><p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251743Ho6L3S06.png" alt="202005251743Ho6L3S06"></p>
 <ol>
 <li><p>zipkin-server引入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--此依赖会自动引入spring-cloud-sleuth-stream并且引入zipkin的依赖包(可以去除zipkin-server) --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spring-cloud-sleuth-zipkin-stream&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spring-cloud-starter-stream-rabbit&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;!--持久化数据到elasticsearch--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;io.zipkin.java&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;zipkin-autoconfigure-storage-elasticsearch-http&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;2.4.2&lt;/version&gt;</span><br><span class="line">  &lt;optional&gt;true&lt;/optional&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
@@ -379,8 +379,9 @@
 </li>
 <li><p>注解修改</p>
 <p><code>@EnableZipkinStreamServer</code></p>
-<p>​</p>
 </li>
+</ol>
+<ol start="4">
 <li><p>问题</p>
 <p>4.1. 引入es后不能显示dependency tree <a href="https://github.com/openzipkin/zipkin-dependencies" target="_blank" rel="noopener">zipkin-dependencies</a></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget -O zipkin-dependencies.jar 'https://search.maven.org/remote_content?g=io.zipkin.dependencies&amp;a=zipkin-dependencies&amp;v=LATEST'</span><br><span class="line">STORAGE_TYPE=elasticsearch ES_HOSTS=host1,host2 java -jar zipkin-dependencies.jar</span><br></pre></td></tr></table></figure>
@@ -401,7 +402,7 @@
 <li><strong>Log</strong>: span跨度内发生的事件，异常等，包含tag, annotation, log, event等</li>
 </ul>
 <h3 id="sky-walking"><a href="#sky-walking" class="headerlink" title="sky-walking"></a>sky-walking</h3><p>提供分布式事务跟踪，以及APM性能监控。 <a href="https://github.com/apache/incubator-skywalking" target="_blank" rel="noopener">skywalking</a>， 使用<a href="http://www.kailing.pub/article/index/arcid/178.html" target="_blank" rel="noopener">javaagent</a>技术使得应用监控0耦合</p>
-<h4 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h4><p><img src="/images/sw1.png" alt="sw1"></p>
+<h4 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h4><p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251743bkmafd38.png" alt="202005251743bkmafd38"></p>
 <ol>
 <li>部署<ul>
 <li>下载agent, collector, ui 三个组件</li>

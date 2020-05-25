@@ -65,13 +65,13 @@
 <meta property="og:site_name" content="Whirlwinder">
 <meta property="og:description" content="基于LBS的业务系统，前台使用MQTT协议推送到后台，后台通过RabbitMQ实现协议的转换，以实现负载消费的功能。主要的框架如图">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/1523585173759.png">
-<meta property="og:image" content="http://yoursite.com/images/1523585612511.png">
-<meta property="og:updated_time" content="2019-11-23T08:04:03.687Z">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251723gCtQXm41.png">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251724eLMByg24.png">
+<meta property="og:updated_time" content="2020-05-25T09:24:39.309Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用RabbitMQ实现AMQP和MQTT的协议转换">
 <meta name="twitter:description" content="基于LBS的业务系统，前台使用MQTT协议推送到后台，后台通过RabbitMQ实现协议的转换，以实现负载消费的功能。主要的框架如图">
-<meta name="twitter:image" content="http://yoursite.com/images/1523585173759.png">
+<meta name="twitter:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251723gCtQXm41.png">
   <link rel="canonical" href="http://yoursite.com/2018/04/13/使用RabbitMQ实现AMQP和MQTT的协议转换/">
 
 
@@ -327,12 +327,12 @@
 
       
         <p>基于LBS的业务系统，前台使用MQTT协议推送到后台，后台通过RabbitMQ实现协议的转换，以实现负载消费的功能。主要的框架如图</p>
-<p><img src="/images/1523585173759.png" alt="1523585173759"></p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251723gCtQXm41.png" alt="202005251723gCtQXm41"></p>
 <a id="more"></a>
 
 <p>准备工作：rabbitmq安装以及 rabbitmq_mqtt 插件启用</p>
 <p>MQTT client向<code>/drivers/1</code>push消息，AMQP client 使用 topic 模式接受消息， exchange name为固定值 <code>amq.topic</code>，routingKey 为 MQTT 发送使用的Topic，注意<code>/</code>需要替换为<code>.</code>，queue name 可以任意指定，绑定相同queue的customer可以实现负载消费的功能。</p>
-<p><img src="/images/1523585612511.png" alt="1523585612511"></p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251724eLMByg24.png" alt="202005251724eLMByg24"></p>
 <p>Demo示例(以java为例)：</p>
 <p>RabbitConfig</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TopicRabbitConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String message = <span class="string">"location.broker"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Queue <span class="title">queueMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Queue(message);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">TopicExchange <span class="title">exchange</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> TopicExchange(<span class="string">"amq.topic"</span>, <span class="keyword">true</span>, <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//綁定队列 queueMessages() 到 topicExchange 交换机,路由键只接受完全匹配 topic.message 的队列接受者可以收到消息, # 为通配符模式</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">Binding <span class="title">bindingExchangeMessage</span><span class="params">(Queue queueMessage, TopicExchange exchange)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> BindingBuilder.bind(queueMessage).to(exchange).with(<span class="string">'.drivers.#'</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

@@ -65,17 +65,17 @@
 <meta property="og:site_name" content="Whirlwinder">
 <meta property="og:description" content="总结的工具包为使用方便决定发布到maven中央仓库，因为第一次发布，遇到很多问题，简要记录一下。  1Sonatype官网：http://www.sonatype.org/">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/1529380073135.png">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251726ZCikGa28.png">
 <meta property="og:image" content="http://yoursite.com/images/1529386058988.png">
-<meta property="og:image" content="http://yoursite.com/images/1529386399022.png">
-<meta property="og:image" content="http://yoursite.com/images/1529637162176.png">
-<meta property="og:image" content="http://yoursite.com/images/1529459800811.png">
-<meta property="og:image" content="http://yoursite.com/images/1529720659785.png">
-<meta property="og:updated_time" content="2019-11-23T08:04:09.785Z">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/2020052517276rhkNd18.png">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251729KHR9C746.png">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251728pKbJHK34.png">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251730qHwuke25.png">
+<meta property="og:updated_time" content="2020-05-25T09:30:30.169Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="发布构件到Maven中央仓库">
 <meta name="twitter:description" content="总结的工具包为使用方便决定发布到maven中央仓库，因为第一次发布，遇到很多问题，简要记录一下。  1Sonatype官网：http://www.sonatype.org/">
-<meta name="twitter:image" content="http://yoursite.com/images/1529380073135.png">
+<meta name="twitter:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251726ZCikGa28.png">
   <link rel="canonical" href="http://yoursite.com/2018/06/19/发布构件到Maven中央仓库/">
 
 
@@ -331,7 +331,7 @@
 
       
         <p>总结的工具包为使用方便决定发布到maven中央仓库，因为第一次发布，遇到很多问题，简要记录一下。</p>
-<p><img src="/images/1529380073135.png" alt="1529380073135"></p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251726ZCikGa28.png" alt="202005251726ZCikGa28"></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Sonatype官网：http://www.sonatype.org/</span><br></pre></td></tr></table></figure>
 
 <a id="more"></a>
@@ -356,7 +356,7 @@
 <blockquote>
 <p>一般需要1-2天，审批通过后会收到邮件通知，在自己提交的issue下面可以看到Sonatype工作人员的回复。同时issue状态修改为resolved。</p>
 </blockquote>
-<p><img src="/images/1529386399022.png" alt="1529386399022"></p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/2020052517276rhkNd18.png" alt="2020052517276rhkNd18"></p>
 <p>Step 4: 发布准备</p>
 <ol>
 <li><p>生成gpg密钥，并发布到PGP密钥服务器，见引用</p>
@@ -410,7 +410,7 @@
 <p>需要在曾经创建的 Issue 下面回复一条“构件已成功发布”的评论，这是为了通知 Sonatype 的工作人员为需要发布的构件做审批( I released the component has been successfully, please approval, thank you!)，发布后会关闭该 Issue 。</p>
 </blockquote>
 <p>Step 8: 等待审批，1~2天，审批通过后会收到邮件通知。</p>
-<p><img src="/images/1529637162176.png" alt="1529637162176"></p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251729KHR9C746.png" alt="202005251729KHR9C746"></p>
 <p>Step 9: 在<a href="https://oss.sonatype.org/#stagingRepositories找到自己的构建，点击release" target="_blank" rel="noopener">https://oss.sonatype.org/#stagingRepositories找到自己的构建，点击release</a></p>
 <p>Step 9: 从中央仓库搜索自己发布的构件</p>
 <blockquote>
@@ -441,11 +441,11 @@
 </ol>
 </li>
 <li><p>Failed to execute goal org.apache.maven.plugins:maven-deploy-plugin:2.7:deploy (default-deploy) on project zjtools: Failed to deploy artifacts: Could not transfer artifact me.silloy:zjtools:jar:0.0.1 from/to oss (<a href="https://oss.sonatype.org/service/local/staging/deploy/maven2/" target="_blank" rel="noopener">https://oss.sonatype.org/service/local/staging/deploy/maven2/</a>): Access denied to: <a href="https://oss.sonatype.org/service/local/staging/deploy/maven2/me/silloy/zjtools/0.0.1/zjtools-0.0.1.jar" target="_blank" rel="noopener">https://oss.sonatype.org/service/local/staging/deploy/maven2/me/silloy/zjtools/0.0.1/zjtools-0.0.1.jar</a>, ReasonPhrase: Forbidden. -&gt; [Help 1]</p>
-<p><img src="/images/1529459800811.png" alt="1529459800811"></p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251728pKbJHK34.png" alt="202005251728pKbJHK34"></p>
 <p>答案：<a href="https://www.oschina.net/question/1444646_2277979" target="_blank" rel="noopener">引用</a>，提交给sonatype就可以，工作人员会开权限</p>
 </li>
 <li><p>可以在 <a href="http://search.maven.org/" target="_blank" rel="noopener">http://search.maven.org/</a>  搜索到，但是不能在 <a href="http://mvnrepository.com/" target="_blank" rel="noopener">http://mvnrepository.com/</a> 搜索到，是因为更新频率不一样，等一天左右就好了，参见工作人员回复</p>
-<p><img src="/images/1529720659785.png" alt="1529720659785"></p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251730qHwuke25.png" alt="202005251730qHwuke25"></p>
 </li>
 <li><p><code>gpg --list-keys</code> 出现 unknown 解决</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">gpg --edit-key user@useremail.com</span><br><span class="line"></span><br><span class="line"><span class="meta">gpg&gt;</span><span class="bash"> trust</span></span><br><span class="line"></span><br><span class="line">Please decide how far you trust this user to correctly verify other users' keys</span><br><span class="line">(by looking at passports, checking fingerprints from different sources, etc.)</span><br><span class="line"></span><br><span class="line">  1 = I don't know or won't say</span><br><span class="line">  2 = I do NOT trust</span><br><span class="line">  3 = I trust marginally</span><br><span class="line">  4 = I trust fully</span><br><span class="line">  5 = I trust ultimately</span><br><span class="line">  m = back to the main menu</span><br><span class="line"></span><br><span class="line">Your decision? 5</span><br><span class="line"><span class="meta">gpg&gt;</span><span class="bash"> save</span></span><br></pre></td></tr></table></figure>

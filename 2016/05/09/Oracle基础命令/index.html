@@ -65,12 +65,12 @@
 <meta property="og:site_name" content="Whirlwinder">
 <meta property="og:description" content="主流关系型数据库: Oracle，DB2，Sybase，SQL server，MySQL这里主要记录一下oracle数据库初步学习过程，涉及少量与mysql的不同讨论。基本的SQL知识">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/date.jpg">
-<meta property="og:updated_time" content="2019-10-01T02:34:22.968Z">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251720HLa2kn12.jpg">
+<meta property="og:updated_time" content="2020-05-25T09:20:36.786Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle基础命令">
 <meta name="twitter:description" content="主流关系型数据库: Oracle，DB2，Sybase，SQL server，MySQL这里主要记录一下oracle数据库初步学习过程，涉及少量与mysql的不同讨论。基本的SQL知识">
-<meta name="twitter:image" content="http://yoursite.com/images/date.jpg">
+<meta name="twitter:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251720HLa2kn12.jpg">
   <link rel="canonical" href="http://yoursite.com/2016/05/09/Oracle基础命令/">
 
 
@@ -416,7 +416,8 @@
 <li>CONCAT, “||”</li>
 </ul>
 <h5 id="日期操作"><a href="#日期操作" class="headerlink" title="日期操作"></a>日期操作</h5><ul>
-<li>DATE<ul>
+<li><p>DATE</p>
+<ul>
 <li>范围：公元前4712年1月1日至公元9999年12月31日</li>
 <li>占用7个字节</li>
 <li>byte 1: 世纪+100</li>
@@ -428,48 +429,62 @@
 <li>byte 7: 秒 + 1 </li>
 </ul>
 </li>
-<li>TIMESTAMP<ul>
+<li><p>TIMESTAMP</p>
+<ul>
 <li>最高精度可以到ns</li>
 <li>占用7或者11个字节，精度为0，用7字节存储，精度大于0用11字节存储</li>
 <li>精度：第8-11字节，内部运算类型为整型</li>
 </ul>
 </li>
-<li>SYSDATE: SystemDate</li>
-<li>SYSTIMESTAMP: 返回当前系统日期和时间，精确到毫秒</li>
-<li>TO_DATE：字符串转换为日期类型<ul>
-<li>TO_DATE(char[, fmt[, nlsparams]])<ul>
-<li>fmt: 格式<!-- ![date](../../img/date.jpg) -->
-<img src="/images/date.jpg" alt="date"></li>
-<li>nlsparams: 指定日期语言</li>
-</ul>
+<li><p>SYSDATE: SystemDate</p>
+</li>
+<li><p>SYSTIMESTAMP: 返回当前系统日期和时间，精确到毫秒</p>
+</li>
+<li><p>TO_DATE：字符串转换为日期类型</p>
+<ul>
+<li><p>TO_DATE(char[, fmt[, nlsparams]])</p>
+<ul>
+<li><p>fmt: 格式</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251720HLa2kn12.jpg" alt="202005251720HLa2kn12"></p>
 </li>
 </ul>
 </li>
-<li>TO_CHAR<ul>
+</ul>
+</li>
+</ul>
+<pre><code>- nlsparams: 指定日期语言</code></pre><ul>
+<li><p>TO_CHAR</p>
+<ul>
 <li>TO_CHAR(date[, fmt[, nlsparams]])</li>
 </ul>
 </li>
-<li>LAST_DAY<ul>
+<li><p>LAST_DAY</p>
+<ul>
 <li>LAST_DAY(date): 返回日期date所在月的最后一天</li>
 </ul>
 </li>
-<li>ADD_MONTHS<ul>
+<li><p>ADD_MONTHS</p>
+<ul>
 <li>ADD_MONTHS(date, i)</li>
 </ul>
 </li>
-<li>MONTHS_BETWEEN<ul>
+<li><p>MONTHS_BETWEEN</p>
+<ul>
 <li>MONTHS_BETWEEN(date1, date2): 计算月份差</li>
 </ul>
 </li>
-<li>NEXT_DAY<ul>
+<li><p>NEXT_DAY</p>
+<ul>
 <li>NEXT_DAY(date, char): 返回date日期的下一个周几</li>
 </ul>
 </li>
-<li>LEAST, GREATEST<ul>
+<li><p>LEAST, GREATEST</p>
+<ul>
 <li>GREATEST(expr1[,expr2[, expr3]]…)</li>
 </ul>
 </li>
-<li>EXTRACT<ul>
+<li><p>EXTRACT</p>
+<ul>
 <li>EXTRACT(date from datetime): 提取日期中的年、月、日等</li>
 </ul>
 </li>

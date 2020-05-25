@@ -65,18 +65,18 @@
 <meta property="og:site_name" content="Whirlwinder">
 <meta property="og:description" content="消息中间件在服务开发中起着重要的作用，应对业务需求，对rabbitmq，rocketmq进行预研，kafka暂时不做深入了解。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/rocketmq.png">
-<meta property="og:image" content="http://yoursite.com/images/rocketmq-topic.png">
-<meta property="og:image" content="http://yoursite.com/images/rabbit.png">
-<meta property="og:image" content="http://yoursite.com/images/rabbitmq-direct.png">
-<meta property="og:image" content="http://yoursite.com/images/rabbitmq-topic.png">
-<meta property="og:image" content="http://yoursite.com/images/1522329083963.png">
-<meta property="og:image" content="http://yoursite.com/images/1523535278161.png">
-<meta property="og:updated_time" content="2019-11-23T08:05:02.883Z">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251741N7n6xF13.png">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251740w7uFTh26.png">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251738vXysfb29.png">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251739F4SpRm38.png">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251739gtEx4l55.png">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251721dJ8kJ302.png">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251723BRp6Gp04.png">
+<meta property="og:updated_time" content="2020-05-25T09:41:25.099Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="消息中间件预研-rabbitmq, rocketmq">
 <meta name="twitter:description" content="消息中间件在服务开发中起着重要的作用，应对业务需求，对rabbitmq，rocketmq进行预研，kafka暂时不做深入了解。">
-<meta name="twitter:image" content="http://yoursite.com/images/rocketmq.png">
+<meta name="twitter:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/202005251741N7n6xF13.png">
   <link rel="canonical" href="http://yoursite.com/2018/01/04/消息中间件预研-kafka, rabbitmq, rocketmq/">
 
 
@@ -364,7 +364,7 @@
 <li><strong>Async Broker：</strong>生产者发送的每一条消息只要写入master就返回告诉生产者成功。然后再“异步复制”到slave。</li>
 </ul>
 <h4 id="start-十分钟入门RocketMQ"><a href="#start-十分钟入门RocketMQ" class="headerlink" title="start 十分钟入门RocketMQ"></a>start <a href="http://jm.taobao.org/2017/01/12/rocketmq-quick-start-in-10-minutes/" target="_blank" rel="noopener">十分钟入门RocketMQ</a></h4><p><strong>QuickStart</strong>: <a href="https://rocketmq.apache.org/docs/quick-start/" target="_blank" rel="noopener">apache-quickstart</a></p>
-<p><img src="/images/rocketmq.png" alt="rocketmq"></p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251741N7n6xF13.png" alt="202005251741N7n6xF13"></p>
 <h4 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a>集群部署</h4><ul>
 <li><p>使用不同配置文件启动nameserv(默认9876)</p>
 <p>无状态节点，可集群部署，<strong>节点之间无任何信息同步</strong>（Broker与每个namesrv连接，可以保证信息同步性）</p>
@@ -438,7 +438,7 @@
 <p>or</p>
 <p><code>java -jar rocketmq-console-ng-1.0.0.jar --server.port=12581 --rocketmq.config.namesrvAddr=10.89.0.64:9876;10.89.0.65:9876</code></p>
 <h4 id="topic"><a href="#topic" class="headerlink" title="topic"></a>topic</h4><p>rocketmq中一个broker-name其实就相当于kafka-broker中的一个partition，而rocketmq每一个slave就相当于kafka中的一个replication，这种情况，所以rocketmq的特点相当于单个partition支持多队列，大致的原理图如下：</p>
-<p><img src="/images/rocketmq-topic.png" alt="rocketmq-topic"></p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251740w7uFTh26.png" alt="202005251740w7uFTh26"></p>
 <p>默认: 一个topic的队列数是8</p>
 <h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><ol>
 <li><p>producer生产消息过多，customer来不及消费?</p>
@@ -497,7 +497,7 @@
 <p><a href="https://www.vultr.com/docs/how-to-install-rabbitmq-on-centos-7" target="_blank" rel="noopener">How-to-install-rabbitmq-on-centos-7</a></p>
 </li>
 </ul>
-<h4 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念:"></a>重要概念:</h4><p><img src="/images/rabbit.png" alt="rabbit"></p>
+<h4 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念:"></a>重要概念:</h4><p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251738vXysfb29.png" alt="202005251738vXysfb29"></p>
 <ul>
 <li>左侧 P 代表 生产者，也就是往 RabbitMQ 发消息的程序。</li>
 <li>中间即是 RabbitMQ，<em>其中包括了 交换机 和 队列。</em></li>
@@ -511,12 +511,12 @@
 <h5 id="交换机-Exchange"><a href="#交换机-Exchange" class="headerlink" title="交换机(Exchange)"></a>交换机(Exchange)</h5><p>交换机的功能主要是接收消息并且转发到绑定的队列，交换机不存储消息，在启用ack模式后，交换机找不到队列会返回错误。交换机有四种类型：Direct, topic, Headers and Fanout</p>
 <ul>
 <li><p>Direct：direct 类型的行为是”先匹配, 再投送”. 即在绑定时设定一个 <strong>routing_key</strong>, 消息的<strong>routing_key</strong> 匹配时, 才会被交换器投送到绑定的队列中去.</p>
-<p><img src="/images/rabbitmq-direct.png" alt="rabbitmq-direct"></p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251739F4SpRm38.png" alt="202005251739F4SpRm38"></p>
 </li>
 </ul>
 <ul>
 <li><p>Topic：按规则转发消息（最灵活）</p>
-<p><img src="/images/rabbitmq-topic.png" alt="rabbitmq-topic"></p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251739gtEx4l55.png" alt="202005251739gtEx4l55"></p>
 </li>
 <li><p><a href="http://codedestine.com/rabbitmq-headers-exchange/" target="_blank" rel="noopener">Headers</a>：设置header attribute参数类型的交换机</p>
 </li>
@@ -525,8 +525,8 @@
 </ul>
 <p>性能比较: <a href="http://www.gaort.com/index.php/archives/366" target="_blank" rel="noopener">RabbitMQ三种Exchange模式(fanout,direct,topic)的性能比较</a></p>
 <p>理解rabbitmq的概念 : <a href="http://tryrabbitmq.com/" target="_blank" rel="noopener">http://tryrabbitmq.com/</a></p>
-<p><img src="/images/1522329083963.png" alt="52232908396"></p>
-<p><img src="/images/1523535278161.png" alt="1523535278161"></p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251721dJ8kJ302.png" alt="202005251721dJ8kJ302"></p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251723BRp6Gp04.png" alt="202005251723BRp6Gp04"></p>
 <p><strong>示例代码</strong>: <a href="https://github.com/silloy/boot-in-action" target="_blank" rel="noopener">boot-in-action</a></p>
 <p><strong>References</strong>: </p>
 <ul>
