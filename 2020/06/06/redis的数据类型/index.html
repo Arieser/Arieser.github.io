@@ -57,17 +57,19 @@
   };
 </script>
 
-  <meta name="description" content="Manners Maketh Man.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Whirlwinder">
-<meta property="og:url" content="http://yoursite.com/tags/maven/index.html">
+  <meta name="description" content="简单介绍一下redis的几种数据类型： Strings，Lists，Sets， Hashe，Sorted sets，Bitmaps and HyperLogLogs">
+<meta name="keywords" content="redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis的数据类型">
+<meta property="og:url" content="http://yoursite.com/2020/06/06/redis的数据类型/index.html">
 <meta property="og:site_name" content="Whirlwinder">
-<meta property="og:description" content="Manners Maketh Man.">
+<meta property="og:description" content="简单介绍一下redis的几种数据类型： Strings，Lists，Sets， Hashe，Sorted sets，Bitmaps and HyperLogLogs">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-06-08T06:40:18.677Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Whirlwinder">
-<meta name="twitter:description" content="Manners Maketh Man.">
-  <link rel="canonical" href="http://yoursite.com/tags/maven/">
+<meta name="twitter:title" content="redis的数据类型">
+<meta name="twitter:description" content="简单介绍一下redis的几种数据类型： Strings，Lists，Sets， Hashe，Sorted sets，Bitmaps and HyperLogLogs">
+  <link rel="canonical" href="http://yoursite.com/2020/06/06/redis的数据类型/">
 
 
 <script id="page-configurations">
@@ -75,13 +77,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>标签: maven | Whirlwinder</title>
+  <title>redis的数据类型 | Whirlwinder</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115111429-1"></script>
   <script>
@@ -247,82 +249,222 @@
         <div class="content-wrap">
             
 
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-  
-
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
   
   
   
-  <div class="post-block tag">
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">maven<small>标签</small>
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/06/redis的数据类型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老农">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">redis的数据类型
+
+          
         </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-06-06 17:22:00" itemprop="dateCreated datePublished" datetime="2020-06-06T17:22:00+08:00">2020-06-06</time>
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/06/06/redis的数据类型/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2020/06/06/redis的数据类型/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>简单介绍一下redis的几种数据类型： <strong>Strings</strong>，<strong>Lists</strong>，<strong>Sets</strong>， <strong>Hashe</strong>，<strong>Sorted sets</strong>，<strong>Bitmaps and HyperLogLogs</strong></p>
+<a id="more"></a>
+
+<h3 id="Strings"><a href="#Strings" class="headerlink" title="Strings"></a>Strings</h3><p>Strings是redis的最基础的类型，意味着reds stings可以包含任何数据类型，普通的string，integer…自不必说，JPEG 图片，Java对象，文件等等都可以序列化成strings。</p>
+<p>最大限制：512M</p>
+<p>常用操作：</p>
+<ul>
+<li><a href="https://redis.io/commands/incr" target="_blank" rel="noopener">INCR</a>, <a href="https://redis.io/commands/decr" target="_blank" rel="noopener">DECR</a>, <a href="https://redis.io/commands/incrby" target="_blank" rel="noopener">INCRBY</a>：通过strings实现原子化操作</li>
+<li><a href="https://redis.io/commands/append" target="_blank" rel="noopener">APPEND</a>：改变字符串</li>
+<li><a href="https://redis.io/commands/getrange" target="_blank" rel="noopener">GETRANGE</a> , <a href="https://redis.io/commands/setrange" target="_blank" rel="noopener">SETRANGE</a>： 自由获取或者变更Strings</li>
+<li><a href="https://redis.io/commands/getbit" target="_blank" rel="noopener">GETBIT</a>, <a href="https://redis.io/commands/setbit" target="_blank" rel="noopener">SETBIT</a>：对Strings进行位操作，如通过redis创建一个bloom filter</li>
+</ul>
+<p>其他： <a href="https://redis.io/commands/#string" target="_blank" rel="noopener">available string commands</a> </p>
+<h3 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h3><p>Redis Lists是strings的集合list，顺序为元素的插入顺序。当然也可以通过命令在head或者tail插入元素。即使list很大，在head或者tail增删元素的速度也很快，但是如果操作中间的元素，则复杂度为O(N)。</p>
+<p>lists最大长度： 2^32 - 1 (4294967295， 也就是每个list可以存40亿个元素)</p>
+<p>有意思的案例：</p>
+<ul>
+<li>创建设计网络中的时间线，使用 <a href="https://redis.io/commands/lpush" target="_blank" rel="noopener">LPUSH</a> 增加元素，而使用<a href="https://redis.io/commands/lrange" target="_blank" rel="noopener">LRANGE</a>获取最新插入的几个元素</li>
+<li>使用 <a href="https://redis.io/commands/lpush" target="_blank" rel="noopener">LPUSH</a> 和 <a href="https://redis.io/commands/ltrim" target="_blank" rel="noopener">LTRIM</a> 创建一个固定容量的list，只记录最新的几个元素</li>
+<li>使用list结构创建一个消息队列，如ruby的<a href="https://github.com/resque/resque" target="_blank" rel="noopener">Resque</a> - 用于创建后台任务</li>
+<li><a href="https://redis.io/commands/blpop" target="_blank" rel="noopener">BLPOP</a></li>
+</ul>
+<p>其他： <a href="https://redis.io/commands#list" target="_blank" rel="noopener">available commands operating on lists</a></p>
+<h3 id="Sets"><a href="#Sets" class="headerlink" title="Sets"></a>Sets</h3><p>Redis Sets是strings的无序无重复集合。增删查的复杂度是0(1)，基于sets可以做 unions, intersections 等操作</p>
+<p>sets最大长度： 2^32 - 1 (4294967295， 也就是每个set可以存40亿个元素)</p>
+<p>一些案例：</p>
+<ul>
+<li>trace 一些唯一事件，比如说记录一篇blog的访问ip，仅仅只需要使用  <a href="https://redis.io/commands/sadd" target="_blank" rel="noopener">SADD</a> ，而不需要考虑是否重复。</li>
+<li>创建一个标签系统，给对象标记不同的tag</li>
+<li>使用 <a href="https://redis.io/commands/spop" target="_blank" rel="noopener">SPOP</a> 或者 <a href="https://redis.io/commands/srandmember" target="_blank" rel="noopener">SRANDMEMBER</a> 命令从一个set中随机抽取元素</li>
+<li>其他： <a href="https://redis.io/commands#set" target="_blank" rel="noopener">full list of Set commands</a></li>
+</ul>
+<h3 id="Hashes"><a href="#Hashes" class="headerlink" title="Hashes"></a>Hashes</h3><p>Redis Hashes 是用来存储一些键值对的，举个栗子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@cli</span><br><span class="line">HMSET user:1000 username antirez password P1pp0 age 34</span><br><span class="line">HGETALL user:1000</span><br><span class="line">HSET user:1000 password 12345</span><br><span class="line">HGETALL user:1000</span><br></pre></td></tr></table></figure>
+
+<p>每一个hash都可以存储至多 2^32 - 1个 键值对</p>
+<p>其他： <a href="https://redis.io/commands#hash" target="_blank" rel="noopener">full list of Hash commands</a></p>
+<h3 id="Sorted-sets"><a href="#Sorted-sets" class="headerlink" title="Sorted sets"></a>Sorted sets</h3><p>redis Sorted Sets 和sets类型相似，但最大的不同点是 Sorted Set 的每一个元素都有一个分值，这个分值可以用作排序，虽然元素是不重复的，但分值可能相同。可以获取不同分值段内的一些元素。</p>
+<p>sorted sets 可以做很多有意思的事情，与直接操作数据库相比，有很好的性能</p>
+<ul>
+<li>比如设计一个在线游戏的选手积分榜，使用<a href="https://redis.io/commands/zadd" target="_blank" rel="noopener">ZADD</a>来增加一个新的记录，使用  <a href="https://redis.io/commands/zrange" target="_blank" rel="noopener">ZRANGE</a> 获取前几名的选手，也可以使用 <a href="https://redis.io/commands/zrange" target="_blank" rel="noopener">ZRANGE</a>来获取一个选手的排名。使用ZRANK 和 ZRANGE可以吃很快查询到一个元素附近的几个元素</li>
+<li>Sorted Sets常常被用来做作redis中的索引数据，比如有很多用户的hash数据，可以使用用户的年龄作为分值，用户id作为值，使用<a href="https://redis.io/commands/zrangebyscore" target="_blank" rel="noopener">ZRANGEBYSCORE</a>就可以吃很快查询出一个年龄区间内的用户</li>
+</ul>
+<p>其他：<a href="https://redis.io/commands#sorted_set" target="_blank" rel="noopener">full list of Sorted Set commands</a></p>
+<h3 id="Bitmaps-and-HyperLogLogs"><a href="#Bitmaps-and-HyperLogLogs" class="headerlink" title="Bitmaps and HyperLogLogs"></a>Bitmaps and HyperLogLogs</h3><p>Redis 同时也支持Bitmaps 和 HyperLogLogs，基于Strings实现，但有他们自己的语义。</p>
+<p>其他：<a href="https://redis.io/topics/data-types-intro" target="_blank" rel="noopener">introduction to Redis data types</a></p>
+<p>推荐的redisdocs：</p>
+<ul>
+<li><a href="http://doc.redisfans.com/" target="_blank" rel="noopener">http://doc.redisfans.com/</a></li>
+<li><a href="http://redisdoc.com/" target="_blank" rel="noopener">http://redisdoc.com/</a></li>
+</ul>
+<p><strong>References</strong></p>
+<p><a href="https://redis.io/topics/data-types" target="_blank" rel="noopener">Data types</a></p>
+
+    </div>
+
+    
+    
+    
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="/images/wechatmp.jpg" alt="歧途老农 wechat" style="width: 200px; max-width: 100%;">
+  <div></div>
+</div>
+
+      
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="歧途老农 微信支付">
+        <p>微信支付</p>
       </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.png" alt="歧途老农 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
 
       
 
-  
-  
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/redis/" rel="tag"># redis</a>
+            
+          </div>
+        
 
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
   
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/05/04/由一次Base64编码异常引起的小bug/" rel="next" title="由一次Base64编码异常引起的小bug">
+                  <i class="fa fa-chevron-left"></i> 由一次Base64编码异常引起的小bug
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
     
-    <div class="collection-year">
-      <h1 class="collection-header">2018</h1>
-    </div>
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-19T11:40:00+08:00"
-              content="2018-06-19">
-          06-19
-        </time>
-      </div>
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/06/19/发布构件到Maven中央仓库/" itemprop="url">
-            <span itemprop="name">发布构件到Maven中央仓库</span>
-          </a>
-        
-      </h2>
-
-    </header>
-  </article>
-
-
-
-    </div>
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
           
+    
+    <div class="comments" id="comments"></div>
+  
 
         </div>
           
@@ -337,6 +479,11 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
+        
+        
+        
+        
+      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
@@ -349,6 +496,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Strings"><span class="nav-number">1.</span> <span class="nav-text">Strings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lists"><span class="nav-number">2.</span> <span class="nav-text">Lists</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sets"><span class="nav-number">3.</span> <span class="nav-text">Sets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hashes"><span class="nav-number">4.</span> <span class="nav-text">Hashes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sorted-sets"><span class="nav-number">5.</span> <span class="nav-text">Sorted sets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bitmaps-and-HyperLogLogs"><span class="nav-number">6.</span> <span class="nav-text">Bitmaps and HyperLogLogs</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
