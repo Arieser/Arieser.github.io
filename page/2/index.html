@@ -255,6 +255,218 @@
   
   
   <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/23/Logitech Options 在 Mac 下的自定义按键失灵问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老农">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/11/23/Logitech Options 在 Mac 下的自定义按键失灵问题/" class="post-title-link" itemprop="url">Logitech Options 在 Mac 下的自定义按键失灵问题</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-23 16:05:00" itemprop="dateCreated datePublished" datetime="2019-11-23T16:05:00+08:00">2019-11-23</time>
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/23/Logitech Options 在 Mac 下的自定义按键失灵问题/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/11/23/Logitech Options 在 Mac 下的自定义按键失灵问题/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>罗技鼠标的自定义按键很好远，但自从升级系统到10.15 catalina后自定义按键就失灵了，重启，重装Logitech Options，重新授权…一番折腾后终于找到了彻底的解决办法</p>
+<h3 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h3><p>系统：MacOS 10.15 Catalina</p>
+<p>鼠标：MX720</p>
+<p>Logitech Options 版本：8.02.86</p>
+<h3 id="排查步骤"><a href="#排查步骤" class="headerlink" title="排查步骤"></a>排查步骤</h3><ol>
+<li>修改Security &amp; Privacy 里的 Logi Options Daemon 和 Logi Options 权限，发现已经勾选了</li>
+<li>重新安装Logitech Options勾选权限，仍然无法使用</li>
+</ol>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><ol>
+<li>删除Logi Options和Logi Options Daemon后，再次添加这两项</li>
+</ol>
+<p>   <img src="https://raw.githubusercontent.com/silloy/notepic/master/YJvFUL.png" alt="logi.png"></p>
+<ol start="2">
+<li><p>Security &amp; Privacy -&gt; Privacy 中添加<code>Input Monitoring</code>权限</p>
+<p><img src="https://raw.githubusercontent.com/silloy/notepic/master/Dx40J2.png" alt="input.png"></p>
+</li>
+<li><p>如果需要自定义鼠标截图，还需要添加 <code>Screen Recording</code>权限</p>
+</li>
+</ol>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>仔细看了Catalina的新特性，新系统对于安全和权限管理更加严格了，所以需要单独处理，至于Logitech Options需要的权限，可以参考<a href="https://support.logi.com/hc/en-001/articles/360023203954-Logitech-Options-permission-prompts-on-macOS-Mojave" target="_blank" rel="noopener">Logitech Options permission prompts on macOS Catalina and macOS Mojave</a>，新系统中其他软件遇到类似的问题，都可以通过这种方式解决</p>
+<p><strong>References</strong></p>
+<p><a href="https://www.v2ex.com/t/572690" target="_blank" rel="noopener">Logitech Options 在 Mac 下的自定义按键经常会失灵</a></p>
+<p><a href="https://support.logi.com/hc/en-001/articles/360023203954-Logitech-Options-permission-prompts-on-macOS-Mojave" target="_blank" rel="noopener">Logitech Options permission prompts on macOS Catalina and macOS Mojave</a></p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/15/Nacos 配置 MySQL 8.0 数据库/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老农">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/11/15/Nacos 配置 MySQL 8.0 数据库/" class="post-title-link" itemprop="url">Nacos 配置 MySQL 8.0 数据库</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-15 15:00:00" itemprop="dateCreated datePublished" datetime="2019-11-15T15:00:00+08:00">2019-11-15</time>
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/15/Nacos 配置 MySQL 8.0 数据库/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/11/15/Nacos 配置 MySQL 8.0 数据库/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Nacos 1.2.0版本以前是不支持MySQL8.0，如果出现配置保存不了，500的错误，多是由于数据源的问题，需要修改源码以支持MySQL8.0。</p>
+<h3 id="从github克隆源码"><a href="#从github克隆源码" class="headerlink" title="从github克隆源码"></a>从github克隆源码</h3><blockquote>
+<p>git clone <a href="https://github.com/alibaba/nacos.git" target="_blank" rel="noopener">https://github.com/alibaba/nacos.git</a></p>
+</blockquote>
+<h3 id="修改pom驱动版本（最外层pom）"><a href="#修改pom驱动版本（最外层pom）" class="headerlink" title="修改pom驱动版本（最外层pom）"></a>修改pom驱动版本（最外层pom）</h3><blockquote>
+<dependency>
+    <groupid>mysql</groupid>
+    <artifactid>mysql-connector-java</artifactid>
+    <!-- <version>5.1.34</version> -->
+    <version>8.0.19</version>
+</dependency>
+</blockquote>
+<h4 id="修改源码引用"><a href="#修改源码引用" class="headerlink" title="修改源码引用"></a>修改源码引用</h4><p><strong>位置</strong> <code>nacos/naming/src/main/java/com/alibaba/nacos/naming/healthcheck/MysqlHealthCheckProcessor.java</code></p>
+<blockquote>
+<p>// import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;原本引用的类<br>import com.mysql.cj.jdbc.MysqlDataSource;</p>
+</blockquote>
+<h3 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd nacos/</span><br><span class="line">mvn -Prelease-nacos -Dmaven.test.skip=true clean install -U  </span><br><span class="line">ls -al distribution/target/nacos-server-1.2.0-SNAPSHOT/nacos</span><br></pre></td></tr></table></figure>
+
+<p>注意修改targeta下的jar包名为 <code>nacos-server.jar</code></p>
+<p>修改conf里的配置文件</p>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>进入bin目录，以官方提供的方式启动 <code>sh startup.sh -m standalone</code></p>
+<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p>如果出现异常，可以通过<code>logs/nacos.log</code>查看具体的启动异常</p>
+<p><strong>References</strong></p>
+<p><a href="https://blog.csdn.net/Mr_Mocha/article/details/102868380" target="_blank" rel="noopener">Nacos 配置 MySQL8数据库</a></p>
+<p><a href="https://nacos.io/zh-cn/docs/quick-start.html" target="_blank" rel="noopener">Nacos 快速开始</a></p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/02/浅析Java8 CompletableFuture和Stream串行使用产生的一个问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1079,220 +1291,6 @@
   </article>
 
     
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/05/OKR理解与实施/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老农">
-      <meta itemprop="description" content="Manners Maketh Man.">
-      <meta itemprop="image" content="/images/ele.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whirlwinder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/04/05/OKR理解与实施/" class="post-title-link" itemprop="url">OKR理解与实施</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-05 15:00:00" itemprop="dateCreated datePublished" datetime="2019-04-05T15:00:00+08:00">2019-04-05</time>
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/04/05/OKR理解与实施/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/04/05/OKR理解与实施/" itemprop="commentCount"></span></a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p><strong>目标和关键成果</strong>(Objectives and Key Results) </p>
-<h2 id="原则"><a href="#原则" class="headerlink" title="原则"></a>原则</h2><ol>
-<li><p><strong>OKRs要是可量化的（时间&amp;数量）</strong>，比如不能说“使gmail达到成功”而是“在9月上线gmail并在11月有100万用户”</p>
-</li>
-<li><p>目标要是<strong>有野心的</strong>，有一些挑战的，有些让你不舒服的。一般来说，1为总分的评分，达到0.6-0.7是较好的了，这样你才会不断为你的目标而奋斗，而不会出现期限不到就完成目标的情况。</p>
-</li>
-<li><p>每个人的OKRs在全公司都是<strong>公开透明</strong>的。比如每个人的介绍页里面就放着他们的OKRs的记录，包括内容和评分</p>
-</li>
-</ol>
-<h2 id="两个不同"><a href="#两个不同" class="headerlink" title="两个不同"></a>两个不同</h2><ol>
-<li><p>O和KR的不同：O要是有挑战性的，如果是板上钉钉的事情就是不够的；KRs能很好的支持O的完成，是要明显可量化的，便于评分的。</p>
-</li>
-<li><p>个人、组、公司OKRs的不同：个人OKRs是你个人展现你将会做什么；组的OKRs不是个人打包，是组优先做的事情；公司OKRs是高层对整个公司的展望。</p>
-</li>
-</ol>
-<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><ol>
-<li>目标的协调和统一。公司 -&gt; 团队-&gt; 个人目标层层分解，每个人不再只关注自己的工作，而是能够看到”the bigger picture”，了解自己在团队和公司整体目标中发挥的作用，让自己的工作更有意义，从而更有积极性。并且，所有团队的目标都能被统一地联系在一起，执行起来可以相互支持；</li>
-<li>判断优先级。通过梳理 OKRs，能找出最重要的事情，让全公司专注在最有价值的事情上，便于做出取舍，最有效地利用资源；</li>
-<li>双向沟通。OKRs 的制定由员工和自己的直线上级一起制定，需要双方同意，而不是简单粗暴的由上而下，员工只是被动接受</li>
-<li>灵活调整。不像 KPI 是死的，只要目标不变，OKRs 中的关键事件（Key Results）在回顾的过程中可以根据情况随时灵活调整；</li>
-<li>鼓励创新。员工有自主权去制定有挑战性的目标，而不是拘泥于公司设定的框架里。往往能激发和产生出一些意想不到的新想法和结果，鼓励公司内部创新的发生。</li>
-</ol>
-<h2 id="原则-1"><a href="#原则-1" class="headerlink" title="原则"></a>原则</h2><p><strong>SMART</strong></p>
-<h2 id="责任分配矩阵-RAM"><a href="#责任分配矩阵-RAM" class="headerlink" title="责任分配矩阵(RAM)"></a>责任分配矩阵(RAM)</h2><h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><ol>
-<li>清楚界定每项成果</li>
-<li>为项目的每项成果设定责任人</li>
-<li>让跨职能沟通更为有效</li>
-<li>加速项目决策流程，简化审批</li>
-</ol>
-<h3 id="分配基本原则-RACI模型"><a href="#分配基本原则-RACI模型" class="headerlink" title="分配基本原则(RACI模型)"></a>分配基本原则(RACI模型)</h3><ol>
-<li>相互独立，完全穷尽（Mutually Exclusive Collectively Exhaustive，MECE）：分解的任务各部分之间相互独立，所有部分完全覆盖任务的各个部分；</li>
-<li>结果导向，而非行动：分解任务时关注结果，而不要陷入对细节行动的过分关注当中，导致分解过于繁琐复杂</li>
-</ol>
-<p><strong>References</strong></p>
-<p><a href="https://www.heimabao.com/blog/29-font-awesome-icons-2" target="_blank" rel="noopener">转：力荐神器级员工考核工具：谷歌OKR</a></p>
-<p><a href="https://www.heimabao.com/blog/49-alibaba-zhoubao-4" target="_blank" rel="noopener">一张图、一颗心、一场仗，阿里巴巴的绩效之道</a></p>
-<p><a href="http://okrblog.com/archives/548" target="_blank" rel="noopener">揭秘阿里leader的绩效管理之道</a></p>
-<p><a href="https://webcache.googleusercontent.com/search?q=cache:BZJNoaU9uykJ:https://www.teambition.com/best/practices/article%3F_id%3D55fa1ff0464b9b3453b97655+&cd=1&hl=en&ct=clnk&gl=hk&lr=lang_en%7Clang_zh-CN" target="_blank" rel="noopener">OKRs 与目标分解</a></p>
-<p><a href="https://blog.teambition.com/blog/knowledge-forefront/2018-08-16-6732/" target="_blank" rel="noopener">关于 OKR 的常见问题</a></p>
-<p><a href="https://blog.teambition.com/blog/insight/OKRs/" target="_blank" rel="noopener">教你几招，即刻开始实施 OKRs</a></p>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/微服务架构BFF和网关/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老农">
-      <meta itemprop="description" content="Manners Maketh Man.">
-      <meta itemprop="image" content="/images/ele.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whirlwinder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2018/09/05/微服务架构BFF和网关/" class="post-title-link" itemprop="url">微服务架构BFF和网关</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2018-09-05 16:01:01" itemprop="dateCreated datePublished" datetime="2018-09-05T16:01:01+08:00">2018-09-05</time>
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2018/09/05/微服务架构BFF和网关/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2018/09/05/微服务架构BFF和网关/" itemprop="commentCount"></span></a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>BFF 架构图</p>
-<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251734dmvYjT19.png" alt="202005251734dmvYjT19"></p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2018/09/05/微服务架构BFF和网关/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </div>
 
   
@@ -1346,7 +1344,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1359,7 +1357,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

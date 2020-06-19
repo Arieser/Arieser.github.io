@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="Whirlwinder">
 <meta property="og:description" content="简单介绍一下redis的几种数据类型： Strings，Lists，Sets， Hashe，Sorted sets，Bitmaps and HyperLogLogs">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-08T06:40:18.677Z">
+<meta property="og:updated_time" content="2020-06-08T07:02:17.978Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis的数据类型">
 <meta name="twitter:description" content="简单介绍一下redis的几种数据类型： Strings，Lists，Sets， Hashe，Sorted sets，Bitmaps and HyperLogLogs">
@@ -363,8 +363,8 @@
 <h3 id="Sorted-sets"><a href="#Sorted-sets" class="headerlink" title="Sorted sets"></a>Sorted sets</h3><p>redis Sorted Sets 和sets类型相似，但最大的不同点是 Sorted Set 的每一个元素都有一个分值，这个分值可以用作排序，虽然元素是不重复的，但分值可能相同。可以获取不同分值段内的一些元素。</p>
 <p>sorted sets 可以做很多有意思的事情，与直接操作数据库相比，有很好的性能</p>
 <ul>
-<li>比如设计一个在线游戏的选手积分榜，使用<a href="https://redis.io/commands/zadd" target="_blank" rel="noopener">ZADD</a>来增加一个新的记录，使用  <a href="https://redis.io/commands/zrange" target="_blank" rel="noopener">ZRANGE</a> 获取前几名的选手，也可以使用 <a href="https://redis.io/commands/zrange" target="_blank" rel="noopener">ZRANGE</a>来获取一个选手的排名。使用ZRANK 和 ZRANGE可以吃很快查询到一个元素附近的几个元素</li>
-<li>Sorted Sets常常被用来做作redis中的索引数据，比如有很多用户的hash数据，可以使用用户的年龄作为分值，用户id作为值，使用<a href="https://redis.io/commands/zrangebyscore" target="_blank" rel="noopener">ZRANGEBYSCORE</a>就可以吃很快查询出一个年龄区间内的用户</li>
+<li>比如设计一个在线游戏的选手积分榜，使用<a href="https://redis.io/commands/zadd" target="_blank" rel="noopener">ZADD</a>来增加一个新的记录，使用  <a href="https://redis.io/commands/zrange" target="_blank" rel="noopener">ZRANGE</a> 获取前几名的选手，也可以使用 <a href="https://redis.io/commands/zrange" target="_blank" rel="noopener">ZRANGE</a>来获取一个选手的排名。使用ZRANK 和 ZRANGE可以很快查询到一个元素附近的几个元素</li>
+<li>Sorted Sets常常被用来做作redis中的索引数据，比如有很多用户的hash数据，可以使用用户的年龄作为分值，用户id作为值，使用<a href="https://redis.io/commands/zrangebyscore" target="_blank" rel="noopener">ZRANGEBYSCORE</a>就可以很快查询出一个年龄区间内的用户</li>
 </ul>
 <p>其他：<a href="https://redis.io/commands#sorted_set" target="_blank" rel="noopener">full list of Sorted Set commands</a></p>
 <h3 id="Bitmaps-and-HyperLogLogs"><a href="#Bitmaps-and-HyperLogLogs" class="headerlink" title="Bitmaps and HyperLogLogs"></a>Bitmaps and HyperLogLogs</h3><p>Redis 同时也支持Bitmaps 和 HyperLogLogs，基于Strings实现，但有他们自己的语义。</p>
@@ -446,6 +446,10 @@
 
             <div class="post-nav-prev post-nav-item">
               
+                <a href="/2020/06/18/开启Spring Initializr个性化之旅/" rel="prev" title="开启Spring Initializr个性化之旅">
+                  开启Spring Initializr个性化之旅 <i class="fa fa-chevron-right"></i>
+                </a>
+              
             </div>
           </div>
         
@@ -515,7 +519,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -528,7 +532,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

@@ -57,17 +57,17 @@
   };
 </script>
 
-  <meta name="description" content="java浮点型数值在运算中会出现精度损失的情况，在业务要求比较高比如交易等场景，一版使用BigDecimal来解决精度丢失的情况。最近一个同事在使用BigDecimal时仍然出现了精度损失，简略记录一下 测试用例代码如下 1234567@Test    public void fd() &amp;#123;        double abc = 0.56D;        System.out.prin">
+  <meta name="description" content="java浮点型数值在运算中会出现精度损失的情况，在业务要求比较高比如交易等场景，一般使用BigDecimal来解决精度丢失的情况。最近一个同事在使用BigDecimal时仍然出现了精度损失，简略记录一下 测试用例代码如下 1234567@Test    public void fd() &amp;#123;        double abc = 0.56D;        System.out.prin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java浮点型精度丢失浅析">
 <meta property="og:url" content="http://yoursite.com/2019/11/23/java浮点型精度丢失浅析/index.html">
 <meta property="og:site_name" content="Whirlwinder">
-<meta property="og:description" content="java浮点型数值在运算中会出现精度损失的情况，在业务要求比较高比如交易等场景，一版使用BigDecimal来解决精度丢失的情况。最近一个同事在使用BigDecimal时仍然出现了精度损失，简略记录一下 测试用例代码如下 1234567@Test    public void fd() &amp;#123;        double abc = 0.56D;        System.out.prin">
+<meta property="og:description" content="java浮点型数值在运算中会出现精度损失的情况，在业务要求比较高比如交易等场景，一般使用BigDecimal来解决精度丢失的情况。最近一个同事在使用BigDecimal时仍然出现了精度损失，简略记录一下 测试用例代码如下 1234567@Test    public void fd() &amp;#123;        double abc = 0.56D;        System.out.prin">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-23T08:03:21.949Z">
+<meta property="og:updated_time" content="2020-06-15T08:00:47.470Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java浮点型精度丢失浅析">
-<meta name="twitter:description" content="java浮点型数值在运算中会出现精度损失的情况，在业务要求比较高比如交易等场景，一版使用BigDecimal来解决精度丢失的情况。最近一个同事在使用BigDecimal时仍然出现了精度损失，简略记录一下 测试用例代码如下 1234567@Test    public void fd() &amp;#123;        double abc = 0.56D;        System.out.prin">
+<meta name="twitter:description" content="java浮点型数值在运算中会出现精度损失的情况，在业务要求比较高比如交易等场景，一般使用BigDecimal来解决精度丢失的情况。最近一个同事在使用BigDecimal时仍然出现了精度损失，简略记录一下 测试用例代码如下 1234567@Test    public void fd() &amp;#123;        double abc = 0.56D;        System.out.prin">
   <link rel="canonical" href="http://yoursite.com/2019/11/23/java浮点型精度丢失浅析/">
 
 
@@ -322,7 +322,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>java浮点型数值在运算中会出现精度损失的情况，在业务要求比较高比如交易等场景，一版使用BigDecimal来解决精度丢失的情况。最近一个同事在使用BigDecimal时仍然出现了精度损失，简略记录一下</p>
+        <p>java浮点型数值在运算中会出现精度损失的情况，在业务要求比较高比如交易等场景，一般使用BigDecimal来解决精度丢失的情况。最近一个同事在使用BigDecimal时仍然出现了精度损失，简略记录一下</p>
 <h3 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h3><p>代码如下</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> abc = <span class="number">0.56</span>D;</span><br><span class="line">        System.out.println(<span class="string">"abc: "</span> + abc);</span><br><span class="line">        System.out.println(<span class="string">"new BigDecimal(abc): "</span> + <span class="keyword">new</span> BigDecimal(abc));</span><br><span class="line">        System.out.println(<span class="string">"BigDecimal.valueOf(abc): "</span> + BigDecimal.valueOf(abc));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
@@ -337,7 +337,7 @@
 <p><code>BigDecimal.valueOf</code>核心代码</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BigDecimal <span class="title">valueOf</span><span class="params">(<span class="keyword">double</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BigDecimal(Double.toString(val));</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">BigDecimal</span><span class="params">(<span class="keyword">char</span>[] in, <span class="keyword">int</span> offset, <span class="keyword">int</span> len, MathContext mc)</span> </span>&#123;</span><br><span class="line">  ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>可以看到使用valueOf方法实际上是吧double转为String，再调用string构造器的。</p>
+<p>可以看到使用valueOf方法实际上是把double转为String，再调用string构造器的。</p>
 <p>那么为什么使用<code>Double.doubleToLongBits</code>会出现精度损失，而使用string构造器不会呢。主要原因是BigDecimal使用<strong>十进制(BigInteger)+小数点(scale)位置</strong>来表示小数，而不是直接使用二进制，如<code>101.001 = 101001 * 0.1^3</code>，运算时会分成两部分，BigInteger间的运算以及小数点位置的更新，这里不再展开。</p>
 <h3 id="原理浅析"><a href="#原理浅析" class="headerlink" title="原理浅析"></a>原理浅析</h3><p><code>Double.doubleToLongBits</code>为什么会出现精度损失呢，主要原因是因为浮点型不能用精确的二进制来表述，就如十进制不能准确描述无穷小数一样。</p>
 <p>浮点型转化为二进制的算法是乘以2直到没有了小数为止，举个栗子，0.8表示成二进制</p>
@@ -485,7 +485,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -498,7 +498,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
