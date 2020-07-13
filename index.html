@@ -255,6 +255,140 @@
   
   
   <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/13/谈数据库事务隔离/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老农">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2020/07/13/谈数据库事务隔离/" class="post-title-link" itemprop="url">谈数据库事务隔离</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-07-13 14:50:00" itemprop="dateCreated datePublished" datetime="2020-07-13T14:50:00+08:00">2020-07-13</time>
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/07/13/谈数据库事务隔离/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2020/07/13/谈数据库事务隔离/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>事务隔离主要是针对ACID中的 <strong>I</strong> 隔离性设置的，在了解这几种数据库事务之前需要先了解几个重要概念：</p>
+<ul>
+<li><p><strong>脏读</strong> - 事务1(READ)访问了事务2(WRITE)未提交的事务</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2154loev8R53.png" alt="2154loev8R53"></p>
+</li>
+<li><p><strong>幻读</strong> - 一个事务读取了2次，得到的结果不一样</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2155aZxX8o26.png" alt="2155aZxX8o26"></p>
+</li>
+<li><p><strong>不可重复读</strong> - 一个事务读取同一条记录2次，得到的结果不一致</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2156wuH3uE40.png" alt="2156wuH3uE40"></p>
+</li>
+</ul>
+<p>为了解决上面的三个问题，有四种数据库隔离级别</p>
+<ol>
+<li><p><strong>READ UNCOMMITTED</strong></p>
+<p>故名思义，读未提交，允许脏读，当然也会出现不可重复读和幻读，可以通过“排他写锁”实现，在表对某行进行修改时，会对该行加上行共享锁</p>
+</li>
+<li><p><strong>READ COMMITTED</strong></p>
+<p>读提交，允许不可重复读取，但不允许脏读取。这可以通过“瞬间共享读锁”和“排他写锁”实现。读取数据的事务允许其他事务继续访问该行数据，但是未提交的写事务将会禁止其他事务访问该行。在本事务未提交之前其他事务的增删改操作提交后会影响读的结果。 <strong>读的是最新结果</strong> 。在对表进行修改时，会对表数据行加上行共享锁</p>
+</li>
+<li><p><strong>Repeatable Read</strong></p>
+<p>可重复读，禁止不可重复读取和脏读取，但是有时可能出现幻读数据。这可以通过“共享读锁”和“排他写锁”实现。读取数据的事务将会禁止写事务（但允许读事务），写事务则禁止任何其他事务。读的是快照结果。MysQL 默认级别，通过MVCC解决了幻读问题。在事务中对某条记录修改，会对记录加上行共享锁，直到事务结束才会释放。</p>
+</li>
+<li><p><strong>Serializable</strong></p>
+<p>序列化，提供严格的事务隔离。它要求事务序列化执行，事务只能一个接着一个地执行，不能并发执行。仅仅通过“行级锁”是无法实现事务序列化的，必须通过其他机制保证新插入的数据不会被刚执行查询操作的事务访问到。</p>
+<p>进行查询时就会对表或行加上共享锁，其他事务对该表将只能进行读操作，而不能进行写操作。</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2203eTpuhO46.png" alt="2203eTpuhO46"></p>
+</li>
+</ol>
+<p>事务隔离级别越高，数据的完整性和一致性越好，但会影响并发性能。mysql默认使用 Repeatable Read 级别，而aliyun rds 默认使用 READ COMMITTED。</p>
+<p>查看查询数据库隔离级别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select @@global.tx_isolation;</span><br></pre></td></tr></table></figure>
+
+<p>Mysql 8.0 以上需要使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select @@transaction_isolation;</span><br></pre></td></tr></table></figure>
+
+<p>修改事务隔离级别：mysql.ini</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>可选参数有：READ-UNCOMMITTED, READ-COMMITTED, REPEATABLE-READ, SERIALIZABLE.</span><br><span class="line">[mysqld]</span><br><span class="line">transaction-isolation = REPEATABLE-READ</span><br></pre></td></tr></table></figure>
+
+<p>当然，也可以只对当前session修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set session transaction isolation level read uncommited;</span><br></pre></td></tr></table></figure>
+
+<p><strong>锁机制</strong></p>
+<p><strong>共享锁</strong>：由读表操作加上的锁，加锁后其他用户只能获取该表或行的共享锁，不能获取排它锁，也就是说只能读不能写</p>
+<p><strong>排它锁</strong>：由写表操作加上的锁，加锁后其他用户不能获取该表或行的任何锁，典型是mysql事务中的</p>
+<p>锁的范围:</p>
+<p><strong>行锁:</strong> 对某行记录加上锁</p>
+<p><strong>表锁:</strong> 对整个表加上锁</p>
+<p><strong>References</strong></p>
+<p>《高性能mysql》</p>
+<p><a href="https://developer.aliyun.com/article/4281" target="_blank" rel="noopener">https://developer.aliyun.com/article/4281</a></p>
+<p>[阿里云上的rds 的隔离级别read committed 而不是repeatable-read设置原因](</p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/19/ip查询的一些网站/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1190,117 +1324,6 @@
   </article>
 
     
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/23/java浮点型精度丢失浅析/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="歧途老农">
-      <meta itemprop="description" content="Manners Maketh Man.">
-      <meta itemprop="image" content="/images/ele.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whirlwinder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/11/23/java浮点型精度丢失浅析/" class="post-title-link" itemprop="url">java浮点型精度丢失浅析</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-23 16:11:23" itemprop="dateCreated datePublished" datetime="2019-11-23T16:11:23+08:00">2019-11-23</time>
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/11/23/java浮点型精度丢失浅析/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/11/23/java浮点型精度丢失浅析/" itemprop="commentCount"></span></a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>java浮点型数值在运算中会出现精度损失的情况，在业务要求比较高比如交易等场景，一般使用BigDecimal来解决精度丢失的情况。最近一个同事在使用BigDecimal时仍然出现了精度损失，简略记录一下</p>
-<h3 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h3><p>代码如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> abc = <span class="number">0.56</span>D;</span><br><span class="line">        System.out.println(<span class="string">"abc: "</span> + abc);</span><br><span class="line">        System.out.println(<span class="string">"new BigDecimal(abc): "</span> + <span class="keyword">new</span> BigDecimal(abc));</span><br><span class="line">        System.out.println(<span class="string">"BigDecimal.valueOf(abc): "</span> + BigDecimal.valueOf(abc));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">abc: 0.56</span><br><span class="line">new BigDecimal(abc): 0.560000000000000053290705182007513940334320068359375</span><br><span class="line">BigDecimal.valueOf(abc): 0.56</span><br></pre></td></tr></table></figure>
-
-<p>可以看到在使用BigDecimal构造器转化浮点型仍然会有损失，而使用<code>valueOf</code>方法则不会出现精度损失。</p>
-<h3 id="深入源码"><a href="#深入源码" class="headerlink" title="深入源码"></a>深入源码</h3><p>BigDecimal构造器，核心代码(<code>BigDecimal(double val)</code>)如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">BigDecimal</span><span class="params">(<span class="keyword">double</span> val, MathContext mc)</span> </span>&#123;</span><br><span class="line">  .....</span><br><span class="line">    <span class="keyword">long</span> valBits = Double.doubleToLongBits(val);</span><br><span class="line">    <span class="keyword">int</span> sign = ((valBits &gt;&gt; <span class="number">63</span>) == <span class="number">0</span> ? <span class="number">1</span> : -<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">int</span> exponent = (<span class="keyword">int</span>) ((valBits &gt;&gt; <span class="number">52</span>) &amp; <span class="number">0x7ffL</span>);</span><br><span class="line">    <span class="keyword">long</span> significand = (exponent == <span class="number">0</span></span><br><span class="line">                      ? (valBits &amp; ((<span class="number">1L</span> &lt;&lt; <span class="number">52</span>) - <span class="number">1</span>)) &lt;&lt; <span class="number">1</span></span><br><span class="line">                      : (valBits &amp; ((<span class="number">1L</span> &lt;&lt; <span class="number">52</span>) - <span class="number">1</span>)) | (<span class="number">1L</span> &lt;&lt; <span class="number">52</span>));</span><br><span class="line">  exponent -= <span class="number">1075</span>;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>划重点， <code>Double.doubleToLongBits</code>返回根据IEEE754浮点“双精度格式”位布局，返回指定浮点值的表示</p>
-<p><code>BigDecimal.valueOf</code>核心代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BigDecimal <span class="title">valueOf</span><span class="params">(<span class="keyword">double</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BigDecimal(Double.toString(val));</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">BigDecimal</span><span class="params">(<span class="keyword">char</span>[] in, <span class="keyword">int</span> offset, <span class="keyword">int</span> len, MathContext mc)</span> </span>&#123;</span><br><span class="line">  ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到使用valueOf方法实际上是把double转为String，再调用string构造器的。</p>
-<p>那么为什么使用<code>Double.doubleToLongBits</code>会出现精度损失，而使用string构造器不会呢。主要原因是BigDecimal使用<strong>十进制(BigInteger)+小数点(scale)位置</strong>来表示小数，而不是直接使用二进制，如<code>101.001 = 101001 * 0.1^3</code>，运算时会分成两部分，BigInteger间的运算以及小数点位置的更新，这里不再展开。</p>
-<h3 id="原理浅析"><a href="#原理浅析" class="headerlink" title="原理浅析"></a>原理浅析</h3><p><code>Double.doubleToLongBits</code>为什么会出现精度损失呢，主要原因是因为浮点型不能用精确的二进制来表述，就如十进制不能准确描述无穷小数一样。</p>
-<p>浮点型转化为二进制的算法是乘以2直到没有了小数为止，举个栗子，0.8表示成二进制</p>
-<blockquote>
-<p> 0.8*2=1.6 取整数部分 1</p>
-<p> 0.6*2=1.2   取整数部分 1</p>
-<p> 0.2*2=0.4   取整数部分 0</p>
-<p> 0.4*2=0.8   取整数部分 0</p>
-</blockquote>
-<p>可以看到上述的计算过程出现循环了，所以说浮点型转化为二进制有时是不可能精确的。</p>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>如果想要把浮点型转化为BigDecimal，尽量选择使用<code>valueOf</code>方法，而不是使用构造器。</p>
-<p><strong>References</strong></p>
-<p><a href="http://blog.sina.com.cn/s/blog_827d041701017ctm.html" target="_blank" rel="noopener">JAVA程序中Float和Double精度丢失问题</a></p>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </div>
 
   
@@ -1354,7 +1377,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1367,7 +1390,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

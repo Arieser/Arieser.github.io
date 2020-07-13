@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[谈数据库事务隔离]]></title>
+    <url>%2F2020%2F07%2F13%2F%E8%B0%88%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%2F</url>
+    <content type="text"><![CDATA[事务隔离主要是针对ACID中的 I 隔离性设置的，在了解这几种数据库事务之前需要先了解几个重要概念： 脏读 - 事务1(READ)访问了事务2(WRITE)未提交的事务 幻读 - 一个事务读取了2次，得到的结果不一样 不可重复读 - 一个事务读取同一条记录2次，得到的结果不一致 为了解决上面的三个问题，有四种数据库隔离级别 READ UNCOMMITTED 故名思义，读未提交，允许脏读，当然也会出现不可重复读和幻读，可以通过“排他写锁”实现，在表对某行进行修改时，会对该行加上行共享锁 READ COMMITTED 读提交，允许不可重复读取，但不允许脏读取。这可以通过“瞬间共享读锁”和“排他写锁”实现。读取数据的事务允许其他事务继续访问该行数据，但是未提交的写事务将会禁止其他事务访问该行。在本事务未提交之前其他事务的增删改操作提交后会影响读的结果。 读的是最新结果 。在对表进行修改时，会对表数据行加上行共享锁 Repeatable Read 可重复读，禁止不可重复读取和脏读取，但是有时可能出现幻读数据。这可以通过“共享读锁”和“排他写锁”实现。读取数据的事务将会禁止写事务（但允许读事务），写事务则禁止任何其他事务。读的是快照结果。MysQL 默认级别，通过MVCC解决了幻读问题。在事务中对某条记录修改，会对记录加上行共享锁，直到事务结束才会释放。 Serializable 序列化，提供严格的事务隔离。它要求事务序列化执行，事务只能一个接着一个地执行，不能并发执行。仅仅通过“行级锁”是无法实现事务序列化的，必须通过其他机制保证新插入的数据不会被刚执行查询操作的事务访问到。 进行查询时就会对表或行加上共享锁，其他事务对该表将只能进行读操作，而不能进行写操作。 事务隔离级别越高，数据的完整性和一致性越好，但会影响并发性能。mysql默认使用 Repeatable Read 级别，而aliyun rds 默认使用 READ COMMITTED。 查看查询数据库隔离级别 1select @@global.tx_isolation; Mysql 8.0 以上需要使用 1select @@transaction_isolation; 修改事务隔离级别：mysql.ini 123#可选参数有：READ-UNCOMMITTED, READ-COMMITTED, REPEATABLE-READ, SERIALIZABLE.[mysqld]transaction-isolation = REPEATABLE-READ 当然，也可以只对当前session修改 1mysql&gt; set session transaction isolation level read uncommited; 锁机制 共享锁：由读表操作加上的锁，加锁后其他用户只能获取该表或行的共享锁，不能获取排它锁，也就是说只能读不能写 排它锁：由写表操作加上的锁，加锁后其他用户不能获取该表或行的任何锁，典型是mysql事务中的 锁的范围: 行锁: 对某行记录加上锁 表锁: 对整个表加上锁 References 《高性能mysql》 https://developer.aliyun.com/article/4281 [阿里云上的rds 的隔离级别read committed 而不是repeatable-read设置原因](]]></content>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[ip查询的一些网站]]></title>
     <url>%2F2020%2F06%2F19%2Fip%E6%9F%A5%E8%AF%A2%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BD%91%E7%AB%99%2F</url>
     <content type="text"><![CDATA[ip查询的一些网站 ip.cn ipinfo.io cip.cc ifconfig.me myip.ipip.net 123456789101112131415161718➜ ~ curl ipinfo.io&#123; "ip": "27.102.106.127", "city": "Seoul", "region": "Seoul", "country": "KR", "loc": "37.5660,126.9784", "org": "AS45996 DAOU TECHNOLOGY", "postal": "03186", "timezone": "Asia/Seoul", "readme": "https://ipinfo.io/missingauth"&#125;➜ ~ curl ifconfig.me27.103.116.127➜ ~ curl myip.ipip.net当前 IP：221.226.112.106 来自于：中国 北京 北京 联通]]></content>

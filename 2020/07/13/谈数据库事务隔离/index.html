@@ -57,17 +57,24 @@
   };
 </script>
 
-  <meta name="description" content="Manners Maketh Man.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Whirlwinder">
-<meta property="og:url" content="http://yoursite.com/archives/2020/04/index.html">
+  <meta name="description" content="事务隔离主要是针对ACID中的 I 隔离性设置的，在了解这几种数据库事务之前需要先了解几个重要概念：  脏读 - 事务1(READ)访问了事务2(WRITE)未提交的事务   幻读 - 一个事务读取了2次，得到的结果不一样   不可重复读 - 一个事务读取同一条记录2次，得到的结果不一致    为了解决上面的三个问题，有四种数据库隔离级别  READ UNCOMMITTED 故名思义，读未提交，允">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谈数据库事务隔离">
+<meta property="og:url" content="http://yoursite.com/2020/07/13/谈数据库事务隔离/index.html">
 <meta property="og:site_name" content="Whirlwinder">
-<meta property="og:description" content="Manners Maketh Man.">
+<meta property="og:description" content="事务隔离主要是针对ACID中的 I 隔离性设置的，在了解这几种数据库事务之前需要先了解几个重要概念：  脏读 - 事务1(READ)访问了事务2(WRITE)未提交的事务   幻读 - 一个事务读取了2次，得到的结果不一样   不可重复读 - 一个事务读取同一条记录2次，得到的结果不一致    为了解决上面的三个问题，有四种数据库隔离级别  READ UNCOMMITTED 故名思义，读未提交，允">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2154loev8R53.png">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2155aZxX8o26.png">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2156wuH3uE40.png">
+<meta property="og:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2203eTpuhO46.png">
+<meta property="og:updated_time" content="2020-07-13T08:40:17.705Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Whirlwinder">
-<meta name="twitter:description" content="Manners Maketh Man.">
-  <link rel="canonical" href="http://yoursite.com/archives/2020/04/">
+<meta name="twitter:title" content="谈数据库事务隔离">
+<meta name="twitter:description" content="事务隔离主要是针对ACID中的 I 隔离性设置的，在了解这几种数据库事务之前需要先了解几个重要概念：  脏读 - 事务1(READ)访问了事务2(WRITE)未提交的事务   幻读 - 一个事务读取了2次，得到的结果不一样   不可重复读 - 一个事务读取同一条记录2次，得到的结果不一致    为了解决上面的三个问题，有四种数据库隔离级别  READ UNCOMMITTED 故名思义，读未提交，允">
+<meta name="twitter:image" content="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2154loev8R53.png">
+  <link rel="canonical" href="http://yoursite.com/2020/07/13/谈数据库事务隔离/">
 
 
 <script id="page-configurations">
@@ -75,13 +82,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>归档 | Whirlwinder</title>
+  <title>谈数据库事务隔离 | Whirlwinder</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115111429-1"></script>
   <script>
@@ -247,116 +254,221 @@
         <div class="content-wrap">
             
 
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-  
-
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        
-        
-         
-        
-        <span class="collection-header">还行! 目前共计 39 篇日志。 继续努力。</span>
-      </div>
-      
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/13/谈数据库事务隔离/">
 
-      
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="歧途老农">
+      <meta itemprop="description" content="Manners Maketh Man.">
+      <meta itemprop="image" content="/images/ele.jpg">
+    </span>
 
-  
-  
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">谈数据库事务隔离
 
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-07-13 14:50:00" itemprop="dateCreated datePublished" datetime="2020-07-13T14:50:00+08:00">2020-07-13</time>
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
   
+  <span class="post-meta-item">
     
-    <div class="collection-year">
-      <h1 class="collection-header">2020</h1>
-    </div>
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/07/13/谈数据库事务隔离/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2020/07/13/谈数据库事务隔离/" itemprop="commentCount"></span></a>
+  </span>
+  
   
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+        </div>
+      </header>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-05T15:00:00+08:00"
-              content="2020-04-05">
-          04-05
-        </time>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>事务隔离主要是针对ACID中的 <strong>I</strong> 隔离性设置的，在了解这几种数据库事务之前需要先了解几个重要概念：</p>
+<ul>
+<li><p><strong>脏读</strong> - 事务1(READ)访问了事务2(WRITE)未提交的事务</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2154loev8R53.png" alt="2154loev8R53"></p>
+</li>
+<li><p><strong>幻读</strong> - 一个事务读取了2次，得到的结果不一样</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2155aZxX8o26.png" alt="2155aZxX8o26"></p>
+</li>
+<li><p><strong>不可重复读</strong> - 一个事务读取同一条记录2次，得到的结果不一致</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2156wuH3uE40.png" alt="2156wuH3uE40"></p>
+</li>
+</ul>
+<p>为了解决上面的三个问题，有四种数据库隔离级别</p>
+<ol>
+<li><p><strong>READ UNCOMMITTED</strong></p>
+<p>故名思义，读未提交，允许脏读，当然也会出现不可重复读和幻读，可以通过“排他写锁”实现，在表对某行进行修改时，会对该行加上行共享锁</p>
+</li>
+<li><p><strong>READ COMMITTED</strong></p>
+<p>读提交，允许不可重复读取，但不允许脏读取。这可以通过“瞬间共享读锁”和“排他写锁”实现。读取数据的事务允许其他事务继续访问该行数据，但是未提交的写事务将会禁止其他事务访问该行。在本事务未提交之前其他事务的增删改操作提交后会影响读的结果。 <strong>读的是最新结果</strong> 。在对表进行修改时，会对表数据行加上行共享锁</p>
+</li>
+<li><p><strong>Repeatable Read</strong></p>
+<p>可重复读，禁止不可重复读取和脏读取，但是有时可能出现幻读数据。这可以通过“共享读锁”和“排他写锁”实现。读取数据的事务将会禁止写事务（但允许读事务），写事务则禁止任何其他事务。读的是快照结果。MysQL 默认级别，通过MVCC解决了幻读问题。在事务中对某条记录修改，会对记录加上行共享锁，直到事务结束才会释放。</p>
+</li>
+<li><p><strong>Serializable</strong></p>
+<p>序列化，提供严格的事务隔离。它要求事务序列化执行，事务只能一个接着一个地执行，不能并发执行。仅仅通过“行级锁”是无法实现事务序列化的，必须通过其他机制保证新插入的数据不会被刚执行查询操作的事务访问到。</p>
+<p>进行查询时就会对表或行加上共享锁，其他事务对该表将只能进行读操作，而不能进行写操作。</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2203eTpuhO46.png" alt="2203eTpuhO46"></p>
+</li>
+</ol>
+<p>事务隔离级别越高，数据的完整性和一致性越好，但会影响并发性能。mysql默认使用 Repeatable Read 级别，而aliyun rds 默认使用 READ COMMITTED。</p>
+<p>查看查询数据库隔离级别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select @@global.tx_isolation;</span><br></pre></td></tr></table></figure>
+
+<p>Mysql 8.0 以上需要使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select @@transaction_isolation;</span><br></pre></td></tr></table></figure>
+
+<p>修改事务隔离级别：mysql.ini</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>可选参数有：READ-UNCOMMITTED, READ-COMMITTED, REPEATABLE-READ, SERIALIZABLE.</span><br><span class="line">[mysqld]</span><br><span class="line">transaction-isolation = REPEATABLE-READ</span><br></pre></td></tr></table></figure>
+
+<p>当然，也可以只对当前session修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set session transaction isolation level read uncommited;</span><br></pre></td></tr></table></figure>
+
+<p><strong>锁机制</strong></p>
+<p><strong>共享锁</strong>：由读表操作加上的锁，加锁后其他用户只能获取该表或行的共享锁，不能获取排它锁，也就是说只能读不能写</p>
+<p><strong>排它锁</strong>：由写表操作加上的锁，加锁后其他用户不能获取该表或行的任何锁，典型是mysql事务中的</p>
+<p>锁的范围:</p>
+<p><strong>行锁:</strong> 对某行记录加上锁</p>
+<p><strong>表锁:</strong> 对整个表加上锁</p>
+<p><strong>References</strong></p>
+<p>《高性能mysql》</p>
+<p><a href="https://developer.aliyun.com/article/4281" target="_blank" rel="noopener">https://developer.aliyun.com/article/4281</a></p>
+<p>[阿里云上的rds 的隔离级别read committed 而不是repeatable-read设置原因](</p>
+
+    </div>
+
+    
+    
+    
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="/images/wechatmp.jpg" alt="歧途老农 wechat" style="width: 200px; max-width: 100%;">
+  <div></div>
+</div>
+
+      
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="歧途老农 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.png" alt="歧途老农 支付宝">
+        <p>支付宝</p>
       </div>
 
-      <h2 class="post-title">
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/mysql/" rel="tag"># mysql</a>
+            
+          </div>
         
-          <a class="post-title-link" href="/2020/04/05/开源贡献协议介绍/" itemprop="url">
-            <span itemprop="name">开源贡献协议介绍</span>
-          </a>
+
         
-      </h2>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-05T15:00:00+08:00"
-              content="2020-04-05">
-          04-05
-        </time>
-      </div>
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2020/04/05/支付宝和微信接口加密规范调研/" itemprop="url">
-            <span itemprop="name">支付宝和微信接口加密规范调研</span>
-          </a>
-        
-      </h2>
-
-    </header>
-  </article>
-
-
-
-
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
     </div>
+  
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/06/19/ip查询的一些网站/" rel="next" title="ip查询的一些网站">
+                  <i class="fa fa-chevron-left"></i> ip查询的一些网站
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
           
+    
+    <div class="comments" id="comments"></div>
+  
 
         </div>
           
@@ -371,6 +483,11 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
+        
+        
+        
+        
+      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
