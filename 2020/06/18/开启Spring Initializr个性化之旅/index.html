@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://en.gravatar.com/userimage/235454588/c9fab76ab533a1d26775db72200c6b68?size=128">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://en.gravatar.com/userimage/235454588/c9fab76ab533a1d26775db72200c6b68?size=64">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CEdu+SA+Beginner:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"silloy.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+
+<link rel="canonical" href="https://silloy.xyz/2020/06/18/%E5%BC%80%E5%90%AFSpring%20Initializr%E4%B8%AA%E6%80%A7%E5%8C%96%E4%B9%8B%E6%97%85/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://silloy.xyz/2020/06/18/%E5%BC%80%E5%90%AFSpring%20Initializr%E4%B8%AA%E6%80%A7%E5%8C%96%E4%B9%8B%E6%97%85/","path":"2020/06/18/开启Spring Initializr个性化之旅/","title":"开启Spring Initializr个性化之旅"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>开启Spring Initializr个性化之旅 | Whirlwinder</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?030a38f11845370d4334a45fa6832b2a"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Whirlwinder</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay hungry, Stay foolish.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87"><span class="nav-text">目标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6"><span class="nav-text">基本框架</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AA%E6%80%A7%E5%8C%96"><span class="nav-text">个性化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC"><span class="nav-text">版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%AD%E5%BB%BA%E6%B5%81%E7%A8%8B"><span class="nav-text">搭建流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-text">准备</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AA%E6%80%A7%E5%8C%96-1"><span class="nav-text">个性化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E5%88%B6%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">定制配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Initializr%E6%89%A9%E5%B1%95"><span class="nav-text">Initializr扩展</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="nav-text">结语</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Shaohua"
+      src="https://en.gravatar.com/userimage/235454588/7c655e1bcbac6b8da8ba44f180c24959.jpeg">
+  <p class="site-author-name" itemprop="name">Shaohua</p>
+  <div class="site-description" itemprop="description">Manners Maketh Man.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/silloy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;silloy" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/silloysu" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;silloysu" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/shaohua.su.18" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;shaohua.su.18" rel="noopener me" target="_blank"><i class="fab fa-facebook fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://coolshell.cn/" title="https:&#x2F;&#x2F;coolshell.cn&#x2F;" rel="noopener" target="_blank">酷壳</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://silloy.xyz/2020/06/18/%E5%BC%80%E5%90%AFSpring%20Initializr%E4%B8%AA%E6%80%A7%E5%8C%96%E4%B9%8B%E6%97%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://en.gravatar.com/userimage/235454588/7c655e1bcbac6b8da8ba44f180c24959.jpeg">
+      <meta itemprop="name" content="Shaohua">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+      <meta itemprop="description" content="Manners Maketh Man.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="开启Spring Initializr个性化之旅 | Whirlwinder">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          开启Spring Initializr个性化之旅
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+
+  
+    <span id="/2020/06/18/%E5%BC%80%E5%90%AFSpring%20Initializr%E4%B8%AA%E6%80%A7%E5%8C%96%E4%B9%8B%E6%97%85/" class="post-meta-item leancloud_visitors" data-flag-title="开启Spring Initializr个性化之旅" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>Every good Spring Boot project usually starts at <a target="_blank" rel="noopener" href="https://start.spring.io/">https://start.spring.io/</a></p>
+<p>— <a target="_blank" rel="noopener" href="https://medium.com/u/a17df5ec14a4?source=post_page-----2439ecabb069----------------------">Josh Long</a> </p>
+</blockquote>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202006201751FnpKSR11.png" alt="202006201751FnpKSR11"></p>
+<span id="more"></span>
+
+<p>背景介绍，自己的项目或者公司的项目一般需要维护很多定制化的模块时，都是上传到maven私服中方便使用，但存在一个问题，每次需要相关的package需要去翻文档或者看bom，不能在建项目的时间直接引入，参考了start.spring.io，尝试搭建自己的spring initializr服务，同时整合自己的一些package，提供个性化服务，快速开发。</p>
+<h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><h4 id="基本框架"><a href="#基本框架" class="headerlink" title="基本框架"></a>基本框架</h4><p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200624/18077Y13ii51.jpg" alt="18077Y13ii51"></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/spring-io/initializr">Spring Initializr</a> 提供核心REST API，可以整合到UI或者IDE（如Intellij IDEA），直接生成项目</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/spring-io/start.spring.io">https://start.spring.io</a>  提供web界面，强依赖于 Spring Initializr，显示数据来源于 Spring Properties，定制化主要是使用 Spring Initializr 提供的SPI</li>
+<li>除此之外，Spring.io 提供  <a target="_blank" rel="noopener" href="https://spring.io/project_metadata/spring-boot">Spring Boot metadata endpoint</a>，Spring Initializr  会使用metadata作为外部数据源，以确保生成的Spring Boot版本是最新的</li>
+</ul>
+<h3 id="个性化"><a href="#个性化" class="headerlink" title="个性化"></a>个性化</h3><p> <a target="_blank" rel="noopener" href="https://start.spring.io/">https://start.spring.io/</a> 虽然已经提供了非常优秀的Spring Boot Start，但在某些场景下，仍然需要做一些定制化，比如：</p>
+<ol>
+<li>由于网络限制，需要搭建一个自己的实例</li>
+<li>定制化自己的UI界面</li>
+<li>提供一些自己的配置或依赖，如公司内部的starter</li>
+</ol>
+<p>Spring Initializr 是一个使用Spring Boot搭建的模块化应用，所以还是很容易扩展的</p>
+<h2 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h2><p>由于官方<a target="_blank" rel="noopener" href="https://github.com/spring-io/initializr">Spring Initializr</a>以及提供了bom，所以我们直接基于最新的bom版本搭建即可。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.spring.initializr<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>initializr-bom<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.8.0.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="搭建流程"><a href="#搭建流程" class="headerlink" title="搭建流程"></a>搭建流程</h2><h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><p>两个组件</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/spring-io/initializr">https://github.com/spring-io/initializr</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/spring-io/start.spring.io">https://github.com/spring-io/start.spring.io</a></p>
+</li>
+</ul>
+<p>initializr 是必须的，ui界面是可选的。</p>
+<h2 id="个性化-1"><a href="#个性化-1" class="headerlink" title="个性化"></a>个性化</h2><h4 id="定制配置文件"><a href="#定制配置文件" class="headerlink" title="定制配置文件"></a>定制配置文件</h4><p>可以基于 <a target="_blank" rel="noopener" href="https://github.com/spring-io/initializr/blob/04b2777b32db38c485119a1f5b0d9c736584f485/initializr-metadata/src/main/java/io/spring/initializr/metadata/InitializrProperties.java">InitializrProperties</a> 定义 application.yml，产出核心依赖。Spring Initializr 也允许我们使用 InitializrMetadataProvider 定义metadata，因此，我们可以创建一个 CustomInitializrProperties 类 来读取不同配置文件的配置项。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties(CustomInitializrProperties.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CustomInitializrConfiguration</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="keyword">public</span> DefaultInitializrMetadataProvider <span class="title function_">customInitializrMetadataProvider</span><span class="params">(InitializrProperties initializrProperties,</span></span><br><span class="line"><span class="params">      CustomInitializrProperties customInitializrProperties,</span></span><br><span class="line"><span class="params">      InitializrMetadataUpdateStrategy initializrMetadataUpdateStrategy)</span> &#123;</span><br><span class="line">    <span class="type">InitializrMetadata</span> <span class="variable">meta</span> <span class="operator">=</span> InitializrMetadataBuilder.fromInitializrProperties(customInitializrProperties.getInitializr())</span><br><span class="line">        .withInitializrProperties(initializrProperties, <span class="literal">true</span>).build();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">DefaultInitializrMetadataProvider</span>(meta, initializrMetadataUpdateStrategy);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(&quot;custom&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CustomInitializrProperties</span> &#123;</span><br><span class="line">  <span class="meta">@NestedConfigurationProperty</span></span><br><span class="line">  <span class="type">InitializrProperties</span> <span class="variable">initializr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InitializrProperties</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>配置是通过 <a target="_blank" rel="noopener" href="https://github.com/maverick1601/start.spring.io/blob/7bd9ae6435ef6a7eac8b0c444436aeca151117a9/start-site/src/main/java/io/spring/start/site/StartApplication.java#L44">StartApplication</a> 来加载的，但由于应用并没有使用组件扫描，我们需要在配置文件里进行自定义设置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">custom:</span></span><br><span class="line">  <span class="attr">initializr:</span></span><br><span class="line">    <span class="attr">dependencies:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Custom</span> <span class="string">Dependencies</span></span><br><span class="line">        <span class="attr">content:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Custom</span> <span class="string">dependency</span></span><br><span class="line">            <span class="attr">id:</span> <span class="string">custom-dependency</span></span><br><span class="line">            <span class="attr">groupId:</span> <span class="string">your.domain</span></span><br><span class="line">            <span class="attr">artifactId:</span> <span class="string">custom-artifact</span></span><br><span class="line">            <span class="attr">starter:</span> <span class="literal">false</span></span><br><span class="line">            <span class="attr">description:</span> <span class="string">My</span> <span class="string">first</span> <span class="string">custom</span> <span class="string">dependency</span> <span class="string">for</span> <span class="string">the</span> <span class="string">Spring</span> <span class="string">Initializr</span></span><br></pre></td></tr></table></figure>
+
+<p>通过这种自定义的依赖配置，我们就可以控制配置项的合并和显示顺序。</p>
+<h4 id="Initializr扩展"><a href="#Initializr扩展" class="headerlink" title="Initializr扩展"></a>Initializr扩展</h4><p>通过配置文件自定义依赖，并不是总能满足我们的需求，有时候我们还需要自定义一些代码片段，这个时候就需要使用 Spring Initializr  提供的一些扩展钩子：</p>
+<ul>
+<li><strong>BuildCustomizer</strong>：定义Maven&#x2F;Gradle构建过程，如增加maven build插件</li>
+<li><strong>ProjectContributor</strong>：定义一些个性化的项目目录或者文件</li>
+<li><strong>MainSourceCodeCustomizer, MainCompilationUnitCustomizer, MainApplicationTypeCustomizer,  TestSourceCodeCustomizer,  TestApplicationTypeCustomizer</strong>：项目的源码生成或修改，而不局限于项目语言</li>
+<li><strong>GitIgnoreCustomizer</strong>：定义gitignore文件</li>
+<li><strong>HelpDocumentCustomizer</strong>：定义 HELP.md文件</li>
+<li><strong>ProjectDescriptionCustomizer</strong>：通常用于适应项目描述，例如自动解决框架版本和语言级别的无效组合。</li>
+</ul>
+<p>举例，如果我们需要在生成项目中增加maven插件，则需要使用一种所谓的“伪”依赖（ <em>pseudo dependency</em>）。首先我们需要定义一个像这样的依赖：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">custom:</span></span><br><span class="line">  <span class="attr">initializr:</span></span><br><span class="line">    <span class="attr">dependencies:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Custom</span> <span class="string">Dependencies</span></span><br><span class="line">        <span class="attr">content:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Custom</span> <span class="string">Maven</span> <span class="string">Plugin</span></span><br><span class="line">            <span class="attr">id:</span> <span class="string">custom-maven-plugin</span></span><br><span class="line">            <span class="attr">groupId:</span> <span class="string">your.domain</span></span><br><span class="line">            <span class="attr">artifactId:</span> <span class="string">custom-maven-plugin</span></span><br><span class="line">            <span class="attr">version:</span> <span class="number">1.0</span><span class="number">.0</span></span><br><span class="line">            <span class="attr">starter:</span> <span class="literal">false</span></span><br><span class="line">            <span class="attr">description:</span> <span class="string">Configures</span> <span class="string">custom</span> <span class="string">Maven</span> <span class="string">plugin</span> <span class="string">integration</span> <span class="string">for</span> <span class="string">project</span> <span class="string">scans</span></span><br></pre></td></tr></table></figure>
+
+<p>接着，我们定义两个 BuildCustomizer：一个用来增加maven依赖插件，一个用来移除插件。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ProjectGenerationConfiguration</span></span><br><span class="line"><span class="meta">@ConditionalOnRequestedDependency(&quot;custom-maven-plugin&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CustomMavenPluginConfiguration</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="keyword">public</span> BuildCustomizer&lt;MavenBuild&gt; <span class="title function_">customPluginConfigurer</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (MavenBuild build) -&gt; &#123;</span><br><span class="line">      build.dependencies().ids().filter(it -&gt; it.equals(<span class="string">&quot;custom-maven-plugin&quot;</span>))</span><br><span class="line">          .findFirst()</span><br><span class="line">          .map(r -&gt; build.dependencies().get(r)).map(r -&gt; &#123;</span><br><span class="line">        build.plugins().add(r.getGroupId(), r.getArtifactId(),</span><br><span class="line">            (plugin) -&gt; plugin.execution(<span class="string">&quot;my-execution&quot;</span>,</span><br><span class="line">                (first) -&gt; first.goal(<span class="string">&quot;scan&quot;</span>).configuration((conf) -&gt; &#123;conf.add(<span class="string">&quot;failOnSeverity&quot;</span>, <span class="string">&quot;MAJOR&quot;</span>);&#125;)</span><br><span class="line">            ));</span><br><span class="line">        <span class="keyword">return</span> build;</span><br><span class="line">      &#125;).orElse(build);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="keyword">public</span> BuildCustomizer&lt;MavenBuild&gt; <span class="title function_">customPluginDependencyRemoval</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> build -&gt; build.dependencies().remove(<span class="string">&quot;custom-maven-plugin&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意使用注解，Spring Initializr 自身并不会使用这些自动化配置，而是在生成项目时使用的，但需要<code>spring.factories</code>注册这些配置</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">io.spring.initializr.generator.project.ProjectGenerationConfiguration</span>=<span class="string">\</span></span><br><span class="line"><span class="string">  io.spring.start.site.extension.StartProjectGenerationConfiguration, \</span></span><br><span class="line"><span class="string">  io.spring.start.site.CustomMavenPluginConfiguration</span></span><br></pre></td></tr></table></figure>
+
+<p>最终产生的pom类似这样：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>your.domain<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>custom-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>my-execution<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>scan<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">failOnSeverity</span>&gt;</span>MAJOR<span class="tag">&lt;/<span class="name">failOnSeverity</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>抛砖引玉，这篇文章只是简单介绍了Spring Initializr的一些定制化方法，更多更好的扩展方式还需要你去发现。</p>
+<p>git地址：<a target="_blank" rel="noopener" href="https://github.com/silloy/start.silloy.me">https://github.com/silloy/start.silloy.me</a></p>
+<p><strong>References</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.spring.io/initializr/docs/current-SNAPSHOT/reference/html">https://docs.spring.io/initializr/docs/current-SNAPSHOT/reference/html</a></li>
+<li><a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/752200">start.aliyun.com 正式上线</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/digitalfrontiers/how-to-customize-the-spring-initializr-2439ecabb069">How to customize the Spring Initializr</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+              <a href="/tags/Spring-Initializr/" rel="tag"><i class="fa fa-tag"></i> Spring Initializr</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/06/06/redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" rel="prev" title="redis的数据类型">
+                  <i class="fa fa-chevron-left"></i> redis的数据类型
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/06/19/ip%E6%9F%A5%E8%AF%A2%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BD%91%E7%AB%99/" rel="next" title="ip查询的一些网站">
+                  ip查询的一些网站 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Shaohua</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">29k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:47</span>
+  </span>
+</div><script defer src="/lib/three.js"></script><script defer src="/lib/lines.js"></script><script defer src="/lib/sphere.js"></script><script defer src="/lib/waves.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/silloy" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.8/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"wtMIJpHVqsNnBHPEPXnAYVYU-gzGzoHsz","app_key":"YVwecaKkjykP6DYqQC5rnjnm","server_url":"https://wtmijphv.lc-cn-n1-shared.com","security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"silloy","repo":"silloy.github.io","client_id":"29dac2f0c3b467d76bc3","client_secret":"9a2f5ccab02cf33714c32a2b5c8a9a3ed38cfe72","admin_user":"silloy","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"d2549f8dc92dd43ab588197e78f8ab70"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

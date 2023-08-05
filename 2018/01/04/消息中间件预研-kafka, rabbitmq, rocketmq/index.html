@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://en.gravatar.com/userimage/235454588/c9fab76ab533a1d26775db72200c6b68?size=128">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://en.gravatar.com/userimage/235454588/c9fab76ab533a1d26775db72200c6b68?size=64">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CEdu+SA+Beginner:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"silloy.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+
+<link rel="canonical" href="https://silloy.xyz/2018/01/04/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6%E9%A2%84%E7%A0%94-kafka,%20rabbitmq,%20rocketmq/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://silloy.xyz/2018/01/04/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6%E9%A2%84%E7%A0%94-kafka,%20rabbitmq,%20rocketmq/","path":"2018/01/04/消息中间件预研-kafka, rabbitmq, rocketmq/","title":"消息中间件预研-rabbitmq, rocketmq"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>消息中间件预研-rabbitmq, rocketmq | Whirlwinder</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?030a38f11845370d4334a45fa6832b2a"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Whirlwinder</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay hungry, Stay foolish.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#RocketMQ-Apache-4-2-0"><span class="nav-text">RocketMQ(Apache 4.2.0)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-text">概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#start-%E5%8D%81%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8RocketMQ"><span class="nav-text">start 十分钟入门RocketMQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2"><span class="nav-text">集群部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8rocketmq-console"><span class="nav-text">启动rocketmq-console</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#topic"><span class="nav-text">topic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RabbitMQ"><span class="nav-text">RabbitMQ</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85erlang"><span class="nav-text">安装erlang</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-RabbitMQ"><span class="nav-text">安装 RabbitMQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5"><span class="nav-text">重要概念:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9A%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%EF%BC%8C%E4%BA%A4%E6%8D%A2%E6%9C%BA%EF%BC%8C%E9%98%9F%E5%88%97%EF%BC%8C%E5%92%8C%E7%BB%91%E5%AE%9A"><span class="nav-text">重要的概念：虚拟主机，交换机，队列，和绑定</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA-Exchange"><span class="nav-text">交换机(Exchange)</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Shaohua"
+      src="https://en.gravatar.com/userimage/235454588/7c655e1bcbac6b8da8ba44f180c24959.jpeg">
+  <p class="site-author-name" itemprop="name">Shaohua</p>
+  <div class="site-description" itemprop="description">Manners Maketh Man.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/silloy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;silloy" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/silloysu" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;silloysu" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/shaohua.su.18" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;shaohua.su.18" rel="noopener me" target="_blank"><i class="fab fa-facebook fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://coolshell.cn/" title="https:&#x2F;&#x2F;coolshell.cn&#x2F;" rel="noopener" target="_blank">酷壳</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://silloy.xyz/2018/01/04/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6%E9%A2%84%E7%A0%94-kafka,%20rabbitmq,%20rocketmq/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://en.gravatar.com/userimage/235454588/7c655e1bcbac6b8da8ba44f180c24959.jpeg">
+      <meta itemprop="name" content="Shaohua">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+      <meta itemprop="description" content="Manners Maketh Man.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="消息中间件预研-rabbitmq, rocketmq | Whirlwinder">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          消息中间件预研-rabbitmq, rocketmq
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+
+  
+    <span id="/2018/01/04/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6%E9%A2%84%E7%A0%94-kafka,%20rabbitmq,%20rocketmq/" class="post-meta-item leancloud_visitors" data-flag-title="消息中间件预研-rabbitmq, rocketmq" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>11 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>消息中间件在服务开发中起着重要的作用，应对业务需求，对rabbitmq，rocketmq进行预研，kafka暂时不做深入了解。</p>
+<span id="more"></span>
+
+<p><strong>消息中间件应用场景</strong></p>
+<ol>
+<li><p>可以做延迟设计<br>比如我们有一些数据，需要过五分钟后再被使用，这时候就需要使用延迟队列设计，比如在RabbitMQ中利用死信队列实现。<br>具体实现在这里：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/haoxinyue/p/6613706.html">http://www.cnblogs.com/haoxinyue/p/6613706.html</a></p>
+</li>
+<li><p>异步处理<br>这个场景主要应用在多任务执行的场景。</p>
+</li>
+<li><p>应用解耦<br>在大型微服务架构中，有一些无状态的服务经常考虑使用mq做消息通知和转换。</p>
+</li>
+<li><p>分布式事务最终一致性<br>可以使用基于消息中间件的队列做分布式事务的消息补偿，实现最终一致性。</p>
+</li>
+<li><p>流量削峰<br>一般在秒杀或团抢活动中使用广泛，可以通过队列实现秒杀的人数和商品控制，还可以缓解短时间压垮应用系统。</p>
+</li>
+<li><p>日志处理<br>我们在做监控，或者日志采集的时候经常用队列来做消息的传输和暂存。</p>
+</li>
+</ol>
+<!--more-->
+
+
+<h3 id="RocketMQ-Apache-4-2-0"><a href="#RocketMQ-Apache-4-2-0" class="headerlink" title="RocketMQ(Apache 4.2.0)"></a>RocketMQ(Apache 4.2.0)</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>Disk Flush (磁盘刷新&#x2F;同步操作):  就是将内存的数据落地，存储在磁盘中.</p>
+<ul>
+<li><strong>SYNC_FLUSH（同步刷盘）：</strong>生产者发送的每一条消息都在保存到磁盘成功后才返回告诉生产者成功。这种方式不会存在消息丢失的问题，但是有很大的磁盘IO开销，性能有一定影响。</li>
+<li><strong>ASYNC_FLUSH（异步刷盘）：</strong>生产者发送的每一条消息并不是立即保存到磁盘，而是暂时缓存起来，然后就返回生产者成功。随后再异步的将缓存数据保存到磁盘，有两种情况：1是定期将缓存中更新的数据进行刷盘，2是当缓存中更新的数据条数达到某一设定值后进行刷盘。这种方式会存在消息丢失（在还未来得及同步到磁盘的时候宕机），但是性能很好。默认是这种模式。</li>
+</ul>
+<p>Broker Replication (Broker间数据同步&#x2F;复制): 集群环境下需要部署多个Broker，Broker分为两种角色：一种是master，即可以写也可以读，其brokerId&#x3D;0，只能有一个；另外一种是slave，只允许读，其brokerId为非0。一个master与多个slave通过指定相同的brokerName被归为一个broker set（broker集）。通常生产环境中，我们至少需要2个broker set。</p>
+<p>Broker Replication只的就是slave获取或者是复制master的数据.</p>
+<ul>
+<li><strong>Sync Broker：</strong>生产者发送的每一条消息都至少同步复制到一个slave后才返回告诉生产者成功，即“同步双写”。</li>
+<li><strong>Async Broker：</strong>生产者发送的每一条消息只要写入master就返回告诉生产者成功。然后再“异步复制”到slave。</li>
+</ul>
+<h4 id="start-十分钟入门RocketMQ"><a href="#start-十分钟入门RocketMQ" class="headerlink" title="start 十分钟入门RocketMQ"></a>start <a target="_blank" rel="noopener" href="http://jm.taobao.org/2017/01/12/rocketmq-quick-start-in-10-minutes/">十分钟入门RocketMQ</a></h4><p><strong>QuickStart</strong>: <a target="_blank" rel="noopener" href="https://rocketmq.apache.org/docs/quick-start/">apache-quickstart</a></p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251741N7n6xF13.png" alt="202005251741N7n6xF13"></p>
+<h4 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a>集群部署</h4><ul>
+<li><p>使用不同配置文件启动nameserv(默认9876)</p>
+<p>无状态节点，可集群部署，<strong>节点之间无任何信息同步</strong>（Broker与每个namesrv连接，可以保证信息同步性）</p>
+<p>nameserv的所有配置信息</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rocketmqHome</span>=<span class="string">/usr/local/rocketmq</span></span><br><span class="line"><span class="attr">kvConfigPath</span>=<span class="string">/Users/zhangyanghong/namesrv/kvConfig.json</span></span><br><span class="line"><span class="attr">productEnvName</span>=<span class="string">center</span></span><br><span class="line"><span class="attr">clusterTest</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">orderMessageEnable</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">listenPort</span>=<span class="string">9876</span></span><br><span class="line"><span class="attr">serverWorkerThreads</span>=<span class="string">8</span></span><br><span class="line"><span class="attr">serverCallbackExecutorThreads</span>=<span class="string">0</span></span><br><span class="line"><span class="attr">serverSelectorThreads</span>=<span class="string">3</span></span><br><span class="line"><span class="attr">serverOnewaySemaphoreValue</span>=<span class="string">256</span></span><br><span class="line"><span class="attr">serverAsyncSemaphoreValue</span>=<span class="string">64</span></span><br><span class="line"><span class="attr">serverChannelMaxIdleTimeSeconds</span>=<span class="string">120</span></span><br><span class="line"><span class="attr">serverSocketSndBufSize</span>=<span class="string">4096</span></span><br><span class="line"><span class="attr">serverSocketRcvBufSize</span>=<span class="string">4096</span></span><br><span class="line"><span class="attr">serverPooledByteBufAllocatorEnable</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">useEpollNativeSelector</span>=<span class="string">false</span></span><br></pre></td></tr></table></figure>
+
+<p>通过修改listenPort在一台机器上部署启动两个nameserv</p>
+<p><code>nohup sh mqnamesrv -c mqnamesrv-a.conf &amp;</code></p>
+</li>
+<li><p>启动broker(默认10911)集群</p>
+<p>broker的所用配置项</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rocketmqHome</span>=<span class="string">/usr/local/rocketmq</span></span><br><span class="line"><span class="attr">namesrvAddr</span>=<span class="string"></span></span><br><span class="line"><span class="comment">## 本机ip地址，默认系统自动识别</span></span><br><span class="line"><span class="attr">brokerIP1</span>=<span class="string">172.18.48.79</span></span><br><span class="line"><span class="attr">brokerIP2</span>=<span class="string">172.18.48.79</span></span><br><span class="line"><span class="attr">brokerName</span>=<span class="string">jiexiu’Mac</span></span><br><span class="line"><span class="attr">brokerClusterName</span>=<span class="string">DefaultCluster</span></span><br><span class="line"><span class="attr">brokerId</span>=<span class="string">0</span></span><br><span class="line"><span class="attr">brokerPermission</span>=<span class="string">6</span></span><br><span class="line"><span class="attr">defaultTopicQueueNums</span>=<span class="string">8</span></span><br><span class="line"><span class="attr">autoCreateTopicEnable</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">clusterTopicEnable</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">brokerTopicEnable</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">autoCreateSubscriptionGroup</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">messageStorePlugIn</span>=<span class="string"></span></span><br><span class="line"><span class="attr">sendMessageThreadPoolNums</span>=<span class="string">32</span></span><br><span class="line"><span class="attr">pullMessageThreadPoolNums</span>=<span class="string">24</span></span><br><span class="line"><span class="attr">adminBrokerThreadPoolNums</span>=<span class="string">16</span></span><br><span class="line"><span class="attr">clientManageThreadPoolNums</span>=<span class="string">16</span></span><br><span class="line"><span class="attr">flushConsumerOffsetInterval</span>=<span class="string">5000</span></span><br><span class="line"><span class="attr">flushConsumerOffsetHistoryInterval</span>=<span class="string">60000</span></span><br><span class="line"><span class="attr">rejectTransactionMessage</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">fetchNamesrvAddrByAddressServer</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">sendThreadPoolQueueCapacity</span>=<span class="string">10000</span></span><br><span class="line"><span class="attr">pullThreadPoolQueueCapacity</span>=<span class="string">10000</span></span><br><span class="line"><span class="attr">filterServerNums</span>=<span class="string">0</span></span><br><span class="line"><span class="attr">longPollingEnable</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">shortPollingTimeMills</span>=<span class="string">1000</span></span><br><span class="line"><span class="attr">notifyConsumerIdsChangedEnable</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">highSpeedMode</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">commercialEnable</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">commercialTimerCount</span>=<span class="string">1</span></span><br><span class="line"><span class="attr">commercialTransCount</span>=<span class="string">1</span></span><br><span class="line"><span class="attr">commercialBigCount</span>=<span class="string">1</span></span><br><span class="line"><span class="attr">transferMsgByHeap</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">maxDelayTime</span>=<span class="string">40</span></span><br><span class="line"><span class="attr">regionId</span>=<span class="string">DefaultRegion</span></span><br><span class="line"><span class="attr">registerBrokerTimeoutMills</span>=<span class="string">6000</span></span><br><span class="line"><span class="attr">slaveReadEnable</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">disableConsumeIfConsumerReadSlowly</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">consumerFallbehindThreshold</span>=<span class="string">0</span></span><br><span class="line"><span class="attr">waitTimeMillsInSendQueue</span>=<span class="string">200</span></span><br><span class="line"><span class="attr">startAcceptSendRequestTimeStamp</span>=<span class="string">0</span></span><br><span class="line"><span class="attr">listenPort</span>=<span class="string">10911</span></span><br><span class="line"><span class="attr">serverWorkerThreads</span>=<span class="string">8</span></span><br><span class="line"><span class="attr">serverCallbackExecutorThreads</span>=<span class="string">0</span></span><br><span class="line"><span class="attr">serverSelectorThreads</span>=<span class="string">3</span></span><br><span class="line"><span class="attr">serverOnewaySemaphoreValue</span>=<span class="string">256</span></span><br><span class="line"><span class="attr">serverAsyncSemaphoreValue</span>=<span class="string">64</span></span><br><span class="line"><span class="attr">serverChannelMaxIdleTimeSeconds</span>=<span class="string">120</span></span><br><span class="line"><span class="attr">serverSocketSndBufSize</span>=<span class="string">131072</span></span><br><span class="line"><span class="attr">serverSocketRcvBufSize</span>=<span class="string">131072</span></span><br><span class="line"><span class="attr">serverPooledByteBufAllocatorEnable</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">useEpollNativeSelector</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">clientWorkerThreads</span>=<span class="string">4</span></span><br><span class="line"><span class="attr">clientCallbackExecutorThreads</span>=<span class="string">4</span></span><br><span class="line"><span class="attr">clientOnewaySemaphoreValue</span>=<span class="string">65535</span></span><br><span class="line"><span class="attr">clientAsyncSemaphoreValue</span>=<span class="string">65535</span></span><br><span class="line"><span class="attr">connectTimeoutMillis</span>=<span class="string">3000</span></span><br><span class="line"><span class="attr">channelNotActiveInterval</span>=<span class="string">60000</span></span><br><span class="line"><span class="attr">clientChannelMaxIdleTimeSeconds</span>=<span class="string">120</span></span><br><span class="line"><span class="attr">clientSocketSndBufSize</span>=<span class="string">131072</span></span><br><span class="line"><span class="attr">clientSocketRcvBufSize</span>=<span class="string">131072</span></span><br><span class="line"><span class="attr">clientPooledByteBufAllocatorEnable</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">clientCloseSocketIfTimeout</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">storePathRootDir</span>=<span class="string">/Users/zhangyanghong/store</span></span><br><span class="line"><span class="attr">storePathCommitLog</span>=<span class="string">/Users/zhangyanghong/store/commitlog</span></span><br><span class="line"><span class="attr">mapedFileSizeCommitLog</span>=<span class="string">1073741824</span></span><br><span class="line"><span class="attr">mapedFileSizeConsumeQueue</span>=<span class="string">6000000</span></span><br><span class="line"><span class="attr">flushIntervalCommitLog</span>=<span class="string">1000</span></span><br><span class="line"><span class="attr">flushCommitLogTimed</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">flushIntervalConsumeQueue</span>=<span class="string">1000</span></span><br><span class="line"><span class="attr">cleanResourceInterval</span>=<span class="string">10000</span></span><br><span class="line"><span class="attr">deleteCommitLogFilesInterval</span>=<span class="string">100</span></span><br><span class="line"><span class="attr">deleteConsumeQueueFilesInterval</span>=<span class="string">100</span></span><br><span class="line"><span class="attr">destroyMapedFileIntervalForcibly</span>=<span class="string">120000</span></span><br><span class="line"><span class="attr">redeleteHangedFileInterval</span>=<span class="string">120000</span></span><br><span class="line"><span class="comment">## 删除时间点，默认凌晨4点</span></span><br><span class="line"><span class="attr">deleteWhen</span>=<span class="string">04</span></span><br><span class="line"><span class="attr">diskMaxUsedSpaceRatio</span>=<span class="string">75</span></span><br><span class="line"><span class="comment">## 文件保留时间，默认48小时</span></span><br><span class="line"><span class="attr">fileReservedTime</span>=<span class="string">72</span></span><br><span class="line"><span class="attr">putMsgIndexHightWater</span>=<span class="string">600000</span></span><br><span class="line"><span class="attr">maxMessageSize</span>=<span class="string">4194304</span></span><br><span class="line"><span class="attr">checkCRCOnRecover</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">flushCommitLogLeastPages</span>=<span class="string">4</span></span><br><span class="line"><span class="attr">flushLeastPagesWhenWarmMapedFile</span>=<span class="string">4096</span></span><br><span class="line"><span class="attr">flushConsumeQueueLeastPages</span>=<span class="string">2</span></span><br><span class="line"><span class="attr">flushCommitLogThoroughInterval</span>=<span class="string">10000</span></span><br><span class="line"><span class="attr">flushConsumeQueueThoroughInterval</span>=<span class="string">60000</span></span><br><span class="line"><span class="attr">maxTransferBytesOnMessageInMemory</span>=<span class="string">262144</span></span><br><span class="line"><span class="attr">maxTransferCountOnMessageInMemory</span>=<span class="string">32</span></span><br><span class="line"><span class="attr">maxTransferBytesOnMessageInDisk</span>=<span class="string">65536</span></span><br><span class="line"><span class="attr">maxTransferCountOnMessageInDisk</span>=<span class="string">8</span></span><br><span class="line"><span class="attr">accessMessageInMemoryMaxRatio</span>=<span class="string">40</span></span><br><span class="line"><span class="comment">## 是否开启消息索引功能</span></span><br><span class="line"><span class="attr">messageIndexEnable</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">maxHashSlotNum</span>=<span class="string">5000000</span></span><br><span class="line"><span class="attr">maxIndexNum</span>=<span class="string">20000000</span></span><br><span class="line"><span class="attr">maxMsgsNumBatch</span>=<span class="string">64</span></span><br><span class="line"><span class="comment">## 是否提供安全的消息索引机制，索引保证不丢</span></span><br><span class="line"><span class="attr">messageIndexSafe</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">haListenPort</span>=<span class="string">10912</span></span><br><span class="line"><span class="attr">haSendHeartbeatInterval</span>=<span class="string">5000</span></span><br><span class="line"><span class="attr">haHousekeepingInterval</span>=<span class="string">20000</span></span><br><span class="line"><span class="attr">haTransferBatchSize</span>=<span class="string">32768</span></span><br><span class="line"><span class="attr">haMasterAddress</span>=<span class="string"></span></span><br><span class="line"><span class="attr">haSlaveFallbehindMax</span>=<span class="string">268435456</span></span><br><span class="line"><span class="comment">## Broker的角色：ASYNC_MASTER异步复制Master; SYNC_MASTER同步双写MASTER; SLAVE</span></span><br><span class="line"><span class="attr">brokerRole</span>=<span class="string">ASYNC_MASTER</span></span><br><span class="line"><span class="attr">flushDiskType</span>=<span class="string">ASYNC_FLUSH</span></span><br><span class="line"><span class="attr">syncFlushTimeout</span>=<span class="string">5000</span></span><br><span class="line"><span class="attr">messageDelayLevel</span>=<span class="string">1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h</span></span><br><span class="line"><span class="attr">flushDelayOffsetInterval</span>=<span class="string">10000</span></span><br><span class="line"><span class="attr">cleanFileForciblyEnable</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">warmMapedFileEnable</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">offsetCheckInSlave</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">debugLockEnable</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">duplicationEnable</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">diskFallRecorded</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">osPageCacheBusyTimeOutMills</span>=<span class="string">1000</span></span><br><span class="line"><span class="attr">defaultQueryMaxNum</span>=<span class="string">32</span></span><br></pre></td></tr></table></figure>
+
+<p>其中重要的配置信息如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">namesrvAddr</span>=<span class="string"></span></span><br><span class="line"><span class="attr">brokerIP1</span>=<span class="string">172.18.48.79</span></span><br><span class="line"><span class="attr">brokerName</span>=<span class="string">jiexiu’Mac</span></span><br><span class="line"><span class="attr">brokerClusterName</span>=<span class="string">DefaultCluster</span></span><br><span class="line"><span class="attr">brokerId</span>=<span class="string">0</span></span><br><span class="line"><span class="attr">autoCreateTopicEnable</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">autoCreateSubscriptionGroup</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">rejectTransactionMessage</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">fetchNamesrvAddrByAddressServer</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">storePathRootDir</span>=<span class="string">/Users/zhangyanghong/store</span></span><br><span class="line"><span class="attr">storePathCommitLog</span>=<span class="string">/Users/zhangyanghong/store/commitlog</span></span><br><span class="line"><span class="attr">flushIntervalCommitLog</span>=<span class="string">1000</span></span><br><span class="line"><span class="attr">flushCommitLogTimed</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">deleteWhen</span>=<span class="string">04</span></span><br><span class="line"><span class="attr">fileReservedTime</span>=<span class="string">72</span></span><br><span class="line"><span class="attr">maxTransferBytesOnMessageInMemory</span>=<span class="string">262144</span></span><br><span class="line"><span class="attr">maxTransferCountOnMessageInMemory</span>=<span class="string">32</span></span><br><span class="line"><span class="attr">maxTransferBytesOnMessageInDisk</span>=<span class="string">65536</span></span><br><span class="line"><span class="attr">maxTransferCountOnMessageInDisk</span>=<span class="string">8</span></span><br><span class="line"><span class="attr">accessMessageInMemoryMaxRatio</span>=<span class="string">40</span></span><br><span class="line"><span class="attr">messageIndexEnable</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">messageIndexSafe</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">haMasterAddress</span>=<span class="string"></span></span><br><span class="line"><span class="attr">brokerRole</span>=<span class="string">ASYNC_MASTER</span></span><br><span class="line"><span class="attr">flushDiskType</span>=<span class="string">ASYNC_FLUSH</span></span><br><span class="line"><span class="attr">cleanFileForciblyEnable</span>=<span class="string">true</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>启动broker</p>
+<p><code>sh mqbroker -n &#39;127.0.0.1:9876;127.0.0.1:9877&#39; -c ../conf/2m-noslave/broker-a.properties  &gt; /dev/null 2&gt;&amp;1 &amp;</code></p>
+</li>
+</ul>
+</li>
+<li><p>集群验证</p>
+<p><code>sh mqadmin clusterList -n 127.0.0.1:9876 </code></p>
+<p>输出信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">Cluster Name     <span class="comment">#Broker Name            #BID  #Addr                  #Version                #InTPS(LOAD)       #OutTPS(LOAD) #PCWait(ms) #Hour #SPACE</span></span></span><br><span class="line">DefaultCluster    broker-a                0     172.18.48.79:10911     V3_5_8                   0.00(0,0ms)         0.00(0,0ms)          0 412299.47 0.5476</span><br><span class="line">DefaultCluster    broker-b                0     172.18.48.79:12911     V3_5_8                   0.00(0,0ms)         0.00(0,0ms)          0 412299.47 0.5476</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>默认的集群配置conf子目录下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2m-2s-async     // 两个master 两个slave异步</span><br><span class="line">2m-2s-sync		// 两个master 两个slave同步</span><br><span class="line">2m-noslave		// 两个master 没有slave</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhu_tianwei/article/details/40949523">broker 的master和slave (Slave 不可写，但可读)</a></p>
+<ul>
+<li><strong>单个master</strong>: 风险较大, 不建议生产使用</li>
+<li><strong>多master</strong>: <ul>
+<li>配置简单，消息可靠，性能最高</li>
+<li>单台机器宕机期间，未被消费的消息在机器恢复之前不可订阅，消息实时性会受到影响</li>
+</ul>
+</li>
+<li><strong>多master多slave，异步复制</strong>:<ul>
+<li>每个 Master 配置一个 Slave，有多对Master-Slave，HA 采用异步复制方式，主备有短暂消息延迟，毫秒级</li>
+<li>优点:  即使磁盘损坏，消息丢失的非常少，且消息实时性不会受影响，因为 Master 宕机后，消费者仍然可以从 Slave 消费，此过程对应用透明。不需要人工干预。性能同多 Master 模式几乎一样</li>
+<li>缺点: Master 宕机，磁盘损坏情况，会丢失少量消息</li>
+</ul>
+</li>
+<li><strong>多master多slave，同步双写</strong>:<ul>
+<li>每个 Master 配置一个 Slave，有多对Master-Slave，HA 采用同步双写方式，主备都写成功，向应用返回成功</li>
+<li>优点: 数据与服务都无单点，Master宕机情况下，消息无延迟，服务可用性与数据可用性都非常高</li>
+<li>缺点: 性能比异步复制模式略低，大约低 10%左右，发送单个消息的 RT 会略高。目前主宕机后，备机不能自动切换为主机，后续会支持自动切换功能。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>问题</p>
+<ol>
+<li><p>出现 <code>Lock failed,MQ already started</code></p>
+<p><strong>解决方案</strong>: 修改配置文件中的<code>storePathRootDir</code>项</p>
+</li>
+<li><p>启动 mqnamesrv &#x2F; mqbroker服务报错，显示内存不够，需大于2G？具体表现: “*VM warning: INFO: OS::commit_memory(0x00000006c0000000, 2147483648, 0) faild; error&#x3D;’Cannot allocate memory’ (errno&#x3D;12)*”</p>
+<p><strong>解决方案</strong>：修改<code>/RocketMQ/devnev/bin/</code> 下的服务启动脚本 <code>runserver.sh</code> 、<code>runbroker.sh</code> 中对于内存的限制，改成如下示例：</p>
+<p><code>JAVA_OPT=&quot;$&#123;JAVA_OPT&#125; -server -Xms128m -Xmx128m -Xmn128m -XX:PermSize=128m -XX:MaxPermSize=128m&quot;</code></p>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="启动rocketmq-console"><a href="#启动rocketmq-console" class="headerlink" title="启动rocketmq-console"></a>启动rocketmq-console</h4><p><code>mvn spring-boot:run</code></p>
+<p>or</p>
+<p><code>java -jar rocketmq-console-ng-1.0.0.jar --server.port=12581 --rocketmq.config.namesrvAddr=10.89.0.64:9876;10.89.0.65:9876  </code></p>
+<h4 id="topic"><a href="#topic" class="headerlink" title="topic"></a>topic</h4><p>rocketmq中一个broker-name其实就相当于kafka-broker中的一个partition，而rocketmq每一个slave就相当于kafka中的一个replication，这种情况，所以rocketmq的特点相当于单个partition支持多队列，大致的原理图如下：</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251740w7uFTh26.png" alt="202005251740w7uFTh26"></p>
+<p>默认: 一个topic的队列数是8</p>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><ol>
+<li><p>producer生产消息过多，customer来不及消费?</p>
+</li>
+<li><p>消息的重试机制</p>
+</li>
+<li><p>broker和client&#x2F;producer版本不一致问题</p>
+<p>解决: 会导致已消费消息堆积，重启customer会重复消费，更换一致版本</p>
+</li>
+<li><p>队列个数设置</p>
+<p>producer发送消息时候设置，特别注意：同一个topic仅当第一次创建的时候设置有效，以后修改无效，除非修改broker服务器上的consume.json文件，</p>
+<p>demo：<code>mqProducer.setDefaultTopicQueueNums(5)</code></p>
+<p>参考：<a target="_blank" rel="noopener" href="http://www.mamicode.com/info-detail-327693.html">http://www.mamicode.com/info-detail-327693.html</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.iteye.com/topic/1146280">其他常见问题3.2.4</a></p>
+</li>
+</ol>
+<h3 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h3><h4 id="安装erlang"><a href="#安装erlang" class="headerlink" title="安装erlang"></a>安装erlang</h4><ul>
+<li>使用kerl安装和管理erlang，参考 <a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000004909357">Erlang版本管理工具: Kerl</a>  ,  <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/caddaa8251af">安装Erlang&#x2F;OTP的简单方法</a>, 其他安装方法 <a target="_blank" rel="noopener" href="https://zfanw.com/blog/install-erlang-on-centos-7.html">在CentOS上安装erlang</a></li>
+<li>设置环境变量</li>
+</ul>
+<h4 id="安装-RabbitMQ"><a href="#安装-RabbitMQ" class="headerlink" title="安装 RabbitMQ"></a>安装 RabbitMQ</h4><ul>
+<li><p>下载rabbit rpm包</p>
+</li>
+<li><p>错误</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Error: Package: rabbitmq-server-3.7.2-1.el7.noarch (/rabbitmq-server-3.7.2-1.el7.noarch)</span><br><span class="line">           Requires: erlang &gt;= 19.3</span><br><span class="line"> You could try using --skip-broken to work around the problem</span><br><span class="line"> You could try running: rpm -Va --nofiles --nodigest</span><br></pre></td></tr></table></figure>
+
+<p>执行 <code>rpm --nodeps -ivh rabbitmq-server-3.7.2-1.el7.noarch.rpm</code></p>
+</li>
+<li><p>启动命令(&#x2F;usr&#x2F;lib&#x2F;rabbitmq &#x2F;etc&#x2F;rabbitmq  —- &#x2F;usr&#x2F;share&#x2F;doc&#x2F;rabbitmq-server-3.7.2)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">service rabbitmq-server start</span><br><span class="line">service rabbitmq-server stop</span><br><span class="line">service rabbitmq-server restart</span><br><span class="line">service rabbitmq-server status</span><br><span class="line">./rabbitmqctl stop </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启管理功能</p>
+<p><code>rabbitmq-plugins enable rabbitmq_management</code></p>
+</li>
+<li><p>启动服务</p>
+<p><code>rabbitmq-server -detached</code></p>
+</li>
+<li><p>添加用户权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl add_user albert password</span><br><span class="line">rabbitmqctl set_user_tags albert administrator</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开机自启动</p>
+<p><code>chkconfig rabbitmq-server on</code></p>
+</li>
+<li><p>修改配置文件，开启远程用户访问</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/share/doc/rabbitmq-server-3.7.2/rabbitmq.config.example /etc/rabbitmq/  </span><br><span class="line">mv rabbitmq.config.example rabbitmq.config </span><br></pre></td></tr></table></figure>
+
+<p>增加 </p>
+<p><code>&#123;loopback_users, []&#125;</code></p>
+</li>
+<li><p>集群部署</p>
+<p><a target="_blank" rel="noopener" href="https://blog.apporc.org/2016/04/rabbitmq-%E9%85%8D%E7%BD%AE%E5%88%9D%E6%AD%A5/">RabbitMQ 配置初步</a></p>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/wenyu826/article/details/71108279">Centos7 安装rabbitmq</a></p>
+</li>
+<li><p>reference</p>
+<p><a target="_blank" rel="noopener" href="https://www.vultr.com/docs/how-to-install-rabbitmq-on-centos-7">How-to-install-rabbitmq-on-centos-7</a></p>
+</li>
+</ul>
+<h4 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念:"></a>重要概念:</h4><p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251738vXysfb29.png" alt="202005251738vXysfb29"></p>
+<ul>
+<li>左侧 P 代表 生产者，也就是往 RabbitMQ 发消息的程序。</li>
+<li>中间即是 RabbitMQ，<em>其中包括了 交换机 和 队列。</em></li>
+<li>右侧 C 代表 消费者，也就是往 RabbitMQ 拿消息的程序。</li>
+</ul>
+<h5 id="重要的概念：虚拟主机，交换机，队列，和绑定"><a href="#重要的概念：虚拟主机，交换机，队列，和绑定" class="headerlink" title="重要的概念：虚拟主机，交换机，队列，和绑定"></a>重要的概念：<em>虚拟主机，交换机，队列，和绑定</em></h5><ul>
+<li><strong>虚拟主机</strong>：一个虚拟主机持有一组交换机、队列和绑定。为什么需要多个虚拟主机呢？很简单，RabbitMQ当中，<em>用户只能在虚拟主机的粒度进行权限控制。</em> 因此，如果需要禁止A组访问B组的交换机&#x2F;队列&#x2F;绑定，必须为A和B分别创建一个虚拟主机。每一个RabbitMQ服务器都有一个默认的虚拟主机“&#x2F;”。</li>
+<li><strong>交换机</strong>：<em>Exchange 用于转发消息，但是它不会做存储</em> ，如果没有 Queue bind 到 Exchange 的话，它会直接丢弃掉 Producer 发送过来的消息。这里有一个比较重要的概念：<strong>路由键</strong> 。消息到交换机的时候，交互机会转发到对应的队列中，那么究竟转发到哪个队列，就要根据该路由键。</li>
+<li><strong>绑定</strong>：也就是交换机需要和队列相绑定，这其中如上图所示，是多对多的关系。</li>
+</ul>
+<h5 id="交换机-Exchange"><a href="#交换机-Exchange" class="headerlink" title="交换机(Exchange)"></a>交换机(Exchange)</h5><p>交换机的功能主要是接收消息并且转发到绑定的队列，交换机不存储消息，在启用ack模式后，交换机找不到队列会返回错误。交换机有四种类型：Direct, topic, Headers and Fanout</p>
+<ul>
+<li><p>Direct：direct 类型的行为是”先匹配, 再投送”. 即在绑定时设定一个 <strong>routing_key</strong>, 消息的<strong>routing_key</strong> 匹配时, 才会被交换器投送到绑定的队列中去.</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251739F4SpRm38.png" alt="202005251739F4SpRm38"></p>
+</li>
+<li><p>Topic：按规则转发消息（最灵活）</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251739gtEx4l55.png" alt="202005251739gtEx4l55"></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://codedestine.com/rabbitmq-headers-exchange/">Headers</a>：设置header attribute参数类型的交换机</p>
+</li>
+<li><p>Fanout：转发消息到所有绑定队列</p>
+</li>
+</ul>
+<p>性能比较: <a target="_blank" rel="noopener" href="http://www.gaort.com/index.php/archives/366">RabbitMQ三种Exchange模式(fanout,direct,topic)的性能比较</a></p>
+<p>理解rabbitmq的概念 : <a target="_blank" rel="noopener" href="http://tryrabbitmq.com/">http://tryrabbitmq.com/</a></p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251721dJ8kJ302.png" alt="202005251721dJ8kJ302"></p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251723BRp6Gp04.png" alt="202005251723BRp6Gp04"></p>
+<p><strong>示例代码</strong>: <a target="_blank" rel="noopener" href="https://github.com/silloy/boot-in-action">boot-in-action</a></p>
+<p><strong>References</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://alibaba.github.io/RocketMQ-docs/document/openuser/mqvsmq.pdf">消息队列中间件调研文档</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.wentong.me/2016/01/message-queue-research/">几款消息中间的调研</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1006035">消息队列及常见消息队列介绍</a></li>
+<li><a target="_blank" rel="noopener" href="https://content.pivotal.io/blog/understanding-when-to-use-rabbitmq-or-apache-kafka">Understanding When to use RabbitMQ or Apache Kafka</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.zollty.com/b/archive/high-throughput-high-availability-MQ-comparative-analysis.html">高吞吐、高可用MQ对比分析</a></li>
+<li><a target="_blank" rel="noopener" href="http://jm.taobao.org/2016/04/01/kafka-vs-rabbitmq-vs-rocketmq-message-send-performance/">Kafka、RabbitMQ、RocketMQ消息中间件的对比 —— 消息发送性能</a></li>
+<li><a target="_blank" rel="noopener" href="https://tech.meituan.com/mq-design.html">消息队列设计精要</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/453c6e7ff81c">分布式开放消息系统(RocketMQ)的原理与实践</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.ityouknow.com/springboot/2016/11/30/springboot(%E5%85%AB)-RabbitMQ%E8%AF%A6%E8%A7%A3.html">RabbitMQ详解</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/24f464f9161c">消息队列探秘-RabbitMQ消息队列介绍</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/35fbbdc9ca60">RabbitMq延迟、重试队列及Spring Boot的黑科技</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6579e48d18ae">rabbitmq可靠发送的自动重试机制</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/mq/" rel="tag"><i class="fa fa-tag"></i> mq</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/01/02/%E9%93%BE%E8%B7%AF%E7%9B%91%E6%8E%A7%E6%B5%85%E6%9E%90---%E4%BB%A5sleuth-zipkin%E5%92%8Cskywalking%E4%B8%BA%E4%BE%8B/" rel="prev" title="链路监控浅析---以sleuth-zipkin和skywalking为例">
+                  <i class="fa fa-chevron-left"></i> 链路监控浅析---以sleuth-zipkin和skywalking为例
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/03/01/hexo%E4%B8%BB%E9%A2%98%E5%8D%87%E7%BA%A7/" rel="next" title="hexo主题升级">
+                  hexo主题升级 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Shaohua</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">29k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:47</span>
+  </span>
+</div><script defer src="/lib/three.js"></script><script defer src="/lib/lines.js"></script><script defer src="/lib/sphere.js"></script><script defer src="/lib/waves.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/silloy" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.8/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"wtMIJpHVqsNnBHPEPXnAYVYU-gzGzoHsz","app_key":"YVwecaKkjykP6DYqQC5rnjnm","server_url":"https://wtmijphv.lc-cn-n1-shared.com","security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"silloy","repo":"silloy.github.io","client_id":"29dac2f0c3b467d76bc3","client_secret":"9a2f5ccab02cf33714c32a2b5c8a9a3ed38cfe72","admin_user":"silloy","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"0c4193955945e81c3423a8a733ee826e"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

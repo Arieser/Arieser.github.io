@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://en.gravatar.com/userimage/235454588/c9fab76ab533a1d26775db72200c6b68?size=128">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://en.gravatar.com/userimage/235454588/c9fab76ab533a1d26775db72200c6b68?size=64">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CEdu+SA+Beginner:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"silloy.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+
+<link rel="canonical" href="https://silloy.xyz/2019/12/25/HashMap%EF%BC%8CConcurrentHashMap%20%E5%85%A8%E8%A7%A3%E6%9E%90/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://silloy.xyz/2019/12/25/HashMap%EF%BC%8CConcurrentHashMap%20%E5%85%A8%E8%A7%A3%E6%9E%90/","path":"2019/12/25/HashMap，ConcurrentHashMap 全解析/","title":"HashMap，ConcurrentHashMap 全解析"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>HashMap，ConcurrentHashMap 全解析 | Whirlwinder</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?030a38f11845370d4334a45fa6832b2a"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Whirlwinder</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay hungry, Stay foolish.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap%E4%BB%8E1-7%E5%88%B01-8"><span class="nav-text">HashMap从1.7到1.8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9A%E5%BC%95%E5%85%A5%E4%BA%86%E7%BA%A2%E9%BB%91%E6%A0%91"><span class="nav-text">数据结构：引入了红黑树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E4%BB%8B%E7%BB%8D"><span class="nav-text">主要介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E6%B5%81%E7%A8%8B"><span class="nav-text">存储流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="nav-text">数组元素&amp;链表中的实现类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E8%8A%82%E7%82%B9%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="nav-text">红黑树节点实现类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E4%BD%BF%E7%94%A8"><span class="nav-text">具体使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E4%BD%BF%E7%94%A8API%E5%92%8C%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-text">主要使用API和使用流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%EF%BC%9AHashMap%E4%B8%AD%E7%9A%84%E9%87%8D%E8%A6%81%E5%8F%82%E6%95%B0"><span class="nav-text">基础知识：HashMap中的重要参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%8F%82%E6%95%B0%EF%BC%88%E4%B8%8E1-7%E7%9B%B8%E5%90%8C%EF%BC%89"><span class="nav-text">主要参数（与1.7相同）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%8F%82%E6%95%B0%EF%BC%88%E4%B8%8E%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9B%B8%E5%85%B3%EF%BC%89"><span class="nav-text">其他参数（与红黑树相关）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E5%9B%A0%E5%AD%90"><span class="nav-text">加载因子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB"><span class="nav-text">主要区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="nav-text">源码分析</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Shaohua"
+      src="https://en.gravatar.com/userimage/235454588/7c655e1bcbac6b8da8ba44f180c24959.jpeg">
+  <p class="site-author-name" itemprop="name">Shaohua</p>
+  <div class="site-description" itemprop="description">Manners Maketh Man.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/silloy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;silloy" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/silloysu" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;silloysu" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/shaohua.su.18" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;shaohua.su.18" rel="noopener me" target="_blank"><i class="fab fa-facebook fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://coolshell.cn/" title="https:&#x2F;&#x2F;coolshell.cn&#x2F;" rel="noopener" target="_blank">酷壳</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://silloy.xyz/2019/12/25/HashMap%EF%BC%8CConcurrentHashMap%20%E5%85%A8%E8%A7%A3%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://en.gravatar.com/userimage/235454588/7c655e1bcbac6b8da8ba44f180c24959.jpeg">
+      <meta itemprop="name" content="Shaohua">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+      <meta itemprop="description" content="Manners Maketh Man.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="HashMap，ConcurrentHashMap 全解析 | Whirlwinder">
+      <meta itemprop="description" content="Java Hashmap 是需要要掌握的数据结构，也是面试常遇到的”八股文“之一。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          HashMap，ConcurrentHashMap 全解析
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+
+  
+    <span id="/2019/12/25/HashMap%EF%BC%8CConcurrentHashMap%20%E5%85%A8%E8%A7%A3%E6%9E%90/" class="post-meta-item leancloud_visitors" data-flag-title="HashMap，ConcurrentHashMap 全解析" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>910</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">Java Hashmap 是需要要掌握的数据结构，也是面试常遇到的”八股文“之一。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="HashMap从1-7到1-8"><a href="#HashMap从1-7到1-8" class="headerlink" title="HashMap从1.7到1.8"></a>HashMap从1.7到1.8</h2><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><img src="https://s2.ax1x.com/2019/10/04/uBrLAs.png" alt="hashmap.jpg"></p>
+<span id="more"></span>
+
+<h2 id="数据结构：引入了红黑树"><a href="#数据结构：引入了红黑树" class="headerlink" title="数据结构：引入了红黑树"></a>数据结构：引入了红黑树</h2><h3 id="主要介绍"><a href="#主要介绍" class="headerlink" title="主要介绍"></a>主要介绍</h3><p><img src="https://s2.ax1x.com/2019/10/04/uBsV9x.jpg" alt="红黑树.png"></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/v_july_v/article/details/6105630">红黑树</a></p>
+<h3 id="存储流程"><a href="#存储流程" class="headerlink" title="存储流程"></a>存储流程</h3><p><img src="https://s2.ax1x.com/2019/10/04/uBrzcT.png" alt="main.jpg"></p>
+<h3 id="数组元素-链表中的实现类"><a href="#数组元素-链表中的实现类" class="headerlink" title="数组元素&amp;链表中的实现类"></a>数组元素&amp;链表中的实现类</h3><ul>
+<li><p><code>HashMap</code>中的数组元素&amp;链表节点采用<code>Node</code>类实现</p>
+<blockquote>
+<p>与1.7相比（Entry），仅仅只是换了名字	</p>
+</blockquote>
+</li>
+<li><p>源码见 jdk1.8</p>
+</li>
+</ul>
+<h3 id="红黑树节点实现类"><a href="#红黑树节点实现类" class="headerlink" title="红黑树节点实现类"></a>红黑树节点实现类</h3><ul>
+<li><code>HashMap</code>中的红黑树节点采用<code>TreeNode</code>实现</li>
+</ul>
+<h2 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h2><h3 id="主要使用API和使用流程"><a href="#主要使用API和使用流程" class="headerlink" title="主要使用API和使用流程"></a>主要使用API和使用流程</h3><ul>
+<li>基本与JDK1.7相同</li>
+</ul>
+<h2 id="基础知识：HashMap中的重要参数"><a href="#基础知识：HashMap中的重要参数" class="headerlink" title="基础知识：HashMap中的重要参数"></a>基础知识：HashMap中的重要参数</h2><h3 id="主要参数（与1-7相同）"><a href="#主要参数（与1-7相同）" class="headerlink" title="主要参数（与1.7相同）"></a>主要参数（与1.7相同）</h3><ul>
+<li>容量（capacity）：必须是2的幂 &amp; &lt; 2^30</li>
+<li>加载因子（load factor）：HashMap在其容量自动增加前可达到多满的一种尺度 </li>
+<li>扩容阈值（threshold）：当哈希表的大小 ≥ 扩容阈值时，就会扩容哈希表（即扩充HashMap的容量） </li>
+<li>其他<ul>
+<li>Node  - 存储数据的Node类型 数组，长度 &#x3D; 2的幂；数组的每个元素 &#x3D; 1个单链表</li>
+<li>size - HashMap的大小，即 HashMap中存储的键值对的数量</li>
+</ul>
+</li>
+</ul>
+<h3 id="其他参数（与红黑树相关）"><a href="#其他参数（与红黑树相关）" class="headerlink" title="其他参数（与红黑树相关）"></a>其他参数（与红黑树相关）</h3><ol>
+<li><p>桶的树化阈值：即 链表转成红黑树的阈值，在存储数据时，当链表长度 &gt; 该值时，则将链表转换成红黑树</p>
+<blockquote>
+<p>static final int TREEIFY_THRESHOLD &#x3D; 8; </p>
+</blockquote>
+</li>
+<li><p>桶的链表还原阈值：即 红黑树转为链表的阈值，当在扩容（resize（））时（此时HashMap的数据存储位置会重新计算），在重新计算存储位置后，当原有的红黑树内数量 &lt; 6时，则将 红黑树转换成链表</p>
+<blockquote>
+<p>static final int UNTREEIFY_THRESHOLD &#x3D; 6; 3. </p>
+</blockquote>
+</li>
+<li><p>最小树形化容量阈值：即 当哈希表中的容量 &gt; 该值时，才允许树形化链表 （即 将链表 转换成红黑树） &#x2F;&#x2F; 否则，若桶内元素太多时，则直接扩容，而不是树形化 &#x2F;&#x2F; 为了避免进行扩容、树形化选择的冲突，这个值不能小于 4 * TREEIFY_THRESHOLD </p>
+<blockquote>
+<p>static final int MIN_TREEIFY_CAPACITY &#x3D; 64;</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="加载因子"><a href="#加载因子" class="headerlink" title="加载因子"></a>加载因子</h3><p><img src="https://s2.ax1x.com/2019/10/04/uBrv90.jpg" alt="factor.jpg"></p>
+<h3 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h3><table>
+<thead>
+<tr>
+<th>版本</th>
+<th>存储的数据结构</th>
+<th>数组&amp;链表节点的实现类</th>
+<th>红黑树的实现类</th>
+<th>核心参数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>JDK8</td>
+<td>数组+链表+红黑树</td>
+<td>Node</td>
+<td>TreeNode</td>
+<td>主要参数相同，1.8增加了红黑树参数</td>
+</tr>
+<tr>
+<td>JDK7</td>
+<td>数组+链表</td>
+<td>Entry</td>
+<td>&#x2F;</td>
+<td>1. 桶的树化阈值，即 链表转化为红黑树的阈值<br>2. 桶的链表还原阈值，即红黑树转为链表的阈值<br>3. 最小树形化容量阈值<br>- 当哈希表中的容量&gt;该值时，才允许树形化链表<br>- 否则当桶内元素太多时，则直接扩容，而不是树形化<br>- 为了避免扩容，树形化选择的冲突，这个值不能小于4*THEEIFY_THRESHOLD</td>
+</tr>
+</tbody></table>
+<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><ol>
+<li><p>声明HashMap对象</p>
+</li>
+<li><p>添加数据，<code>put</code>操作</p>
+<ul>
+<li><p><code>hash</code>操作</p>
+<p><img src="https://s2.ax1x.com/2019/10/04/uBrXhq.png" alt="Hash.jpg"></p>
+</li>
+<li><p>1.8 hash过程</p>
+<p><img src="https://s2.ax1x.com/2019/10/04/uB6pTJ.png" alt="hash8.jpg"></p>
+</li>
+<li><p>计算过程</p>
+<p><img src="https://s2.ax1x.com/2019/10/04/uBrx3V.png" alt="com8.jpg"></p>
+</li>
+<li><p>为了解决 “哈希码与数组大小范围不匹配” 的问题，<code>HashMap</code>给出了解决方案：<strong>哈希码 与运算（&amp;） （数组长度-1）</strong></p>
+</li>
+<li><p>扰动处理：加大哈希码低位的随机性，使得分布更均匀，从而提高对应数组存储下标位置的随机性 &amp; 均匀性，最终减少Hash冲突</p>
+</li>
+</ul>
+</li>
+<li><p><code>putVal</code>操作</p>
+<ul>
+<li><p>具体流程</p>
+<p><img src="https://s2.ax1x.com/2019/10/04/uBsA41.png" alt="putval.png"></p>
+</li>
+<li><p><img src="https://s2.ax1x.com/2019/10/04/uBsSjU.png" alt="put.jpg"></p>
+</li>
+<li><p>扩容机制（resize()）</p>
+<p><img src="https://s2.ax1x.com/2019/10/04/uBs9uF.png" alt="resize.jpg"></p>
+<p>扩容机制对比，</p>
+<p><img src="https://s2.ax1x.com/2019/10/04/uBkCjA.png" alt="对比.jpg"></p>
+</li>
+</ul>
+</li>
+<li><p>结论</p>
+</li>
+</ol>
+<p><strong>References</strong></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5aa5d8d26fb9a028d2079264">Java源码分析：HashMap 1.8 相对于1.7 到底更新了什么？</a></p>
+<p><a target="_blank" rel="noopener" href="https://crossoverjie.top/2018/07/23/java-senior/ConcurrentHashMap/">HashMap? ConcurrentHashMap? 相信看完这篇没人能难住你！</a></p>
+<p><a target="_blank" rel="noopener" href="https://javadoop.com/post/hashmap">Java7&#x2F;8 中的 HashMap 和 ConcurrentHashMap 全解析</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lycroseup/p/7344321.html">HASHMAP之扰动函数和低位掩码</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36520235/article/details/82417949">美团面试题：Hashmap的结构，1.7和1.8有哪些区别，史上最深入的分析</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Leon_cx/article/details/81947991">HashMap源码分析，基于1.8，对比1.7</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/11/23/java%E6%B5%AE%E7%82%B9%E5%9E%8B%E7%B2%BE%E5%BA%A6%E4%B8%A2%E5%A4%B1%E6%B5%85%E6%9E%90/" rel="prev" title="java浮点型精度丢失浅析">
+                  <i class="fa fa-chevron-left"></i> java浮点型精度丢失浅析
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/04/05/%E6%94%AF%E4%BB%98%E5%AE%9D%E5%92%8C%E5%BE%AE%E4%BF%A1%E6%8E%A5%E5%8F%A3%E5%8A%A0%E5%AF%86%E8%A7%84%E8%8C%83%E8%B0%83%E7%A0%94/" rel="next" title="支付宝和微信接口加密规范调研">
+                  支付宝和微信接口加密规范调研 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Shaohua</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">29k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:47</span>
+  </span>
+</div><script defer src="/lib/three.js"></script><script defer src="/lib/lines.js"></script><script defer src="/lib/sphere.js"></script><script defer src="/lib/waves.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/silloy" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.8/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"wtMIJpHVqsNnBHPEPXnAYVYU-gzGzoHsz","app_key":"YVwecaKkjykP6DYqQC5rnjnm","server_url":"https://wtmijphv.lc-cn-n1-shared.com","security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"silloy","repo":"silloy.github.io","client_id":"29dac2f0c3b467d76bc3","client_secret":"9a2f5ccab02cf33714c32a2b5c8a9a3ed38cfe72","admin_user":"silloy","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"70fe1a8dfdbabb9de904df868cf60653"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

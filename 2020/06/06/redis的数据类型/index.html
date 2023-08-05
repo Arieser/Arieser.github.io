@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://en.gravatar.com/userimage/235454588/c9fab76ab533a1d26775db72200c6b68?size=128">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://en.gravatar.com/userimage/235454588/c9fab76ab533a1d26775db72200c6b68?size=64">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CEdu+SA+Beginner:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"silloy.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+
+<link rel="canonical" href="https://silloy.xyz/2020/06/06/redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://silloy.xyz/2020/06/06/redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/","path":"2020/06/06/redis的数据类型/","title":"redis的数据类型"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>redis的数据类型 | Whirlwinder</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?030a38f11845370d4334a45fa6832b2a"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Whirlwinder</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay hungry, Stay foolish.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Strings"><span class="nav-text">Strings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lists"><span class="nav-text">Lists</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sets"><span class="nav-text">Sets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hashes"><span class="nav-text">Hashes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sorted-sets"><span class="nav-text">Sorted sets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bitmaps-and-HyperLogLogs"><span class="nav-text">Bitmaps and HyperLogLogs</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Shaohua"
+      src="https://en.gravatar.com/userimage/235454588/7c655e1bcbac6b8da8ba44f180c24959.jpeg">
+  <p class="site-author-name" itemprop="name">Shaohua</p>
+  <div class="site-description" itemprop="description">Manners Maketh Man.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/silloy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;silloy" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/silloysu" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;silloysu" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/shaohua.su.18" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;shaohua.su.18" rel="noopener me" target="_blank"><i class="fab fa-facebook fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://coolshell.cn/" title="https:&#x2F;&#x2F;coolshell.cn&#x2F;" rel="noopener" target="_blank">酷壳</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://silloy.xyz/2020/06/06/redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://en.gravatar.com/userimage/235454588/7c655e1bcbac6b8da8ba44f180c24959.jpeg">
+      <meta itemprop="name" content="Shaohua">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+      <meta itemprop="description" content="Manners Maketh Man.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="redis的数据类型 | Whirlwinder">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          redis的数据类型
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+
+  
+    <span id="/2020/06/06/redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="post-meta-item leancloud_visitors" data-flag-title="redis的数据类型" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>841</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>简单介绍一下redis的几种数据类型： <strong>Strings</strong>，<strong>Lists</strong>，<strong>Sets</strong>， <strong>Hashe</strong>，<strong>Sorted sets</strong>，<strong>Bitmaps and HyperLogLogs</strong></p>
+<span id="more"></span>
+
+<h3 id="Strings"><a href="#Strings" class="headerlink" title="Strings"></a>Strings</h3><p>Strings是redis的最基础的类型，意味着reds stings可以包含任何数据类型，普通的string，integer…自不必说，JPEG 图片，Java对象，文件等等都可以序列化成strings。</p>
+<p>最大限制：512M</p>
+<p>常用操作：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://redis.io/commands/incr">INCR</a>, <a target="_blank" rel="noopener" href="https://redis.io/commands/decr">DECR</a>, <a target="_blank" rel="noopener" href="https://redis.io/commands/incrby">INCRBY</a>：通过strings实现原子化操作</li>
+<li><a target="_blank" rel="noopener" href="https://redis.io/commands/append">APPEND</a>：改变字符串</li>
+<li><a target="_blank" rel="noopener" href="https://redis.io/commands/getrange">GETRANGE</a> , <a target="_blank" rel="noopener" href="https://redis.io/commands/setrange">SETRANGE</a>： 自由获取或者变更Strings</li>
+<li><a target="_blank" rel="noopener" href="https://redis.io/commands/getbit">GETBIT</a>, <a target="_blank" rel="noopener" href="https://redis.io/commands/setbit">SETBIT</a>：对Strings进行位操作，如通过redis创建一个bloom filter</li>
+</ul>
+<p>其他： <a target="_blank" rel="noopener" href="https://redis.io/commands/#string">available string commands</a> </p>
+<h3 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h3><p>Redis Lists是strings的集合list，顺序为元素的插入顺序。当然也可以通过命令在head或者tail插入元素。即使list很大，在head或者tail增删元素的速度也很快，但是如果操作中间的元素，则复杂度为O(N)。</p>
+<p>lists最大长度： 2^32 - 1 (4294967295， 也就是每个list可以存40亿个元素)</p>
+<p>有意思的案例：</p>
+<ul>
+<li>创建设计网络中的时间线，使用 <a target="_blank" rel="noopener" href="https://redis.io/commands/lpush">LPUSH</a> 增加元素，而使用<a target="_blank" rel="noopener" href="https://redis.io/commands/lrange">LRANGE</a>获取最新插入的几个元素</li>
+<li>使用 <a target="_blank" rel="noopener" href="https://redis.io/commands/lpush">LPUSH</a> 和 <a target="_blank" rel="noopener" href="https://redis.io/commands/ltrim">LTRIM</a> 创建一个固定容量的list，只记录最新的几个元素</li>
+<li>使用list结构创建一个消息队列，如ruby的<a target="_blank" rel="noopener" href="https://github.com/resque/resque">Resque</a> - 用于创建后台任务</li>
+<li><a target="_blank" rel="noopener" href="https://redis.io/commands/blpop">BLPOP</a></li>
+</ul>
+<p>其他： <a target="_blank" rel="noopener" href="https://redis.io/commands#list">available commands operating on lists</a></p>
+<h3 id="Sets"><a href="#Sets" class="headerlink" title="Sets"></a>Sets</h3><p>Redis Sets是strings的无序无重复集合。增删查的复杂度是0(1)，基于sets可以做 unions, intersections 等操作</p>
+<p>sets最大长度： 2^32 - 1 (4294967295， 也就是每个set可以存40亿个元素)</p>
+<p>一些案例：</p>
+<ul>
+<li>trace 一些唯一事件，比如说记录一篇blog的访问ip，仅仅只需要使用  <a target="_blank" rel="noopener" href="https://redis.io/commands/sadd">SADD</a> ，而不需要考虑是否重复。</li>
+<li>创建一个标签系统，给对象标记不同的tag</li>
+<li>使用 <a target="_blank" rel="noopener" href="https://redis.io/commands/spop">SPOP</a> 或者 <a target="_blank" rel="noopener" href="https://redis.io/commands/srandmember">SRANDMEMBER</a> 命令从一个set中随机抽取元素</li>
+<li>其他： <a target="_blank" rel="noopener" href="https://redis.io/commands#set">full list of Set commands</a></li>
+</ul>
+<h3 id="Hashes"><a href="#Hashes" class="headerlink" title="Hashes"></a>Hashes</h3><p>Redis Hashes 是用来存储一些键值对的，举个栗子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@cli</span><br><span class="line">HMSET user:1000 username antirez password P1pp0 age 34</span><br><span class="line">HGETALL user:1000</span><br><span class="line">HSET user:1000 password 12345</span><br><span class="line">HGETALL user:1000</span><br></pre></td></tr></table></figure>
+
+<p>每一个hash都可以存储至多 2^32 - 1个 键值对</p>
+<p>其他： <a target="_blank" rel="noopener" href="https://redis.io/commands#hash">full list of Hash commands</a></p>
+<h3 id="Sorted-sets"><a href="#Sorted-sets" class="headerlink" title="Sorted sets"></a>Sorted sets</h3><p>redis Sorted Sets 和sets类型相似，但最大的不同点是 Sorted Set 的每一个元素都有一个分值，这个分值可以用作排序，虽然元素是不重复的，但分值可能相同。可以获取不同分值段内的一些元素。</p>
+<p>sorted sets 可以做很多有意思的事情，与直接操作数据库相比，有很好的性能</p>
+<ul>
+<li>比如设计一个在线游戏的选手积分榜，使用<a target="_blank" rel="noopener" href="https://redis.io/commands/zadd">ZADD</a>来增加一个新的记录，使用  <a target="_blank" rel="noopener" href="https://redis.io/commands/zrange">ZRANGE</a> 获取前几名的选手，也可以使用 <a target="_blank" rel="noopener" href="https://redis.io/commands/zrange">ZRANGE</a>来获取一个选手的排名。使用ZRANK 和 ZRANGE可以很快查询到一个元素附近的几个元素</li>
+<li>Sorted Sets常常被用来做作redis中的索引数据，比如有很多用户的hash数据，可以使用用户的年龄作为分值，用户id作为值，使用<a target="_blank" rel="noopener" href="https://redis.io/commands/zrangebyscore">ZRANGEBYSCORE</a>就可以很快查询出一个年龄区间内的用户</li>
+</ul>
+<p>其他：<a target="_blank" rel="noopener" href="https://redis.io/commands#sorted_set">full list of Sorted Set commands</a></p>
+<h3 id="Bitmaps-and-HyperLogLogs"><a href="#Bitmaps-and-HyperLogLogs" class="headerlink" title="Bitmaps and HyperLogLogs"></a>Bitmaps and HyperLogLogs</h3><p>Redis 同时也支持Bitmaps 和 HyperLogLogs，基于Strings实现，但有他们自己的语义。</p>
+<p>其他：<a target="_blank" rel="noopener" href="https://redis.io/topics/data-types-intro">introduction to Redis data types</a></p>
+<p>推荐的redisdocs：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://doc.redisfans.com/">http://doc.redisfans.com/</a></li>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/">http://redisdoc.com/</a></li>
+</ul>
+<p><strong>References</strong></p>
+<p><a target="_blank" rel="noopener" href="https://redis.io/topics/data-types">Data types</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/redis/" rel="tag"><i class="fa fa-tag"></i> redis</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/05/04/%E7%94%B1%E4%B8%80%E6%AC%A1Base64%E7%BC%96%E7%A0%81%E5%BC%82%E5%B8%B8%E5%BC%95%E8%B5%B7%E7%9A%84%E5%B0%8Fbug/" rel="prev" title="由一次Base64编码异常引起的小bug">
+                  <i class="fa fa-chevron-left"></i> 由一次Base64编码异常引起的小bug
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/06/18/%E5%BC%80%E5%90%AFSpring%20Initializr%E4%B8%AA%E6%80%A7%E5%8C%96%E4%B9%8B%E6%97%85/" rel="next" title="开启Spring Initializr个性化之旅">
+                  开启Spring Initializr个性化之旅 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Shaohua</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">29k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:47</span>
+  </span>
+</div><script defer src="/lib/three.js"></script><script defer src="/lib/lines.js"></script><script defer src="/lib/sphere.js"></script><script defer src="/lib/waves.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/silloy" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.8/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"wtMIJpHVqsNnBHPEPXnAYVYU-gzGzoHsz","app_key":"YVwecaKkjykP6DYqQC5rnjnm","server_url":"https://wtmijphv.lc-cn-n1-shared.com","security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"silloy","repo":"silloy.github.io","client_id":"29dac2f0c3b467d76bc3","client_secret":"9a2f5ccab02cf33714c32a2b5c8a9a3ed38cfe72","admin_user":"silloy","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"c0eec9f0917cf64d5b1b40fc857dbb2f"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

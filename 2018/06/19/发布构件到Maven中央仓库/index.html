@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://en.gravatar.com/userimage/235454588/c9fab76ab533a1d26775db72200c6b68?size=128">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://en.gravatar.com/userimage/235454588/c9fab76ab533a1d26775db72200c6b68?size=64">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CEdu+SA+Beginner:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"silloy.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+
+<link rel="canonical" href="https://silloy.xyz/2018/06/19/%E5%8F%91%E5%B8%83%E6%9E%84%E4%BB%B6%E5%88%B0Maven%E4%B8%AD%E5%A4%AE%E4%BB%93%E5%BA%93/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://silloy.xyz/2018/06/19/%E5%8F%91%E5%B8%83%E6%9E%84%E4%BB%B6%E5%88%B0Maven%E4%B8%AD%E5%A4%AE%E4%BB%93%E5%BA%93/","path":"2018/06/19/发布构件到Maven中央仓库/","title":"发布构件到Maven中央仓库"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>发布构件到Maven中央仓库 | Whirlwinder</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?030a38f11845370d4334a45fa6832b2a"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Whirlwinder</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay hungry, Stay foolish.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Shaohua"
+      src="https://en.gravatar.com/userimage/235454588/7c655e1bcbac6b8da8ba44f180c24959.jpeg">
+  <p class="site-author-name" itemprop="name">Shaohua</p>
+  <div class="site-description" itemprop="description">Manners Maketh Man.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/silloy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;silloy" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/silloysu" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;silloysu" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/shaohua.su.18" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;shaohua.su.18" rel="noopener me" target="_blank"><i class="fab fa-facebook fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://coolshell.cn/" title="https:&#x2F;&#x2F;coolshell.cn&#x2F;" rel="noopener" target="_blank">酷壳</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://silloy.xyz/2018/06/19/%E5%8F%91%E5%B8%83%E6%9E%84%E4%BB%B6%E5%88%B0Maven%E4%B8%AD%E5%A4%AE%E4%BB%93%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://en.gravatar.com/userimage/235454588/7c655e1bcbac6b8da8ba44f180c24959.jpeg">
+      <meta itemprop="name" content="Shaohua">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+      <meta itemprop="description" content="Manners Maketh Man.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="发布构件到Maven中央仓库 | Whirlwinder">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          发布构件到Maven中央仓库
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+
+  
+    <span id="/2018/06/19/%E5%8F%91%E5%B8%83%E6%9E%84%E4%BB%B6%E5%88%B0Maven%E4%B8%AD%E5%A4%AE%E4%BB%93%E5%BA%93/" class="post-meta-item leancloud_visitors" data-flag-title="发布构件到Maven中央仓库" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>总结的工具包为使用方便决定发布到maven中央仓库，因为第一次发布，遇到很多问题，简要记录一下。</p>
+<span id="more"></span>
+
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251726ZCikGa28.png" alt="202005251726ZCikGa28"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Sonatype官网：http://www.sonatype.org/</span><br></pre></td></tr></table></figure>
+
+<!--more-->
+
+<p>Step 1: 注册Sonatype用户</p>
+<blockquote>
+<p>注册地址：<a target="_blank" rel="noopener" href="https://issues.sonatype.org/secure/Signup!default.jspa">https://issues.sonatype.org/secure/Signup!default.jspa</a> </p>
+<p>oss地址：<a target="_blank" rel="noopener" href="https://oss.sonatype.org/">https://oss.sonatype.org</a> ，用于查询构件</p>
+</blockquote>
+<p>Step2: 创建issue</p>
+<ol>
+<li><p>create issue:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Project：Community Support - Open Source Project Repository Hosting (OSSRH)</span><br><span class="line">Issue Type: new Project</span><br><span class="line">--- next ---</span><br><span class="line">Summary:   &lt;简要项目介绍&gt;</span><br><span class="line">Group id: me.silloy &lt;需要时自己的域名，同时在工程中使用&gt;</span><br></pre></td></tr></table></figure>
+
+<p>点击create，创建issue</p>
+</li>
+<li><p>下图查看已创建的issue</p>
+<p><img src="/images/1529386058988.png" alt="1529386058988"></p>
+</li>
+</ol>
+<p>Step 3: 等待issue审批通过</p>
+<blockquote>
+<p>一般需要1-2天，审批通过后会收到邮件通知，在自己提交的issue下面可以看到Sonatype工作人员的回复。同时issue状态修改为resolved。</p>
+</blockquote>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/2020052517276rhkNd18.png" alt="2020052517276rhkNd18"></p>
+<p>Step 4: 发布准备</p>
+<ol>
+<li><p>生成gpg密钥，并发布到PGP密钥服务器，见引用</p>
+<p><strong>简要介绍win10环境下gpg密钥生成方法</strong></p>
+<ul>
+<li><p>下载Gpg4win， 安装</p>
+</li>
+<li><p>依次执行一下命令</p>
+<blockquote>
+<p>版本检查: <code>gpg --version</code>, 我用的是2.2.8</p>
+<p>生成key： <code>gpg --gen-key</code></p>
+<p>检查本地key： gpg –list-keys</p>
+<p>发布公钥：gpg –keyserver hkp:&#x2F;&#x2F;pool.sks-keyservers.net –send-keys A3434534534</p>
+<p>校验是否发布成功：gpg –keyserver hkp:&#x2F;&#x2F;pool.sks-keyservers.net –recv-keys 732796B4</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">List all available gpg servers:</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">gpg-connect-agent --dirmngr <span class="string">&#x27;keyserver --hosttable&#x27;</span></span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>修改maven设置</p>
+<ul>
+<li><p>修改maven全局配置文件setting.xml， 增加一下内容</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>oss<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">username</span>&gt;</span>Harvey.Su<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">password</span>&gt;</span>&lt;![CDATA[password]]&gt;<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servers</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改pom文件，加入需要的信息</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>me.silloy<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>zjtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>a java tool package<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">licenses</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">license</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">name</span>&gt;</span>The Apache Software License, Version 2.0<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://www.apache.org/licenses/LICENSE-2.0.txt<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">license</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">licenses</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">developers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">developer</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">name</span>&gt;</span>sushaohua<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">email</span>&gt;</span>sshzh90@gmail.com<span class="tag">&lt;/<span class="name">email</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">developer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">developers</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">scm</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">connection</span>&gt;</span>scm:git:git@github.com:silloy/zjtools.git<span class="tag">&lt;/<span class="name">connection</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">developerConnection</span>&gt;</span>scm:git:git@github.com:silloy/zjtools.git<span class="tag">&lt;/<span class="name">developerConnection</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>git@github.com:silloy/zjtools.git<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">scm</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>增加一个名为oss的profile (⭐⭐⭐⭐⭐)</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;maven-compiler-plugin.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">compilerVersion</span>&gt;</span>$&#123;maven.compiler.source&#125;<span class="tag">&lt;/<span class="name">compilerVersion</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">source</span>&gt;</span>$&#123;maven.compiler.source&#125;<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">target</span>&gt;</span>$&#123;maven.compiler.source&#125;<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">encoding</span>&gt;</span>$&#123;project.build.sourceEncoding&#125;<span class="tag">&lt;/<span class="name">encoding</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- Source --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-source-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;maven-source-plugin.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">id</span>&gt;</span>attach-sources<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>jar-no-fork<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- Javadoc --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-javadoc-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;maven-javadoc-plugin.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">id</span>&gt;</span>attach-javadocs<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">encoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">encoding</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">charset</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">charset</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">additionalOptions</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">additionalOption</span>&gt;</span>-Xdoclint:none<span class="tag">&lt;/<span class="name">additionalOption</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">additionalOptions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/java<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.properties<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>false<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- profiles --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">profiles</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>sonar<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--&lt;activeByDefault&gt;true&lt;/activeByDefault&gt;--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">jdk</span>&gt;</span>[1.8,)<span class="tag">&lt;/<span class="name">jdk</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&lt;properties&gt;--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&lt;additionalparam&gt;-Xdoclint:none&lt;/additionalparam&gt;--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&lt;/properties&gt;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--&lt;finalName&gt;$&#123;project.artifactId&#125;-$&#123;project.version&#125;-SNAPSHOT&lt;/finalName&gt;--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>$&#123;project.artifactId&#125;-$&#123;project.version&#125;<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- GPG --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-gpg-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;maven-gpg-plugin.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">id</span>&gt;</span>sign-artifacts<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">phase</span>&gt;</span>verify<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>sign<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profiles</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>oss<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://oss.sonatype.org/content/repositories/snapshots/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>oss<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://oss.sonatype.org/service/local/staging/deploy/maven2/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">distributionManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>javadoc 不规范的情况下，可以把maven-javadoc-plugin注释掉。</p>
+<p><strong>特别注意</strong>：snapshotRepository 与 repository 中的 id 一定要与 setting.xml 中 server 的 id 保持一致。这里我们都设置为oss。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>Step 5:  上传构件到OSS</p>
+<p>执行命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean deploy -P sonar -Darguments=&quot;gpg.passphrase=密钥密码&quot;</span><br></pre></td></tr></table></figure>
+
+<p>看到如下提示信息，说明deploy成功</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Uploading: https://oss.sonatype.org/service/local/staging/deploy/maven2/me/silloy/zjtools/0.0.1/zjtools-0.0.1.jar</span><br><span class="line">Uploaded: https://oss.sonatype.org/service/local/staging/deploy/maven2/me/silloy/zjtools/0.0.1/zjtools-0.0.1.jar (34 kB at 966 B/s)</span><br><span class="line">Uploading: https://oss.sonatype.org/service/local/staging/deploy/maven2/me/silloy/zjtools/0.0.1/zjtools-0.0.1.pom</span><br><span class="line">Uploaded: https://oss.sonatype.org/service/local/staging/deploy/maven2/me/silloy/zjtools/0.0.1/zjtools-0.0.1.pom (9.7 kB at 985 B/s)</span><br><span class="line">Downloading: https://oss.sonatype.org/service/local/staging/deploy/maven2/me/silloy/zjtools/maven-metadata.xml</span><br><span class="line">Uploading: https://oss.sonatype.org/service/local/staging/deploy/maven2/me/silloy/zjtools/maven-metadata.xml</span><br><span class="line">Uploaded: https://oss.sonatype.org/service/local/staging/deploy/maven2/me/silloy/zjtools/maven-metadata.xml (296 B at 5 B/s)</span><br><span class="line">Uploading: https://oss.sonatype.org/service/local/staging/deploy/maven2/me/silloy/zjtools/0.0.1/zjtools-0.0.1-sources.jar</span><br><span class="line">Uploaded: https://oss.sonatype.org/service/local/staging/deploy/maven2/me/silloy/zjtools/0.0.1/zjtools-0.0.1-sources.jar (20 kB at 1.9 kB/s)</span><br><span class="line">Uploading: https://oss.sonatype.org/service/local/staging/deploy/maven2/me/silloy/zjtools/0.0.1/zjtools-0.0.1-sources.jar</span><br><span class="line">Uploaded: https://oss.sonatype.org/service/local/staging/deploy/maven2/me/silloy/zjtools/0.0.1/zjtools-0.0.1-sources.jar (20 kB at 10 kB/s)</span><br></pre></td></tr></table></figure>
+
+<p>Step 6: 在OSS中发布构件</p>
+<blockquote>
+<p>登录<a target="_blank" rel="noopener" href="https://oss.sonatype.org,可以在`staging/">https://oss.sonatype.org，可以在`Staging</a> Repositories&#96;中查看到已上传的构件，可进行模糊查询，快速定位到自己的构件，状态为open，勾选，然后点击close按钮，接下来系统会自动验证该构件是否满足指定要求，当验证完毕后，状态会变为 Closed，最后，点击 Release 按钮来发布该构件 。</p>
+<p>备注：切记是要发布release版本的构件，不能是snapshot，不然不会出现在Staging Repositories里面。 </p>
+</blockquote>
+<p>Step 7: 通知 Sonatype“构件已成功发布”</p>
+<blockquote>
+<p>需要在曾经创建的 Issue 下面回复一条“构件已成功发布”的评论，这是为了通知 Sonatype 的工作人员为需要发布的构件做审批( I released the component has been successfully, please approval, thank you!)，发布后会关闭该 Issue 。</p>
+</blockquote>
+<p>Step 8: 等待审批，1~2天，审批通过后会收到邮件通知。</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251729KHR9C746.png" alt="202005251729KHR9C746"></p>
+<p>Step 9: 在<a target="_blank" rel="noopener" href="https://oss.sonatype.org/#stagingRepositories%E6%89%BE%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9E%84%E5%BB%BA%EF%BC%8C%E7%82%B9%E5%87%BBrelease">https://oss.sonatype.org/#stagingRepositories找到自己的构建，点击release</a></p>
+<p>Step 9: 从中央仓库搜索自己发布的构件</p>
+<blockquote>
+<p>地址：<a target="_blank" rel="noopener" href="http://search.maven.org/">http://search.maven.org/</a> </p>
+</blockquote>
+<p>Step 10: <a target="_blank" rel="noopener" href="http://search.maven.org/">http://search.maven.org/</a> 上搜索自己的构件 ，大功告成，可以在项目中引用啦。以后发布就简单了，不需要每次都审核。</p>
+<p>问题：</p>
+<ol>
+<li><p>gpg错误处理<code>Enter passphrase: gpg: gpg-agent is not available in this session</code></p>
+<p>可能是版本问题，或者没有安装gpg-agent，详见<a target="_blank" rel="noopener" href="https://askubuntu.com/questions/860370/gpg-agent-cant-be-reached">https://askubuntu.com/questions/860370/gpg-agent-cant-be-reached</a> ，具体步骤</p>
+<ol>
+<li>linux 系统解决方案</li>
+</ol>
+<ul>
+<li><p>安装gpg2  <code>sudo apt install gpgv2</code></p>
+</li>
+<li><p>然后在maven的settings.xml中加入两个属性，主要要在激活的profile里面 </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">gpg.executable</span>&gt;</span>gpg2<span class="tag">&lt;/<span class="name">gpg.executable</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">gpg.useagent</span>&gt;</span>true<span class="tag">&lt;/<span class="name">gpg.useagent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>mvn clean deploy -P oss</code>， 参看 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/14114528/avoid-gpg-signing-prompt-when-using-maven-release-plugin">Avoid gpg signing prompt when using Maven release plugin</a></p>
+</li>
+</ul>
+<ol start="2">
+<li><p>windows 解决方案 (Windows下Gpg4win、Git、ssh-pageant配置)[<a target="_blank" rel="noopener" href="https://www.mjollnir.cc/archives/216.html]">https://www.mjollnir.cc/archives/216.html]</a></p>
+<p>.git&#x2F;config修改</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[gpg]</span><br><span class="line">	program = gpg</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>Failed to execute goal org.apache.maven.plugins:maven-deploy-plugin:2.7:deploy (default-deploy) on project zjtools: Failed to deploy artifacts: Could not transfer artifact me.silloy:zjtools:jar:0.0.1 from&#x2F;to oss (<a target="_blank" rel="noopener" href="https://oss.sonatype.org/service/local/staging/deploy/maven2/">https://oss.sonatype.org/service/local/staging/deploy/maven2/</a>): Access denied to: <a target="_blank" rel="noopener" href="https://oss.sonatype.org/service/local/staging/deploy/maven2/me/silloy/zjtools/0.0.1/zjtools-0.0.1.jar">https://oss.sonatype.org/service/local/staging/deploy/maven2/me/silloy/zjtools/0.0.1/zjtools-0.0.1.jar</a>, ReasonPhrase: Forbidden. -&gt; [Help 1]</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251728pKbJHK34.png" alt="202005251728pKbJHK34"></p>
+<p>答案：<a target="_blank" rel="noopener" href="https://www.oschina.net/question/1444646_2277979">引用</a>，提交给sonatype就可以，工作人员会开权限</p>
+</li>
+<li><p>可以在 <a target="_blank" rel="noopener" href="http://search.maven.org/">http://search.maven.org/</a>  搜索到，但是不能在 <a target="_blank" rel="noopener" href="http://mvnrepository.com/">http://mvnrepository.com/</a> 搜索到，是因为更新频率不一样，等一天左右就好了，参见工作人员回复</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251730qHwuke25.png" alt="202005251730qHwuke25"></p>
+</li>
+<li><p><code>gpg --list-keys</code> 出现 unknown 解决</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">gpg --edit-key user@useremail.com</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">gpg&gt; </span><span class="language-bash">trust</span></span><br><span class="line"></span><br><span class="line">Please decide how far you trust this user to correctly verify other users&#x27; keys</span><br><span class="line">(by looking at passports, checking fingerprints from different sources, etc.)</span><br><span class="line"></span><br><span class="line">  1 = I don&#x27;t know or won&#x27;t say</span><br><span class="line">  2 = I do NOT trust</span><br><span class="line">  3 = I trust marginally</span><br><span class="line">  4 = I trust fully</span><br><span class="line">  5 = I trust ultimately</span><br><span class="line">  m = back to the main menu</span><br><span class="line"></span><br><span class="line">Your decision? 5</span><br><span class="line"><span class="meta prompt_">gpg&gt; </span><span class="language-bash">save</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>References</p>
+<p><a target="_blank" rel="noopener" href="https://skyao.gitbooks.io/learning-maven/content/publish/central/">发布到中央仓库</a></p>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/u/2335754/blog/476676">上传自己的构件(Jar)到Maven中央仓库</a></p>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/huangyong/blog/226738">将 Smart 构件发布到 Maven 中央仓库</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/fengpingfan/p/5197608.html">Maven-008-Nexus 私服部署发布报错 Failed to deploy artifacts: Failed to transfer file: … Return code is: 4XX, ReasonPhrase: … 解决方案</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/24830610/why-am-i-getting-a-401-unauthorized-error-in-maven">Why am I getting a “401 Unauthorized” error in Maven?</a></p>
+<p><a target="_blank" rel="noopener" href="http://brianway.github.io/2017/05/17/release-to-maven-central-repo/">将项目发布到 Maven 中央仓库踩过的坑</a></p>
+<p>[[gpg —list-keys command outputs uid <a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/407062/gpg-list-keys-command-outputs-uid-unknown-after-importing-private-key-onto/407070"> unknown ] after importing private key onto a clean install</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/maven/" rel="tag"><i class="fa fa-tag"></i> maven</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/06/15/SpringBoot-Mybatis%E9%80%9A%E7%94%A8mapper%E4%BD%BF%E7%94%A8/" rel="prev" title="SpringBoot-Mybatis通用mapper使用">
+                  <i class="fa fa-chevron-left"></i> SpringBoot-Mybatis通用mapper使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/08/08/MySQL%20Explain%E8%AF%A6%E8%A7%A3/" rel="next" title="MySQL Explain详解">
+                  MySQL Explain详解 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Shaohua</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">29k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:47</span>
+  </span>
+</div><script defer src="/lib/three.js"></script><script defer src="/lib/lines.js"></script><script defer src="/lib/sphere.js"></script><script defer src="/lib/waves.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/silloy" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.8/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"wtMIJpHVqsNnBHPEPXnAYVYU-gzGzoHsz","app_key":"YVwecaKkjykP6DYqQC5rnjnm","server_url":"https://wtmijphv.lc-cn-n1-shared.com","security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"silloy","repo":"silloy.github.io","client_id":"29dac2f0c3b467d76bc3","client_secret":"9a2f5ccab02cf33714c32a2b5c8a9a3ed38cfe72","admin_user":"silloy","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"bc4398ed669ae26e18ef68357178c17e"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

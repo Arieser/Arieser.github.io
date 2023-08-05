@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://en.gravatar.com/userimage/235454588/c9fab76ab533a1d26775db72200c6b68?size=128">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://en.gravatar.com/userimage/235454588/c9fab76ab533a1d26775db72200c6b68?size=64">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CEdu+SA+Beginner:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"silloy.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+
+<link rel="canonical" href="https://silloy.xyz/2016/05/09/Oracle%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://silloy.xyz/2016/05/09/Oracle%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/","path":"2016/05/09/Oracle基础命令/","title":"Oracle基础命令"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Oracle基础命令 | Whirlwinder</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?030a38f11845370d4334a45fa6832b2a"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Whirlwinder</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay hungry, Stay foolish.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%EF%BC%88Structured-Query-Language%EF%BC%89"><span class="nav-text">SQL（Structured Query Language）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-text">常用关键字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-text">常用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E6%93%8D%E4%BD%9C"><span class="nav-text">日期操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A9%BA%E5%80%BC%E6%93%8D%E4%BD%9C"><span class="nav-text">空值操作</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E6%9F%A5%E8%AF%A2"><span class="nav-text">高级查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="nav-text">子查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="nav-text">分页查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DECODE%E5%87%BD%E6%95%B0"><span class="nav-text">DECODE函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ROW-NUMBER%E5%87%BD%E6%95%B0"><span class="nav-text">ROW_NUMBER函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RANK-NUMBER%E5%87%BD%E6%95%B0"><span class="nav-text">RANK_NUMBER函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DENSE-RANK"><span class="nav-text">DENSE_RANK</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UNION"><span class="nav-text">UNION</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E5%88%86%E7%BB%84%E5%87%BD%E6%95%B0"><span class="nav-text">高级分组函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE"><span class="nav-text">视图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%8F%E5%88%97"><span class="nav-text">序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-text">索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F"><span class="nav-text">约束</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Shaohua"
+      src="https://en.gravatar.com/userimage/235454588/7c655e1bcbac6b8da8ba44f180c24959.jpeg">
+  <p class="site-author-name" itemprop="name">Shaohua</p>
+  <div class="site-description" itemprop="description">Manners Maketh Man.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/silloy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;silloy" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/silloysu" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;silloysu" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/shaohua.su.18" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;shaohua.su.18" rel="noopener me" target="_blank"><i class="fab fa-facebook fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://coolshell.cn/" title="https:&#x2F;&#x2F;coolshell.cn&#x2F;" rel="noopener" target="_blank">酷壳</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://silloy.xyz/2016/05/09/Oracle%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://en.gravatar.com/userimage/235454588/7c655e1bcbac6b8da8ba44f180c24959.jpeg">
+      <meta itemprop="name" content="Shaohua">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+      <meta itemprop="description" content="Manners Maketh Man.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Oracle基础命令 | Whirlwinder">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Oracle基础命令
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+
+  
+    <span id="/2016/05/09/Oracle%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" class="post-meta-item leancloud_visitors" data-flag-title="Oracle基础命令" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>主流关系型数据库: Oracle，DB2，Sybase，SQL server，MySQL<br>这里主要记录一下oracle数据库初步学习过程，涉及少量与mysql的不同讨论。<a target="_blank" rel="noopener" href="http://www.w3school.com.cn/sql/">基本的SQL知识</a></p>
+<span id="more"></span>
+
+<h3 id="SQL（Structured-Query-Language）"><a href="#SQL（Structured-Query-Language）" class="headerlink" title="SQL（Structured Query Language）"></a>SQL（Structured Query Language）</h3><h4 id="常用关键字"><a href="#常用关键字" class="headerlink" title="常用关键字"></a>常用关键字</h4><ul>
+<li>SQL可分为<ul>
+<li>数据定义语言DDL: CREATE, ALTER, DROP, TRUNCATE</li>
+<li>数据操纵语言DML: INSERT, UPDATE, DELETE</li>
+<li>事务控制语言TCL: COMMIT, ROLLBACK, SAVEPOINT</li>
+<li>数据查询语言DQL: SELECT</li>
+<li>数据控制语言DCL: GRANT, REVOKE, CREATE USER</li>
+</ul>
+</li>
+<li>NUMBER: 数字类型<ul>
+<li>定义: NUMBER（P，S）</li>
+<li>FYI: MySQL里没有number类型，对应的是int，float……</li>
+</ul>
+</li>
+<li>CHAR: 固定长度的字符类型<ul>
+<li>定义: CHAR(N)</li>
+<li>最多保存2000字节</li>
+<li>FYI: 对应MySQL里的CHAR</li>
+</ul>
+</li>
+<li>VARCHAR2: 变长的字符类型<ul>
+<li>定义: VARCHAR2(N)</li>
+<li>最多保存4000字节</li>
+<li>FYI: 对应MySQL里的VARCHAR</li>
+</ul>
+</li>
+<li>DATE: 日期时间数据<ul>
+<li>默认格式: DD-MON-RR</li>
+</ul>
+</li>
+<li>DEFAULT: 指定默认值</li>
+<li>NOT NULL: 非空约束</li>
+<li>DROP<ul>
+<li>删除列或表</li>
+</ul>
+</li>
+<li>LONG: VARCHAR2加长版<ul>
+<li>限制: 每个表只能有一个long列，不能作为主键，不能建立索引，不能出现在查询条件中</li>
+<li>FYI: MySQL没有long型</li>
+</ul>
+</li>
+<li>CLOB: 存储定长或变长字符串，oracle建议使用clob替代long型</li>
+<li>执行DML操作后，需要在执行commit，才算真正确认了此操作</li>
+</ul>
+<h4 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h4><ul>
+<li>UPPER, LOWER, INITCAP: 大小写转换</li>
+<li>TRIM, LTRIM, RTRIM: 截去子串</li>
+<li>LPAD, RPAD: 补位函数<ul>
+<li>LPAD(char1, n, char2)</li>
+<li>RPAD(char1, n, char2)</li>
+</ul>
+</li>
+<li>SUBSTR: 获取子串<ul>
+<li>SUBSTR(char, m[, n])</li>
+</ul>
+</li>
+<li>INSTR: 返回子串在父串中的位置<ul>
+<li>INSTR(char1, char2[, n[, m]])<ul>
+<li>n: 开始搜索的位置，默认为1</li>
+<li>m: 指定子串第m次出现，默认为1</li>
+<li>没找到，返回0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ROUND：四舍五入<ul>
+<li>ROUND(n[, m])<ul>
+<li>n: 可以是任何数字，指要被处理的数字</li>
+<li>m：必须是整数，四舍五入的位数，可以是负数，默认是0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>MOD: 取余<ul>
+<li>MOD(m, n)  n为0直接返回m</li>
+</ul>
+</li>
+<li>CEIL<ul>
+<li>CEIL(n)</li>
+</ul>
+</li>
+<li>FLOOR<ul>
+<li>FLOOR(n)</li>
+</ul>
+</li>
+<li>CONCAT, “||”</li>
+</ul>
+<h5 id="日期操作"><a href="#日期操作" class="headerlink" title="日期操作"></a>日期操作</h5><ul>
+<li><p>DATE</p>
+<ul>
+<li>范围：公元前4712年1月1日至公元9999年12月31日</li>
+<li>占用7个字节</li>
+<li>byte 1: 世纪+100</li>
+<li>byte 2: 年</li>
+<li>byte 3: 月</li>
+<li>byte 4: 日</li>
+<li>byte 5: 小时 + 1</li>
+<li>byte 6: 分 + 1</li>
+<li>byte 7: 秒 + 1</li>
+</ul>
+</li>
+<li><p>TIMESTAMP</p>
+<ul>
+<li>最高精度可以到ns</li>
+<li>占用7或者11个字节，精度为0，用7字节存储，精度大于0用11字节存储</li>
+<li>精度：第8-11字节，内部运算类型为整型</li>
+</ul>
+</li>
+<li><p>SYSDATE: SystemDate</p>
+</li>
+<li><p>SYSTIMESTAMP: 返回当前系统日期和时间，精确到毫秒</p>
+</li>
+<li><p>TO_DATE：字符串转换为日期类型</p>
+<ul>
+<li>TO_DATE(char[, fmt[, nlsparams]])<ul>
+<li><p>fmt: 格式</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251720HLa2kn12.jpg" alt="202005251720HLa2kn12"></p>
+</li>
+<li><p>nlsparams: 指定日期语言</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>TO_CHAR</p>
+<ul>
+<li>TO_CHAR(date[, fmt[, nlsparams]])</li>
+</ul>
+</li>
+<li><p>LAST_DAY</p>
+<ul>
+<li>LAST_DAY(date): 返回日期date所在月的最后一天</li>
+</ul>
+</li>
+<li><p>ADD_MONTHS</p>
+<ul>
+<li>ADD_MONTHS(date, i)</li>
+</ul>
+</li>
+<li><p>MONTHS_BETWEEN</p>
+<ul>
+<li>MONTHS_BETWEEN(date1, date2): 计算月份差</li>
+</ul>
+</li>
+<li><p>NEXT_DAY</p>
+<ul>
+<li>NEXT_DAY(date, char): 返回date日期的下一个周几</li>
+</ul>
+</li>
+<li><p>LEAST, GREATEST</p>
+<ul>
+<li>GREATEST(expr1[,expr2[, expr3]]…)</li>
+</ul>
+</li>
+<li><p>EXTRACT</p>
+<ul>
+<li>EXTRACT(date from datetime): 提取日期中的年、月、日等</li>
+</ul>
+</li>
+</ul>
+<h5 id="空值操作"><a href="#空值操作" class="headerlink" title="空值操作"></a>空值操作</h5><ul>
+<li>NVL<ul>
+<li>NVL(expr1, expr2): expr1为null则转变为expr2，数据类型必须一致</li>
+</ul>
+</li>
+<li>NVL2<ul>
+<li>NVL2(expr1, expr2, expr3): expr1非null返回我想expr2，为null返回expr3</li>
+</ul>
+</li>
+</ul>
+<h4 id="高级查询"><a href="#高级查询" class="headerlink" title="高级查询"></a>高级查询</h4><h5 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h5><h5 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h5><ul>
+<li>ROWNUM：伪列，用于返回标识行数据顺序的数字<ul>
+<li>只能从1计数，不能从结果集中直接截取</li>
+<li>部分数据需要用到行内视图</li>
+<li>PageN: (n - 1) * pageSize + 1   ~   n * pageSize</li>
+</ul>
+</li>
+</ul>
+<h5 id="DECODE函数"><a href="#DECODE函数" class="headerlink" title="DECODE函数"></a>DECODE函数</h5><ul>
+<li><p>DECODE(expr, search1, result1[,search2, result2….][, default])</p>
+</li>
+<li><p>用途： 比较expr的值，若匹配到哪一个search，返回对应result，类似于case语句</p>
+</li>
+<li><p>应用场景：</p>
+<ul>
+<li>分组查询</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT DECODE(job, &#x27;ANALYST&#x27;, &#x27;VIP&#x27;, &#x27;MANAGER&#x27;, &#x27;VIP&#x27;, &#x27;OPERATION&#x27;)job, COUNT(1)job_count FROM emp </span><br><span class="line">GROUP BY DECODE(job, &#x27;ANALYST&#x27;, &#x27;VIP&#x27;, &#x27;MANAGER&#x27;, &#x27;VIP&#x27;, &#x27;OPERATION&#x27;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字段内容排序<br><code>ORDER BY DECODE(job, &#39;ANALYST&#39;, &#39;1&#39;, &#39;MANAGER&#39;, &#39;2&#39;, &#39;OPERATION&#39;, &#39;3&#39;)</code></li>
+</ul>
+</li>
+</ul>
+<h5 id="ROW-NUMBER函数"><a href="#ROW-NUMBER函数" class="headerlink" title="ROW_NUMBER函数"></a>ROW_NUMBER函数</h5><ul>
+<li>ROW_NUMBER() OVER(PARTITION BY col1 ORDER BY col2): 根据col1分组，在分组内部根据col2排序</li>
+<li>此函数计算的值标识每组内部排序后的顺序编号，组内连续且唯一</li>
+</ul>
+<h5 id="RANK-NUMBER函数"><a href="#RANK-NUMBER函数" class="headerlink" title="RANK_NUMBER函数"></a>RANK_NUMBER函数</h5><ul>
+<li>类似于ROW_NUMBER, 跳跃排序，可以有重复值</li>
+</ul>
+<h5 id="DENSE-RANK"><a href="#DENSE-RANK" class="headerlink" title="DENSE_RANK"></a>DENSE_RANK</h5><ul>
+<li>类似于RANK_NUMBER, 连续排序，有重复，无跳跃</li>
+</ul>
+<h5 id="UNION"><a href="#UNION" class="headerlink" title="UNION"></a>UNION</h5><ul>
+<li>UNION: 自动合并去重，排序</li>
+<li>UINION ALL：合并不去重，不排序</li>
+<li>INTERSECT：交集</li>
+<li>MINUS：差集</li>
+</ul>
+<h5 id="高级分组函数"><a href="#高级分组函数" class="headerlink" title="高级分组函数"></a>高级分组函数</h5><ul>
+<li>ROLLUP: 从右向左以一次少一列的方式组合直到所有列都去掉<ul>
+<li>GROUP BY ROLLUP(a, b, c)</li>
+</ul>
+</li>
+<li>CUBE: 所以维度的取值集合<ul>
+<li>GROUP BY CUBE(a, b, c)</li>
+</ul>
+</li>
+<li>GROUPING SETS:<ul>
+<li>GROUP BY GROUPING SETS(a, b, c)</li>
+</ul>
+</li>
+</ul>
+<h4 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h4><ul>
+<li>视图(VIEW) 也称虚表，是一组数据的逻辑表示，对应于一条select语句</li>
+<li>分类：<ul>
+<li>简单视图</li>
+<li>复杂视图</li>
+<li>连接视图</li>
+</ul>
+</li>
+<li>作用：<ul>
+<li>简化复杂查询</li>
+<li>限制数据访问<ul>
+<li>GRANT CREATE VIEW TO user;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>限制约束<ul>
+<li>[WITH CHECK OPTION]</li>
+<li>[WITH READ ONLY]</li>
+</ul>
+</li>
+</ul>
+<h4 id="序列"><a href="#序列" class="headerlink" title="序列"></a>序列</h4><ul>
+<li>创建序列<ul>
+<li>CREATE SEQUENCE[schema.]sequence_name<br>[START WITH i][INCREMENT BY j][MAXVALUE m | NOMAXVALUE][MINVALUE n | NOMINVALUE][CYCLE | NOCYCLE][CACHE p | NOCACHE]</li>
+</ul>
+</li>
+<li>使用序列<ul>
+<li>NEXTVAL: 获取序列的下个值</li>
+<li>CURRVAL：获取序列的当前值</li>
+</ul>
+</li>
+</ul>
+<h4 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h4><ul>
+<li>索引(INDEX)是一种允许直接访问数据表中某一数据行的数据结构，为了提高查询效率而引入，是独立于表的对象，可以存放与表不同的表空间中</li>
+<li>Syntax：<ul>
+<li>CREATE [UNIQUE] INDEX index_name ON table(column[, column…]);</li>
+<li>UNIQUE表示唯一索引</li>
+</ul>
+</li>
+</ul>
+<h4 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h4><ul>
+<li>非空约束 NOT NULL</li>
+<li>唯一性约束 UNIQUE</li>
+<li>主键约束 PRIMARY KEY</li>
+<li>外键约束 FOREIGN KEY</li>
+<li>检查约束 CHECK</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/oracle/" rel="tag"><i class="fa fa-tag"></i> oracle</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/05/14/vm%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85linuxmint/" rel="next" title="vm环境安装linuxmint">
+                  vm环境安装linuxmint <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Shaohua</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">29k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:47</span>
+  </span>
+</div><script defer src="/lib/three.js"></script><script defer src="/lib/lines.js"></script><script defer src="/lib/sphere.js"></script><script defer src="/lib/waves.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/silloy" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.8/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"wtMIJpHVqsNnBHPEPXnAYVYU-gzGzoHsz","app_key":"YVwecaKkjykP6DYqQC5rnjnm","server_url":"https://wtmijphv.lc-cn-n1-shared.com","security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"silloy","repo":"silloy.github.io","client_id":"29dac2f0c3b467d76bc3","client_secret":"9a2f5ccab02cf33714c32a2b5c8a9a3ed38cfe72","admin_user":"silloy","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"bf23667f61c67f31d37b02fe0dea21b6"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

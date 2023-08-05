@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://en.gravatar.com/userimage/235454588/c9fab76ab533a1d26775db72200c6b68?size=128">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://en.gravatar.com/userimage/235454588/c9fab76ab533a1d26775db72200c6b68?size=64">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CEdu+SA+Beginner:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"silloy.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+
+<link rel="canonical" href="https://silloy.xyz/2019/08/21/sql%E4%BC%98%E5%8C%96%E7%9A%84%E4%B8%80%E8%88%AC%E7%AD%96%E7%95%A5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://silloy.xyz/2019/08/21/sql%E4%BC%98%E5%8C%96%E7%9A%84%E4%B8%80%E8%88%AC%E7%AD%96%E7%95%A5/","path":"2019/08/21/sql优化的一般策略/","title":"sql优化的一般策略"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>sql优化的一般策略 | Whirlwinder</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?030a38f11845370d4334a45fa6832b2a"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Whirlwinder</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay hungry, Stay foolish.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96"><span class="nav-text">索引优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sql-%E6%94%B9%E5%86%99"><span class="nav-text">sql 改写</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E9%A1%B5%E4%BC%98%E5%8C%96"><span class="nav-text">分页优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%90%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="nav-text">子查询优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8D%E4%BD%BF%E7%94%A8-select"><span class="nav-text">不使用 select *</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#or-%E6%94%B9%E5%86%99%E4%B8%BA-in"><span class="nav-text">or 改写为 in</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8D%E4%BD%BF%E7%94%A8%E5%87%BD%E6%95%B0%E5%92%8C%E8%A7%A6%E5%8F%91%E5%99%A8%EF%BC%8C%E9%80%9A%E8%BF%87%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%AE%9E%E7%8E%B0"><span class="nav-text">不使用函数和触发器，通过应用程序实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%91%E7%94%A8join%EF%BC%8C%E4%BF%9D%E8%AF%81%E5%AD%97%E6%AE%B5%E7%B1%BB%E5%9E%8B%E4%B8%80%E7%9B%B4%E5%86%8Djoin%E6%88%96%E6%AF%94%E8%BE%83"><span class="nav-text">少用join，保证字段类型一直再join或比较</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E6%95%B0%E5%80%BC-%E4%BD%BF%E7%94%A8-between"><span class="nav-text">连续数值 使用 between</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96"><span class="nav-text">参数优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%99%A8"><span class="nav-text">优化器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BD%B1%E5%93%8Din%E6%98%AF%E5%90%A6%E7%94%9F%E6%95%88%E7%9A%84%E5%9B%A0%E7%B4%A0"><span class="nav-text">影响in是否生效的因素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%97%E6%AE%B5"><span class="nav-text">字段</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98"><span class="nav-text">系统参数调优</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7"><span class="nav-text">基准测试工具</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%99%E9%87%8C%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%BA%9B%E6%AF%94%E8%BE%83%E9%87%8D%E8%A6%81%E7%9A%84%E5%8F%82%E6%95%B0%EF%BC%9A"><span class="nav-text">这里介绍一些比较重要的参数：</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Shaohua"
+      src="https://en.gravatar.com/userimage/235454588/7c655e1bcbac6b8da8ba44f180c24959.jpeg">
+  <p class="site-author-name" itemprop="name">Shaohua</p>
+  <div class="site-description" itemprop="description">Manners Maketh Man.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/silloy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;silloy" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/silloysu" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;silloysu" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/shaohua.su.18" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;shaohua.su.18" rel="noopener me" target="_blank"><i class="fab fa-facebook fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://coolshell.cn/" title="https:&#x2F;&#x2F;coolshell.cn&#x2F;" rel="noopener" target="_blank">酷壳</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://silloy.xyz/2019/08/21/sql%E4%BC%98%E5%8C%96%E7%9A%84%E4%B8%80%E8%88%AC%E7%AD%96%E7%95%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://en.gravatar.com/userimage/235454588/7c655e1bcbac6b8da8ba44f180c24959.jpeg">
+      <meta itemprop="name" content="Shaohua">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whirlwinder">
+      <meta itemprop="description" content="Manners Maketh Man.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="sql优化的一般策略 | Whirlwinder">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          sql优化的一般策略
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+
+  
+    <span id="/2019/08/21/sql%E4%BC%98%E5%8C%96%E7%9A%84%E4%B8%80%E8%88%AC%E7%AD%96%E7%95%A5/" class="post-meta-item leancloud_visitors" data-flag-title="sql优化的一般策略" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>sql 优化的一般策略：索引优化，sql改写，参数优化，优化器</p>
+<span id="more"></span>
+
+<h4 id="索引优化"><a href="#索引优化" class="headerlink" title="索引优化"></a>索引优化</h4><p>以<code>select * from vvshop_order.vv_order where receive_phone=&#39;151011324532&#39;;</code>  为例分析</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> vv_order <span class="keyword">where</span> order_no<span class="operator">=</span><span class="number">23</span>;</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202006011431Meh70c52.png" alt="202006011431Meh70c52"></p>
+<p>分析：可以看到该sql扫描全表 30 多万记录，可以通过添加索引优化</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> vv_order <span class="keyword">add</span> index orderno_idx(order_no);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202006011432J7bRPa14.png" alt="202006011432J7bRPa14"></p>
+<p><strong>注意点</strong>：</p>
+<ul>
+<li>当传入的数据类型和库表数据类型不一致时，索引会失效</li>
+<li>不要为每个查询字段建立单独的索引，应该根据实际需要建立单列索引或者组合索引</li>
+<li>通过explain+extended 检查sql的执行计划，是否使用索引，是否发生隐式转换</li>
+<li>避免在查询条件中使用函数</li>
+</ul>
+<h4 id="sql-改写"><a href="#sql-改写" class="headerlink" title="sql 改写"></a>sql 改写</h4><h5 id="分页优化"><a href="#分页优化" class="headerlink" title="分页优化"></a>分页优化</h5><p>原sql <code>select * from buyer where sellerid=100 limit 100000，5000</code>, limit M, N 写法中，M越大，性能越差，可以改写为</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> t1.<span class="operator">*</span> <span class="keyword">from</span> buyer t1,</span><br><span class="line">(<span class="keyword">select</span> id <span class="keyword">from</span> buyer sellerid<span class="operator">=</span><span class="number">100</span> limit <span class="number">100000</span>，<span class="number">5000</span>) t2</span><br><span class="line"><span class="keyword">where</span> t1.id<span class="operator">=</span>t2.id;</span><br></pre></td></tr></table></figure>
+
+<h5 id="子查询优化"><a href="#子查询优化" class="headerlink" title="子查询优化"></a>子查询优化</h5><ol>
+<li><p>查询数量较多时，in改为exist，或者优化为如下的形式</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> first_name</span><br><span class="line"><span class="keyword">FROM</span> employees emp,</span><br><span class="line">(<span class="keyword">SELECT</span> emp_no <span class="keyword">FROM</span> salaries_2000 <span class="keyword">WHERE</span> salary <span class="operator">=</span> <span class="number">5000</span>) sal</span><br><span class="line"><span class="keyword">WHERE</span> emp.emp_no <span class="operator">=</span> sal.emp_no;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>避免查询返回所有字段，只返回需要的字段数据</p>
+</li>
+</ol>
+<h5 id="不使用-select"><a href="#不使用-select" class="headerlink" title="不使用 select *"></a>不使用 select *</h5><h5 id="or-改写为-in"><a href="#or-改写为-in" class="headerlink" title="or 改写为 in"></a>or 改写为 in</h5><blockquote>
+<p>or的效率事n，in的效率是log(n)，控制in数量在200以内</p>
+</blockquote>
+<h5 id="不使用函数和触发器，通过应用程序实现"><a href="#不使用函数和触发器，通过应用程序实现" class="headerlink" title="不使用函数和触发器，通过应用程序实现"></a>不使用函数和触发器，通过应用程序实现</h5><h5 id="少用join，保证字段类型一直再join或比较"><a href="#少用join，保证字段类型一直再join或比较" class="headerlink" title="少用join，保证字段类型一直再join或比较"></a>少用join，保证字段类型一直再join或比较</h5><h5 id="连续数值-使用-between"><a href="#连续数值-使用-between" class="headerlink" title="连续数值 使用 between"></a>连续数值 使用 between</h5><h4 id="参数优化"><a href="#参数优化" class="headerlink" title="参数优化"></a>参数优化</h4><h4 id="优化器"><a href="#优化器" class="headerlink" title="优化器"></a>优化器</h4><h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><h5 id="影响in是否生效的因素"><a href="#影响in是否生效的因素" class="headerlink" title="影响in是否生效的因素"></a>影响in是否生效的因素</h5><ol>
+<li><p><code>eq_range_index_dive_limit</code> 参数</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202006011432iMRPw431.png" alt="202006011432iMRPw431"></p>
+<p>默认为10</p>
+<blockquote>
+<p>eq_range_index_dive_limit &#x3D; 0 只能使用index dive</p>
+<p>0 &lt; eq_range_index_dive_limit &lt;&#x3D; N 使用index statistics</p>
+<p>eq_range_index_dive_limit &gt; N 只能使用index dive</p>
+</blockquote>
+</li>
+</ol>
+<h5 id="字段"><a href="#字段" class="headerlink" title="字段"></a>字段</h5><ol>
+<li>根据实际使用情况设置字段类型</li>
+<li>单表不要有太多字段，建议20以内</li>
+<li>避免使用null字段，优化较难且额外占用索引空间</li>
+<li>用整型来存IP</li>
+</ol>
+<h4 id="系统参数调优"><a href="#系统参数调优" class="headerlink" title="系统参数调优"></a>系统参数调优</h4><h5 id="基准测试工具"><a href="#基准测试工具" class="headerlink" title="基准测试工具"></a>基准测试工具</h5><ol>
+<li>sysbench：模块化，跨平台以及多线程的性能测试工具</li>
+<li>iibench-mysql：基于java的插入性能测试工具</li>
+<li>tpcc-mysql：Percona 开发的TPC-C 测试工具</li>
+</ol>
+<h5 id="这里介绍一些比较重要的参数："><a href="#这里介绍一些比较重要的参数：" class="headerlink" title="这里介绍一些比较重要的参数："></a>这里介绍一些比较重要的参数：</h5><blockquote>
+<p>back_log</p>
+</blockquote>
+<p>backlog值指出在MySQL暂时停止回答新请求之前的短时间内多少个请求可以被存在堆栈中。也就是说，如果MySql的连接数据达到maxconnections时，新来的请求将会被存在堆栈中，以等待某一连接释放资源，该堆栈的数量即backlog，如果等待连接的数量超过backlog，将不被授予连接资源。可以从默认的50升至500</p>
+<blockquote>
+<p>wait_timeout</p>
+</blockquote>
+<p>数据库连接闲置时间，闲置连接会占用内存资源。可以从默认的8小时减到半小时</p>
+<blockquote>
+<p>maxuserconnection</p>
+</blockquote>
+<p>最大连接数，默认为0无上限，最好设一个合理上限thread_concurrency：并发线程数，设为CPU核数的两倍</p>
+<blockquote>
+<p>skipnameresolve</p>
+</blockquote>
+<p>禁止对外部连接进行DNS解析，消除DNS解析时间，但需要所有远程主机用IP访问</p>
+<blockquote>
+<p>keybuffersize</p>
+</blockquote>
+<p>索引块的缓存大小，增加会提升索引处理速度，对MyISAM表性能影响最大。对于内存4G左右，可设为256M或384M，通过查询show status like’keyread%’，保证keyreads &#x2F; keyreadrequests在0.1%以下最好</p>
+<blockquote>
+<p>innodbbufferpool_size</p>
+</blockquote>
+<p>缓存数据块和索引块，对InnoDB表性能影响最大。通过查询show status like ‘Innodbbufferpoolread%’，保证 (Innodbbufferpoolreadrequests – Innodbbufferpoolreads)&#x2F; Innodbbufferpoolreadrequests 越高越好</p>
+<blockquote>
+<p>innodbadditionalmempoolsize</p>
+</blockquote>
+<p>InnoDB存储引擎用来存放数据字典信息以及一些内部数据结构的内存空间大小，当数据库对象非常多的时候，适当调整该参数的大小以确保所有数据都能存放在内存中提高访问效率，当过小的时候，MySQL会记录Warning信息到数据库的错误日志中，这时就需要该调整这个参数大小</p>
+<blockquote>
+<p>innodblogbuffer_size</p>
+</blockquote>
+<p>InnoDB存储引擎的事务日志所使用的缓冲区，一般来说不建议超过32MB</p>
+<blockquote>
+<p>querycachesize</p>
+</blockquote>
+<p>缓存MySQL中的ResultSet，也就是一条SQL语句执行的结果集，所以仅仅只能针对select语句。当某个表的数据有任何任何变化，都会导致所有引用了该表的select语句在Query Cache中的缓存数据失效。所以，当我们的数据变化非常频繁的情况下，使用Query Cache可能会得不偿失。根据命中率(Qcachehits&#x2F;(Qcachehits+Qcache_inserts)*100))进行调整，一般不建议太大，256MB可能已经差不多了，大型的配置型静态数据可适当调大.</p>
+<p>可以通过命令show status like ‘Qcache_%’查看目前系统Query catch使用大小</p>
+<blockquote>
+<p>readbuffersize</p>
+</blockquote>
+<p>MySql读入缓冲区大小。对表进行顺序扫描的请求将分配一个读入缓冲区，MySql会为它分配一段内存缓冲区。如果对表的顺序扫描请求非常频繁，可以通过增加该变量值以及内存缓冲区大小提高其性能</p>
+<blockquote>
+<p>sortbuffersize</p>
+</blockquote>
+<p>MySql执行排序使用的缓冲大小。如果想要增加ORDER BY的速度，首先看是否可以让MySQL使用索引而不是额外的排序阶段。如果不能，可以尝试增加sortbuffersize变量的大小</p>
+<blockquote>
+<p>readrndbuffer_size</p>
+</blockquote>
+<p>MySql的随机读缓冲区大小。当按任意顺序读取行时(例如，按照排序顺序)，将分配一个随机读缓存区。进行排序查询时，MySql会首先扫描一遍该缓冲，以避免磁盘搜索，提高查询速度，如果需要排序大量数据，可适当调高该值。但MySql会为每个客户连接发放该缓冲空间，所以应尽量适当设置该值，以避免内存开销过大。</p>
+<blockquote>
+<p>record_buffer</p>
+</blockquote>
+<p>每个进行一个顺序扫描的线程为其扫描的每张表分配这个大小的一个缓冲区。如果你做很多顺序扫描，可能想要增加该值</p>
+<blockquote>
+<p>threadcachesize</p>
+</blockquote>
+<p>保存当前没有与连接关联但是准备为后面新的连接服务的线程，可以快速响应连接的线程请求而无需创建新的</p>
+<blockquote>
+<p>table_cache </p>
+</blockquote>
+<p>类似于threadcachesize，但用来缓存表文件，对InnoDB效果不大，主要用于MyISAM</p>
+<p><strong>References</strong></p>
+<p><a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/183749">阿里云慢SQL优化挑战大赛分析</a></p>
+<p><a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/610128">SQL优化器原理 - 查询优化器综述</a></p>
+<p><a target="_blank" rel="noopener" href="http://itindex.net/detail/55421-mysql-sql-%E8%AF%AD%E5%8F%A5">MYSQL查询SQL语句性能优化方法</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/TeyGao/p/6585879.html">MySQL–eq_range_index_dive_limit参数学习</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhoujinyi/p/4792371.html">MySQL SQL优化之in与range查询【转】</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/VpMBiAsaxmPCLQMLNJHKWw">MySQL5.7利用虚拟列优化</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/sql/" rel="tag"><i class="fa fa-tag"></i> sql</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/08/21/Spring%20Data%20MongoDB%20%E6%9F%A5%E8%AF%A2%E8%AF%AD%E6%B3%95/" rel="prev" title="Spring Data MongoDB 查询语法">
+                  <i class="fa fa-chevron-left"></i> Spring Data MongoDB 查询语法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/08/21/redis%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86-Strings/" rel="next" title="redis底层原理-Strings">
+                  redis底层原理-Strings <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Shaohua</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">29k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:47</span>
+  </span>
+</div><script defer src="/lib/three.js"></script><script defer src="/lib/lines.js"></script><script defer src="/lib/sphere.js"></script><script defer src="/lib/waves.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/silloy" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.8/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"wtMIJpHVqsNnBHPEPXnAYVYU-gzGzoHsz","app_key":"YVwecaKkjykP6DYqQC5rnjnm","server_url":"https://wtmijphv.lc-cn-n1-shared.com","security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"silloy","repo":"silloy.github.io","client_id":"29dac2f0c3b467d76bc3","client_secret":"9a2f5ccab02cf33714c32a2b5c8a9a3ed38cfe72","admin_user":"silloy","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"e122129aa460dba5cd1a8cd72b4d166e"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
