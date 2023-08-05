@@ -63,6 +63,175 @@
       </tags>
   </entry>
   <entry>
+    <title>Jenkins API 实践</title>
+    <url>/2019/06/15/Jenkins%20API%20%E5%AE%9E%E8%B7%B5/</url>
+    <content><![CDATA[<p>获取项目配置</p>
+<p>curl -X GET <a href="http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/config.xml">http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/config.xml</a></p>
+<span id="more"></span>
+
+<h4 id="build"><a href="#build" class="headerlink" title="build"></a>build</h4><p>curl -X POST  <a href="http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/build">http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/build</a>    -F ‘json&#x3D;{“parameter”: [{“name”: “Project”, “value”: “geek-icem-gateway”}, {“name”: “Branch”, “value”: “ad”}]}’</p>
+<p>curl -X POST  <a href="http://127.0.0.1:37555/job/geek-icem_backend_build-packages/build">http://127.0.0.1:37555/job/geek-icem_backend_build-packages/build</a> –user admin:Jenkins  -H ‘cache-control: no-cache’  -F ‘json&#x3D;{“parameter”: [{“name”: “Project”, “value”: “geek-icem-gateway”}, {“name”: “Branch”, “value”: “ad”}]}’</p>
+<h4 id="获取构建信息"><a href="#获取构建信息" class="headerlink" title="获取构建信息"></a>获取构建信息</h4><p>curl -X GET <a href="http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/lastCompletedBuild/api/json">http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/lastCompletedBuild/api/json</a></p>
+<h4 id="获取构建信息-1"><a href="#获取构建信息-1" class="headerlink" title="获取构建信息"></a>获取构建信息</h4><p>curl -X GET <a href="http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/lastBuild/api/json">http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/lastBuild/api/json</a></p>
+<h4 id="获取控制台日志"><a href="#获取控制台日志" class="headerlink" title="获取控制台日志"></a>获取控制台日志</h4><p>curl -X GET <a href="http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/17/consoleText">http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/17/consoleText</a></p>
+<p><a href="https://wiki.jenkins-ci.org/display/JENKINS/Terminology">lastBuild, lastStableBuild, lastSuccessfulBuild, lastFailedBuild, lastUnstableBuild, lastUnsuccessfulBuild, lastCompletedBuild</a></p>
+<h4 id="获取描述"><a href="#获取描述" class="headerlink" title="获取描述"></a>获取描述</h4><p>curl -X GET <a href="http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/description">http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/description</a></p>
+<p>References</p>
+<p><a href="https://blog.csdn.net/wanglin_lin/article/details/73849146">jenkins 出现“Error 403 No valid crumb was included in the request ”的解决方案</a></p>
+<p><a href="https://python-jenkins.readthedocs.io/en/latest/api.html">python-jenkins</a></p>
+<p><a href="https://www.cnblogs.com/baiyangcao/p/gitpython.html">使用 Python 操作 Git 版本库 - GitPython</a></p>
+<p><a href="https://www.cnblogs.com/chongyou/p/8683360.html">Jenkins获取编译状态</a></p>
+<p><a href="https://gitpython.readthedocs.io/en/stable/tutorial.html">GitPython Tutorial</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Logitech Options 在 Mac 下的自定义按键失灵问题</title>
+    <url>/2019/11/23/Logitech%20Options%20%E5%9C%A8%20Mac%20%E4%B8%8B%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%89%E9%94%AE%E5%A4%B1%E7%81%B5%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>罗技鼠标的自定义按键很好远，但自从升级系统到10.15 catalina后自定义按键就失灵了，重启，重装Logitech Options，重新授权…一番折腾后终于找到了彻底的解决办法</p>
+<span id="more"></span>
+
+<h3 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h3><p>系统：MacOS 10.15 Catalina</p>
+<p>鼠标：MX720</p>
+<p>Logitech Options 版本：8.02.86</p>
+<h3 id="排查步骤"><a href="#排查步骤" class="headerlink" title="排查步骤"></a>排查步骤</h3><ol>
+<li>修改Security &amp; Privacy 里的 Logi Options Daemon 和 Logi Options 权限，发现已经勾选了</li>
+<li>重新安装Logitech Options勾选权限，仍然无法使用</li>
+</ol>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><ol>
+<li><p>删除Logi Options和Logi Options Daemon后，再次添加这两项</p>
+<p><img src="https://raw.githubusercontent.com/silloy/notepic/master/YJvFUL.png" alt="logi.png"></p>
+</li>
+<li><p>Security &amp; Privacy -&gt; Privacy 中添加<code>Input Monitoring</code>权限</p>
+<p><img src="https://raw.githubusercontent.com/silloy/notepic/master/Dx40J2.png" alt="input.png"></p>
+</li>
+<li><p>如果需要自定义鼠标截图，还需要添加 <code>Screen Recording</code>权限</p>
+</li>
+</ol>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>仔细看了Catalina的新特性，新系统对于安全和权限管理更加严格了，所以需要单独处理，至于Logitech Options需要的权限，可以参考<a href="https://support.logi.com/hc/en-001/articles/360023203954-Logitech-Options-permission-prompts-on-macOS-Mojave">Logitech Options permission prompts on macOS Catalina and macOS Mojave</a>，新系统中其他软件遇到类似的问题，都可以通过这种方式解决</p>
+<p><strong>References</strong></p>
+<p><a href="https://www.v2ex.com/t/572690">Logitech Options 在 Mac 下的自定义按键经常会失灵</a></p>
+<p><a href="https://support.logi.com/hc/en-001/articles/360023203954-Logitech-Options-permission-prompts-on-macOS-Mojave">Logitech Options permission prompts on macOS Catalina and macOS Mojave</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Java8之扩展函数式接口</title>
+    <url>/2020/05/04/Java8%E4%B9%8B%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/</url>
+    <content><![CDATA[<h2 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h2><p>先看一下官方定义</p>
+<blockquote>
+<p><em>Functional interfaces</em> provide target types for lambda expressions and method references.</p>
+</blockquote>
+<p>可以看出函数式接口主要用于lambda表达式，这类接口只定义了唯一的抽象方法的接口（除了隐含的Object对象的公共方法），一开始也称<em>SAM</em>类型接口(Single Abstract Method)。</p>
+<span id="more"></span>
+
+<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Lists.newArrayList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line">        list.forEach(r -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;re = &quot;</span> + Math.sqrt(r));</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>看一下  <code>foreach</code> 实现，在<code>Iterable.java</code>中</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">forEach</span><span class="params">(Consumer&lt;? <span class="built_in">super</span> T&gt; action)</span> &#123;</span><br><span class="line">        Objects.requireNonNull(action);</span><br><span class="line">        <span class="keyword">for</span> (T t : <span class="built_in">this</span>) &#123;</span><br><span class="line">            action.accept(t);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里出现的<code>Consumer</code>就是一个函数式接口， java8 提供了一些常用的函数式接口</p>
+<ul>
+<li>Predicate – 传入一个参数，返回一个bool结果， 方法为<code>boolean test(T t)</code></li>
+<li>Consumer – 传入一个参数，无返回值，纯消费。 方法为<code>void accept(T t)</code></li>
+<li>Function – 传入一个参数，返回一个结果，方法为<code>R apply(T t)</code></li>
+<li>Supplier – 无参数传入，返回一个结果，方法为<code>T get()</code></li>
+<li>UnaryOperator – 一元操作符， 继承Function,传入参数的类型和返回类型相同。</li>
+<li>BinaryOperator – 二元操作符， 传入的两个参数的类型和返回类型相同， 继承BiFunction</li>
+</ul>
+<p>这里就不一一列举了，具体请见 java.util.function 包 都很简单，不太清楚的自行google</p>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p>但是jdk提供的有时候不一定能满足需求，这个时候就需要我们自定义函数式接口</p>
+<ol>
+<li><p>普通的 Function 或者 Consumer 只能就收一个参数，BiFuntion 和 BiConsumer 也只能接受连个参数，参数更多的情况就无法满足了</p>
+<p>以 consumer 为例，先自定义一个接口</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">TriConsumer</span>&lt;T, U, W&gt; &#123;</span><br><span class="line">        <span class="keyword">void</span> <span class="title function_">accept</span><span class="params">(T t, U u, W w)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">default</span> TriConsumer&lt;T, U, W&gt; <span class="title function_">andThen</span><span class="params">(TriConsumer&lt;? <span class="built_in">super</span> T, ? <span class="built_in">super</span> U, ? <span class="built_in">super</span> W&gt; after)</span> &#123;</span><br><span class="line">            Objects.requireNonNull(after);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> (l, r, w) -&gt; &#123;</span><br><span class="line">                accept(l, r, w);</span><br><span class="line">                after.accept(l, r, w);</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数式接口一般使用 @FunctionalInterface 注解注释，以申明该接口是一个函数式接口， 这里提供一个 andThen 方法以支持连续调用</p>
+<p>使用方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">TriConsumer&lt;Integer, Integer, Integer&gt; consumer = (a, b, c) -&gt; &#123;</span><br><span class="line">            System.out.println(a + b + c);</span><br><span class="line">        &#125;;</span><br><span class="line">        consumer.accept(<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>);</span><br></pre></td></tr></table></figure>
+
+<p>funtion类似，这里就不举例了</p>
+</li>
+<li><p>异常捕获</p>
+<p>FunctionalInterface 提供的接口一般是不抛出异常的，意味着我们在使用的时候需要在方法体内部捕获异常，这里定义一种可以抛出异常的接口</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">InterfaceException</span>&lt;T&gt; &#123;</span><br><span class="line">        <span class="keyword">void</span> <span class="title function_">apply</span><span class="params">(T t)</span> <span class="keyword">throws</span> Exception;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>References</strong></p>
+<p><a href="https://colobu.com/2014/10/28/secrets-of-java-8-functional-interface/">Java 8函数式接口functional interface的秘密</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>MySQL Explain详解</title>
+    <url>/2018/08/08/MySQL%20Explain%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<p>日常工作中主要用explain来查看sql语句的执行计划，深入了解是否需要优化，已经索引等信息。</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251731YYxfBP21.png" alt="202005251731YYxfBP21"></p>
+<span id="more"></span>
+
+<p>执行explain命令会生成一个QEP(query execution plan)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">mysql&gt; </span><span class="language-bash">explain <span class="keyword">select</span> * from servers;</span></span><br><span class="line">+----+-------------+---------+------+---------------+------+---------+------+------+-------+</span><br><span class="line">| id | select_type | table   | type | possible_keys | key  | key_len | ref  | rows | Extra |</span><br><span class="line">+----+-------------+---------+------+---------------+------+---------+------+------+-------+</span><br><span class="line">|  1 | SIMPLE      | servers | ALL  | NULL          | NULL | NULL    | NULL |    1 | NULL  |</span><br><span class="line">+----+-------------+---------+------+---------------+------+---------+------+------+-------+</span><br><span class="line">row in set (0.03 sec)</span><br></pre></td></tr></table></figure>
+
+<p>一、 <strong>id</strong></p>
+<p>​     <strong>我的理解是SQL执行的顺序的标识,SQL从大到小的执行</strong></p>
+<ol>
+<li><p>id相同时，执行顺序由上至下</p>
+</li>
+<li><p>如果是子查询，id的序号会递增，id值越大优先级越高，越先被执行</p>
+</li>
+</ol>
+<p>3.id如果相同，可以认为是一组，从上往下顺序执行；在所有组中，id值越大，优先级越高，越先执行</p>
+<p><strong>二、select_type</strong></p>
+<p>​      <strong>示查询中每个select子句的类型</strong></p>
+<p>(1) SIMPLE(简单SELECT,不使用UNION或子查询等)</p>
+<p>(2) PRIMARY(查询中若包含任何复杂的子部分,最外层的select被标记为PRIMARY)</p>
+<p>(3) UNION(UNION中的第二个或后面的SELECT语句)</p>
+<p>(4) DEPENDENT UNION(UNION中的第二个或后面的SELECT语句，取决于外面的查询)</p>
+<p>(5) UNION RESULT(UNION的结果)</p>
+<p>(6) SUBQUERY(子查询中的第一个SELECT)</p>
+<p>(7) DEPENDENT SUBQUERY(子查询中的第一个SELECT，取决于外面的查询)</p>
+<p>(8) DERIVED(派生表的SELECT, FROM子句的子查询)</p>
+<p>(9) UNCACHEABLE SUBQUERY(一个子查询的结果不能被缓存，必须重新评估外链接的第一行)</p>
+<p><strong>三、table</strong></p>
+<p>显示这一行的数据是关于哪张表的，有时不是真实的表名字,看到的是derivedx(x是个数字,我的理解是第几步执行的结果)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mysql&gt; explain select * from (select * from ( select * from t1 where id=2602) a) b;</span><br><span class="line">+----+-------------+------------+--------+-------------------+---------+---------+------+------+-------+</span><br><span class="line">| id | select_type | table      | type   | possible_keys     | key     | key_len | ref  | rows | Extra |</span><br><span class="line">+----+-------------+------------+--------+-------------------+---------+---------+------+------+-------+</span><br><span class="line">|  1 | PRIMARY     | &lt;derived2&gt; | system | NULL              | NULL    | NULL    | NULL |    1 |       |</span><br><span class="line">|  2 | DERIVED     | &lt;derived3&gt; | system | NULL              | NULL    | NULL    | NULL |    1 |       |</span><br><span class="line">|  3 | DERIVED     | t1         | const  | PRIMARY,idx_t1_id | PRIMARY | 4       |      |    1 |       |</span><br><span class="line">+----+-------------+------------+--------+-------------------+---------+---------+------+------+-------+ </span><br></pre></td></tr></table></figure>
+
+<p><strong>四、type</strong></p>
+<p>表示MySQL在表中找到所需行的方式，又称“访问类型”。</p>
+<p>常用的类型有： <strong>ALL, index,  range, ref, eq_ref, const, system, NULL（从左到右，性能从差到好）</strong></p>
+<p>ALL：Full Table Scan， MySQL将遍历全表以找到匹配的行</p>
+<p>index: Full Index Scan，index与ALL区别为index类型只遍历索引树</p>
+<p>range:只检索给定范围的行，使用一个索引来选择行</p>
+<p>ref: 表示上述表的连接匹配条件，即哪些列或常量被用于查找索引列上的值</p>
+<p>eq_ref: 类似ref，区别就在使用的索引是唯一索引，对于每个索引键值，表中只有一条记录匹配，简单来说，就是多表连接中使用primary key或者 unique key作为关联条件</p>
+<p>const、system: 当MySQL对查询某部分进行优化，并转换为一个常量时，使用这些类型访问。如将主键置于where列表中，MySQL就能将该查询转换为一个常量,system是const类型的特例，当查询的表只有一行的情况下，使用system</p>
+<p>NULL: MySQL在优化过程中分解语句，执行时甚至不用访问表或索引，例如从一个索引列里选取最小值可以通过单独索引查找完成。</p>
+<p><strong>五、possible_keys</strong></p>
+<p><strong>指出MySQL能使用哪个索引在表中找到记录，查询涉及到的字段上若存在索引，则该索引将被列出，但不一定被查询使用</strong></p>
+<p>该列完全独立于EXPLAIN输出所示的表的次序。这意味着在possible_keys中的某些键实际上不能按生成的表次序使用。<br>如果该列是NULL，则没有相关的索引。在这种情况下，可以通过检查WHERE子句看是否它引用某些列或适合索引的列来提高你的查询性能。如果是这样，创造一个适当的索引并且再次用EXPLAIN检查查询</p>
+<p><strong>六、Key</strong></p>
+<p><strong>key列显示MySQL实际决定使用的键（索引）</strong></p>
+<p>如果没有选择索引，键是NULL。要想强制MySQL使用或忽视possible_keys列中的索引，在查询中使用FORCE INDEX、USE INDEX或者IGNORE INDEX。</p>
+<p><strong>七、key_len</strong></p>
+<p><strong>表示索引中使用的字节数，可通过该列计算查询中使用的索引的长度（key_len显示的值为索引字段的最大可能长度，并非实际使用长度，即key_len是根据表定义计算而得，不是通过表内检索出的）</strong></p>
+<p>不损失精确性的情况下，长度越短越好 </p>
+<p><strong>八、ref</strong></p>
+<p><strong>表示上述表的连接匹配条件，即哪些列或常量被用于查找索引列上的值</strong></p>
+<p><strong>九、rows</strong></p>
+<p> <strong>表示MySQL根据表统计信息及索引选用情况，估算的找到所需的记录所需要读取的行数</strong></p>
+<p><strong>十、Extra</strong></p>
+<p><strong>该列包含MySQL解决查询的详细信息,有以下几种情况：</strong></p>
+<p>Using where:列数据是从仅仅使用了索引中的信息而没有读取实际的行动的表返回的，这发生在对表的全部的请求列都是同一个索引的部分的时候，表示mysql服务器将在存储引擎检索行后再进行过滤</p>
+<p>Using temporary：表示MySQL需要使用临时表来存储结果集，常见于排序和分组查询</p>
+<p>Using filesort：MySQL中无法利用索引完成的排序操作称为“文件排序”</p>
+<p>Using join buffer：改值强调了在获取连接条件时没有使用索引，并且需要连接缓冲区来存储中间结果。如果出现了这个值，那应该注意，根据查询的具体情况可能需要添加索引来改进能。</p>
+<p>Impossible where：这个值强调了where语句会导致没有符合条件的行。</p>
+<p>Select tables optimized away：这个值意味着仅通过使用索引，优化器可能仅从聚合函数结果中返回一行</p>
+<p><strong>总结：****• EXPLAIN不会告诉你关于触发器、存储过程的信息或用户自定义函数对查询的影响情况• EXPLAIN不考虑各种Cache• EXPLAIN不能显示MySQL在执行查询时所作的优化工作• 部分统计信息是估算的，并非精确值• EXPALIN只能解释SELECT操作，其他操作要重写为SELECT后查看执行计划。</strong></p>
+<p>转载自 <a href="http://www.cnblogs.com/xuanzhi201111/p/4175635.html">http://www.cnblogs.com/xuanzhi201111/p/4175635.html</a></p>
+]]></content>
+      <tags>
+        <tag>MySQL</tag>
+        <tag>reprinted</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>HashMap，ConcurrentHashMap 全解析</title>
     <url>/2019/12/25/HashMap%EF%BC%8CConcurrentHashMap%20%E5%85%A8%E8%A7%A3%E6%9E%90/</url>
     <content><![CDATA[<h2 id="HashMap从1-7到1-8"><a href="#HashMap从1-7到1-8" class="headerlink" title="HashMap从1.7到1.8"></a>HashMap从1.7到1.8</h2><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><img src="https://s2.ax1x.com/2019/10/04/uBrLAs.png" alt="hashmap.jpg"></p>
@@ -186,129 +355,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Java8之扩展函数式接口</title>
-    <url>/2020/05/04/Java8%E4%B9%8B%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/</url>
-    <content><![CDATA[<h2 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h2><p>先看一下官方定义</p>
-<blockquote>
-<p><em>Functional interfaces</em> provide target types for lambda expressions and method references.</p>
-</blockquote>
-<p>可以看出函数式接口主要用于lambda表达式，这类接口只定义了唯一的抽象方法的接口（除了隐含的Object对象的公共方法），一开始也称<em>SAM</em>类型接口(Single Abstract Method)。</p>
-<span id="more"></span>
-
-<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Lists.newArrayList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line">        list.forEach(r -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;re = &quot;</span> + Math.sqrt(r));</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
-
-<p>看一下  <code>foreach</code> 实现，在<code>Iterable.java</code>中</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">forEach</span><span class="params">(Consumer&lt;? <span class="built_in">super</span> T&gt; action)</span> &#123;</span><br><span class="line">        Objects.requireNonNull(action);</span><br><span class="line">        <span class="keyword">for</span> (T t : <span class="built_in">this</span>) &#123;</span><br><span class="line">            action.accept(t);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里出现的<code>Consumer</code>就是一个函数式接口， java8 提供了一些常用的函数式接口</p>
-<ul>
-<li>Predicate – 传入一个参数，返回一个bool结果， 方法为<code>boolean test(T t)</code></li>
-<li>Consumer – 传入一个参数，无返回值，纯消费。 方法为<code>void accept(T t)</code></li>
-<li>Function – 传入一个参数，返回一个结果，方法为<code>R apply(T t)</code></li>
-<li>Supplier – 无参数传入，返回一个结果，方法为<code>T get()</code></li>
-<li>UnaryOperator – 一元操作符， 继承Function,传入参数的类型和返回类型相同。</li>
-<li>BinaryOperator – 二元操作符， 传入的两个参数的类型和返回类型相同， 继承BiFunction</li>
-</ul>
-<p>这里就不一一列举了，具体请见 java.util.function 包 都很简单，不太清楚的自行google</p>
-<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p>但是jdk提供的有时候不一定能满足需求，这个时候就需要我们自定义函数式接口</p>
-<ol>
-<li><p>普通的 Function 或者 Consumer 只能就收一个参数，BiFuntion 和 BiConsumer 也只能接受连个参数，参数更多的情况就无法满足了</p>
-<p>以 consumer 为例，先自定义一个接口</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">TriConsumer</span>&lt;T, U, W&gt; &#123;</span><br><span class="line">        <span class="keyword">void</span> <span class="title function_">accept</span><span class="params">(T t, U u, W w)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">default</span> TriConsumer&lt;T, U, W&gt; <span class="title function_">andThen</span><span class="params">(TriConsumer&lt;? <span class="built_in">super</span> T, ? <span class="built_in">super</span> U, ? <span class="built_in">super</span> W&gt; after)</span> &#123;</span><br><span class="line">            Objects.requireNonNull(after);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> (l, r, w) -&gt; &#123;</span><br><span class="line">                accept(l, r, w);</span><br><span class="line">                after.accept(l, r, w);</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>函数式接口一般使用 @FunctionalInterface 注解注释，以申明该接口是一个函数式接口， 这里提供一个 andThen 方法以支持连续调用</p>
-<p>使用方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">TriConsumer&lt;Integer, Integer, Integer&gt; consumer = (a, b, c) -&gt; &#123;</span><br><span class="line">            System.out.println(a + b + c);</span><br><span class="line">        &#125;;</span><br><span class="line">        consumer.accept(<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>);</span><br></pre></td></tr></table></figure>
-
-<p>funtion类似，这里就不举例了</p>
-</li>
-<li><p>异常捕获</p>
-<p>FunctionalInterface 提供的接口一般是不抛出异常的，意味着我们在使用的时候需要在方法体内部捕获异常，这里定义一种可以抛出异常的接口</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">InterfaceException</span>&lt;T&gt; &#123;</span><br><span class="line">        <span class="keyword">void</span> <span class="title function_">apply</span><span class="params">(T t)</span> <span class="keyword">throws</span> Exception;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p><strong>References</strong></p>
-<p><a href="https://colobu.com/2014/10/28/secrets-of-java-8-functional-interface/">Java 8函数式接口functional interface的秘密</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Jenkins API 实践</title>
-    <url>/2019/06/15/Jenkins%20API%20%E5%AE%9E%E8%B7%B5/</url>
-    <content><![CDATA[<p>获取项目配置</p>
-<p>curl -X GET <a href="http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/config.xml">http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/config.xml</a></p>
-<span id="more"></span>
-
-<h4 id="build"><a href="#build" class="headerlink" title="build"></a>build</h4><p>curl -X POST  <a href="http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/build">http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/build</a>    -F ‘json&#x3D;{“parameter”: [{“name”: “Project”, “value”: “geek-icem-gateway”}, {“name”: “Branch”, “value”: “ad”}]}’</p>
-<p>curl -X POST  <a href="http://127.0.0.1:37555/job/geek-icem_backend_build-packages/build">http://127.0.0.1:37555/job/geek-icem_backend_build-packages/build</a> –user admin:Jenkins  -H ‘cache-control: no-cache’  -F ‘json&#x3D;{“parameter”: [{“name”: “Project”, “value”: “geek-icem-gateway”}, {“name”: “Branch”, “value”: “ad”}]}’</p>
-<h4 id="获取构建信息"><a href="#获取构建信息" class="headerlink" title="获取构建信息"></a>获取构建信息</h4><p>curl -X GET <a href="http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/lastCompletedBuild/api/json">http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/lastCompletedBuild/api/json</a></p>
-<h4 id="获取构建信息-1"><a href="#获取构建信息-1" class="headerlink" title="获取构建信息"></a>获取构建信息</h4><p>curl -X GET <a href="http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/lastBuild/api/json">http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/lastBuild/api/json</a></p>
-<h4 id="获取控制台日志"><a href="#获取控制台日志" class="headerlink" title="获取控制台日志"></a>获取控制台日志</h4><p>curl -X GET <a href="http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/17/consoleText">http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/17/consoleText</a></p>
-<p><a href="https://wiki.jenkins-ci.org/display/JENKINS/Terminology">lastBuild, lastStableBuild, lastSuccessfulBuild, lastFailedBuild, lastUnstableBuild, lastUnsuccessfulBuild, lastCompletedBuild</a></p>
-<h4 id="获取描述"><a href="#获取描述" class="headerlink" title="获取描述"></a>获取描述</h4><p>curl -X GET <a href="http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/description">http://admin:Jenkins@127.0.0.1:37555/job/geek-icem_backend_build-packages/description</a></p>
-<p>References</p>
-<p><a href="https://blog.csdn.net/wanglin_lin/article/details/73849146">jenkins 出现“Error 403 No valid crumb was included in the request ”的解决方案</a></p>
-<p><a href="https://python-jenkins.readthedocs.io/en/latest/api.html">python-jenkins</a></p>
-<p><a href="https://www.cnblogs.com/baiyangcao/p/gitpython.html">使用 Python 操作 Git 版本库 - GitPython</a></p>
-<p><a href="https://www.cnblogs.com/chongyou/p/8683360.html">Jenkins获取编译状态</a></p>
-<p><a href="https://gitpython.readthedocs.io/en/stable/tutorial.html">GitPython Tutorial</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Logitech Options 在 Mac 下的自定义按键失灵问题</title>
-    <url>/2019/11/23/Logitech%20Options%20%E5%9C%A8%20Mac%20%E4%B8%8B%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%89%E9%94%AE%E5%A4%B1%E7%81%B5%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>罗技鼠标的自定义按键很好远，但自从升级系统到10.15 catalina后自定义按键就失灵了，重启，重装Logitech Options，重新授权…一番折腾后终于找到了彻底的解决办法</p>
-<span id="more"></span>
-
-<h3 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h3><p>系统：MacOS 10.15 Catalina</p>
-<p>鼠标：MX720</p>
-<p>Logitech Options 版本：8.02.86</p>
-<h3 id="排查步骤"><a href="#排查步骤" class="headerlink" title="排查步骤"></a>排查步骤</h3><ol>
-<li>修改Security &amp; Privacy 里的 Logi Options Daemon 和 Logi Options 权限，发现已经勾选了</li>
-<li>重新安装Logitech Options勾选权限，仍然无法使用</li>
-</ol>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><ol>
-<li><p>删除Logi Options和Logi Options Daemon后，再次添加这两项</p>
-<p><img src="https://raw.githubusercontent.com/silloy/notepic/master/YJvFUL.png" alt="logi.png"></p>
-</li>
-<li><p>Security &amp; Privacy -&gt; Privacy 中添加<code>Input Monitoring</code>权限</p>
-<p><img src="https://raw.githubusercontent.com/silloy/notepic/master/Dx40J2.png" alt="input.png"></p>
-</li>
-<li><p>如果需要自定义鼠标截图，还需要添加 <code>Screen Recording</code>权限</p>
-</li>
-</ol>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>仔细看了Catalina的新特性，新系统对于安全和权限管理更加严格了，所以需要单独处理，至于Logitech Options需要的权限，可以参考<a href="https://support.logi.com/hc/en-001/articles/360023203954-Logitech-Options-permission-prompts-on-macOS-Mojave">Logitech Options permission prompts on macOS Catalina and macOS Mojave</a>，新系统中其他软件遇到类似的问题，都可以通过这种方式解决</p>
-<p><strong>References</strong></p>
-<p><a href="https://www.v2ex.com/t/572690">Logitech Options 在 Mac 下的自定义按键经常会失灵</a></p>
-<p><a href="https://support.logi.com/hc/en-001/articles/360023203954-Logitech-Options-permission-prompts-on-macOS-Mojave">Logitech Options permission prompts on macOS Catalina and macOS Mojave</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>MySQL修改密码</title>
-    <url>/2016/06/27/MySQL%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81/</url>
-    <content><![CDATA[<p>记录MySQL修改密码的几种方式</p>
-<span id="more"></span>
-
-<h3 id="用SET-PASSWORD命令"><a href="#用SET-PASSWORD命令" class="headerlink" title="用SET PASSWORD命令"></a>用SET PASSWORD命令</h3><p>首先登录MySQL。<br>格式：mysql&gt; set password for 用户名@localhost &#x3D; password(‘新密码’);<br>例子：mysql&gt; set password for root@localhost &#x3D; password(‘123’); </p>
-<h3 id="用mysqladmin"><a href="#用mysqladmin" class="headerlink" title="用mysqladmin"></a>用mysqladmin</h3><p>格式：mysqladmin -u用户名 -p旧密码 password 新密码<br>例子：mysqladmin -uroot -p123456 password 123 </p>
-<h3 id="用UPDATE直接编辑user表"><a href="#用UPDATE直接编辑user表" class="headerlink" title="用UPDATE直接编辑user表"></a>用UPDATE直接编辑user表</h3><p>首先登录MySQL。<br>mysql&gt; use mysql;<br>mysql&gt; update user set password&#x3D;password(‘123’) where user&#x3D;’root’ and host&#x3D;’localhost’;<br>mysql&gt; flush privileges; </p>
-<h3 id="在忘记root密码的时候，可以这样"><a href="#在忘记root密码的时候，可以这样" class="headerlink" title="在忘记root密码的时候，可以这样"></a>在忘记root密码的时候，可以这样</h3><p>以windows为例： </p>
-<ol>
-<li>关闭正在运行的MySQL服务。 </li>
-<li>打开DOS窗口，转到mysql\bin目录。 </li>
-<li>输入mysqld –skip-grant-tables 回车。–skip-grant-tables 的意思是启动MySQL服务的时候跳过权限表认证。 </li>
-<li>再开一个DOS窗口（因为刚才那个DOS窗口已经不能动了），转到mysql\bin目录。 </li>
-<li>输入mysql回车，如果成功，将出现MySQL提示符 &gt;。 </li>
-<li>连接权限数据库： use mysql; 。 </li>
-<li>改密码：update user set password&#x3D;password(“123”) where user&#x3D;”root”;（别忘了最后加分号） 。 </li>
-<li>刷新权限（必须步骤）：flush privileges;　。 </li>
-<li>退出 quit。 </li>
-<li>注销系统，再进入，使用用户名root和刚才设置的新密码123登录。</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MySQL定时任务</title>
     <url>/2016/08/04/MySQL%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</url>
     <content><![CDATA[<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>数据定时更新非常有必要，自MySQL5.1.6起，增加了事件调度器，可以用来执行某些定时任务。简要记录一下创建过程。</p>
@@ -389,79 +435,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MySQL Explain详解</title>
-    <url>/2018/08/08/MySQL%20Explain%E8%AF%A6%E8%A7%A3/</url>
-    <content><![CDATA[<p>日常工作中主要用explain来查看sql语句的执行计划，深入了解是否需要优化，已经索引等信息。</p>
-<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251731YYxfBP21.png" alt="202005251731YYxfBP21"></p>
-<span id="more"></span>
-
-<p>执行explain命令会生成一个QEP(query execution plan)</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">mysql&gt; </span><span class="language-bash">explain <span class="keyword">select</span> * from servers;</span></span><br><span class="line">+----+-------------+---------+------+---------------+------+---------+------+------+-------+</span><br><span class="line">| id | select_type | table   | type | possible_keys | key  | key_len | ref  | rows | Extra |</span><br><span class="line">+----+-------------+---------+------+---------------+------+---------+------+------+-------+</span><br><span class="line">|  1 | SIMPLE      | servers | ALL  | NULL          | NULL | NULL    | NULL |    1 | NULL  |</span><br><span class="line">+----+-------------+---------+------+---------------+------+---------+------+------+-------+</span><br><span class="line">row in set (0.03 sec)</span><br></pre></td></tr></table></figure>
-
-<p>一、 <strong>id</strong></p>
-<p>​     <strong>我的理解是SQL执行的顺序的标识,SQL从大到小的执行</strong></p>
-<ol>
-<li><p>id相同时，执行顺序由上至下</p>
-</li>
-<li><p>如果是子查询，id的序号会递增，id值越大优先级越高，越先被执行</p>
-</li>
-</ol>
-<p>3.id如果相同，可以认为是一组，从上往下顺序执行；在所有组中，id值越大，优先级越高，越先执行</p>
-<p><strong>二、select_type</strong></p>
-<p>​      <strong>示查询中每个select子句的类型</strong></p>
-<p>(1) SIMPLE(简单SELECT,不使用UNION或子查询等)</p>
-<p>(2) PRIMARY(查询中若包含任何复杂的子部分,最外层的select被标记为PRIMARY)</p>
-<p>(3) UNION(UNION中的第二个或后面的SELECT语句)</p>
-<p>(4) DEPENDENT UNION(UNION中的第二个或后面的SELECT语句，取决于外面的查询)</p>
-<p>(5) UNION RESULT(UNION的结果)</p>
-<p>(6) SUBQUERY(子查询中的第一个SELECT)</p>
-<p>(7) DEPENDENT SUBQUERY(子查询中的第一个SELECT，取决于外面的查询)</p>
-<p>(8) DERIVED(派生表的SELECT, FROM子句的子查询)</p>
-<p>(9) UNCACHEABLE SUBQUERY(一个子查询的结果不能被缓存，必须重新评估外链接的第一行)</p>
-<p><strong>三、table</strong></p>
-<p>显示这一行的数据是关于哪张表的，有时不是真实的表名字,看到的是derivedx(x是个数字,我的理解是第几步执行的结果)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mysql&gt; explain select * from (select * from ( select * from t1 where id=2602) a) b;</span><br><span class="line">+----+-------------+------------+--------+-------------------+---------+---------+------+------+-------+</span><br><span class="line">| id | select_type | table      | type   | possible_keys     | key     | key_len | ref  | rows | Extra |</span><br><span class="line">+----+-------------+------------+--------+-------------------+---------+---------+------+------+-------+</span><br><span class="line">|  1 | PRIMARY     | &lt;derived2&gt; | system | NULL              | NULL    | NULL    | NULL |    1 |       |</span><br><span class="line">|  2 | DERIVED     | &lt;derived3&gt; | system | NULL              | NULL    | NULL    | NULL |    1 |       |</span><br><span class="line">|  3 | DERIVED     | t1         | const  | PRIMARY,idx_t1_id | PRIMARY | 4       |      |    1 |       |</span><br><span class="line">+----+-------------+------------+--------+-------------------+---------+---------+------+------+-------+ </span><br></pre></td></tr></table></figure>
-
-<p><strong>四、type</strong></p>
-<p>表示MySQL在表中找到所需行的方式，又称“访问类型”。</p>
-<p>常用的类型有： <strong>ALL, index,  range, ref, eq_ref, const, system, NULL（从左到右，性能从差到好）</strong></p>
-<p>ALL：Full Table Scan， MySQL将遍历全表以找到匹配的行</p>
-<p>index: Full Index Scan，index与ALL区别为index类型只遍历索引树</p>
-<p>range:只检索给定范围的行，使用一个索引来选择行</p>
-<p>ref: 表示上述表的连接匹配条件，即哪些列或常量被用于查找索引列上的值</p>
-<p>eq_ref: 类似ref，区别就在使用的索引是唯一索引，对于每个索引键值，表中只有一条记录匹配，简单来说，就是多表连接中使用primary key或者 unique key作为关联条件</p>
-<p>const、system: 当MySQL对查询某部分进行优化，并转换为一个常量时，使用这些类型访问。如将主键置于where列表中，MySQL就能将该查询转换为一个常量,system是const类型的特例，当查询的表只有一行的情况下，使用system</p>
-<p>NULL: MySQL在优化过程中分解语句，执行时甚至不用访问表或索引，例如从一个索引列里选取最小值可以通过单独索引查找完成。</p>
-<p><strong>五、possible_keys</strong></p>
-<p><strong>指出MySQL能使用哪个索引在表中找到记录，查询涉及到的字段上若存在索引，则该索引将被列出，但不一定被查询使用</strong></p>
-<p>该列完全独立于EXPLAIN输出所示的表的次序。这意味着在possible_keys中的某些键实际上不能按生成的表次序使用。<br>如果该列是NULL，则没有相关的索引。在这种情况下，可以通过检查WHERE子句看是否它引用某些列或适合索引的列来提高你的查询性能。如果是这样，创造一个适当的索引并且再次用EXPLAIN检查查询</p>
-<p><strong>六、Key</strong></p>
-<p><strong>key列显示MySQL实际决定使用的键（索引）</strong></p>
-<p>如果没有选择索引，键是NULL。要想强制MySQL使用或忽视possible_keys列中的索引，在查询中使用FORCE INDEX、USE INDEX或者IGNORE INDEX。</p>
-<p><strong>七、key_len</strong></p>
-<p><strong>表示索引中使用的字节数，可通过该列计算查询中使用的索引的长度（key_len显示的值为索引字段的最大可能长度，并非实际使用长度，即key_len是根据表定义计算而得，不是通过表内检索出的）</strong></p>
-<p>不损失精确性的情况下，长度越短越好 </p>
-<p><strong>八、ref</strong></p>
-<p><strong>表示上述表的连接匹配条件，即哪些列或常量被用于查找索引列上的值</strong></p>
-<p><strong>九、rows</strong></p>
-<p> <strong>表示MySQL根据表统计信息及索引选用情况，估算的找到所需的记录所需要读取的行数</strong></p>
-<p><strong>十、Extra</strong></p>
-<p><strong>该列包含MySQL解决查询的详细信息,有以下几种情况：</strong></p>
-<p>Using where:列数据是从仅仅使用了索引中的信息而没有读取实际的行动的表返回的，这发生在对表的全部的请求列都是同一个索引的部分的时候，表示mysql服务器将在存储引擎检索行后再进行过滤</p>
-<p>Using temporary：表示MySQL需要使用临时表来存储结果集，常见于排序和分组查询</p>
-<p>Using filesort：MySQL中无法利用索引完成的排序操作称为“文件排序”</p>
-<p>Using join buffer：改值强调了在获取连接条件时没有使用索引，并且需要连接缓冲区来存储中间结果。如果出现了这个值，那应该注意，根据查询的具体情况可能需要添加索引来改进能。</p>
-<p>Impossible where：这个值强调了where语句会导致没有符合条件的行。</p>
-<p>Select tables optimized away：这个值意味着仅通过使用索引，优化器可能仅从聚合函数结果中返回一行</p>
-<p><strong>总结：****• EXPLAIN不会告诉你关于触发器、存储过程的信息或用户自定义函数对查询的影响情况• EXPLAIN不考虑各种Cache• EXPLAIN不能显示MySQL在执行查询时所作的优化工作• 部分统计信息是估算的，并非精确值• EXPALIN只能解释SELECT操作，其他操作要重写为SELECT后查看执行计划。</strong></p>
-<p>转载自 <a href="http://www.cnblogs.com/xuanzhi201111/p/4175635.html">http://www.cnblogs.com/xuanzhi201111/p/4175635.html</a></p>
-]]></content>
-      <tags>
-        <tag>MySQL</tag>
-        <tag>reprinted</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Nacos 配置 MySQL 8.0 数据库</title>
     <url>/2019/11/15/Nacos%20%E9%85%8D%E7%BD%AE%20MySQL%208.0%20%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
     <content><![CDATA[<p>Nacos 1.2.0版本以前是不支持MySQL8.0，如果出现配置保存不了，500的错误，多是由于数据源的问题，需要修改源码以支持MySQL8.0。</p>
@@ -539,6 +512,33 @@
 <p><a href="https://blog.teambition.com/blog/knowledge-forefront/2018-08-16-6732/">关于 OKR 的常见问题</a></p>
 <p><a href="https://blog.teambition.com/blog/insight/OKRs/">教你几招，即刻开始实施 OKRs</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>MySQL修改密码</title>
+    <url>/2016/06/27/MySQL%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81/</url>
+    <content><![CDATA[<p>记录MySQL修改密码的几种方式</p>
+<span id="more"></span>
+
+<h3 id="用SET-PASSWORD命令"><a href="#用SET-PASSWORD命令" class="headerlink" title="用SET PASSWORD命令"></a>用SET PASSWORD命令</h3><p>首先登录MySQL。<br>格式：mysql&gt; set password for 用户名@localhost &#x3D; password(‘新密码’);<br>例子：mysql&gt; set password for root@localhost &#x3D; password(‘123’); </p>
+<h3 id="用mysqladmin"><a href="#用mysqladmin" class="headerlink" title="用mysqladmin"></a>用mysqladmin</h3><p>格式：mysqladmin -u用户名 -p旧密码 password 新密码<br>例子：mysqladmin -uroot -p123456 password 123 </p>
+<h3 id="用UPDATE直接编辑user表"><a href="#用UPDATE直接编辑user表" class="headerlink" title="用UPDATE直接编辑user表"></a>用UPDATE直接编辑user表</h3><p>首先登录MySQL。<br>mysql&gt; use mysql;<br>mysql&gt; update user set password&#x3D;password(‘123’) where user&#x3D;’root’ and host&#x3D;’localhost’;<br>mysql&gt; flush privileges; </p>
+<h3 id="在忘记root密码的时候，可以这样"><a href="#在忘记root密码的时候，可以这样" class="headerlink" title="在忘记root密码的时候，可以这样"></a>在忘记root密码的时候，可以这样</h3><p>以windows为例： </p>
+<ol>
+<li>关闭正在运行的MySQL服务。 </li>
+<li>打开DOS窗口，转到mysql\bin目录。 </li>
+<li>输入mysqld –skip-grant-tables 回车。–skip-grant-tables 的意思是启动MySQL服务的时候跳过权限表认证。 </li>
+<li>再开一个DOS窗口（因为刚才那个DOS窗口已经不能动了），转到mysql\bin目录。 </li>
+<li>输入mysql回车，如果成功，将出现MySQL提示符 &gt;。 </li>
+<li>连接权限数据库： use mysql; 。 </li>
+<li>改密码：update user set password&#x3D;password(“123”) where user&#x3D;”root”;（别忘了最后加分号） 。 </li>
+<li>刷新权限（必须步骤）：flush privileges;　。 </li>
+<li>退出 quit。 </li>
+<li>注销系统，再进入，使用用户名root和刚才设置的新密码123登录。</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
   </entry>
   <entry>
     <title>Oracle基础命令</title>
@@ -941,7 +941,7 @@
 <li><p>如果实体字段和数据库字段不一致，可以使用<code>@Column</code>注解，其他注解 参见<a href="https://github.com/abel533/Mapper/wiki/2.2-mapping">注解</a></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Column(name=&quot;SCORE_SUM&quot;)</span></span><br><span class="line"><span class="keyword">private</span> String sumScore;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>MBG生成参见<a href="https://github.com/abel533/Mapper/wiki/4.1.mappergenerator%EF%BC%8Cdemo%E8%A7%81">https://github.com/abel533/Mapper/wiki/4.1.mappergenerator，demo见</a> <a href="mailto:&#103;&#105;&#x74;&#64;&#103;&#105;&#x74;&#104;&#117;&#98;&#46;&#x63;&#x6f;&#109;">&#103;&#105;&#x74;&#64;&#103;&#105;&#x74;&#104;&#117;&#98;&#46;&#x63;&#x6f;&#109;</a>:silloy&#x2F;mybatis-generator.git</p>
+<li><p>MBG生成参见<a href="https://github.com/abel533/Mapper/wiki/4.1.mappergenerator%EF%BC%8Cdemo%E8%A7%81">https://github.com/abel533/Mapper/wiki/4.1.mappergenerator，demo见</a> <a href="mailto:&#103;&#x69;&#116;&#x40;&#103;&#x69;&#x74;&#104;&#x75;&#x62;&#46;&#x63;&#x6f;&#109;">&#103;&#x69;&#116;&#x40;&#103;&#x69;&#x74;&#104;&#x75;&#x62;&#46;&#x63;&#x6f;&#109;</a>:silloy&#x2F;mybatis-generator.git</p>
 </li>
 <li><p>更多细节参见wiki</p>
 <p>通用Mapper极大的简化了xml文件的编写，但仍需要少许xml文件，有待进一步优化。同时因为这是一个个人项目，使用不太熟悉不建议使用。</p>
@@ -1106,7 +1106,7 @@
 <ul>
 <li>准备工作 git(Cygwin)，nodejs(win10)安装</li>
 <li>依次执行的命令<ol>
-<li>git clone -b hexo <a href="mailto:&#x67;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#x75;&#98;&#x2e;&#99;&#x6f;&#109;">&#x67;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#x75;&#98;&#x2e;&#99;&#x6f;&#109;</a>:silloy&#x2F;silloy.github.io.git hexo</li>
+<li>git clone -b hexo <a href="mailto:&#x67;&#105;&#x74;&#x40;&#103;&#105;&#116;&#x68;&#117;&#x62;&#46;&#x63;&#111;&#109;">&#x67;&#105;&#x74;&#x40;&#103;&#105;&#116;&#x68;&#117;&#x62;&#46;&#x63;&#111;&#109;</a>:silloy&#x2F;silloy.github.io.git hexo</li>
 <li>cd hexo</li>
 <li>npm install -g hexo-cli</li>
 <li>npm install</li>
@@ -1504,84 +1504,6 @@
       </tags>
   </entry>
   <entry>
-    <title>vm环境安装linuxmint</title>
-    <url>/2016/05/14/vm%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85linuxmint/</url>
-    <content><![CDATA[<p>选择轻量级Linux系统linuxmint搭建需要，做本地测试</p>
-<span id="more"></span>
-
-<h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><ul>
-<li>linux mint下载：linuxmint-17.3-kde-64bit.iso</li>
-<li>vmvare workstation 12 player</li>
-</ul>
-<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><ul>
-<li>安装过程不再叙述，全程傻瓜式安装</li>
-</ul>
-<h4 id="基本设置"><a href="#基本设置" class="headerlink" title="基本设置"></a>基本设置</h4><ul>
-<li>分辨率，壁纸， 语言</li>
-</ul>
-<h4 id="卸载装机软件"><a href="#卸载装机软件" class="headerlink" title="卸载装机软件"></a>卸载装机软件</h4><ul>
-<li>libreoffice<blockquote>
-<p><code>sudo apt-get purge libreoffice?</code><br>or <code>sudo aptitude purge libreoffice?</code><br>or <code>sudo apt-get remove --purge libreoffice*</code></p>
-</blockquote>
-</li>
-</ul>
-<h4 id="设置软件源，并更新系统"><a href="#设置软件源，并更新系统" class="headerlink" title="设置软件源，并更新系统"></a>设置软件源，并更新系统</h4><ul>
-<li>sudo apt-get update</li>
-<li>sudo apt-get upgrade</li>
-<li>main选择： ustc</li>
-<li>base选择： aliyun</li>
-</ul>
-<h4 id="浏览器主页，搜索引擎设置"><a href="#浏览器主页，搜索引擎设置" class="headerlink" title="浏览器主页，搜索引擎设置"></a>浏览器主页，搜索引擎设置</h4><h4 id="安装GuakeTerminal"><a href="#安装GuakeTerminal" class="headerlink" title="安装GuakeTerminal"></a>安装GuakeTerminal</h4><ul>
-<li><code>sudo apt-get install guake</code></li>
-<li>docs: <a href="http://www.2cto.com/os/201410/343251.html">GuakeTerminal──linux下完美帅气的终端</a></li>
-</ul>
-<h4 id="安装VMWARE-tools"><a href="#安装VMWARE-tools" class="headerlink" title="安装VMWARE tools"></a>安装VMWARE tools</h4><h4 id="安装输入法-不适用于linuxmint18"><a href="#安装输入法-不适用于linuxmint18" class="headerlink" title="安装输入法(不适用于linuxmint18)"></a>安装输入法(不适用于linuxmint18)</h4><ul>
-<li><code>sudo add-apt-repository ppa:fcitx-team/nightly</code></li>
-<li><code>sudo aptitude update</code></li>
-<li><code>sudo aptitude install fcitx fcitx-sogoupinyin fcitx-config-gtk fcitx-frontend-all fcitx-module-cloudpinyin fcitx-ui-classic</code></li>
-<li>下载sogou for linux , 打开im-config设置fcitx，安装sougou</li>
-<li>reboot</li>
-<li>配置文件（注意取消only show current language）</li>
-</ul>
-<h4 id="安装markdown编辑器"><a href="#安装markdown编辑器" class="headerlink" title="安装markdown编辑器"></a>安装markdown编辑器</h4><ul>
-<li>推荐 cmd_markdown</li>
-</ul>
-<h4 id="开发常用软件"><a href="#开发常用软件" class="headerlink" title="开发常用软件"></a>开发常用软件</h4><ul>
-<li>docs：<a href="http://www.jianshu.com/p/c5a29e476526">Linux mint</a></li>
-</ul>
-<h4 id="安装JAVA-jdk"><a href="#安装JAVA-jdk" class="headerlink" title="安装JAVA jdk"></a>安装JAVA jdk</h4><ul>
-<li>jre</li>
-</ul>
-<ol>
-<li><code>sudo apt-get install default-jre</code></li>
-</ol>
-<ul>
-<li>open-jdk</li>
-</ul>
-<ol>
-<li><code>sudo apt-get install default-jdk</code></li>
-</ol>
-<ul>
-<li>jdk</li>
-</ul>
-<ol>
-<li><code>sudo add-apt-repository ppa:webupd8team/java</code></li>
-<li><code>sudo apt-get update</code></li>
-<li><code>sudo apt-get install oracle-java8-installer</code></li>
-<li><code>sudo apt-get install oracle-java8-set-default</code></li>
-</ol>
-<ul>
-<li>docs：<blockquote>
-<p><a href="http://www.linuxidc.com/Linux/2014-09/106445.htm">怎样在Ubuntu 14.04中安装Java</a><br><a href="http://my.oschina.net/fhd/blog/335156">Linux下配置Java环境变量</a></p>
-</blockquote>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>linux-mint</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>window添加sublime右键菜单</title>
     <url>/2016/06/28/window%E6%B7%BB%E5%8A%A0sublime%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/</url>
     <content><![CDATA[<p>1.打开注册表编辑器，开始-&gt;运行-&gt;regedit。</p>
@@ -1683,6 +1605,84 @@
       </tags>
   </entry>
   <entry>
+    <title>vm环境安装linuxmint</title>
+    <url>/2016/05/14/vm%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85linuxmint/</url>
+    <content><![CDATA[<p>选择轻量级Linux系统linuxmint搭建需要，做本地测试</p>
+<span id="more"></span>
+
+<h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><ul>
+<li>linux mint下载：linuxmint-17.3-kde-64bit.iso</li>
+<li>vmvare workstation 12 player</li>
+</ul>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><ul>
+<li>安装过程不再叙述，全程傻瓜式安装</li>
+</ul>
+<h4 id="基本设置"><a href="#基本设置" class="headerlink" title="基本设置"></a>基本设置</h4><ul>
+<li>分辨率，壁纸， 语言</li>
+</ul>
+<h4 id="卸载装机软件"><a href="#卸载装机软件" class="headerlink" title="卸载装机软件"></a>卸载装机软件</h4><ul>
+<li>libreoffice<blockquote>
+<p><code>sudo apt-get purge libreoffice?</code><br>or <code>sudo aptitude purge libreoffice?</code><br>or <code>sudo apt-get remove --purge libreoffice*</code></p>
+</blockquote>
+</li>
+</ul>
+<h4 id="设置软件源，并更新系统"><a href="#设置软件源，并更新系统" class="headerlink" title="设置软件源，并更新系统"></a>设置软件源，并更新系统</h4><ul>
+<li>sudo apt-get update</li>
+<li>sudo apt-get upgrade</li>
+<li>main选择： ustc</li>
+<li>base选择： aliyun</li>
+</ul>
+<h4 id="浏览器主页，搜索引擎设置"><a href="#浏览器主页，搜索引擎设置" class="headerlink" title="浏览器主页，搜索引擎设置"></a>浏览器主页，搜索引擎设置</h4><h4 id="安装GuakeTerminal"><a href="#安装GuakeTerminal" class="headerlink" title="安装GuakeTerminal"></a>安装GuakeTerminal</h4><ul>
+<li><code>sudo apt-get install guake</code></li>
+<li>docs: <a href="http://www.2cto.com/os/201410/343251.html">GuakeTerminal──linux下完美帅气的终端</a></li>
+</ul>
+<h4 id="安装VMWARE-tools"><a href="#安装VMWARE-tools" class="headerlink" title="安装VMWARE tools"></a>安装VMWARE tools</h4><h4 id="安装输入法-不适用于linuxmint18"><a href="#安装输入法-不适用于linuxmint18" class="headerlink" title="安装输入法(不适用于linuxmint18)"></a>安装输入法(不适用于linuxmint18)</h4><ul>
+<li><code>sudo add-apt-repository ppa:fcitx-team/nightly</code></li>
+<li><code>sudo aptitude update</code></li>
+<li><code>sudo aptitude install fcitx fcitx-sogoupinyin fcitx-config-gtk fcitx-frontend-all fcitx-module-cloudpinyin fcitx-ui-classic</code></li>
+<li>下载sogou for linux , 打开im-config设置fcitx，安装sougou</li>
+<li>reboot</li>
+<li>配置文件（注意取消only show current language）</li>
+</ul>
+<h4 id="安装markdown编辑器"><a href="#安装markdown编辑器" class="headerlink" title="安装markdown编辑器"></a>安装markdown编辑器</h4><ul>
+<li>推荐 cmd_markdown</li>
+</ul>
+<h4 id="开发常用软件"><a href="#开发常用软件" class="headerlink" title="开发常用软件"></a>开发常用软件</h4><ul>
+<li>docs：<a href="http://www.jianshu.com/p/c5a29e476526">Linux mint</a></li>
+</ul>
+<h4 id="安装JAVA-jdk"><a href="#安装JAVA-jdk" class="headerlink" title="安装JAVA jdk"></a>安装JAVA jdk</h4><ul>
+<li>jre</li>
+</ul>
+<ol>
+<li><code>sudo apt-get install default-jre</code></li>
+</ol>
+<ul>
+<li>open-jdk</li>
+</ul>
+<ol>
+<li><code>sudo apt-get install default-jdk</code></li>
+</ol>
+<ul>
+<li>jdk</li>
+</ul>
+<ol>
+<li><code>sudo add-apt-repository ppa:webupd8team/java</code></li>
+<li><code>sudo apt-get update</code></li>
+<li><code>sudo apt-get install oracle-java8-installer</code></li>
+<li><code>sudo apt-get install oracle-java8-set-default</code></li>
+</ol>
+<ul>
+<li>docs：<blockquote>
+<p><a href="http://www.linuxidc.com/Linux/2014-09/106445.htm">怎样在Ubuntu 14.04中安装Java</a><br><a href="http://my.oschina.net/fhd/blog/335156">Linux下配置Java环境变量</a></p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>linux-mint</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用RabbitMQ实现AMQP和MQTT的协议转换</title>
     <url>/2018/04/13/%E4%BD%BF%E7%94%A8RabbitMQ%E5%AE%9E%E7%8E%B0AMQP%E5%92%8CMQTT%E7%9A%84%E5%8D%8F%E8%AE%AE%E8%BD%AC%E6%8D%A2/</url>
     <content><![CDATA[<p>基于LBS的业务系统，前台使用MQTT协议推送到后台，后台通过RabbitMQ实现协议的转换，以实现负载消费的功能。主要的框架如图</p>
@@ -1771,6 +1771,85 @@
 </li>
 </ol>
 ]]></content>
+  </entry>
+  <entry>
+    <title>开启Spring Initializr个性化之旅</title>
+    <url>/2020/06/18/%E5%BC%80%E5%90%AFSpring%20Initializr%E4%B8%AA%E6%80%A7%E5%8C%96%E4%B9%8B%E6%97%85/</url>
+    <content><![CDATA[<blockquote>
+<p>Every good Spring Boot project usually starts at <a href="https://start.spring.io/">https://start.spring.io/</a></p>
+<p>— <a href="https://medium.com/u/a17df5ec14a4?source=post_page-----2439ecabb069----------------------">Josh Long</a> </p>
+</blockquote>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202006201751FnpKSR11.png" alt="202006201751FnpKSR11"></p>
+<span id="more"></span>
+
+<p>背景介绍，自己的项目或者公司的项目一般需要维护很多定制化的模块时，都是上传到maven私服中方便使用，但存在一个问题，每次需要相关的package需要去翻文档或者看bom，不能在建项目的时间直接引入，参考了start.spring.io，尝试搭建自己的spring initializr服务，同时整合自己的一些package，提供个性化服务，快速开发。</p>
+<h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><h4 id="基本框架"><a href="#基本框架" class="headerlink" title="基本框架"></a>基本框架</h4><p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200624/18077Y13ii51.jpg" alt="18077Y13ii51"></p>
+<ul>
+<li><a href="https://github.com/spring-io/initializr">Spring Initializr</a> 提供核心REST API，可以整合到UI或者IDE（如Intellij IDEA），直接生成项目</li>
+<li><a href="https://github.com/spring-io/start.spring.io">https://start.spring.io</a>  提供web界面，强依赖于 Spring Initializr，显示数据来源于 Spring Properties，定制化主要是使用 Spring Initializr 提供的SPI</li>
+<li>除此之外，Spring.io 提供  <a href="https://spring.io/project_metadata/spring-boot">Spring Boot metadata endpoint</a>，Spring Initializr  会使用metadata作为外部数据源，以确保生成的Spring Boot版本是最新的</li>
+</ul>
+<h3 id="个性化"><a href="#个性化" class="headerlink" title="个性化"></a>个性化</h3><p> <a href="https://start.spring.io/">https://start.spring.io/</a> 虽然已经提供了非常优秀的Spring Boot Start，但在某些场景下，仍然需要做一些定制化，比如：</p>
+<ol>
+<li>由于网络限制，需要搭建一个自己的实例</li>
+<li>定制化自己的UI界面</li>
+<li>提供一些自己的配置或依赖，如公司内部的starter</li>
+</ol>
+<p>Spring Initializr 是一个使用Spring Boot搭建的模块化应用，所以还是很容易扩展的</p>
+<h2 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h2><p>由于官方<a href="https://github.com/spring-io/initializr">Spring Initializr</a>以及提供了bom，所以我们直接基于最新的bom版本搭建即可。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.spring.initializr<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>initializr-bom<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.8.0.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="搭建流程"><a href="#搭建流程" class="headerlink" title="搭建流程"></a>搭建流程</h2><h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><p>两个组件</p>
+<ul>
+<li><p><a href="https://github.com/spring-io/initializr">https://github.com/spring-io/initializr</a></p>
+</li>
+<li><p><a href="https://github.com/spring-io/start.spring.io">https://github.com/spring-io/start.spring.io</a></p>
+</li>
+</ul>
+<p>initializr 是必须的，ui界面是可选的。</p>
+<h2 id="个性化-1"><a href="#个性化-1" class="headerlink" title="个性化"></a>个性化</h2><h4 id="定制配置文件"><a href="#定制配置文件" class="headerlink" title="定制配置文件"></a>定制配置文件</h4><p>可以基于 <a href="https://github.com/spring-io/initializr/blob/04b2777b32db38c485119a1f5b0d9c736584f485/initializr-metadata/src/main/java/io/spring/initializr/metadata/InitializrProperties.java">InitializrProperties</a> 定义 application.yml，产出核心依赖。Spring Initializr 也允许我们使用 InitializrMetadataProvider 定义metadata，因此，我们可以创建一个 CustomInitializrProperties 类 来读取不同配置文件的配置项。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties(CustomInitializrProperties.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CustomInitializrConfiguration</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="keyword">public</span> DefaultInitializrMetadataProvider <span class="title function_">customInitializrMetadataProvider</span><span class="params">(InitializrProperties initializrProperties,</span></span><br><span class="line"><span class="params">      CustomInitializrProperties customInitializrProperties,</span></span><br><span class="line"><span class="params">      InitializrMetadataUpdateStrategy initializrMetadataUpdateStrategy)</span> &#123;</span><br><span class="line">    <span class="type">InitializrMetadata</span> <span class="variable">meta</span> <span class="operator">=</span> InitializrMetadataBuilder.fromInitializrProperties(customInitializrProperties.getInitializr())</span><br><span class="line">        .withInitializrProperties(initializrProperties, <span class="literal">true</span>).build();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">DefaultInitializrMetadataProvider</span>(meta, initializrMetadataUpdateStrategy);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(&quot;custom&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CustomInitializrProperties</span> &#123;</span><br><span class="line">  <span class="meta">@NestedConfigurationProperty</span></span><br><span class="line">  <span class="type">InitializrProperties</span> <span class="variable">initializr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InitializrProperties</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>配置是通过 <a href="https://github.com/maverick1601/start.spring.io/blob/7bd9ae6435ef6a7eac8b0c444436aeca151117a9/start-site/src/main/java/io/spring/start/site/StartApplication.java#L44">StartApplication</a> 来加载的，但由于应用并没有使用组件扫描，我们需要在配置文件里进行自定义设置：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom:</span></span><br><span class="line">  <span class="attr">initializr:</span></span><br><span class="line">    <span class="attr">dependencies:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Custom</span> <span class="string">Dependencies</span></span><br><span class="line">        <span class="attr">content:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Custom</span> <span class="string">dependency</span></span><br><span class="line">            <span class="attr">id:</span> <span class="string">custom-dependency</span></span><br><span class="line">            <span class="attr">groupId:</span> <span class="string">your.domain</span></span><br><span class="line">            <span class="attr">artifactId:</span> <span class="string">custom-artifact</span></span><br><span class="line">            <span class="attr">starter:</span> <span class="literal">false</span></span><br><span class="line">            <span class="attr">description:</span> <span class="string">My</span> <span class="string">first</span> <span class="string">custom</span> <span class="string">dependency</span> <span class="string">for</span> <span class="string">the</span> <span class="string">Spring</span> <span class="string">Initializr</span></span><br></pre></td></tr></table></figure>
+
+<p>通过这种自定义的依赖配置，我们就可以控制配置项的合并和显示顺序。</p>
+<h4 id="Initializr扩展"><a href="#Initializr扩展" class="headerlink" title="Initializr扩展"></a>Initializr扩展</h4><p>通过配置文件自定义依赖，并不是总能满足我们的需求，有时候我们还需要自定义一些代码片段，这个时候就需要使用 Spring Initializr  提供的一些扩展钩子：</p>
+<ul>
+<li><strong>BuildCustomizer</strong>：定义Maven&#x2F;Gradle构建过程，如增加maven build插件</li>
+<li><strong>ProjectContributor</strong>：定义一些个性化的项目目录或者文件</li>
+<li><strong>MainSourceCodeCustomizer, MainCompilationUnitCustomizer, MainApplicationTypeCustomizer,  TestSourceCodeCustomizer,  TestApplicationTypeCustomizer</strong>：项目的源码生成或修改，而不局限于项目语言</li>
+<li><strong>GitIgnoreCustomizer</strong>：定义gitignore文件</li>
+<li><strong>HelpDocumentCustomizer</strong>：定义 HELP.md文件</li>
+<li><strong>ProjectDescriptionCustomizer</strong>：通常用于适应项目描述，例如自动解决框架版本和语言级别的无效组合。</li>
+</ul>
+<p>举例，如果我们需要在生成项目中增加maven插件，则需要使用一种所谓的“伪”依赖（ <em>pseudo dependency</em>）。首先我们需要定义一个像这样的依赖：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom:</span></span><br><span class="line">  <span class="attr">initializr:</span></span><br><span class="line">    <span class="attr">dependencies:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Custom</span> <span class="string">Dependencies</span></span><br><span class="line">        <span class="attr">content:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Custom</span> <span class="string">Maven</span> <span class="string">Plugin</span></span><br><span class="line">            <span class="attr">id:</span> <span class="string">custom-maven-plugin</span></span><br><span class="line">            <span class="attr">groupId:</span> <span class="string">your.domain</span></span><br><span class="line">            <span class="attr">artifactId:</span> <span class="string">custom-maven-plugin</span></span><br><span class="line">            <span class="attr">version:</span> <span class="number">1.0</span><span class="number">.0</span></span><br><span class="line">            <span class="attr">starter:</span> <span class="literal">false</span></span><br><span class="line">            <span class="attr">description:</span> <span class="string">Configures</span> <span class="string">custom</span> <span class="string">Maven</span> <span class="string">plugin</span> <span class="string">integration</span> <span class="string">for</span> <span class="string">project</span> <span class="string">scans</span></span><br></pre></td></tr></table></figure>
+
+<p>接着，我们定义两个 BuildCustomizer：一个用来增加maven依赖插件，一个用来移除插件。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ProjectGenerationConfiguration</span></span><br><span class="line"><span class="meta">@ConditionalOnRequestedDependency(&quot;custom-maven-plugin&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CustomMavenPluginConfiguration</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="keyword">public</span> BuildCustomizer&lt;MavenBuild&gt; <span class="title function_">customPluginConfigurer</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (MavenBuild build) -&gt; &#123;</span><br><span class="line">      build.dependencies().ids().filter(it -&gt; it.equals(<span class="string">&quot;custom-maven-plugin&quot;</span>))</span><br><span class="line">          .findFirst()</span><br><span class="line">          .map(r -&gt; build.dependencies().get(r)).map(r -&gt; &#123;</span><br><span class="line">        build.plugins().add(r.getGroupId(), r.getArtifactId(),</span><br><span class="line">            (plugin) -&gt; plugin.execution(<span class="string">&quot;my-execution&quot;</span>,</span><br><span class="line">                (first) -&gt; first.goal(<span class="string">&quot;scan&quot;</span>).configuration((conf) -&gt; &#123;conf.add(<span class="string">&quot;failOnSeverity&quot;</span>, <span class="string">&quot;MAJOR&quot;</span>);&#125;)</span><br><span class="line">            ));</span><br><span class="line">        <span class="keyword">return</span> build;</span><br><span class="line">      &#125;).orElse(build);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="keyword">public</span> BuildCustomizer&lt;MavenBuild&gt; <span class="title function_">customPluginDependencyRemoval</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> build -&gt; build.dependencies().remove(<span class="string">&quot;custom-maven-plugin&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意使用注解，Spring Initializr 自身并不会使用这些自动化配置，而是在生成项目时使用的，但需要<code>spring.factories</code>注册这些配置</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">io.spring.initializr.generator.project.ProjectGenerationConfiguration</span>=<span class="string">\</span></span><br><span class="line"><span class="string">  io.spring.start.site.extension.StartProjectGenerationConfiguration, \</span></span><br><span class="line"><span class="string">  io.spring.start.site.CustomMavenPluginConfiguration</span></span><br></pre></td></tr></table></figure>
+
+<p>最终产生的pom类似这样：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>your.domain<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>custom-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>my-execution<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>scan<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">failOnSeverity</span>&gt;</span>MAJOR<span class="tag">&lt;/<span class="name">failOnSeverity</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>抛砖引玉，这篇文章只是简单介绍了Spring Initializr的一些定制化方法，更多更好的扩展方式还需要你去发现。</p>
+<p>git地址：<a href="https://github.com/silloy/start.silloy.me">https://github.com/silloy/start.silloy.me</a></p>
+<p><strong>References</strong></p>
+<ul>
+<li><a href="https://docs.spring.io/initializr/docs/current-SNAPSHOT/reference/html">https://docs.spring.io/initializr/docs/current-SNAPSHOT/reference/html</a></li>
+<li><a href="https://yq.aliyun.com/articles/752200">start.aliyun.com 正式上线</a></li>
+<li><a href="https://medium.com/digitalfrontiers/how-to-customize-the-spring-initializr-2439ecabb069">How to customize the Spring Initializr</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Spring</tag>
+        <tag>Spring Initializr</tag>
+      </tags>
   </entry>
   <entry>
     <title>发布构件到Maven中央仓库</title>
@@ -1909,83 +1988,46 @@
       </tags>
   </entry>
   <entry>
-    <title>开启Spring Initializr个性化之旅</title>
-    <url>/2020/06/18/%E5%BC%80%E5%90%AFSpring%20Initializr%E4%B8%AA%E6%80%A7%E5%8C%96%E4%B9%8B%E6%97%85/</url>
-    <content><![CDATA[<blockquote>
-<p>Every good Spring Boot project usually starts at <a href="https://start.spring.io/">https://start.spring.io/</a></p>
-<p>— <a href="https://medium.com/u/a17df5ec14a4?source=post_page-----2439ecabb069----------------------">Josh Long</a> </p>
-</blockquote>
-<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202006201751FnpKSR11.png" alt="202006201751FnpKSR11"></p>
+    <title>微服务架构BFF和网关</title>
+    <url>/2018/09/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84BFF%E5%92%8C%E7%BD%91%E5%85%B3/</url>
+    <content><![CDATA[<p>BFF 架构图</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251734dmvYjT19.png" alt="202005251734dmvYjT19"></p>
 <span id="more"></span>
 
-<p>背景介绍，自己的项目或者公司的项目一般需要维护很多定制化的模块时，都是上传到maven私服中方便使用，但存在一个问题，每次需要相关的package需要去翻文档或者看bom，不能在建项目的时间直接引入，参考了start.spring.io，尝试搭建自己的spring initializr服务，同时整合自己的一些package，提供个性化服务，快速开发。</p>
-<h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><h4 id="基本框架"><a href="#基本框架" class="headerlink" title="基本框架"></a>基本框架</h4><p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200624/18077Y13ii51.jpg" alt="18077Y13ii51"></p>
-<ul>
-<li><a href="https://github.com/spring-io/initializr">Spring Initializr</a> 提供核心REST API，可以整合到UI或者IDE（如Intellij IDEA），直接生成项目</li>
-<li><a href="https://github.com/spring-io/start.spring.io">https://start.spring.io</a>  提供web界面，强依赖于 Spring Initializr，显示数据来源于 Spring Properties，定制化主要是使用 Spring Initializr 提供的SPI</li>
-<li>除此之外，Spring.io 提供  <a href="https://spring.io/project_metadata/spring-boot">Spring Boot metadata endpoint</a>，Spring Initializr  会使用metadata作为外部数据源，以确保生成的Spring Boot版本是最新的</li>
-</ul>
-<h3 id="个性化"><a href="#个性化" class="headerlink" title="个性化"></a>个性化</h3><p> <a href="https://start.spring.io/">https://start.spring.io/</a> 虽然已经提供了非常优秀的Spring Boot Start，但在某些场景下，仍然需要做一些定制化，比如：</p>
+<p>BFF(Backend for Frontend)也称聚合层或者适配层，上述架构从外到内依次为 端用户体验层-&gt;网关层-&gt;BFF层-&gt;微服务层，主要是讲内部复杂的微服务，适配成对各种不同的用户体验。网关专注解决跨横切面逻辑，包括路由、安全、监控和限流熔断等。</p>
+<p>为提高系统的灵活性，在网关层和微服务层之间构建BFF层，这里主要使用GraphQL 构建BFF层。</p>
+<p>GraphQL 特点：</p>
 <ol>
-<li>由于网络限制，需要搭建一个自己的实例</li>
-<li>定制化自己的UI界面</li>
-<li>提供一些自己的配置或依赖，如公司内部的starter</li>
+<li><p>定义数据模型：按需获取</p>
+</li>
+<li><p>数据分层：通过数据分层可以减少客户端请求次数</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  user(id<span class="punctuation">:</span><span class="number">1001</span>) <span class="punctuation">&#123;</span> <span class="comment">// 第一层</span></span><br><span class="line">    name<span class="punctuation">,</span></span><br><span class="line">    friends <span class="punctuation">&#123;</span> <span class="comment">// 第二层</span></span><br><span class="line">      name<span class="punctuation">,</span></span><br><span class="line">      addr <span class="punctuation">&#123;</span> <span class="comment">// 第三层</span></span><br><span class="line">        country<span class="punctuation">,</span></span><br><span class="line">        city</span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>强类型</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">const Meeting = new GraphQLObjectType(<span class="punctuation">&#123;</span></span><br><span class="line">  name<span class="punctuation">:</span> &#x27;Meeting&#x27;<span class="punctuation">,</span></span><br><span class="line">  fields<span class="punctuation">:</span> () =&gt; (<span class="punctuation">&#123;</span></span><br><span class="line">    meetingId<span class="punctuation">:</span> <span class="punctuation">&#123;</span>type<span class="punctuation">:</span> new GraphQLNonNull(GraphQLString)<span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    meetingStatus<span class="punctuation">:</span> <span class="punctuation">&#123;</span>type<span class="punctuation">:</span> new GraphQLNonNull(GraphQLString)<span class="punctuation">,</span> defaultValue<span class="punctuation">:</span> &#x27;&#x27;<span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span>)</span><br><span class="line"><span class="punctuation">&#125;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>GraphQL 的类型系统定义了包括 Int, Float, String, Boolean, ID, Object, List, Non-Null 等数据类型。所以在开发过程中，利用强大的强类型检查，能够大大节省开发的时间，同时也很方便前后端进行调试。</p>
+</li>
+<li><p>协议而非存储：GraphQL 本身并不直接提供后端存储的能力，不绑定任何的数据库或者存储引擎。</p>
+</li>
+<li><p>无需版本化</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">const PhotoType = new GraphQLObjectType(<span class="punctuation">&#123;</span></span><br><span class="line">  name<span class="punctuation">:</span> &#x27;Photo&#x27;<span class="punctuation">,</span></span><br><span class="line">  fields<span class="punctuation">:</span> () =&gt; (<span class="punctuation">&#123;</span></span><br><span class="line">    photoId<span class="punctuation">:</span> <span class="punctuation">&#123;</span>type<span class="punctuation">:</span> new GraphQLNonNull(GraphQLID)<span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    file<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      type<span class="punctuation">:</span> new GraphQLNonNull(FileType)<span class="punctuation">,</span></span><br><span class="line">      deprecationReason<span class="punctuation">:</span> &#x27;FileModel should be removed after offline app code merged.&#x27;<span class="punctuation">,</span></span><br><span class="line">      resolve<span class="punctuation">:</span> (parent) =&gt; <span class="punctuation">&#123;</span></span><br><span class="line">        return parent.file</span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    fileId<span class="punctuation">:</span> <span class="punctuation">&#123;</span>type<span class="punctuation">:</span> new GraphQLNonNull(GraphQLID)<span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span>)</span><br><span class="line"><span class="punctuation">&#125;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>GraphQL 服务端能够通过添加 deprecationReason，自动将某个字段标注为弃用状态。并且基于 GraphQL 高度的可扩展性，如果不需要某个数据，那么只需要使用新的字段或者结构即可，老的弃用字段给老的客户端提供服务，所有新的客户端使用新的字段获取相关信息。并且考虑到所有的 graphql 请求，都是按照 POST  <code>/graphql</code> 发送请求，所以在 GraphQL 中是无须进行版本化的。</p>
+</li>
 </ol>
-<p>Spring Initializr 是一个使用Spring Boot搭建的模块化应用，所以还是很容易扩展的</p>
-<h2 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h2><p>由于官方<a href="https://github.com/spring-io/initializr">Spring Initializr</a>以及提供了bom，所以我们直接基于最新的bom版本搭建即可。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.spring.initializr<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>initializr-bom<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.8.0.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="搭建流程"><a href="#搭建流程" class="headerlink" title="搭建流程"></a>搭建流程</h2><h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><p>两个组件</p>
-<ul>
-<li><p><a href="https://github.com/spring-io/initializr">https://github.com/spring-io/initializr</a></p>
-</li>
-<li><p><a href="https://github.com/spring-io/start.spring.io">https://github.com/spring-io/start.spring.io</a></p>
-</li>
-</ul>
-<p>initializr 是必须的，ui界面是可选的。</p>
-<h2 id="个性化-1"><a href="#个性化-1" class="headerlink" title="个性化"></a>个性化</h2><h4 id="定制配置文件"><a href="#定制配置文件" class="headerlink" title="定制配置文件"></a>定制配置文件</h4><p>可以基于 <a href="https://github.com/spring-io/initializr/blob/04b2777b32db38c485119a1f5b0d9c736584f485/initializr-metadata/src/main/java/io/spring/initializr/metadata/InitializrProperties.java">InitializrProperties</a> 定义 application.yml，产出核心依赖。Spring Initializr 也允许我们使用 InitializrMetadataProvider 定义metadata，因此，我们可以创建一个 CustomInitializrProperties 类 来读取不同配置文件的配置项。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties(CustomInitializrProperties.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CustomInitializrConfiguration</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="keyword">public</span> DefaultInitializrMetadataProvider <span class="title function_">customInitializrMetadataProvider</span><span class="params">(InitializrProperties initializrProperties,</span></span><br><span class="line"><span class="params">      CustomInitializrProperties customInitializrProperties,</span></span><br><span class="line"><span class="params">      InitializrMetadataUpdateStrategy initializrMetadataUpdateStrategy)</span> &#123;</span><br><span class="line">    <span class="type">InitializrMetadata</span> <span class="variable">meta</span> <span class="operator">=</span> InitializrMetadataBuilder.fromInitializrProperties(customInitializrProperties.getInitializr())</span><br><span class="line">        .withInitializrProperties(initializrProperties, <span class="literal">true</span>).build();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">DefaultInitializrMetadataProvider</span>(meta, initializrMetadataUpdateStrategy);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(&quot;custom&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CustomInitializrProperties</span> &#123;</span><br><span class="line">  <span class="meta">@NestedConfigurationProperty</span></span><br><span class="line">  <span class="type">InitializrProperties</span> <span class="variable">initializr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InitializrProperties</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>配置是通过 <a href="https://github.com/maverick1601/start.spring.io/blob/7bd9ae6435ef6a7eac8b0c444436aeca151117a9/start-site/src/main/java/io/spring/start/site/StartApplication.java#L44">StartApplication</a> 来加载的，但由于应用并没有使用组件扫描，我们需要在配置文件里进行自定义设置：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom:</span></span><br><span class="line">  <span class="attr">initializr:</span></span><br><span class="line">    <span class="attr">dependencies:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Custom</span> <span class="string">Dependencies</span></span><br><span class="line">        <span class="attr">content:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Custom</span> <span class="string">dependency</span></span><br><span class="line">            <span class="attr">id:</span> <span class="string">custom-dependency</span></span><br><span class="line">            <span class="attr">groupId:</span> <span class="string">your.domain</span></span><br><span class="line">            <span class="attr">artifactId:</span> <span class="string">custom-artifact</span></span><br><span class="line">            <span class="attr">starter:</span> <span class="literal">false</span></span><br><span class="line">            <span class="attr">description:</span> <span class="string">My</span> <span class="string">first</span> <span class="string">custom</span> <span class="string">dependency</span> <span class="string">for</span> <span class="string">the</span> <span class="string">Spring</span> <span class="string">Initializr</span></span><br></pre></td></tr></table></figure>
-
-<p>通过这种自定义的依赖配置，我们就可以控制配置项的合并和显示顺序。</p>
-<h4 id="Initializr扩展"><a href="#Initializr扩展" class="headerlink" title="Initializr扩展"></a>Initializr扩展</h4><p>通过配置文件自定义依赖，并不是总能满足我们的需求，有时候我们还需要自定义一些代码片段，这个时候就需要使用 Spring Initializr  提供的一些扩展钩子：</p>
-<ul>
-<li><strong>BuildCustomizer</strong>：定义Maven&#x2F;Gradle构建过程，如增加maven build插件</li>
-<li><strong>ProjectContributor</strong>：定义一些个性化的项目目录或者文件</li>
-<li><strong>MainSourceCodeCustomizer, MainCompilationUnitCustomizer, MainApplicationTypeCustomizer,  TestSourceCodeCustomizer,  TestApplicationTypeCustomizer</strong>：项目的源码生成或修改，而不局限于项目语言</li>
-<li><strong>GitIgnoreCustomizer</strong>：定义gitignore文件</li>
-<li><strong>HelpDocumentCustomizer</strong>：定义 HELP.md文件</li>
-<li><strong>ProjectDescriptionCustomizer</strong>：通常用于适应项目描述，例如自动解决框架版本和语言级别的无效组合。</li>
-</ul>
-<p>举例，如果我们需要在生成项目中增加maven插件，则需要使用一种所谓的“伪”依赖（ <em>pseudo dependency</em>）。首先我们需要定义一个像这样的依赖：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom:</span></span><br><span class="line">  <span class="attr">initializr:</span></span><br><span class="line">    <span class="attr">dependencies:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Custom</span> <span class="string">Dependencies</span></span><br><span class="line">        <span class="attr">content:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Custom</span> <span class="string">Maven</span> <span class="string">Plugin</span></span><br><span class="line">            <span class="attr">id:</span> <span class="string">custom-maven-plugin</span></span><br><span class="line">            <span class="attr">groupId:</span> <span class="string">your.domain</span></span><br><span class="line">            <span class="attr">artifactId:</span> <span class="string">custom-maven-plugin</span></span><br><span class="line">            <span class="attr">version:</span> <span class="number">1.0</span><span class="number">.0</span></span><br><span class="line">            <span class="attr">starter:</span> <span class="literal">false</span></span><br><span class="line">            <span class="attr">description:</span> <span class="string">Configures</span> <span class="string">custom</span> <span class="string">Maven</span> <span class="string">plugin</span> <span class="string">integration</span> <span class="string">for</span> <span class="string">project</span> <span class="string">scans</span></span><br></pre></td></tr></table></figure>
-
-<p>接着，我们定义两个 BuildCustomizer：一个用来增加maven依赖插件，一个用来移除插件。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ProjectGenerationConfiguration</span></span><br><span class="line"><span class="meta">@ConditionalOnRequestedDependency(&quot;custom-maven-plugin&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CustomMavenPluginConfiguration</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="keyword">public</span> BuildCustomizer&lt;MavenBuild&gt; <span class="title function_">customPluginConfigurer</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (MavenBuild build) -&gt; &#123;</span><br><span class="line">      build.dependencies().ids().filter(it -&gt; it.equals(<span class="string">&quot;custom-maven-plugin&quot;</span>))</span><br><span class="line">          .findFirst()</span><br><span class="line">          .map(r -&gt; build.dependencies().get(r)).map(r -&gt; &#123;</span><br><span class="line">        build.plugins().add(r.getGroupId(), r.getArtifactId(),</span><br><span class="line">            (plugin) -&gt; plugin.execution(<span class="string">&quot;my-execution&quot;</span>,</span><br><span class="line">                (first) -&gt; first.goal(<span class="string">&quot;scan&quot;</span>).configuration((conf) -&gt; &#123;conf.add(<span class="string">&quot;failOnSeverity&quot;</span>, <span class="string">&quot;MAJOR&quot;</span>);&#125;)</span><br><span class="line">            ));</span><br><span class="line">        <span class="keyword">return</span> build;</span><br><span class="line">      &#125;).orElse(build);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="keyword">public</span> BuildCustomizer&lt;MavenBuild&gt; <span class="title function_">customPluginDependencyRemoval</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> build -&gt; build.dependencies().remove(<span class="string">&quot;custom-maven-plugin&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>注意使用注解，Spring Initializr 自身并不会使用这些自动化配置，而是在生成项目时使用的，但需要<code>spring.factories</code>注册这些配置</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">io.spring.initializr.generator.project.ProjectGenerationConfiguration</span>=<span class="string">\</span></span><br><span class="line"><span class="string">  io.spring.start.site.extension.StartProjectGenerationConfiguration, \</span></span><br><span class="line"><span class="string">  io.spring.start.site.CustomMavenPluginConfiguration</span></span><br></pre></td></tr></table></figure>
-
-<p>最终产生的pom类似这样：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>your.domain<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>custom-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>my-execution<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>scan<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">failOnSeverity</span>&gt;</span>MAJOR<span class="tag">&lt;/<span class="name">failOnSeverity</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>抛砖引玉，这篇文章只是简单介绍了Spring Initializr的一些定制化方法，更多更好的扩展方式还需要你去发现。</p>
-<p>git地址：<a href="https://github.com/silloy/start.silloy.me">https://github.com/silloy/start.silloy.me</a></p>
-<p><strong>References</strong></p>
-<ul>
-<li><a href="https://docs.spring.io/initializr/docs/current-SNAPSHOT/reference/html">https://docs.spring.io/initializr/docs/current-SNAPSHOT/reference/html</a></li>
-<li><a href="https://yq.aliyun.com/articles/752200">start.aliyun.com 正式上线</a></li>
-<li><a href="https://medium.com/digitalfrontiers/how-to-customize-the-spring-initializr-2439ecabb069">How to customize the Spring Initializr</a></li>
-</ul>
+<p>GraphQL 与 Rest</p>
+<ol>
+<li><strong>数据获取</strong>：Rest 缺乏可扩展性，GraphQL能够按需获取；</li>
+<li><strong>API调用</strong>：REST针对每种资源的操作都是一个endpoint，GraphQL只需要一个endpoint；</li>
+<li><strong>复杂数据请求</strong>：REST对于嵌套的复杂数据需要多次调用，GraphQL 一次调用，减少网络开销；</li>
+<li><strong>错误码处理</strong>：REST能够精确返回HTTP错误码，GraphQL统一返回200，对错误信息进行包装；</li>
+<li><strong>版本号</strong>：REST通过v1&#x2F;v2实现，Graph通过Schema扩展实现。</li>
+</ol>
+<p>BFF 端技术栈</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251734y5Nula49.png" alt="202005251734y5Nula49"></p>
+<p><a href="https://juejin.im/entry/5abca4416fb9a028b92d38dd">微服务下使用GraphQL构建BFF</a>中使用node作为BFF主要框架，因自己对node不太熟悉，会尽量采用java来实现相应的功能。GraphQL 使用 query 和 mutation 实现CQRS。</p>
 ]]></content>
-      <tags>
-        <tag>Spring</tag>
-        <tag>Spring Initializr</tag>
-      </tags>
   </entry>
   <entry>
     <title>开源贡献协议介绍</title>
@@ -2040,46 +2082,40 @@
 ]]></content>
   </entry>
   <entry>
-    <title>微服务架构BFF和网关</title>
-    <url>/2018/09/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84BFF%E5%92%8C%E7%BD%91%E5%85%B3/</url>
-    <content><![CDATA[<p>BFF 架构图</p>
-<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251734dmvYjT19.png" alt="202005251734dmvYjT19"></p>
+    <title>浅析Java8 CompletableFuture和Stream串行使用产生的一个问题</title>
+    <url>/2019/11/02/%E6%B5%85%E6%9E%90Java8%20CompletableFuture%E5%92%8CStream%E4%B8%B2%E8%A1%8C%E4%BD%BF%E7%94%A8%E4%BA%A7%E7%94%9F%E7%9A%84%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h4 id="问题来源"><a href="#问题来源" class="headerlink" title="问题来源"></a>问题来源</h4><p>问题来源于一次串行使用CompletableFuture和Stream导致CompletableFuture异步失效的问题，问题代码：</p>
 <span id="more"></span>
 
-<p>BFF(Backend for Frontend)也称聚合层或者适配层，上述架构从外到内依次为 端用户体验层-&gt;网关层-&gt;BFF层-&gt;微服务层，主要是讲内部复杂的微服务，适配成对各种不同的用户体验。网关专注解决跨横切面逻辑，包括路由、安全、监控和限流熔断等。</p>
-<p>为提高系统的灵活性，在网关层和微服务层之间构建BFF层，这里主要使用GraphQL 构建BFF层。</p>
-<p>GraphQL 特点：</p>
-<ol>
-<li><p>定义数据模型：按需获取</p>
-</li>
-<li><p>数据分层：通过数据分层可以减少客户端请求次数</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  user(id<span class="punctuation">:</span><span class="number">1001</span>) <span class="punctuation">&#123;</span> <span class="comment">// 第一层</span></span><br><span class="line">    name<span class="punctuation">,</span></span><br><span class="line">    friends <span class="punctuation">&#123;</span> <span class="comment">// 第二层</span></span><br><span class="line">      name<span class="punctuation">,</span></span><br><span class="line">      addr <span class="punctuation">&#123;</span> <span class="comment">// 第三层</span></span><br><span class="line">        country<span class="punctuation">,</span></span><br><span class="line">        city</span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>强类型</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">const Meeting = new GraphQLObjectType(<span class="punctuation">&#123;</span></span><br><span class="line">  name<span class="punctuation">:</span> &#x27;Meeting&#x27;<span class="punctuation">,</span></span><br><span class="line">  fields<span class="punctuation">:</span> () =&gt; (<span class="punctuation">&#123;</span></span><br><span class="line">    meetingId<span class="punctuation">:</span> <span class="punctuation">&#123;</span>type<span class="punctuation">:</span> new GraphQLNonNull(GraphQLString)<span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    meetingStatus<span class="punctuation">:</span> <span class="punctuation">&#123;</span>type<span class="punctuation">:</span> new GraphQLNonNull(GraphQLString)<span class="punctuation">,</span> defaultValue<span class="punctuation">:</span> &#x27;&#x27;<span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span>)</span><br><span class="line"><span class="punctuation">&#125;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> <span class="number">50</span>;</span><br><span class="line">        List&lt;Double&gt; res = Stream.iterate(<span class="number">0</span>, i -&gt; i + <span class="number">1</span>).limit(size).map(i -&gt; CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            <span class="type">Double</span> <span class="variable">re</span> <span class="operator">=</span> BigDecimal.valueOf(<span class="number">10</span> * (Math.sin(i) + <span class="number">1</span>)).setScale(<span class="number">2</span>, RoundingMode.HALF_UP).stripTrailingZeros().doubleValue();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                TimeUnit.SECONDS.sleep(re.intValue());</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> re;</span><br><span class="line">        &#125;, ThreadUtil.fixed()))</span><br><span class="line">                .map(CompletableFuture::join)</span><br><span class="line">                .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
 
-<p>GraphQL 的类型系统定义了包括 Int, Float, String, Boolean, ID, Object, List, Non-Null 等数据类型。所以在开发过程中，利用强大的强类型检查，能够大大节省开发的时间，同时也很方便前后端进行调试。</p>
-</li>
-<li><p>协议而非存储：GraphQL 本身并不直接提供后端存储的能力，不绑定任何的数据库或者存储引擎。</p>
-</li>
-<li><p>无需版本化</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">const PhotoType = new GraphQLObjectType(<span class="punctuation">&#123;</span></span><br><span class="line">  name<span class="punctuation">:</span> &#x27;Photo&#x27;<span class="punctuation">,</span></span><br><span class="line">  fields<span class="punctuation">:</span> () =&gt; (<span class="punctuation">&#123;</span></span><br><span class="line">    photoId<span class="punctuation">:</span> <span class="punctuation">&#123;</span>type<span class="punctuation">:</span> new GraphQLNonNull(GraphQLID)<span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    file<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      type<span class="punctuation">:</span> new GraphQLNonNull(FileType)<span class="punctuation">,</span></span><br><span class="line">      deprecationReason<span class="punctuation">:</span> &#x27;FileModel should be removed after offline app code merged.&#x27;<span class="punctuation">,</span></span><br><span class="line">      resolve<span class="punctuation">:</span> (parent) =&gt; <span class="punctuation">&#123;</span></span><br><span class="line">        return parent.file</span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    fileId<span class="punctuation">:</span> <span class="punctuation">&#123;</span>type<span class="punctuation">:</span> new GraphQLNonNull(GraphQLID)<span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span>)</span><br><span class="line"><span class="punctuation">&#125;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>GraphQL 服务端能够通过添加 deprecationReason，自动将某个字段标注为弃用状态。并且基于 GraphQL 高度的可扩展性，如果不需要某个数据，那么只需要使用新的字段或者结构即可，老的弃用字段给老的客户端提供服务，所有新的客户端使用新的字段获取相关信息。并且考虑到所有的 graphql 请求，都是按照 POST  <code>/graphql</code> 发送请求，所以在 GraphQL 中是无须进行版本化的。</p>
-</li>
-</ol>
-<p>GraphQL 与 Rest</p>
+<p>其中<code>ThreadUtil.fixed()</code>是自己封装的线程工具方法，也可以使用<code>Executors.newFixedThreadPool</code>代替，原本是想通过CompletableFuture拿到异步执行的结果并进行处理，串联使用stream后反而未起到作用，先说解决方法：</p>
 <ol>
-<li><strong>数据获取</strong>：Rest 缺乏可扩展性，GraphQL能够按需获取；</li>
-<li><strong>API调用</strong>：REST针对每种资源的操作都是一个endpoint，GraphQL只需要一个endpoint；</li>
-<li><strong>复杂数据请求</strong>：REST对于嵌套的复杂数据需要多次调用，GraphQL 一次调用，减少网络开销；</li>
-<li><strong>错误码处理</strong>：REST能够精确返回HTTP错误码，GraphQL统一返回200，对错误信息进行包装；</li>
-<li><strong>版本号</strong>：REST通过v1&#x2F;v2实现，Graph通过Schema扩展实现。</li>
+<li>先收集 future 结果到list，再调用新的流运算，即 <code>.map(CompletableFuture::join)</code>方法</li>
+<li><code>limit(size).map</code> 之间添加 parallel() 方法，形成 <code>parallelStream()</code>d的形式</li>
 </ol>
-<p>BFF 端技术栈</p>
-<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/202005251734y5Nula49.png" alt="202005251734y5Nula49"></p>
-<p><a href="https://juejin.im/entry/5abca4416fb9a028b92d38dd">微服务下使用GraphQL构建BFF</a>中使用node作为BFF主要框架，因自己对node不太熟悉，会尽量采用java来实现相应的功能。GraphQL 使用 query 和 mutation 实现CQRS。</p>
+<p>原因分析：普通的stram可以理解为单纯的foreach循环，每生成一个future立即join，出现异步变同步的现象。</p>
+<p>再进一步，既然CompletableFuture和parellStream都可以并行执行任务，有必要比较一下。</p>
+<h4 id="parallelStream"><a href="#parallelStream" class="headerlink" title="parallelStream"></a>parallelStream</h4><p>先试用 parallelStream 重写上述方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Double&gt; result = Stream.iterate(<span class="number">0</span>, i -&gt; i + <span class="number">1</span>).limit(<span class="number">50</span>).parallel().map(i -&gt; &#123;</span><br><span class="line">            <span class="comment">///.....</span></span><br><span class="line">        &#125;).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<p>用时：54018ms</p>
+<p>想要深入了解parallelStream，需要先了解ForkJoin框架和ForkJoinPool框架。这里简单介绍一下ForkJoinPool，真正了解 ParallelStream 还是需要先弄懂ForkJoinPool的，在此只是简单比较两者功能，不做深入探讨。</p>
+<p>ForkJoinPool 使用分治法(Divide-and-Conquer Algorithm)来解决问题，实现了ExecutorService接口，线程数量可以通过构造器传入，默认使用机器的CPU数量。和ThreadPoolExecutor有一定区别，ForkJoinPool可以在运行线程中创建新的任务，并挂起当前的任务，此时线程就能够从队列中选择子任务执行，而ThreadPoolExecutor做不到这一点的。ForkJoinPool的核心算法是工作窃取算法，这样就可以在使用少量的线程来完成大量的任务。比如说ForkJoinPool 4个线程可以处理200完个任务，ThreadPoolExecutor显然是不可行的。</p>
+<blockquote>
+<p>工作窃取算法的优点是充分利用线程进行并行计算，并减少了线程间的竞争，其缺点是在某些情况下还是存在竞争，比如双端队列里只有一个任务时。并且消耗了更多的系统资源，比如创建多个线程和多个双端队列。</p>
+</blockquote>
+<p>ParallelStreams中java8为ForkJoinPool添加了通用线程池，默认线程数量为机器的处理器数量。可以通过 <code>-Djava.util.concurrent.ForkJoinPool.common.parallelism=N</code>来设置ForkJoinPool的线程数量。</p>
+<h4 id="拆分成两步重写上述方法"><a href="#拆分成两步重写上述方法" class="headerlink" title="拆分成两步重写上述方法"></a>拆分成两步重写上述方法</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;CompletableFuture&lt;Double&gt;&gt; futures = Stream.iterate(<span class="number">0</span>, i -&gt; i + <span class="number">1</span>).limit(<span class="number">50</span>).map(i -&gt; CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            <span class="comment">///.....</span></span><br><span class="line">        &#125;, ThreadUtil.fixed())).collect(Collectors.toList());</span><br><span class="line">        List&lt;Double&gt; ids = futures.stream().map(CompletableFuture::join)</span><br><span class="line">                .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<p>用时：57111ms， 通过增加线程数量可以减少执行时间。</p>
+<p>References</p>
+<p><a href="https://www.cnblogs.com/hongdada/p/8876028.html">Java 多线程中的任务分解机制-ForkJoinPool，以及CompletableFuture</a></p>
+<p><a href="https://blog.csdn.net/itguangit/article/details/78624404">CompletableFuture 组合式异步编程</a></p>
 ]]></content>
+      <tags>
+        <tag>java</tag>
+      </tags>
   </entry>
   <entry>
     <title>支付宝和微信接口加密规范调研</title>
@@ -2120,42 +2156,6 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">encrypt</span><span class="params">(String plainText)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">encryptedXml</span> <span class="operator">=</span> <span class="built_in">this</span>.encrypt(genRandomStr(), plainText);</span><br><span class="line">        <span class="type">String</span> <span class="variable">timeStamp</span> <span class="operator">=</span> Long.toString(System.currentTimeMillis() / <span class="number">1000L</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">nonce</span> <span class="operator">=</span> genRandomStr();</span><br><span class="line">        <span class="type">String</span> <span class="variable">signature</span> <span class="operator">=</span> SHA1.gen(<span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="built_in">this</span>.token, timeStamp, nonce, encryptedXml&#125;);</span><br><span class="line">        <span class="keyword">return</span> generateXml(encryptedXml, signature, timeStamp, nonce);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">protected</span> String <span class="title function_">encrypt</span><span class="params">(String randomStr, String plainText)</span> &#123;</span><br><span class="line">        <span class="type">ByteGroup</span> <span class="variable">byteCollector</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteGroup</span>();</span><br><span class="line">        <span class="type">byte</span>[]<span class="type">a</span> <span class="variable">randomStringBytes</span> <span class="operator">=</span> randomStr.getBytes(CHARSET);</span><br><span class="line">        <span class="type">byte</span>[] plainTextBytes = plainText.getBytes(CHARSET);</span><br><span class="line">        <span class="type">byte</span>[] bytesOfSizeInNetworkOrder = number2BytesInNetworkOrder(plainTextBytes.length);</span><br><span class="line">        <span class="type">byte</span>[] appIdBytes = <span class="built_in">this</span>.appidOrCorpid.getBytes(CHARSET);</span><br><span class="line">        byteCollector.addBytes(randomStringBytes);</span><br><span class="line">        byteCollector.addBytes(bytesOfSizeInNetworkOrder);</span><br><span class="line">        byteCollector.addBytes(plainTextBytes);</span><br><span class="line">        byteCollector.addBytes(appIdBytes);</span><br><span class="line">        <span class="type">byte</span>[] padBytes = PKCS7Encoder.encode(byteCollector.size());</span><br><span class="line">        byteCollector.addBytes(padBytes);</span><br><span class="line">        <span class="type">byte</span>[] unencrypted = byteCollector.toBytes();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">Cipher</span> <span class="variable">cipher</span> <span class="operator">=</span> Cipher.getInstance(<span class="string">&quot;AES/CBC/NoPadding&quot;</span>);</span><br><span class="line">            <span class="type">SecretKeySpec</span> <span class="variable">keySpec</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SecretKeySpec</span>(<span class="built_in">this</span>.aesKey, <span class="string">&quot;AES&quot;</span>);</span><br><span class="line">            <span class="type">IvParameterSpec</span> <span class="variable">iv</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IvParameterSpec</span>(<span class="built_in">this</span>.aesKey, <span class="number">0</span>, <span class="number">16</span>);</span><br><span class="line">            cipher.init(<span class="number">1</span>, keySpec, iv);</span><br><span class="line">            <span class="type">byte</span>[] encrypted = cipher.doFinal(unencrypted);</span><br><span class="line">            <span class="keyword">return</span> BASE64.encodeToString(encrypted);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception var14) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(var14);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br></pre></td></tr></table></figure>
 
 ]]></content>
-  </entry>
-  <entry>
-    <title>浅析Java8 CompletableFuture和Stream串行使用产生的一个问题</title>
-    <url>/2019/11/02/%E6%B5%85%E6%9E%90Java8%20CompletableFuture%E5%92%8CStream%E4%B8%B2%E8%A1%8C%E4%BD%BF%E7%94%A8%E4%BA%A7%E7%94%9F%E7%9A%84%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h4 id="问题来源"><a href="#问题来源" class="headerlink" title="问题来源"></a>问题来源</h4><p>问题来源于一次串行使用CompletableFuture和Stream导致CompletableFuture异步失效的问题，问题代码：</p>
-<span id="more"></span>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> <span class="number">50</span>;</span><br><span class="line">        List&lt;Double&gt; res = Stream.iterate(<span class="number">0</span>, i -&gt; i + <span class="number">1</span>).limit(size).map(i -&gt; CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            <span class="type">Double</span> <span class="variable">re</span> <span class="operator">=</span> BigDecimal.valueOf(<span class="number">10</span> * (Math.sin(i) + <span class="number">1</span>)).setScale(<span class="number">2</span>, RoundingMode.HALF_UP).stripTrailingZeros().doubleValue();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                TimeUnit.SECONDS.sleep(re.intValue());</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> re;</span><br><span class="line">        &#125;, ThreadUtil.fixed()))</span><br><span class="line">                .map(CompletableFuture::join)</span><br><span class="line">                .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<p>其中<code>ThreadUtil.fixed()</code>是自己封装的线程工具方法，也可以使用<code>Executors.newFixedThreadPool</code>代替，原本是想通过CompletableFuture拿到异步执行的结果并进行处理，串联使用stream后反而未起到作用，先说解决方法：</p>
-<ol>
-<li>先收集 future 结果到list，再调用新的流运算，即 <code>.map(CompletableFuture::join)</code>方法</li>
-<li><code>limit(size).map</code> 之间添加 parallel() 方法，形成 <code>parallelStream()</code>d的形式</li>
-</ol>
-<p>原因分析：普通的stram可以理解为单纯的foreach循环，每生成一个future立即join，出现异步变同步的现象。</p>
-<p>再进一步，既然CompletableFuture和parellStream都可以并行执行任务，有必要比较一下。</p>
-<h4 id="parallelStream"><a href="#parallelStream" class="headerlink" title="parallelStream"></a>parallelStream</h4><p>先试用 parallelStream 重写上述方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Double&gt; result = Stream.iterate(<span class="number">0</span>, i -&gt; i + <span class="number">1</span>).limit(<span class="number">50</span>).parallel().map(i -&gt; &#123;</span><br><span class="line">            <span class="comment">///.....</span></span><br><span class="line">        &#125;).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<p>用时：54018ms</p>
-<p>想要深入了解parallelStream，需要先了解ForkJoin框架和ForkJoinPool框架。这里简单介绍一下ForkJoinPool，真正了解 ParallelStream 还是需要先弄懂ForkJoinPool的，在此只是简单比较两者功能，不做深入探讨。</p>
-<p>ForkJoinPool 使用分治法(Divide-and-Conquer Algorithm)来解决问题，实现了ExecutorService接口，线程数量可以通过构造器传入，默认使用机器的CPU数量。和ThreadPoolExecutor有一定区别，ForkJoinPool可以在运行线程中创建新的任务，并挂起当前的任务，此时线程就能够从队列中选择子任务执行，而ThreadPoolExecutor做不到这一点的。ForkJoinPool的核心算法是工作窃取算法，这样就可以在使用少量的线程来完成大量的任务。比如说ForkJoinPool 4个线程可以处理200完个任务，ThreadPoolExecutor显然是不可行的。</p>
-<blockquote>
-<p>工作窃取算法的优点是充分利用线程进行并行计算，并减少了线程间的竞争，其缺点是在某些情况下还是存在竞争，比如双端队列里只有一个任务时。并且消耗了更多的系统资源，比如创建多个线程和多个双端队列。</p>
-</blockquote>
-<p>ParallelStreams中java8为ForkJoinPool添加了通用线程池，默认线程数量为机器的处理器数量。可以通过 <code>-Djava.util.concurrent.ForkJoinPool.common.parallelism=N</code>来设置ForkJoinPool的线程数量。</p>
-<h4 id="拆分成两步重写上述方法"><a href="#拆分成两步重写上述方法" class="headerlink" title="拆分成两步重写上述方法"></a>拆分成两步重写上述方法</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;CompletableFuture&lt;Double&gt;&gt; futures = Stream.iterate(<span class="number">0</span>, i -&gt; i + <span class="number">1</span>).limit(<span class="number">50</span>).map(i -&gt; CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            <span class="comment">///.....</span></span><br><span class="line">        &#125;, ThreadUtil.fixed())).collect(Collectors.toList());</span><br><span class="line">        List&lt;Double&gt; ids = futures.stream().map(CompletableFuture::join)</span><br><span class="line">                .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<p>用时：57111ms， 通过增加线程数量可以减少执行时间。</p>
-<p>References</p>
-<p><a href="https://www.cnblogs.com/hongdada/p/8876028.html">Java 多线程中的任务分解机制-ForkJoinPool，以及CompletableFuture</a></p>
-<p><a href="https://blog.csdn.net/itguangit/article/details/78624404">CompletableFuture 组合式异步编程</a></p>
-]]></content>
-      <tags>
-        <tag>java</tag>
-      </tags>
   </entry>
   <entry>
     <title>消息中间件预研-rabbitmq, rocketmq</title>
@@ -2451,72 +2451,6 @@
       </tags>
   </entry>
   <entry>
-    <title>谈数据库事务隔离</title>
-    <url>/2020/07/13/%E8%B0%88%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB/</url>
-    <content><![CDATA[<p>事务隔离主要是针对ACID中的 <strong>I</strong> 隔离性设置的，在了解这几种数据库事务之前需要先了解几个重要概念：</p>
-<span id="more"></span>
-
-<ul>
-<li><p><strong>脏读</strong> - 事务1(READ)访问了事务2(WRITE)未提交的事务</p>
-<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2154loev8R53.png" alt="2154loev8R53"></p>
-</li>
-<li><p><strong>幻读</strong> - 一个事务读取了2次，得到的结果不一样</p>
-<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2155aZxX8o26.png" alt="2155aZxX8o26"></p>
-</li>
-<li><p><strong>不可重复读</strong> - 一个事务读取同一条记录2次，得到的结果不一致</p>
-<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2156wuH3uE40.png" alt="2156wuH3uE40"></p>
-</li>
-</ul>
-<p>为了解决上面的三个问题，有四种数据库隔离级别</p>
-<ol>
-<li><p><strong>READ UNCOMMITTED</strong></p>
-<p>故名思义，读未提交，允许脏读，当然也会出现不可重复读和幻读，可以通过“排他写锁”实现，在表对某行进行修改时，会对该行加上行共享锁</p>
-</li>
-<li><p><strong>READ COMMITTED</strong></p>
-<p>读提交，允许不可重复读取，但不允许脏读取。这可以通过“瞬间共享读锁”和“排他写锁”实现。读取数据的事务允许其他事务继续访问该行数据，但是未提交的写事务将会禁止其他事务访问该行。在本事务未提交之前其他事务的增删改操作提交后会影响读的结果。 <strong>读的是最新结果</strong> 。在对表进行修改时，会对表数据行加上行共享锁</p>
-</li>
-<li><p><strong>Repeatable Read</strong></p>
-<p>可重复读，禁止不可重复读取和脏读取，但是有时可能出现幻读数据。这可以通过“共享读锁”和“排他写锁”实现。读取数据的事务将会禁止写事务（但允许读事务），写事务则禁止任何其他事务。读的是快照结果。MysQL 默认级别，通过MVCC解决了幻读问题。在事务中对某条记录修改，会对记录加上行共享锁，直到事务结束才会释放。</p>
-</li>
-<li><p><strong>Serializable</strong></p>
-<p>序列化，提供严格的事务隔离。它要求事务序列化执行，事务只能一个接着一个地执行，不能并发执行。仅仅通过“行级锁”是无法实现事务序列化的，必须通过其他机制保证新插入的数据不会被刚执行查询操作的事务访问到。</p>
-<p>进行查询时就会对表或行加上共享锁，其他事务对该表将只能进行读操作，而不能进行写操作。</p>
-<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2203eTpuhO46.png" alt="2203eTpuhO46"></p>
-</li>
-</ol>
-<p>事务隔离级别越高，数据的完整性和一致性越好，但会影响并发性能。mysql默认使用 Repeatable Read 级别，而aliyun rds 默认使用 READ COMMITTED。</p>
-<p>查看查询数据库隔离级别</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select @@global.tx_isolation;</span><br></pre></td></tr></table></figure>
-
-<p>Mysql 8.0 以上需要使用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select @@transaction_isolation;</span><br></pre></td></tr></table></figure>
-
-<p>修改事务隔离级别：mysql.ini</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">可选参数有：READ-UNCOMMITTED, READ-COMMITTED, REPEATABLE-READ, SERIALIZABLE.</span></span><br><span class="line">[mysqld]</span><br><span class="line">transaction-isolation = REPEATABLE-READ</span><br></pre></td></tr></table></figure>
-
-<p>当然，也可以只对当前session修改</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mysql&gt; set session transaction isolation level read uncommited;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p><strong>锁机制</strong></p>
-<p><strong>共享锁</strong>：由读表操作加上的锁，加锁后其他用户只能获取该表或行的共享锁，不能获取排它锁，也就是说只能读不能写</p>
-<p><strong>排它锁</strong>：由写表操作加上的锁，加锁后其他用户不能获取该表或行的任何锁，典型是mysql事务中的</p>
-<p>锁的范围:</p>
-<p><strong>行锁:</strong> 对某行记录加上锁</p>
-<p><strong>表锁:</strong> 对整个表加上锁</p>
-<p><strong>References</strong></p>
-<p>《高性能mysql》</p>
-<p><a href="https://developer.aliyun.com/article/4281">https://developer.aliyun.com/article/4281</a></p>
-<p>[阿里云上的rds 的隔离级别read committed 而不是repeatable-read设置原因](</p>
-]]></content>
-      <tags>
-        <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>链路监控浅析---以sleuth-zipkin和skywalking为例</title>
     <url>/2018/01/02/%E9%93%BE%E8%B7%AF%E7%9B%91%E6%8E%A7%E6%B5%85%E6%9E%90---%E4%BB%A5sleuth-zipkin%E5%92%8Cskywalking%E4%B8%BA%E4%BE%8B/</url>
     <content><![CDATA[<p><strong>APM</strong> (Application Performance Management &amp; Monitoring)四种实现思路</p>
@@ -2610,6 +2544,72 @@
 ]]></content>
       <tags>
         <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>谈数据库事务隔离</title>
+    <url>/2020/07/13/%E8%B0%88%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB/</url>
+    <content><![CDATA[<p>事务隔离主要是针对ACID中的 <strong>I</strong> 隔离性设置的，在了解这几种数据库事务之前需要先了解几个重要概念：</p>
+<span id="more"></span>
+
+<ul>
+<li><p><strong>脏读</strong> - 事务1(READ)访问了事务2(WRITE)未提交的事务</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2154loev8R53.png" alt="2154loev8R53"></p>
+</li>
+<li><p><strong>幻读</strong> - 一个事务读取了2次，得到的结果不一样</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2155aZxX8o26.png" alt="2155aZxX8o26"></p>
+</li>
+<li><p><strong>不可重复读</strong> - 一个事务读取同一条记录2次，得到的结果不一致</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2156wuH3uE40.png" alt="2156wuH3uE40"></p>
+</li>
+</ul>
+<p>为了解决上面的三个问题，有四种数据库隔离级别</p>
+<ol>
+<li><p><strong>READ UNCOMMITTED</strong></p>
+<p>故名思义，读未提交，允许脏读，当然也会出现不可重复读和幻读，可以通过“排他写锁”实现，在表对某行进行修改时，会对该行加上行共享锁</p>
+</li>
+<li><p><strong>READ COMMITTED</strong></p>
+<p>读提交，允许不可重复读取，但不允许脏读取。这可以通过“瞬间共享读锁”和“排他写锁”实现。读取数据的事务允许其他事务继续访问该行数据，但是未提交的写事务将会禁止其他事务访问该行。在本事务未提交之前其他事务的增删改操作提交后会影响读的结果。 <strong>读的是最新结果</strong> 。在对表进行修改时，会对表数据行加上行共享锁</p>
+</li>
+<li><p><strong>Repeatable Read</strong></p>
+<p>可重复读，禁止不可重复读取和脏读取，但是有时可能出现幻读数据。这可以通过“共享读锁”和“排他写锁”实现。读取数据的事务将会禁止写事务（但允许读事务），写事务则禁止任何其他事务。读的是快照结果。MysQL 默认级别，通过MVCC解决了幻读问题。在事务中对某条记录修改，会对记录加上行共享锁，直到事务结束才会释放。</p>
+</li>
+<li><p><strong>Serializable</strong></p>
+<p>序列化，提供严格的事务隔离。它要求事务序列化执行，事务只能一个接着一个地执行，不能并发执行。仅仅通过“行级锁”是无法实现事务序列化的，必须通过其他机制保证新插入的数据不会被刚执行查询操作的事务访问到。</p>
+<p>进行查询时就会对表或行加上共享锁，其他事务对该表将只能进行读操作，而不能进行写操作。</p>
+<p><img src="https://docimage.oss-cn-beijing.aliyuncs.com/20200710/2203eTpuhO46.png" alt="2203eTpuhO46"></p>
+</li>
+</ol>
+<p>事务隔离级别越高，数据的完整性和一致性越好，但会影响并发性能。mysql默认使用 Repeatable Read 级别，而aliyun rds 默认使用 READ COMMITTED。</p>
+<p>查看查询数据库隔离级别</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select @@global.tx_isolation;</span><br></pre></td></tr></table></figure>
+
+<p>Mysql 8.0 以上需要使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select @@transaction_isolation;</span><br></pre></td></tr></table></figure>
+
+<p>修改事务隔离级别：mysql.ini</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">可选参数有：READ-UNCOMMITTED, READ-COMMITTED, REPEATABLE-READ, SERIALIZABLE.</span></span><br><span class="line">[mysqld]</span><br><span class="line">transaction-isolation = REPEATABLE-READ</span><br></pre></td></tr></table></figure>
+
+<p>当然，也可以只对当前session修改</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mysql&gt; set session transaction isolation level read uncommited;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>锁机制</strong></p>
+<p><strong>共享锁</strong>：由读表操作加上的锁，加锁后其他用户只能获取该表或行的共享锁，不能获取排它锁，也就是说只能读不能写</p>
+<p><strong>排它锁</strong>：由写表操作加上的锁，加锁后其他用户不能获取该表或行的任何锁，典型是mysql事务中的</p>
+<p>锁的范围:</p>
+<p><strong>行锁:</strong> 对某行记录加上锁</p>
+<p><strong>表锁:</strong> 对整个表加上锁</p>
+<p><strong>References</strong></p>
+<p>《高性能mysql》</p>
+<p><a href="https://developer.aliyun.com/article/4281">https://developer.aliyun.com/article/4281</a></p>
+<p>[阿里云上的rds 的隔离级别read committed 而不是repeatable-read设置原因](</p>
+]]></content>
+      <tags>
+        <tag>mysql</tag>
       </tags>
   </entry>
 </search>
